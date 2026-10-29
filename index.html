@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>金剛經合注 · zhu-combined</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header id="top">
+  <div class="brand">
+    <h1>金剛經合注</h1>
+    <p class="sub">姚秦 鳩摩羅什譯 · 別譯十一種 · 四十一家注疏 · 昭明三十二分</p>
+  </div>
+  <div class="search"><select id="sec-select" title="選分"></select><input id="q" type="search" placeholder="搜尋經文…" autocomplete="off"><button id="theme" class="theme" title="明暗切換">☾</button></div>
+</header>
+
+<div id="layout">
+  <main id="reader"></main>
+  <div class="splitter" id="split-notes" title="拖曳調整注疏寬度；雙擊還原"></div>
+<div id="sheet" class="closed" role="dialog" aria-modal="true" aria-label="句下注疏">
+  <div class="backdrop" data-close></div>
+  <section class="panel">
+    <button id="close" class="sheet-close" title="關閉">✕</button>
+    <div class="tabs2" id="tabs2"><button data-t="works" class="on">注疏</button><button data-t="alt">別譯</button><button data-t="phrase">詞組</button></div>
+    <div id="cards" class="panel-body"></div>
+  </section>
+</div>
+
+</div>
+
+<footer id="foot">
+  <span>文本：大正藏 T235/T236a/T237/T238/T220(9)/T239 · 卍續藏 · 印順 · 顯密文庫</span>
+  <span>分句參考 vcpp；頁碼可溯源</span>
+</footer>
+
+<script src="zhu-data.js"></script>
+<script src="app.js"></script>
+<div id="wtip" class="wtip" role="tooltip"></div>
+</body>
+</html>
