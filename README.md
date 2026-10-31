@@ -38,7 +38,6 @@ index.html?q=一切賢聖皆以無為法  # 搜尋
 
 ## 研究：一切賢聖皆以無為法而有差別
 
-第 7 分第 5 句（`#u=38`）的面板有「書證彙編」連結，連到
 第 7 分第 5 句（`#u=38`）的面板有「書證彙編」連結，連到 [`shuzheng-u38.md`](shuzheng-u38.md)：
 
 - 六譯對照、梵文／藏譯、逐詞注與解
@@ -169,6 +168,40 @@ node build/cdp-tour.mjs "file:///D:/2026/zhu-combined/index.html" 390 844 out-to
 
 劇本要用的新動作，要同時加在 `src/tour/app.ts` 的 `call()` 與 `tour.config.ts` 的 `callNames`／`apiKeys`，
 否則編譯器會擋下來（這正是它存在的理由）。
+
+## 微信長圖（使用導覽／研究示例）
+
+兩張長圖，同一套樣式（`build/series/series.css`）；都用 390×844 的手機實拍截圖排成 1080 寬，
+適合微信長圖轉發，頁腳都帶 <https://shutonggui.cn/huixintang/vcpp.html>。
+
+| 檔案 | 內容 | 尺寸 |
+|---|---|---|
+| `build/series/金剛經合注-使用圖.jpg` | 四張實拍＋圖說：點句點詞／注疏／別譯／詞組 | 1080×8776 |
+| `build/series/金剛經合注-洞見圖.jpg` | 一字的回聲：雙軌流變（注家／譯本時序）、校勘（渡辺章悟 2009）、三種現代日譯、誰與誰的差別 | 1080×6889 |
+
+來源是同目錄的 `use.html`、`insight.html`（共用 `series.css`，截圖為 `02-word.png`…`05-alt.png`）。
+要改文字，改 HTML 後跑第 3 步即可，截圖不必重抓。
+
+重跑（PowerShell，在專案根目錄）：
+
+```powershell
+# 1. 第 7 分末句（u=38）的分鏡截圖：抓圖＋輸出裁切量測值 _crop.json
+node build/shots-deck.mjs "file:///D:/2026/zhu-combined/index.html?theme=light" build/series
+#    印出的 {"02-word":854,...} 是最後一行的裁切 CSS 高度，乘 DPR 3 就是像素高（上限 844 CSS）
+
+# 2. 依 _crop.json 把卡片下方空白裁掉
+python -c "import json;from PIL import Image;c=json.load(open('build/series/_crop.json'));d=c['dpr'];[Image.open(f'build/series/{n}.png').crop((0,0,1170,min(844,int(h))*d)).save(f'build/series/{n}.png') for n,h in c['crops'].items()]"
+
+# 3. 整頁排版 → 長圖 PNG → JPEG（q90）
+node build/cdp-page.mjs "file:///D:/2026/zhu-combined/build/series/use.html"     build/series/_use.png 1080
+node build/cdp-page.mjs "file:///D:/2026/zhu-combined/build/series/insight.html" build/series/_ins.png 1080
+python build/series/trim_one.py build/series/_use.png "build/series/金剛經合注-使用圖.jpg"
+python build/series/trim_one.py build/series/_ins.png "build/series/金剛經合注-洞見圖.jpg"
+```
+
+`build/series/` 裡的 PNG 是排版用的原始截圖（進版控，約 1.2 MB）；
+`_crop.json`、`_use.png`、`_ins.png`、`_*.png` 是中間檔，不進版控。
+
 ## 專案結構
 
 ```text
@@ -183,6 +216,7 @@ src/tour/                       操作導覽模組（vendored self-explaining-to
 build-tour.mjs                  編譯劇本 → src/tour/tour-data.ts，再打包 → tour.js
 tour.js                         導覽執行檔（打包產物，commit 進版控；單檔版會內嵌）
 build/                          資料管線（Python／TypeScript／MJS）與開發工具
+build/series/                   微信長圖（use.html／insight.html＋截圖＋兩張 JPEG）
 build-vcpp.mjs deploy.mjs       單檔建置、部署
 alignment-skill.md              把新譯本對到句庫的做法
 shuzheng-u38.md                 第 7 分第 5 句書證彙編（網站「書證 ↗」連到這份）
@@ -233,22 +267,3 @@ window.ZHU = {
   少數句子（如「五眼」一段 Conze 把四問併成一句）只能按詞序分給相鄰幾句。
   逐句對照可看 `build/_conze-review.tsv`（`python build/conze-align.py` 重跑時產生）。
 - 尚未接 CBETA 原文連結；頁碼已保留，可回查。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-- **進版控**：前端程式、`build/` 的資料管線、抽出的資料（`*.json`、`gloss-overrides.tsv`）、操作導覽（`tours/`、`src/tour/`、`tour.js`、`tour.config.ts`）、文件。
