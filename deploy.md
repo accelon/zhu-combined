@@ -25,9 +25,10 @@ node build-vcpp.mjs --limit 40000       # 輕量版，約 1.6MB（去掉 11 部�
 node build-vcpp.mjs --max 16            # 放寬單檔大小上限（MiB，預設 8）
 ```
 
-產出 `vcpp.html`（2026-10-29 21:40 實測：全部全文 **2,944,383 bytes／2.81 MiB**；
+產出 `vcpp.html`（2026-10-31 10:55 實測：全部全文 **2,988,053 bytes／2.85 MiB**（含操作導覽）；
 輕量版 1,670,694 bytes／1.59 MiB）。
 
+- 若改了操作導覽（`tours/*.tour`、`src/tour/`），先跑 `bun run build-tour.mjs`（更新 `src/tour/tour-data.ts` 與 `tour.js`，單檔會內嵌）；發版前可用 `bun run build-tour.mjs --check` 確認沒有漏打包。
 - CSS、`app.js`、`zhu-data.js` 全部內嵌；資料以 gzip 壓縮、base64 存放，開啟時用
   `DecompressionStream('gzip')` 解回 `window.ZHU`，再啟動 app。
 - 大小上限由 `--max` 決定（預設 8 MiB），超過才以非 0 結束；舊版硬性 2 MiB 已取消。
@@ -72,7 +73,7 @@ https://shutonggui.cn/huixintang/vcpp.html  200  2944383 bytes
 https://nissaya.cn/huixintang/vcpp.html     200  2944383 bytes
 ```
 
-兩站皆 2,944,383 bytes（全量版）；`deploy.mjs` 的 8MB 上限足以容納。
+兩站皆 2,988,053 bytes（全量版，含操作導覽）；`deploy.mjs` 的 8MB 上限足以容納。
 
 ## 回滾
 

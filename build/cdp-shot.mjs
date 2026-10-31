@@ -15,7 +15,7 @@ const profile = fs.mkdtempSync(path.join(os.tmpdir(), 'edge-cdp-'));
 const child = spawn(EDGE, [
   '--headless=new', '--disable-gpu', '--hide-scrollbars',
   `--remote-debugging-port=${port}`, `--user-data-dir=${profile}`,
-  '--window-size=1440,1000', '--no-first-run', '--no-default-browser-check', url,
+  `--window-size=${process.env.CDP_WIN || '1440,1000'}`, '--no-first-run', '--no-default-browser-check', url,
 ], { stdio: 'ignore' });
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));

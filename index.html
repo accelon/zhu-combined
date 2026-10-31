@@ -12,7 +12,7 @@
     <h1>金剛經合注</h1>
     <p class="sub">姚秦 鳩摩羅什譯 · 別譯十一種 · 四十一家注疏 · 昭明三十二分</p>
   </div>
-  <div class="search"><select id="sec-select" title="選分"></select><input id="q" type="search" placeholder="搜尋經文…" autocomplete="off"><button id="theme" class="theme" title="明暗切換">☾</button></div>
+  <div class="search"><select id="sec-select" title="選分"></select><input id="q" type="search" placeholder="搜尋經文…" autocomplete="off"><button id="tourEntry" class="theme tour-icon" title="操作導覽（跟著做一次就會用）" aria-label="操作導覽">🦮</button><button id="theme" class="theme" title="明暗切換">☾</button></div>
 </header>
 
 <div id="layout">
@@ -34,8 +34,38 @@
   <span>分句參考 vcpp；頁碼可溯源</span>
 </footer>
 
+<!-- 操作導覽（self-explaining-tour）：這些 id 由 player 使用，改樣式可以，別改名 -->
+<div id="tourSpot" hidden></div>
+<div id="tourBubble" role="dialog" aria-live="polite" hidden>
+  <div class="tourHead">
+    <span class="tourWhere" id="tourWhere"></span>
+    <button type="button" class="tourClose" id="tourX" title="結束導覽（Esc）">✕</button>
+  </div>
+  <div id="tourTitle"></div>
+  <div id="tourText"></div>
+  <div id="tourNote" hidden></div>
+  <div class="tourBtns">
+    <button type="button" id="tourPrev" title="上一個場景（←）" hidden>← 上一場景</button>
+    <button type="button" id="tourReplay" title="重播本場景" hidden>重播</button>
+    <span class="tourProg" id="tourProg"></span>
+    <button type="button" id="tourDone" hidden>我做好了</button>
+    <button type="button" id="tourSkip" hidden>略過這步</button>
+    <button type="button" id="tourNext" class="primary" hidden>下一個場景 →</button>
+  </div>
+</div>
+<div id="tourBackdrop" hidden></div>
+<div id="tourBox" role="dialog" aria-modal="true" aria-labelledby="tourMenuTitle" hidden>
+  <div class="tourMenuHead">
+    <h2 id="tourMenuTitle">操作導覽</h2>
+    <button id="tourClose" class="tourClose" title="關閉（Esc）">✕</button>
+  </div>
+  <p class="tourHint">跟著做一次就會用。每個場景做完會停住，由你決定要不要往下。</p>
+  <div id="tourList" class="tourList"></div>
+</div>
+
 <script src="zhu-data.js"></script>
 <script src="app.js"></script>
+<script src="tour.js"></script>
 <div id="wtip" class="wtip" role="tooltip"></div>
 </body>
 </html>

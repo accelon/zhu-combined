@@ -4,6 +4,8 @@
   const D = window.ZHU;
   const $ = (s) => document.querySelector(s);
   const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // 漢譯句子直接相接；英譯（拉丁字母）要用空格
+  const joinSents = (v, parts) => parts.join(v && v.lang === 'en' ? ' ' : '');
   const norm = (s) => s.replace(/[^\u3400-\u9fff]/g, '');
   const foldSa = (s) => String(s || '').toLowerCase().replace(/[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣ]/g, (c) => ({ 'ā': 'a', 'ī': 'i', 'ū': 'u', 'ṛ': 'r', 'ṝ': 'r', 'ḷ': 'l', 'ḹ': 'l', 'ē': 'e', 'ō': 'o', 'ṃ': 'm', 'ḥ': 'h', 'ṅ': 'n', 'ñ': 'n', 'ṭ': 't', 'ḍ': 'd', 'ṇ': 'n', 'ś': 's', 'ṣ': 's' })[c]);
   // 各譯本對同一個梵文詞的固定譯語。前綴比對（fold 過的詞形）。
@@ -20,6 +22,33 @@
   const ZH_SYN = {
     hetoh: ['故', '所以者何', '所以', '何以故'],
   };
+
+  // 舊譯（羅什等）常直接音譯，而逐詞注的 zh 是義譯（無上、正等菩提），
+  // 兩邊對不上，所以補一張常見音譯表，讓「對應」與高亮也能連到音譯本。
+  const ZH_TRANS = [
+    [/anuttara/, ['阿耨多羅', '無上']],
+    [/samyaksambodh|samyaksambuddh/, ['三藐三菩提', '三貌三菩提', '正等菩提', '正等正覺']],
+    [/prajna/, ['般若']],
+    [/paramita/, ['波羅蜜']],
+    [/bodhisattv/, ['菩薩']],
+    [/buddh/, ['佛']],
+    [/nirvan/, ['涅槃']],
+    [/arhant|arhat/, ['阿羅漢']],
+    [/bhagavat|bhagavan/, ['世尊']],
+    [/bhiksu|bhiksuni/, ['比丘']],
+    [/ganga/, ['恆河']],
+    [/sumeru/, ['須彌']],
+    [/asamkhya/, ['阿僧祇']],
+    [/nayuta/, ['那由他']],
+    [/srotapanna/, ['須陀洹']],
+    [/sakrdagamin/, ['斯陀含']],
+    [/anagamin/, ['阿那含']],
+    [/upasaka/, ['優婆塞']],
+    [/upasika/, ['優婆夷']],
+    [/tathagata/, ['如來']],
+    [/vajra/, ['金剛']],
+    [/kalpa/, ['劫']],
+  ];
   function zhCands(w) {
     const out = [];
     const zh = (w.zh || '').trim();
@@ -31,6 +60,7 @@
     for (const k of [foldSa(w.s), foldSa(w.l || '')]) {
       for (const x of (ZH_SYN[k] || [])) out.push(x);
       for (const [pre, list] of SYN_PREFIX) if (k.startsWith(pre)) out.push(...list);
+      for (const [re, list] of ZH_TRANS) if (re.test(k)) out.push(...list);
     }
     return [...new Set(out.filter(Boolean))];
   }
@@ -61,7 +91,7 @@
   // 手機／平板：右欄是覆蓋式面板（不是並排欄），所以點句與看面板在同一個視口裡
   const isOverlay = () => window.matchMedia('(max-width: 1060px)').matches;
   // 主文固定羅什（BASE）；想看別的譯本一律走面板的「別譯」分頁
-  const state = { u: null, sec: 1, pick: [], altPick: null, tab: 'works', showNotes: true };
+  const state = { u: null, sec: 1, pick: [], altPick: null, tipPin: false, tab: 'works', showNotes: true };
 
   /* ---------- 索引 ---------- */
   const byUnit = new Map(); // u -> [{w, a, b, p}]
@@ -434,7 +464,14 @@
     tip.style.left = Math.round(x) + 'px';
     tip.style.top = Math.round(y) + 'px';
   }
+  // 手機點一下詞就把卡片留住（pointerleave／捲動都不要關），點卡片以外才關
   function hideWordTip() {
+    if (state.tipPin) return;
+    const tip = document.getElementById('wtip');
+    if (tip) tip.classList.remove('on');
+  }
+  function forceHideWordTip() {
+    state.tipPin = false;
     const tip = document.getElementById('wtip');
     if (tip) tip.classList.remove('on');
   }
@@ -487,6 +524,7 @@
 
   function setSection(n) {
     if (!(n >= 1 && n <= 32)) return;
+    const hadSel = state.u != null; // 換章前有選句 → 桌面自動選新章第一句，右欄才不會空掉
     state.sec = n;
     state.u = null;
     renderSectionSelect();
@@ -495,6 +533,10 @@
     renderEmpty();
     window.scrollTo({ top: 0, behavior: 'auto' });
     try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    if (hadSel && !isOverlay()) {
+      const first = D.versions[BASE].sents.find((s) => s.s === n);
+      if (first) selectUnit(first.u, { noHash: true });
+    }
   }
 
   // 點句：桌面上右欄一直開著；手機／平板上只把梵藏展開在句下，
@@ -620,7 +662,7 @@
       selectUnit(u);
     });
     let lastHover = null;
-    const activateWord = (el) => {
+    const activateWord = (el, pointerType) => {
       const item = el.closest('.ifan-item');
       if (!item) return;
       const box = el.closest('.ifan') || item;
@@ -632,16 +674,23 @@
       const w = e && e.words && e.words[+i];
       if (!w) return;
       highlightZh(w, (e.words || []).length);
+      state.tipPin = pointerType === 'touch'; // 手指點的才留住（滑鼠 hover 照舊）
       showWordTip(el, w, e);
     };
     document.getElementById('reader').addEventListener('pointerover', (ev) => {
       const el = ev.target.closest('.sw,.tw');
       if (!el || el === lastHover) return;
       lastHover = el;
-      activateWord(el);
+      activateWord(el, ev.pointerType);
     });
     document.getElementById('reader').addEventListener('pointerleave', () => { lastHover = null; hideWordTip(); });
-    window.addEventListener('scroll', hideWordTip, { passive: true });
+    window.addEventListener('scroll', () => { if (!state.tipPin) hideWordTip(); }, { passive: true });
+    // 觸控時點卡片以外的地方才收起來
+    document.addEventListener('pointerdown', (ev) => {
+      if (!state.tipPin) return;
+      if (ev.target.closest('#wtip,.sw,.tw')) return;
+      forceHideWordTip();
+    }, true);
 
     $('#reader').addEventListener('click', (e) => {
       const b = e.target.closest('button[data-goto]');
@@ -748,7 +797,7 @@
     const el = document.getElementById('split-notes');
     if (!el) return;
     el.addEventListener('pointerdown', (e) => {
-      if (window.innerWidth < 1100) return;
+      if (getComputedStyle(el).display === 'none') return; // 覆蓋式面板（<=1060px）沒有分隔線可拖
       e.preventDefault();
       try { el.setPointerCapture(e.pointerId); } catch (err) {}
       el.classList.add('on');
@@ -778,6 +827,62 @@
     });
   }
 
+  /* ---------- 操作導覽（self-explaining tour）用的最小介面 ---------- */
+  // 導覽只透過這幾個動作碰 UI；其餘（選擇器、文案）都在 tours/*.tour 裡
+  function tourPickSentence() {
+    if (state.u != null && document.querySelector('.ifan')) return; // 已經展開
+    const hasSa = new Set();
+    (D.pdf || []).forEach((e) => (e.us || []).forEach((x) => hasSa.add(x)));
+    const cands = [].slice.call(document.querySelectorAll('#reader .sent[data-u]'))
+      .filter((el) => hasSa.has(+el.dataset.u));
+    const pick = cands.find((el) => el.querySelector('sup.badge')) || cands[0];
+    if (pick) { selectUnit(+pick.dataset.u, { scroll: true }); return; }
+    // 這一分沒有梵文：換到第一個有梵文的分
+    const first = D.versions[BASE].sents.find((s) => hasSa.has(s.u));
+    if (!first) return;
+    setSection(first.s);
+    selectUnit(first.u, { scroll: true });
+  }
+  function tourOpenPanel(tab) {
+    if (state.u == null) tourPickSentence();
+    if (state.u != null) openPanel(tab || 'works');
+  }
+  function tourReset() {
+    document.getElementById('sheet').classList.add('closed');
+    hideWordTip();
+    if (state.u != null) { state.u = null; renderReader(); renderEmpty(); }
+    const q = document.getElementById('q');
+    if (q) q.value = '';
+    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  }
+  function tourSetTheme(v) {
+    const dark = /^(dark|1|on|true)$/i.test(String(v || ''));
+    document.body.classList.toggle('dark', dark);
+    try { localStorage.setItem('zhu-theme', dark ? 'dark' : 'light'); } catch (e) {}
+    syncTheme();
+    return true;
+  }
+  function exposeTourApi() {
+    window.ZHU_APP = {
+      state: function () {
+        return {
+          ready: !!(window.ZHU && document.querySelectorAll('#reader .sent').length),
+          section: state.sec,
+          selected: state.u,
+          panel: !document.getElementById('sheet').classList.contains('closed'),
+          tab: state.tab,
+          overlay: isOverlay(),
+        };
+      },
+      setSection: setSection,
+      pickSentence: tourPickSentence,
+      openPanel: tourOpenPanel,
+      closePanel: closeSheet,
+      reset: tourReset,
+      setTheme: tourSetTheme,
+    };
+  }
+
   /* ---------- 啟動 ---------- */
   function boot() {
     const qs = new URLSearchParams(location.search);
@@ -805,6 +910,8 @@
     if (wq) setTimeout(function () { const sel = he ? '.ifan-item[data-no="' + he + '"] .sw[data-i="' + wq + '"]' : '.ifan-item .sw[data-i="' + wq + '"]'; const el = document.querySelector(sel); if (el) el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true })); }, 200);
     const tb = qs.get('tab');
     if (tb === 'alt' || tb === 'phrase' || tb === 'works') { setTab(tb); if (state.u != null) openPanel(tb); }
+    exposeTourApi();
   }
   boot();
 })();
+

@@ -155,7 +155,7 @@ body.dark .sw.on, body.dark .tw.on { background: #4a3a1e; box-shadow: 0 0 0 1px 
 body.dark mark.gl { background: #6b5320; color: #f3e7cf; box-shadow: inset 0 -2px 0 #d8a94e; }
 
 @media (min-width: 1060px) {
-  #layout { grid-template-columns: minmax(0, 1fr) 6px var(--notesw, 440px); max-width: 1620px; }
+  #layout { grid-template-columns: minmax(0, 1fr) 6px var(--notesw, 440px); max-width: 1620px; min-height: calc(100vh - 66px); }
   body.notes-off { --notesw: 0px; }
   body.notes-off #sheet { display: none; }
   #sheet { position: sticky; top: 73px; inset: auto; height: calc(100vh - 73px); z-index: 1; display: flex; }
@@ -349,3 +349,149 @@ body.dark .occ-mark { color: #ff9a8a; background: rgba(255, 154, 138, .16); }
 .note-h .unpick { border: 0; background: transparent; color: var(--muted); cursor: pointer; font-size: 12px; margin-left: 8px; }
 .note-open .ex { max-height: none; font-size: 14.5px; line-height: 1.95; }
 
+
+
+/* ---------- 操作導覽（self-explaining-tour，vendored 於 src/tour） ---------- */
+/* 這組要掛在 body 上：body.dark 也在 body 改 --card/--ink，
+   寫在 :root 會先以亮色算好再繼承下去，深色時氣泡就變白的。 */
+body {
+  --tour-accent: var(--accent);
+  --tour-bubble-bg: var(--card);
+  --tour-bubble-fg: var(--ink);
+  --tour-panel: var(--paper);
+  --tour-panel2: var(--paper2);
+  --tour-fg: var(--ink);
+  --tour-line: var(--line);
+  --tour-link: var(--accent);
+  --tour-gold: var(--accent);
+  --tour-muted: var(--muted);
+  --tour-dim: var(--muted);
+  --tour-warn: #b4453a;
+  --tour-code-bg: var(--paper2);
+  --tour-on-accent: var(--paper);
+}
+
+/* 入口：標題列最右邊那顆，跟 ☾ 同一個尺寸 */
+.tour-icon { font-size: 15px; }
+
+#tourSpot {
+  position: fixed; z-index: 89; pointer-events: none;
+  border-radius: 8px;
+  border: 2px solid var(--tour-accent);
+  box-shadow: 0 0 0 9999px rgba(38, 30, 18, .42), 0 0 22px rgba(138, 90, 47, .35);
+}
+#tourSpot[hidden] { display: none; }
+
+#tourBubble {
+  position: fixed; z-index: 90;
+  left: 50%; transform: translateX(-50%);
+  width: min(720px, 92vw); max-height: 48vh; overflow: auto;
+  background: var(--tour-bubble-bg); color: var(--tour-bubble-fg);
+  border: 1px solid var(--tour-accent); border-radius: 12px;
+  box-shadow: 0 18px 60px rgba(60, 45, 25, .35);
+  padding: 14px 18px 12px;
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+#tourBubble[hidden] { display: none; }
+#tourBubble.paused { border-color: var(--tour-warn); }
+
+.tourHead { display: flex; align-items: center; gap: 8px; margin-bottom: 2px; }
+.tourWhere { flex: 1 1 auto; font-size: 12px; color: var(--tour-muted); letter-spacing: .04em; }
+#tourTitle { font-size: 17px; font-weight: 700; color: var(--tour-link); margin: 0 0 6px; line-height: 1.4; }
+#tourText { font-size: 15.5px; line-height: 1.75; }
+#tourText p { margin: 0 0 8px; }
+#tourText p:last-child { margin-bottom: 0; }
+#tourText b { color: var(--tour-gold); }
+#tourText code {
+  background: var(--tour-code-bg); border: 1px solid var(--tour-line);
+  border-radius: 4px; padding: 0 4px; font-size: 14px;
+}
+#tourNote { font-size: 13px; color: var(--tour-warn); margin: 6px 0 0; }
+#tourNote[hidden] { display: none; }
+
+.tourBtns { display: flex; align-items: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+.tourProg { flex: 1 1 auto; font-size: 12px; color: var(--tour-muted); text-align: right; }
+#tourBubble button {
+  background: var(--tour-panel2); color: var(--tour-fg);
+  border: 1px solid var(--tour-line); border-radius: 8px;
+  font: inherit; font-size: 14px; padding: 7px 14px; cursor: pointer;
+  white-space: nowrap;
+}
+#tourBubble button:hover { border-color: var(--tour-accent); }
+#tourBubble button:disabled { opacity: .4; cursor: default; }
+#tourBubble button.primary {
+  background: var(--tour-accent); color: var(--tour-on-accent);
+  border-color: transparent; font-weight: 700;
+}
+#tourBubble button[hidden] { display: none; }
+
+.tourClose {
+  background: transparent; border: 0; color: inherit; font: inherit;
+  font-size: 16px; line-height: 1; cursor: pointer; opacity: .65;
+  padding: 2px 4px;
+}
+.tourClose:hover { opacity: 1; }
+
+#tourBackdrop { position: fixed; inset: 0; z-index: 86; background: rgba(38, 30, 18, .5); }
+#tourBackdrop[hidden], #tourBox[hidden] { display: none; }
+#tourBox {
+  position: fixed; z-index: 87; left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+  width: min(620px, 92vw); max-height: 82vh; overflow: auto;
+  background: var(--tour-panel); color: var(--tour-fg);
+  border: 1px solid var(--tour-line); border-radius: 12px;
+  box-shadow: 0 18px 60px rgba(60, 45, 25, .35);
+  padding: 16px 20px 14px;
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+.tourMenuHead { display: flex; align-items: center; gap: 8px; }
+.tourMenuHead h2 { margin: 0; flex: 1 1 auto; font-size: 18px; }
+.tourHint { font-size: 13px; color: var(--tour-dim); margin: 6px 0 0; line-height: 1.6; }
+.tourList { display: flex; flex-direction: column; gap: 10px; margin-top: 10px; }
+.tourRow { border: 1px solid var(--tour-line); border-radius: 10px; padding: 10px 12px; background: var(--tour-panel2); }
+.tourName { font-size: 16px; font-weight: 700; color: var(--tour-link); }
+.tourIntro { font-size: 13px; margin: 4px 0; line-height: 1.65; }
+.tourMeta { font-size: 12px; color: var(--tour-dim); }
+.tourActs { display: flex; gap: 8px; margin-top: 8px; }
+.tourActs button {
+  background: var(--tour-panel); color: var(--tour-fg);
+  border: 1px solid var(--tour-line); border-radius: 7px;
+  font: inherit; font-size: 13px; padding: 4px 14px; cursor: pointer;
+}
+.tourActs button:hover { border-color: var(--tour-accent); }
+.tourActs button.primary {
+  background: var(--tour-accent); color: var(--tour-on-accent);
+  border-color: transparent; font-weight: 700;
+}
+
+/* 第一次的提示：貼在標題列下面（top 由 app.ts 量測） */
+#tourHint {
+  position: fixed; z-index: 60; left: 12px;
+  display: flex; align-items: center; gap: 8px;
+  max-width: min(420px, calc(100vw - 24px));
+  padding: 8px 10px 8px 12px;
+  background: var(--card); color: var(--ink);
+  border: 1px solid #cbb894; border-radius: 10px;
+  box-shadow: 0 10px 26px rgba(60, 45, 25, .18);
+  font-size: 13px; line-height: 1.5;
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+  cursor: pointer;
+  animation: hintIn .3s ease;
+}
+#tourHint .th-text { flex: 1 1 auto; }
+#tourHint .th-text b { font-size: 15px; }
+#tourHint .th-x { border: 0; background: transparent; color: var(--muted); font-size: 13px; cursor: pointer; padding: 2px 4px; }
+body.dark #tourHint { border-color: #4a3d2c; }
+@keyframes hintIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
+
+/* 手機：氣泡貼邊、按鈕加大到好按 */
+@media (max-width: 640px) {
+  #tourBubble { width: calc(100vw - 20px); padding: 12px 14px 10px; border-radius: 14px; max-height: 46vh; }
+  #tourTitle { font-size: 16px; }
+  #tourText { font-size: 15px; line-height: 1.7; }
+  #tourBubble button { min-height: 40px; padding: 8px 12px; font-size: 14.5px; }
+  .tourBtns { gap: 6px; margin-top: 8px; }
+  #tourBox { width: calc(100vw - 20px); max-height: 86vh; padding: 14px 16px 12px; }
+  .tourActs button { min-height: 40px; padding: 8px 16px; font-size: 14px; }
+  #tourHint { left: 12px; right: 12px; max-width: none; }
+}
