@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<title>金剛經合注 · 使用導覽</title>
+<link rel="stylesheet" href="series.css">
+<style>
+  /* 一列到底：手機實拍 → 圖說。以第 7 分「無得無說」最後一句為例。 */
+  body { background: #fbf8f0; }
+  .page { padding-bottom: 52px; }
+
+  .head > div:first-child { max-width: 952px; }
+  h1 { font-size: 94px; line-height: 1.12; margin-top: 12px; }
+  .sub { font-size: 42px; line-height: 1.6; margin-top: 14px; max-width: 900px; text-wrap: pretty; }
+
+  .item { margin-top: 50px; }
+  .shot { display: flex; justify-content: center; }
+  .shot img {
+    width: 900px; display: block; border-radius: 42px;
+    border: 1px solid #e2d8c6;
+    box-shadow: 0 20px 44px rgba(90, 70, 40, .16);
+  }
+  .cap { margin-top: 24px; padding: 0 6px; }
+  .cap-top { display: flex; align-items: center; gap: 14px; }
+  .cap-no { font-size: 30px; font-weight: 900; color: #fff; background: #8a4b1e; border-radius: 9px; padding: 5px 15px; letter-spacing: .04em; }
+  .cap-k { font-size: 30px; font-weight: 800; color: #6a5a44; letter-spacing: .08em; }
+  .cap h2 { font-size: 48px; font-weight: 900; line-height: 1.3; margin: 10px 0 8px; color: #161616; }
+  .cap p { font-size: 38px; line-height: 1.68; color: #2b2b2b; text-wrap: pretty; }
+  .cap p b { color: #8a4b1e; }
+
+  /* ---- 研究示例：一字的回聲 ---- */
+  .deep { margin-top: 30px; }
+  .deep-rule { height: 6px; background: #161616; margin: 34px 0 20px; }
+  .deep-eye { font-size: 30px; letter-spacing: .18em; color: #8a4b1e; font-weight: 800; }
+  .deep h2 { font-size: 62px; font-weight: 900; line-height: 1.26; margin: 10px 0 12px; }
+  .deep h2 { color: #161616; }
+  .deep .lead { font-size: 38px; line-height: 1.72; color: #2b2b2b; }
+  .deep .lead b { color: #8a4b1e; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 20px 0 4px; font-size: 28px; color: #6a5a44; font-weight: 700; }
+  .legend span { display: inline-flex; align-items: center; gap: 8px; }
+  .dot { width: 18px; height: 18px; border-radius: 50%; display: inline-block; background: #8a4b1e; }
+  .dot.alt { background: #2f5d45; }
+  .dot.turn { background: #b98a2f; }
+
+  .flow { position: relative; margin-top: 14px; padding-left: 46px; }
+  .flow::before { content: ''; position: absolute; left: 15px; top: 16px; bottom: 16px; width: 4px; border-radius: 2px;
+    background: #d8cfc0; }
+  .node { position: relative; padding: 12px 0 16px; border-bottom: 2px dashed #e6dcc9; }
+  .node:last-child { border-bottom: 0; }
+  .node::before { content: ''; position: absolute; left: -40px; top: 24px; width: 16px; height: 16px; border-radius: 50%;
+    background: #8a4b1e; border: 4px solid #fbf8f0; box-shadow: 0 0 0 2px #8a4b1e; }
+  .node.alt::before { background: #2f5d45; box-shadow: 0 0 0 2px #2f5d45; }
+  .node.turn::before { background: #b98a2f; box-shadow: 0 0 0 2px #b98a2f; }
+  .node .yr { font-size: 28px; font-weight: 800; color: #8a4b1e; letter-spacing: .06em; }
+  .node.alt .yr { color: #2f5d45; }
+  .node.turn .yr { color: #b98a2f; }
+  .node .who { font-size: 40px; font-weight: 900; margin: 2px 0 4px; }
+  .node .q { font-size: 34px; line-height: 1.62; color: #2b2b2b; }
+  .node .q b { color: #a02c2c; }
+
+  .srcs { margin-top: 26px; border: 3px solid #d8cfc0; border-radius: 16px; overflow: hidden; background: #fff; }
+  .srcs-h { font-size: 30px; font-weight: 900; color: #6a5a44; letter-spacing: .06em; padding: 16px 24px 12px; border-bottom: 2px solid #eee6d6; }
+  .src-row { display: grid; grid-template-columns: 214px 1fr 206px; gap: 14px; align-items: baseline;
+    padding: 16px 24px; border-bottom: 2px solid #eee6d6; font-size: 32px; line-height: 1.6; }
+  .src-row:last-child { border-bottom: 0; }
+  .src-row .k { font-weight: 900; color: #6a5a44; }
+  .src-row .t { color: #161616; }
+  .src-row .t b { color: #a02c2c; }
+  .src-row .n { font-size: 26px; color: #8a4b1e; text-align: right; font-weight: 700; line-height: 1.45; }
+  .src-row.ok .n { color: #2f5d45; }
+  .src-row.ok .k { color: #2f5d45; }
+
+  .tracks { display: grid; grid-template-columns: 1fr 336px; gap: 26px; margin-top: 8px; }
+  .track { position: relative; padding-left: 46px; }
+  .track::before { content: ''; position: absolute; left: 15px; top: 46px; bottom: 10px; width: 3px; border-radius: 2px; background: #e3dacb; }
+  .track-h { font-size: 26px; letter-spacing: .12em; color: #8a4b1e; font-weight: 800; margin: 0 0 8px; }
+  .track .node { padding: 10px 0 12px; }
+  .track .node .q { font-size: 30px; line-height: 1.62; }
+  .track .node .who { font-size: 36px; }
+  .use { display: inline-block; margin-top: 8px; font-size: 23px; line-height: 1.4; color: #6a5a44;
+    border: 2px solid #e0d6c4; background: #f7f2e6; border-radius: 999px; padding: 2px 12px; }
+  .node.alt .use { color: #2f5d45; border-color: #cfe0d4; background: #f2f7f3; }
+  .t { position: relative; padding: 8px 0 10px; border-bottom: 2px dashed #efe7d8; }
+  .t:last-child { border-bottom: 0; }
+  .t::before { content: ''; position: absolute; left: -37px; top: 20px; width: 12px; height: 12px; border-radius: 50%;
+    background: #c9b99c; border: 3px solid #fbf8f0; box-shadow: 0 0 0 2px #c9b99c; }
+  .t.good::before { background: #2f5d45; box-shadow: 0 0 0 2px #2f5d45; }
+  .t.bad::before { background: #a02c2c; box-shadow: 0 0 0 2px #a02c2c; }
+  .t .y { display: block; font-size: 21px; color: #a08e72; font-weight: 800; letter-spacing: .04em; }
+  .t .tn { display: block; font-size: 27px; font-weight: 900; color: #161616; line-height: 1.35; }
+  .t .w { display: block; font-size: 25px; line-height: 1.5; color: #4a4136; }
+  .t.good .w { color: #2f5d45; }
+  .t .w b.bad { color: #a02c2c; }
+  .t .tib { font-size: 32px; line-height: 1.6; }
+  .t .g { display: block; font-size: 23px; line-height: 1.45; color: #8a7f6d; margin-top: 3px; }
+
+  .scholar { margin-top: 22px; background: #fff; border-top: 2px solid #e6dcc9; border-right: 2px solid #e6dcc9; border-bottom: 2px solid #e6dcc9; border-left: 9px solid #161616; border-radius: 0 12px 12px 0; padding: 18px 26px; }
+  .scholar p { font-size: 32px; line-height: 1.7; color: #2b2b2b; text-wrap: pretty; }
+  .scholar b { color: #161616; }
+  .scholar .k { display: inline-block; font-size: 21px; letter-spacing: .14em; color: #6a5a44; font-weight: 800; margin-right: 10px; }
+
+  .memo { margin-top: 14px; padding: 15px 22px; background: #fbf7ee; border-left: 7px solid #c9b99c; border-radius: 0 10px 10px 0; font-size: 29px; line-height: 1.68; color: #4a4136; text-wrap: pretty; }
+  .memo b { color: #8a4b1e; }
+  .memo .u { display: block; margin-top: 6px; font-size: 21px; color: #8a7f6d; letter-spacing: .04em; }
+
+  .jp2 { margin-top: 16px; border: 3px solid #e0d6c4; border-radius: 14px; overflow: hidden; background: #fff; }
+  .jp2-h { padding: 14px 22px 10px; font-size: 26px; font-weight: 900; color: #6a5a44; letter-spacing: .06em; background: #fbf7ee; border-bottom: 2px solid #eee6d6; }
+  .jp2-row { padding: 16px 22px 15px; border-bottom: 2px solid #eee6d6; }
+  .jp2-row:last-child { border-bottom: 0; }
+  .jp2-row .src { font-size: 22px; font-weight: 800; letter-spacing: .05em; }
+  .jp2-row.bad .src { color: #a02c2c; }
+  .jp2-row.good .src { color: #2f5d45; }
+  .jp2-row .q { font-size: 32px; line-height: 1.62; margin: 5px 0 6px; color: #161616; }
+  .jp2-row.bad .q b { color: #a02c2c; }
+  .jp2-row.good .q b { color: #2f5d45; }
+  .jp2-row .g { font-size: 27px; line-height: 1.62; color: #6a5a44; }
+  .jp2-row.bad .g b { color: #a02c2c; }
+  .jp2-row.good .g b { color: #2f5d45; }
+
+  .jp2-f { padding: 14px 22px 16px; background: #fbf7ee; border-top: 2px solid #eee6d6; font-size: 26px; line-height: 1.6; color: #6a5a44; font-weight: 700; }
+
+  .crux { margin-top: 24px; border: 3px solid #161616; border-radius: 16px; overflow: hidden; background: #fff; }
+  .crux-h { padding: 18px 26px 14px; font-size: 40px; font-weight: 900; color: #161616; letter-spacing: .02em; border-bottom: 2px solid #161616; background: #f6f1e6; }
+  .crux-grid { display: grid; grid-template-columns: 1fr 1fr; }
+  .crux-col { padding: 20px 24px 22px; }
+  .crux-col.bad { border-right: 2px solid #e6dcc9; background: #fdf6f2; }
+  .crux-col .ch { font-size: 22px; font-weight: 800; letter-spacing: .14em; color: #8a7f6d; }
+  .crux-col.bad .ch { color: #a02c2c; }
+  .crux-col.good .ch { color: #2f5d45; }
+  .crux-col .cb { font-size: 42px; font-weight: 900; margin: 4px 0 8px; color: #161616; }
+  .crux-col.bad .cb { color: #a02c2c; }
+  .crux-col.good .cb { color: #2f5d45; }
+  .crux-col .cp { font-size: 28px; line-height: 1.62; color: #3a342c; }
+  .crux-note { padding: 20px 26px 22px; border-top: 2px solid #e6dcc9; background: #fbf8f0; font-size: 29px; line-height: 1.7; color: #2b2b2b; text-wrap: pretty; }
+  .crux-note b { color: #8a4b1e; }
+
+  .fixbox { margin-top: 24px; border: 3px solid #cfe0d4; background: #f2f7f3; border-radius: 16px; padding: 22px 28px 20px; }
+  .fixbox h3 { font-size: 38px; font-weight: 900; color: #2f5d45; margin: 0 0 8px; }
+  .fixbox p { font-size: 34px; line-height: 1.72; color: #2b2b2b; text-wrap: pretty; }
+  .fixbox p + p { margin-top: 10px; }
+  .fixbox b { color: #2f5d45; }
+  .tib { font-family: "Microsoft Himalaya", "Kailasa", "Noto Serif Tibetan", serif; font-size: 40px; }
+
+  .deep-end { margin-top: 26px; padding: 24px 30px; background: #161616; color: #f4eddd; border-radius: 16px; }
+  .deep-end p { font-size: 36px; line-height: 1.72; }
+  .deep-end b { color: #ffd479; }
+  .deep-end small { display: block; margin-top: 10px; font-size: 28px; color: #b9ad9a; }
+
+  .note { margin-top: 50px; background: #fff8ea; border: 3px dashed #c9a86a; border-radius: 16px; padding: 22px 30px; }
+  .note p { font-size: 36px; line-height: 1.7; color: #2b2b2b; }
+  .note b { color: #8a4b1e; }
+  footer { display: block; }
+  .frow { display: flex; justify-content: space-between; gap: 24px; font-size: 30px; color: #4a4a4a; }
+  .furl { margin-top: 10px; font-size: 31px; font-weight: 700; color: #161616; letter-spacing: .01em; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="head">
+    <div>
+      <div class="series">金剛經合注 · 第七分 無得無說</div>
+      <h1>一句經文，四十一家注</h1>
+      <p class="sub">罗什主文、三十二分、梵藏逐词、十一种别译。<br>照下面四张图走一遍，就会用。</p>
+    </div>
+  </div>
+  <div class="rule"></div>
+
+  <section class="item">
+    <div class="shot"><img src="02-word.png" alt="点最后一句，梵藏展开；点 asaṃskṛta-prabhāvitā 出现词性卡"></div>
+    <div class="cap">
+      <div class="cap-top"><span class="cap-no">01</span><span class="cap-k">点句 · 点词</span></div>
+      <h2>点最后一句，词也能点</h2>
+      <p>第 7 分「無得無說」只有四句，末句正是「一切賢聖皆以無為法而有差別」（句尾 <b>36</b> 家注疏）。点这一句：梵文逐词编号、藏文对照在句下展开；点 <b>asaṃskṛta-prabhāvitā</b>，原形、词性之外还拆成 asaṃskṛta（无为法）＋ prabhāvitā（所显），并列出奘／净「所显」、什「无为法」的对应。</p>
+    </div>
+  </section>
+
+  <section class="item">
+    <div class="shot"><img src="03-notes.png" alt="注疏面板：僧肇、慧能、释印顺三家并开"></div>
+    <div class="cap">
+      <div class="cap-top"><span class="cap-no">02</span><span class="cap-k">注疏</span></div>
+      <h2>四十一家，依年代排开</h2>
+      <p>同一句按作者年代排，点谁展开谁，可同时开三家。图上并开<b>僧肇</b>、<b>慧能</b>与<b>释印顺讲、演培记</b>。</p>
+    </div>
+  </section>
+
+  <section class="item">
+    <div class="shot"><img src="05-alt.png" alt="别译面板：玄奘、笈多、Muller 三种译文"></div>
+    <div class="cap">
+      <div class="cap-top"><span class="cap-no">03</span><span class="cap-k">别译</span></div>
+      <h2>十一种译本，一屏对读</h2>
+      <p>同一句：玄奘「以诸贤圣补特伽罗皆是无所显故」、笈多逐词直译「彼何因？无为法显明圣人」、Muller 英译 “All the enlightened sages are distinguished [from worldly teachers] by unconditioned phenomena”。<b>罗什把 prabhāvita（所显）译作「差别」</b>，注家遂多解成贤圣证悟的浅深高下——僧肇「无为虽一，解有明昧，明深昧浅，优劣差者也」；寂焰「河无浅深，而浅深在兽」；智旭还得先问「既曰无为，云何差别？」。三家的「（无为）所显」，才是「以无为法而显」。</p>
+    </div>
+  </section>
+
+<section class="item">
+    <div class="shot"><img src="04-phrase.png" alt="词组面板：hetoḥ 另见 5·5-3 就地展开"></div>
+    <div class="cap">
+      <div class="cap-top"><span class="cap-no">04</span><span class="cap-k">词组</span></div>
+      <h2>逐词对齐，另见可查</h2>
+      <p>逐词列出原形、词性与汉译，并标出这个词在别处的位置。<b>hetoḥ</b> 另见 59 处，点「5·5-3」就地展开那一句——梵文 tat kasya hetoḥ｜yā sā bhagavan…，罗什「何以故？如来所说身相，即非身相」，下面还留着「前往第 5 分 →」。</p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="frow"><span>金剛經合注 · 第七分 無得無說</span><span class="nw">手机实拍 390×844 · 共四张</span></div>
+    <div class="furl">https://shutonggui.cn/huixintang/vcpp.html</div>
+  </footer>
+</div>
+</body>
+</html>
