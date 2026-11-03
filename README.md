@@ -244,7 +244,11 @@ node deploy.mjs            # 上傳＋驗證
 
 單檔 `vcpp.html` 由 `node build-vcpp.mjs` 產生（預設收全部全文，約 2.7MB；
 大小上限 8MB，用 `--max` 放寬、`--limit 40000` 回到輕量版）；
-主站與鏡像、回滾、憑證位置見 [`deploy.md`](deploy.md)。`https://nissaya.cn` 頻寬約 100 KB/s，2.9MB 的 `vcpp.html` 首次載入約 30 秒（檔案本身與主站 byte-identical）。
+主站與鏡像、回滾、憑證位置見 [`deploy.md`](deploy.md)。
+
+資料以 gzip 內嵌：有 `DecompressionStream` 的瀏覽器走原生解壓（Chrome 80+、Safari **16.4**+）；沒有的（iOS 13.1–16.3、舊 X5 內核）自動改用內嵌的純 JS inflate（`build/gunzip.js`，約 10KB），所以 iPhone 6s／7（iOS 15）也能開。改 `build/gunzip.js` 後要重跑 `node build-vcpp.mjs`。
+
+`https://nissaya.cn` 頻寬約 100 KB/s，2.9MB 的 `vcpp.html` 首次載入約 30 秒（檔案本身與主站 byte-identical）。
 
 ## 資料格式
 

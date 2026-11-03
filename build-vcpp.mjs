@@ -31,6 +31,7 @@ const css = fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8');
 const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
 const tour = fs.readFileSync(path.join(ROOT, 'tour.js'), 'utf8');
 const dataSrc = fs.readFileSync(path.join(ROOT, 'zhu-data.js'), 'utf8');
+const gunzip = fs.readFileSync(path.join(ROOT, 'build', 'gunzip.js'), 'utf8');
 const D = JSON.parse(dataSrc.replace(/^window\.ZHU=/, '').replace(/;\s*$/, ''));
 
 const dropped = [];
@@ -62,6 +63,7 @@ const appCode = app.replace(/<\/script/gi, '<\\/script');
 const tourCode = tour.replace(/<\/script/gi, '<\\/script');
 const boot = `
 <script>
+${gunzip}
 function __startApp(){
 ${appCode}
 ${tourCode}
@@ -69,20 +71,55 @@ ${tourCode}
 (function () {
   var el = document.getElementById('zhu-b64');
   if (!el) return;
-  if (!('DecompressionStream' in window)) {
-    document.body.innerHTML = '<p style="padding:2rem;font:16px/1.8 sans-serif">此瀏覽器不支援內建解壓，請用新版 Chrome、Edge 或 Safari 開啟。</p>';
-    return;
+  var b64 = el.textContent.trim();
+
+  function bytesOf() {
+    var bin = atob(b64), a = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
+    return a;
   }
-  var bin = atob(el.textContent.trim());
-  var bytes = new Uint8Array(bin.length);
-  for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
-  var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-  new Response(stream).text().then(function (text) {
+  function note(on) {
+    var d = document.getElementById('__loadnote');
+    if (!on && d && d.parentNode) d.parentNode.removeChild(d);
+    if (on && !d) {
+      d = document.createElement('div');
+      d.id = '__loadnote';
+      d.textContent = '正在解壓資料…';
+      d.style.cssText = 'position:fixed;left:0;right:0;top:0;padding:10px;text-align:center;font:14px/1.5 sans-serif;background:#333;color:#fff;z-index:99999';
+      document.body.appendChild(d);
+    }
+  }
+  function start(text) {
+    note(false);
     window.ZHU = JSON.parse(text);
     __startApp();
-  }).catch(function (err) {
-    document.body.innerHTML = '<p style="padding:2rem;font:16px/1.8 sans-serif">資料解壓失敗：' + err + '</p>';
-  });
+  }
+  function fail(msg) {
+    note(false);
+    document.body.innerHTML = '<p style="padding:2rem;font:16px/1.8 sans-serif">資料載入失敗：' +
+      (msg && msg.message ? msg.message : msg) +
+      '<br>請換新版 Chrome、Edge 或 Safari 開啟，或回報給作者。</p>';
+  }
+  // 舊 Safari（iOS 16.4 以前）沒有 DecompressionStream，走純 JS 解壓
+  function fallback() {
+    note(true);
+    setTimeout(function () {
+      try { start(new TextDecoder('utf-8').decode(__gunzip(bytesOf()))); }
+      catch (e) { fail(e); }
+    }, 30);
+  }
+
+  if ('DecompressionStream' in window) {
+    try {
+      var bytes = bytesOf();
+      var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+      new Response(stream).text().then(start).catch(fallback);
+    } catch (e) {
+      fallback();
+    }
+  } else {
+    fallback();
+  }
 })();
 </script>`;
 out = out.replace('</body>', dataTag + boot + '\n</body>');
