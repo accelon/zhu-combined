@@ -7,10 +7,27 @@
 
 | 站 | URL | 遠端目錄 |
 |---|---|---|
-| 主站 | <https://shutonggui.cn/huixintang/vcpp.html> | `/var/www/html/huixintang` |
-| 鏡像 | <https://nissaya.cn/huixintang/vcpp.html> | `/var/www/html/huixintang` |
+| 主站 | <https://shutonggui.cn/incubator/vcpp.html> | `/var/www/html/incubator` |
+| 鏡像 | <https://nissaya.cn/incubator/vcpp.html> | `/var/www/html/incubator` |
+| 孵化區列表 | <https://shutonggui.cn/incubator/> | `/var/www/html/incubator` |
 
-同一個 `vcpp.html` 也會上傳成 `index.html`，所以目錄首頁與 `vcpp.html` 內容相同。
+> ⚠️ **`/huixintang/` 是官網工作區的目錄，不要往那裡寫**（2026-11-04 誤覆蓋過它的
+> `index.html`）。本專案的檔案一律放 `/incubator/`，而且**不上傳 `index.html`**。
+
+2026-11-04 起目錄裡是這樣：
+
+| 遠端檔（`/incubator/` 下） | 是什麼 |
+|---|---|
+| `vcpp.html` | **科判版**（正式入口） |
+| `vcpp-nokepan.html` | 舊的「無科判」版 |
+| `shuzheng-u38.md` | 第 38 句的書證長文 |
+| `vcpp.html.gz` | 預先用 gzip -9 壓好的同一份（2,237,829 bytes），給「直接送 .gz」的設定用 |
+
+孵化區是**共用目錄**：只換上面三個檔，不動 `index.html`、`projects.json`（那是官網工作區的）、
+也不留 `.prev` 備份；清理暫存只清 `.tmp-vcpp*`、`.tmp-shuzheng*`。
+
+孵化區那張卡片的內容來自 `/incubator/projects.json`（本 repo 的 `deploy/incubator.json` 是同一份），
+用 `node deploy-incubator.mjs` 同步兩站；規則見 `D:\nissaya.cn\html\incubator\discipline.md`。
 
 `/var/www/html/huixintang` 是**共用目錄**，裡面還有 `glyph-browser.html`、`pinxing.html`
 等別人的檔案；部署只覆蓋 `vcpp.html`、`index.html`、`shuzheng-u38.md` 與其 `.prev`，
@@ -56,6 +73,12 @@ node deploy.mjs --mirror-only
 - 上傳流程：先傳 `DOCROOT/.tmp-<name>`，再遠端 `mv` 成正式檔；既有檔先備份成
   `<name>.prev`。最後刪掉舊的 `app.js`、`style.css`、`zhu-data.js`（以及它們的
   `.prev`），因為輕量版已不需要外檔。
+- 每次部署都會順便產生並上傳 `vcpp.html.gz`（`deploy.mjs` 裡現壓，level 9）。
+  目前伺服器 `mod_deflate` 已開（3,063,854 → 2,248,876，−26.6%），`.gz` 只是備用；
+  要真的改送 `.gz`，見下一節。
+- 孵化區清單另外傳：`node deploy-incubator.mjs`（先跑 `incubator/check.mjs` 驗格式，
+  再上傳 `/var/www/html/incubator/projects.json`，同樣走 `.tmp` → `.prev` → `mv -f`）。
+  它**只換這一個檔**，不動 `incubator/index.html`、其他項目與首頁。
 - 使用的工具：`C:\Program Files\PuTTY\pscp.exe`、`plink.exe`，以 `-hostkey` 鎖定指紋。
 
 ## 驗證
@@ -92,3 +115,44 @@ mv -f index.html.prev index.html
   （`tei-all.txt`、`wxzj-tei-2026R2.txt`、`ys-text-full.txt`、`jingqun/*.tsv`），
   不寫入；可用 `ZHU_CORPUS` 指向別處。
 - `vcpp.html` 的建置與部署完全在 `D:\2026\zhu-combined`，不需要 adb-converter 的程式。
+
+
+## 傳輸壓縮（2026-11-04 起）
+
+主站與鏡像都已開 gzip（伺服器端 curl 實測）。`deploy.mjs` 每次部署完會多印一行「傳輸實測」，
+直接看線上送的是不是壓縮過的：
+
+| 站 | 做法 | 實際傳輸 |
+|---|---|---|
+| shutonggui.cn（Apache） | `mod_deflate` 現壓（`conf-enabled/deflate-zhu.conf`） | 2,248,876 bytes（chunked，無 Content-Length） |
+| nissaya.cn（nginx） | `gzip_static on` 直接送 `vcpp.html.gz` | **2,237,829 bytes**（= .gz 大小，ETag `…-222585`） |
+| 原檔 | — | 3,063,854 bytes |
+
+差 11 KB 是 Apache 用 zlib 預設等級、我們預壓用 level 9 的差別。nginx 那條**完全不花 CPU**；
+Apache 若也想要零 CPU，把 `vcpp.html.gz` 接上 rewrite（見文末）即可。
+
+**在 Windows 上用 `Invoke-WebRequest` 看不到 gzip**：它會自動解壓並把 `Content-Encoding`
+拿掉，`RawContentLength` 回報的是解壓後大小。要驗證請在伺服器上跑：
+
+```bash
+curl -skI -H "Accept-Encoding: gzip" https://shutonggui.cn/incubator/vcpp.html | grep -iE 'content-encoding|vary'
+curl -sk -o /dev/null -w '%{size_download}
+' -H "Accept-Encoding: gzip" https://shutonggui.cn/incubator/vcpp.html
+```
+
+想把 `vcpp.html.gz` 直接送（省下每次現壓的 CPU）時，加這段並重載 Apache：
+
+```apache
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP:Accept-Encoding} gzip
+  RewriteCond %{REQUEST_FILENAME}.gz -s
+  RewriteRule ^(.+.html)$ $1.gz [L]
+  <FilesMatch "\.html\.gz$">
+    ForceType text/html
+    Header set Content-Encoding gzip
+    Header append Vary Accept-Encoding
+    SetEnv no-gzip 1          # 關鍵：不然 mod_deflate 會再壓一次
+  </FilesMatch>
+</IfModule>
+```

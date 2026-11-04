@@ -29,6 +29,7 @@ const KEEP = new Set(['Y01']);
 const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8');
 const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
+const lossless = fs.readFileSync(path.join(ROOT, 'lossless.js'), 'utf8');
 const tour = fs.readFileSync(path.join(ROOT, 'tour.js'), 'utf8');
 const dataSrc = fs.readFileSync(path.join(ROOT, 'zhu-data.js'), 'utf8');
 const gunzip = fs.readFileSync(path.join(ROOT, 'build', 'gunzip.js'), 'utf8');
@@ -55,7 +56,7 @@ const b64 = gz.toString('base64');
 
 let out = html;
 out = out.replace('<link rel="stylesheet" href="style.css">', '<style>\n' + css + '\n</style>');
-out = out.replace(/<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/, '');
+out = out.replace(/<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/, '');
 out = out.replace('<title>金剛經合注 · zhu-combined</title>', '<title>金剛經合注 · vcpp</title>');
 
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
@@ -65,6 +66,7 @@ const boot = `
 <script>
 ${gunzip}
 function __startApp(){
+${lossless}
 ${appCode}
 ${tourCode}
 }

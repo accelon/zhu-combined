@@ -1,0 +1,31 @@
+{
+  "id": "jingang",
+  "title": "金剛經合注",
+  "subtitle": "十一譯對讀 · 41 家注疏 · 三套科判 · 梵藏逐詞",
+  "status": "incubating",
+  "owner": "zhu-combined",
+  "since": "2026-10",
+  "url": "/huixintang/vcpp.html",
+  "desc": "羅什主文配昭明三十二分，點一句即列歷代注疏；梵文以分詞呈現、與藏譯逐詞互亮。新版加上科判層：昭明／江味農／印順三套科文可切換，科文與經文雙向連動，科文另存、離文標註。",
+  "why": "科判層剛接上（江味農 349 節、印順 104 節），注疏也還在補；面板與標記都還會改。",
+  "meta": "純靜態單頁 · 2026-11-04 換科判版（舊版另附）",
+  "links": [
+    {
+      "label": "新版（科判）",
+      "href": "/incubator/vcpp.html"
+    },
+    {
+      "label": "舊版（無科判）",
+      "href": "/incubator/vcpp-nokepan.html"
+    },
+    {
+      "label": "操作導覽",
+      "href": "/huixintang/use.html"
+    },
+    {
+      "label": "學術洞見",
+      "href": "/huixintang/insight.html"
+    }
+  ],
+  "path": "/var/www/html/incubator"
+}

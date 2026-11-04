@@ -1,0 +1,9209 @@
+{
+ "work": "X491",
+ "author": "唐 宗密疏 宋 子璿記 清 大璸科會",
+ "title": "金剛經疏記科會",
+ "nodes": [
+  {
+   "id": 1,
+   "par": null,
+   "lv": 1,
+   "label": 1,
+   "name": "標題目",
+   "seg": 0,
+   "lastSeg": 0
+  },
+  {
+   "id": 4,
+   "par": 1,
+   "lv": 2,
+   "label": 1,
+   "name": "經疏名題",
+   "seg": 0,
+   "lastSeg": 0
+  },
+  {
+   "id": 5,
+   "par": 1,
+   "lv": 2,
+   "label": 2,
+   "name": "作者嘉號",
+   "seg": 0,
+   "lastSeg": 1
+  },
+  {
+   "id": 2,
+   "par": null,
+   "lv": 1,
+   "label": 2,
+   "name": "序宗旨",
+   "seg": 0,
+   "lastSeg": 2
+  },
+  {
+   "id": 6,
+   "par": 2,
+   "lv": 2,
+   "label": 1,
+   "name": "序讚經旨",
+   "seg": 2,
+   "lastSeg": 2
+  },
+  {
+   "id": 8,
+   "par": 6,
+   "lv": 3,
+   "label": 1,
+   "name": "通明起教之緣",
+   "seg": 2,
+   "lastSeg": 2
+  },
+  {
+   "id": 10,
+   "par": 8,
+   "lv": 4,
+   "label": 1,
+   "name": "明迷真起妄",
+   "seg": 2,
+   "lastSeg": 2
+  },
+  {
+   "id": 12,
+   "par": 10,
+   "lv": 5,
+   "label": 1,
+   "name": "真空",
+   "seg": 2,
+   "lastSeg": 2
+  },
+  {
+   "id": 13,
+   "par": 10,
+   "lv": 5,
+   "label": 2,
+   "name": "妄有",
+   "seg": 2
+  },
+  {
+   "id": 11,
+   "par": 8,
+   "lv": 4,
+   "label": 2,
+   "name": "明習妄流轉",
+   "seg": 2,
+   "lastSeg": 4
+  },
+  {
+   "id": 9,
+   "par": 6,
+   "lv": 3,
+   "label": 2,
+   "name": "別明說教之意",
+   "seg": 2,
+   "lastSeg": 5
+  },
+  {
+   "id": 14,
+   "par": 9,
+   "lv": 4,
+   "label": 1,
+   "name": "敘說阿含之意",
+   "seg": 5,
+   "lastSeg": 5
+  },
+  {
+   "id": 16,
+   "par": 14,
+   "lv": 5,
+   "label": 1,
+   "name": "正敘",
+   "seg": 5,
+   "lastSeg": 5
+  },
+  {
+   "id": 18,
+   "par": 16,
+   "lv": 6,
+   "label": 1,
+   "name": "現身",
+   "seg": 5,
+   "lastSeg": 5
+  },
+  {
+   "id": 19,
+   "par": 16,
+   "lv": 6,
+   "label": 2,
+   "name": "設教",
+   "seg": 5
+  },
+  {
+   "id": 17,
+   "par": 14,
+   "lv": 5,
+   "label": 2,
+   "name": "結判",
+   "seg": 5,
+   "lastSeg": 7
+  },
+  {
+   "id": 15,
+   "par": 9,
+   "lv": 4,
+   "label": 2,
+   "name": "敘說般若之意",
+   "seg": 5,
+   "lastSeg": 8
+  },
+  {
+   "id": 20,
+   "par": 15,
+   "lv": 5,
+   "label": 1,
+   "name": "總示大部",
+   "seg": 8,
+   "lastSeg": 8
+  },
+  {
+   "id": 22,
+   "par": 20,
+   "lv": 6,
+   "label": 1,
+   "name": "敘教釋意",
+   "seg": 8,
+   "lastSeg": 8
+  },
+  {
+   "id": 24,
+   "par": 22,
+   "lv": 7,
+   "label": 1,
+   "name": "敘教",
+   "seg": 8,
+   "lastSeg": 8
+  },
+  {
+   "id": 25,
+   "par": 22,
+   "lv": 7,
+   "label": 2,
+   "name": "釋意",
+   "seg": 8,
+   "lastSeg": 9
+  },
+  {
+   "id": 23,
+   "par": 20,
+   "lv": 6,
+   "label": 2,
+   "name": "顯瑞彰會",
+   "seg": 8,
+   "lastSeg": 10
+  },
+  {
+   "id": 26,
+   "par": 23,
+   "lv": 7,
+   "label": 1,
+   "name": "顯瑞",
+   "seg": 10,
+   "lastSeg": 10
+  },
+  {
+   "id": 27,
+   "par": 23,
+   "lv": 7,
+   "label": 2,
+   "name": "彰會",
+   "seg": 10,
+   "lastSeg": 11
+  },
+  {
+   "id": 21,
+   "par": 15,
+   "lv": 5,
+   "label": 2,
+   "name": "別示今經",
+   "seg": 8,
+   "lastSeg": 12
+  },
+  {
+   "id": 28,
+   "par": 21,
+   "lv": 6,
+   "label": 1,
+   "name": "略標指",
+   "seg": 12,
+   "lastSeg": 12
+  },
+  {
+   "id": 29,
+   "par": 21,
+   "lv": 6,
+   "label": 2,
+   "name": "廣序讚",
+   "seg": 12,
+   "lastSeg": 13
+  },
+  {
+   "id": 30,
+   "par": 29,
+   "lv": 7,
+   "label": 1,
+   "name": "序歎幽玄",
+   "seg": 13,
+   "lastSeg": 13
+  },
+  {
+   "id": 32,
+   "par": 30,
+   "lv": 8,
+   "label": 1,
+   "name": "具序一經詮旨",
+   "seg": 13,
+   "lastSeg": 13
+  },
+  {
+   "id": 34,
+   "par": 32,
+   "lv": 9,
+   "label": 1,
+   "name": "正敘",
+   "seg": 13,
+   "lastSeg": 13
+  },
+  {
+   "id": 37,
+   "par": 34,
+   "lv": 10,
+   "label": 1,
+   "name": "就本經以敘歎",
+   "seg": 13,
+   "lastSeg": 13
+  },
+  {
+   "id": 39,
+   "par": 37,
+   "lv": 11,
+   "label": 1,
+   "name": "敘詮旨以歎經",
+   "seg": 13,
+   "lastSeg": 13
+  },
+  {
+   "id": 40,
+   "par": 37,
+   "lv": 11,
+   "label": 2,
+   "name": "舉慧福以彰相",
+   "seg": 13,
+   "lastSeg": 14
+  },
+  {
+   "id": 38,
+   "par": 34,
+   "lv": 10,
+   "label": 2,
+   "name": "約二論以敘歎",
+   "seg": 13,
+   "lastSeg": 15
+  },
+  {
+   "id": 41,
+   "par": 38,
+   "lv": 11,
+   "label": 1,
+   "name": "約無著論顯位",
+   "seg": 15,
+   "lastSeg": 15
+  },
+  {
+   "id": 42,
+   "par": 38,
+   "lv": 11,
+   "label": 2,
+   "name": "約天親論斷疑",
+   "seg": 15,
+   "lastSeg": 16
+  },
+  {
+   "id": 35,
+   "par": 32,
+   "lv": 9,
+   "label": 2,
+   "name": "反顯",
+   "seg": 13,
+   "lastSeg": 17
+  },
+  {
+   "id": 36,
+   "par": 32,
+   "lv": 9,
+   "label": 3,
+   "name": "順結",
+   "seg": 13,
+   "lastSeg": 18
+  },
+  {
+   "id": 33,
+   "par": 30,
+   "lv": 8,
+   "label": 2,
+   "name": "結歎四法幽玄",
+   "seg": 13,
+   "lastSeg": 19
+  },
+  {
+   "id": 43,
+   "par": 33,
+   "lv": 9,
+   "label": 1,
+   "name": "正結歎",
+   "seg": 19,
+   "lastSeg": 19
+  },
+  {
+   "id": 44,
+   "par": 33,
+   "lv": 9,
+   "label": 2,
+   "name": "示難了",
+   "seg": 19,
+   "lastSeg": 20
+  },
+  {
+   "id": 45,
+   "par": 33,
+   "lv": 9,
+   "label": 3,
+   "name": "彰謬解",
+   "seg": 19,
+   "lastSeg": 21
+  },
+  {
+   "id": 46,
+   "par": 45,
+   "lv": 10,
+   "label": 1,
+   "name": "不符聖旨",
+   "seg": 21,
+   "lastSeg": 22
+  },
+  {
+   "id": 48,
+   "par": 46,
+   "lv": 11,
+   "label": 1,
+   "name": "乖宗",
+   "seg": 22,
+   "lastSeg": 23
+  },
+  {
+   "id": 50,
+   "par": 48,
+   "lv": 12,
+   "label": 1,
+   "name": "敘因",
+   "seg": 23,
+   "lastSeg": 23
+  },
+  {
+   "id": 51,
+   "par": 48,
+   "lv": 12,
+   "label": 2,
+   "name": "結過",
+   "seg": 23,
+   "lastSeg": 24
+  },
+  {
+   "id": 49,
+   "par": 46,
+   "lv": 11,
+   "label": 2,
+   "name": "迷派",
+   "seg": 22,
+   "lastSeg": 25
+  },
+  {
+   "id": 52,
+   "par": 49,
+   "lv": 12,
+   "label": 1,
+   "name": "敘因",
+   "seg": 25,
+   "lastSeg": 25
+  },
+  {
+   "id": 53,
+   "par": 49,
+   "lv": 12,
+   "label": 2,
+   "name": "結過",
+   "seg": 25,
+   "lastSeg": 26
+  },
+  {
+   "id": 47,
+   "par": 45,
+   "lv": 10,
+   "label": 2,
+   "name": "正是邪謬",
+   "seg": 21
+  },
+  {
+   "id": 31,
+   "par": 29,
+   "lv": 7,
+   "label": 2,
+   "name": "引文結顯",
+   "seg": 13,
+   "lastSeg": 28
+  },
+  {
+   "id": 7,
+   "par": 2,
+   "lv": 2,
+   "label": 2,
+   "name": "述造疏意",
+   "seg": 2,
+   "lastSeg": 29
+  },
+  {
+   "id": 54,
+   "par": 7,
+   "lv": 3,
+   "label": 1,
+   "name": "示疏論師承有據",
+   "seg": 29,
+   "lastSeg": 29
+  },
+  {
+   "id": 56,
+   "par": 54,
+   "lv": 4,
+   "label": 1,
+   "name": "示論師承斥他添削",
+   "seg": 29,
+   "lastSeg": 29
+  },
+  {
+   "id": 58,
+   "par": 56,
+   "lv": 5,
+   "label": 1,
+   "name": "示論可宗",
+   "seg": 29
+  },
+  {
+   "id": 59,
+   "par": 56,
+   "lv": 5,
+   "label": 2,
+   "name": "斥其違論",
+   "seg": 29,
+   "lastSeg": 30
+  },
+  {
+   "id": 57,
+   "par": 54,
+   "lv": 4,
+   "label": 2,
+   "name": "示今述解不攻異端",
+   "seg": 29,
+   "lastSeg": 31
+  },
+  {
+   "id": 60,
+   "par": 57,
+   "lv": 5,
+   "label": 1,
+   "name": "對非顯是",
+   "seg": 31,
+   "lastSeg": 31
+  },
+  {
+   "id": 61,
+   "par": 57,
+   "lv": 5,
+   "label": 2,
+   "name": "出其因由",
+   "seg": 31
+  },
+  {
+   "id": 55,
+   "par": 7,
+   "lv": 3,
+   "label": 2,
+   "name": "示名題義意在下",
+   "seg": 29,
+   "lastSeg": 33
+  },
+  {
+   "id": 3,
+   "par": null,
+   "lv": 1,
+   "label": 3,
+   "name": "解本文",
+   "seg": 0,
+   "lastSeg": 34
+  },
+  {
+   "id": 62,
+   "par": 3,
+   "lv": 2,
+   "label": 1,
+   "name": "偈文歸請",
+   "seg": 34,
+   "lastSeg": 34
+  },
+  {
+   "id": 64,
+   "par": 62,
+   "lv": 3,
+   "label": 1,
+   "name": "歸敬三寶",
+   "seg": 34,
+   "lastSeg": 35
+  },
+  {
+   "id": 66,
+   "par": 64,
+   "lv": 4,
+   "label": 1,
+   "name": "能歸至誠",
+   "seg": 35,
+   "lastSeg": 35
+  },
+  {
+   "id": 67,
+   "par": 64,
+   "lv": 4,
+   "label": 2,
+   "name": "正舉三寶",
+   "seg": 35,
+   "lastSeg": 36
+  },
+  {
+   "id": 68,
+   "par": 67,
+   "lv": 5,
+   "label": 1,
+   "name": "佛寶",
+   "seg": 36,
+   "lastSeg": 37
+  },
+  {
+   "id": 69,
+   "par": 67,
+   "lv": 5,
+   "label": 2,
+   "name": "法寶",
+   "seg": 36,
+   "lastSeg": 38
+  },
+  {
+   "id": 70,
+   "par": 67,
+   "lv": 5,
+   "label": 3,
+   "name": "僧寶",
+   "seg": 36,
+   "lastSeg": 39
+  },
+  {
+   "id": 65,
+   "par": 62,
+   "lv": 3,
+   "label": 2,
+   "name": "祈願利生",
+   "seg": 34
+  },
+  {
+   "id": 63,
+   "par": 3,
+   "lv": 2,
+   "label": 2,
+   "name": "開章正釋",
+   "seg": 34,
+   "lastSeg": 41
+  },
+  {
+   "id": 71,
+   "par": 63,
+   "lv": 3,
+   "label": 1,
+   "name": "標列章門",
+   "seg": 41,
+   "lastSeg": 41
+  },
+  {
+   "id": 72,
+   "par": 63,
+   "lv": 3,
+   "label": 2,
+   "name": "依章正釋",
+   "seg": 41,
+   "lastSeg": 42
+  },
+  {
+   "id": 73,
+   "par": 72,
+   "lv": 4,
+   "label": 1,
+   "name": "辨教起因緣",
+   "seg": 42,
+   "lastSeg": 42
+  },
+  {
+   "id": 77,
+   "par": 73,
+   "lv": 5,
+   "label": 1,
+   "name": "總論諸教",
+   "seg": 42,
+   "lastSeg": 42
+  },
+  {
+   "id": 79,
+   "par": 77,
+   "lv": 6,
+   "label": 1,
+   "name": "通赴機緣",
+   "seg": 42,
+   "lastSeg": 42
+  },
+  {
+   "id": 80,
+   "par": 77,
+   "lv": 6,
+   "label": 2,
+   "name": "克就佛意",
+   "seg": 42
+  },
+  {
+   "id": 78,
+   "par": 73,
+   "lv": 5,
+   "label": 2,
+   "name": "別顯此經",
+   "seg": 42,
+   "lastSeg": 44
+  },
+  {
+   "id": 81,
+   "par": 78,
+   "lv": 6,
+   "label": 1,
+   "name": "總標",
+   "seg": 44,
+   "lastSeg": 44
+  },
+  {
+   "id": 82,
+   "par": 78,
+   "lv": 6,
+   "label": 2,
+   "name": "別列",
+   "seg": 44,
+   "lastSeg": 45
+  },
+  {
+   "id": 83,
+   "par": 82,
+   "lv": 7,
+   "label": 1,
+   "name": "對治我、法二執",
+   "seg": 45
+  },
+  {
+   "id": 84,
+   "par": 82,
+   "lv": 7,
+   "label": 2,
+   "name": "遮斷種、現二疑",
+   "seg": 45,
+   "lastSeg": 50
+  },
+  {
+   "id": 94,
+   "par": 84,
+   "lv": 8,
+   "label": 1,
+   "name": "標",
+   "seg": 50,
+   "lastSeg": 50
+  },
+  {
+   "id": 95,
+   "par": 84,
+   "lv": 8,
+   "label": 2,
+   "name": "釋",
+   "seg": 50,
+   "lastSeg": 51
+  },
+  {
+   "id": 96,
+   "par": 95,
+   "lv": 9,
+   "label": 1,
+   "name": "正釋",
+   "seg": 51,
+   "lastSeg": 51
+  },
+  {
+   "id": 97,
+   "par": 95,
+   "lv": 9,
+   "label": 2,
+   "name": "指經",
+   "seg": 51,
+   "lastSeg": 52
+  },
+  {
+   "id": 85,
+   "par": 82,
+   "lv": 7,
+   "label": 3,
+   "name": "轉滅輕、重二業",
+   "seg": 45,
+   "lastSeg": 53
+  },
+  {
+   "id": 98,
+   "par": 85,
+   "lv": 8,
+   "label": 1,
+   "name": "標",
+   "seg": 53,
+   "lastSeg": 53
+  },
+  {
+   "id": 99,
+   "par": 85,
+   "lv": 8,
+   "label": 2,
+   "name": "釋",
+   "seg": 53,
+   "lastSeg": 54
+  },
+  {
+   "id": 86,
+   "par": 82,
+   "lv": 7,
+   "label": 4,
+   "name": "顯示福、慧二因",
+   "seg": 45,
+   "lastSeg": 55
+  },
+  {
+   "id": 100,
+   "par": 86,
+   "lv": 8,
+   "label": 1,
+   "name": "標",
+   "seg": 55,
+   "lastSeg": 55
+  },
+  {
+   "id": 101,
+   "par": 86,
+   "lv": 8,
+   "label": 2,
+   "name": "釋",
+   "seg": 55,
+   "lastSeg": 56
+  },
+  {
+   "id": 103,
+   "par": 101,
+   "lv": 9,
+   "label": 1,
+   "name": "未說失為凡小",
+   "seg": 56,
+   "lastSeg": 56
+  },
+  {
+   "id": 104,
+   "par": 101,
+   "lv": 9,
+   "label": 2,
+   "name": "已說得為佛因",
+   "seg": 56,
+   "lastSeg": 57
+  },
+  {
+   "id": 105,
+   "par": 104,
+   "lv": 10,
+   "label": 1,
+   "name": "順釋",
+   "seg": 57,
+   "lastSeg": 57
+  },
+  {
+   "id": 106,
+   "par": 104,
+   "lv": 10,
+   "label": 2,
+   "name": "反顯",
+   "seg": 57,
+   "lastSeg": 58
+  },
+  {
+   "id": 102,
+   "par": 86,
+   "lv": 8,
+   "label": 3,
+   "name": "結",
+   "seg": 55,
+   "lastSeg": 59
+  },
+  {
+   "id": 87,
+   "par": 82,
+   "lv": 7,
+   "label": 5,
+   "name": "發明真",
+   "seg": 45
+  },
+  {
+   "id": 88,
+   "par": 82,
+   "lv": 7,
+   "label": 2.1,
+   "name": "釋",
+   "seg": 46,
+   "lastSeg": 46
+  },
+  {
+   "id": 89,
+   "par": 88,
+   "lv": 8,
+   "label": 1,
+   "name": "總標由執起障",
+   "seg": 46,
+   "lastSeg": 46
+  },
+  {
+   "id": 90,
+   "par": 88,
+   "lv": 8,
+   "label": 2,
+   "name": "別示二障過患",
+   "seg": 46,
+   "lastSeg": 47
+  },
+  {
+   "id": 91,
+   "par": 90,
+   "lv": 9,
+   "label": 1,
+   "name": "煩惱障",
+   "seg": 47,
+   "lastSeg": 47
+  },
+  {
+   "id": 92,
+   "par": 90,
+   "lv": 9,
+   "label": 2,
+   "name": "所知障",
+   "seg": 47
+  },
+  {
+   "id": 93,
+   "par": 90,
+   "lv": 9,
+   "label": 3,
+   "name": "結",
+   "seg": 49,
+   "lastSeg": 49
+  },
+  {
+   "id": 74,
+   "par": 72,
+   "lv": 4,
+   "label": 2,
+   "name": "明經宗體",
+   "seg": 42,
+   "lastSeg": 63
+  },
+  {
+   "id": 111,
+   "par": 74,
+   "lv": 5,
+   "label": 1,
+   "name": "總標別開",
+   "seg": 63,
+   "lastSeg": 63
+  },
+  {
+   "id": 112,
+   "par": 74,
+   "lv": 5,
+   "label": 2,
+   "name": "依開別釋",
+   "seg": 63,
+   "lastSeg": 64
+  },
+  {
+   "id": 113,
+   "par": 112,
+   "lv": 6,
+   "label": 1,
+   "name": "明經宗",
+   "seg": 64,
+   "lastSeg": 64
+  },
+  {
+   "id": 115,
+   "par": 113,
+   "lv": 7,
+   "label": 1,
+   "name": "標",
+   "seg": 64,
+   "lastSeg": 64
+  },
+  {
+   "id": 116,
+   "par": 113,
+   "lv": 7,
+   "label": 2,
+   "name": "釋",
+   "seg": 64,
+   "lastSeg": 65
+  },
+  {
+   "id": 117,
+   "par": 116,
+   "lv": 8,
+   "label": 1,
+   "name": "統明諸教",
+   "seg": 65,
+   "lastSeg": 65
+  },
+  {
+   "id": 118,
+   "par": 116,
+   "lv": 8,
+   "label": 2,
+   "name": "別顯今經",
+   "seg": 65,
+   "lastSeg": 66
+  },
+  {
+   "id": 119,
+   "par": 118,
+   "lv": 9,
+   "label": 1,
+   "name": "約法正立",
+   "seg": 66,
+   "lastSeg": 67
+  },
+  {
+   "id": 120,
+   "par": 118,
+   "lv": 9,
+   "label": 2,
+   "name": "約喻釋成",
+   "seg": 66,
+   "lastSeg": 68
+  },
+  {
+   "id": 121,
+   "par": 118,
+   "lv": 9,
+   "label": 3,
+   "name": "約行結顯",
+   "seg": 66,
+   "lastSeg": 69
+  },
+  {
+   "id": 114,
+   "par": 112,
+   "lv": 6,
+   "label": 2,
+   "name": "明經體",
+   "seg": 64,
+   "lastSeg": 70
+  },
+  {
+   "id": 122,
+   "par": 114,
+   "lv": 7,
+   "label": 1,
+   "name": "標",
+   "seg": 70,
+   "lastSeg": 70
+  },
+  {
+   "id": 123,
+   "par": 114,
+   "lv": 7,
+   "label": 2,
+   "name": "釋",
+   "seg": 70,
+   "lastSeg": 71
+  },
+  {
+   "id": 124,
+   "par": 123,
+   "lv": 8,
+   "label": 1,
+   "name": "標立",
+   "seg": 71,
+   "lastSeg": 71
+  },
+  {
+   "id": 125,
+   "par": 123,
+   "lv": 8,
+   "label": 2,
+   "name": "正釋",
+   "seg": 71,
+   "lastSeg": 72
+  },
+  {
+   "id": 127,
+   "par": 125,
+   "lv": 9,
+   "label": 1,
+   "name": "明具四法",
+   "seg": 72,
+   "lastSeg": 72
+  },
+  {
+   "id": 128,
+   "par": 125,
+   "lv": 9,
+   "label": 2,
+   "name": "明攝所詮理",
+   "seg": 72,
+   "lastSeg": 73
+  },
+  {
+   "id": 126,
+   "par": 123,
+   "lv": 8,
+   "label": 3,
+   "name": "總結",
+   "seg": 71,
+   "lastSeg": 74
+  },
+  {
+   "id": 75,
+   "par": 72,
+   "lv": 4,
+   "label": 3,
+   "name": "分別處會",
+   "seg": 42,
+   "lastSeg": 75
+  },
+  {
+   "id": 129,
+   "par": 75,
+   "lv": 5,
+   "label": 1,
+   "name": "總標別開",
+   "seg": 75,
+   "lastSeg": 75
+  },
+  {
+   "id": 130,
+   "par": 75,
+   "lv": 5,
+   "label": 2,
+   "name": "依開別釋",
+   "seg": 75,
+   "lastSeg": 76
+  },
+  {
+   "id": 131,
+   "par": 130,
+   "lv": 6,
+   "label": 1,
+   "name": "總明佛說大部處會",
+   "seg": 76,
+   "lastSeg": 76
+  },
+  {
+   "id": 133,
+   "par": 131,
+   "lv": 7,
+   "label": 1,
+   "name": "標",
+   "seg": 76,
+   "lastSeg": 76
+  },
+  {
+   "id": 134,
+   "par": 131,
+   "lv": 7,
+   "label": 2,
+   "name": "釋",
+   "seg": 76,
+   "lastSeg": 77
+  },
+  {
+   "id": 135,
+   "par": 134,
+   "lv": 8,
+   "label": 1,
+   "name": "總示大部",
+   "seg": 77,
+   "lastSeg": 78
+  },
+  {
+   "id": 137,
+   "par": 135,
+   "lv": 9,
+   "label": 1,
+   "name": "總標",
+   "seg": 78,
+   "lastSeg": 78
+  },
+  {
+   "id": 138,
+   "par": 135,
+   "lv": 9,
+   "label": 2,
+   "name": "別列",
+   "seg": 78,
+   "lastSeg": 79
+  },
+  {
+   "id": 136,
+   "par": 134,
+   "lv": 8,
+   "label": 2,
+   "name": "別顯此經",
+   "seg": 77,
+   "lastSeg": 80
+  },
+  {
+   "id": 132,
+   "par": 130,
+   "lv": 6,
+   "label": 2,
+   "name": "別明傳譯此卷時主",
+   "seg": 76,
+   "lastSeg": 81
+  },
+  {
+   "id": 139,
+   "par": 132,
+   "lv": 7,
+   "label": 1,
+   "name": "標",
+   "seg": 81,
+   "lastSeg": 81
+  },
+  {
+   "id": 140,
+   "par": 132,
+   "lv": 7,
+   "label": 2,
+   "name": "釋",
+   "seg": 81,
+   "lastSeg": 82
+  },
+  {
+   "id": 141,
+   "par": 140,
+   "lv": 8,
+   "label": 1,
+   "name": "正明東土翻譯前後",
+   "seg": 82,
+   "lastSeg": 82
+  },
+  {
+   "id": 144,
+   "par": 141,
+   "lv": 9,
+   "label": 1,
+   "name": "通辯諸譯",
+   "seg": 82,
+   "lastSeg": 83
+  },
+  {
+   "id": 146,
+   "par": 144,
+   "lv": 10,
+   "label": 1,
+   "name": "總標",
+   "seg": 83,
+   "lastSeg": 83
+  },
+  {
+   "id": 147,
+   "par": 144,
+   "lv": 10,
+   "label": 2,
+   "name": "別列",
+   "seg": 83,
+   "lastSeg": 84
+  },
+  {
+   "id": 148,
+   "par": 147,
+   "lv": 11,
+   "label": 1,
+   "name": "列別名",
+   "seg": 84,
+   "lastSeg": 84
+  },
+  {
+   "id": 149,
+   "par": 147,
+   "lv": 11,
+   "label": 2,
+   "name": "顯通號",
+   "seg": 84,
+   "lastSeg": 85
+  },
+  {
+   "id": 145,
+   "par": 141,
+   "lv": 9,
+   "label": 2,
+   "name": "克示所傳",
+   "seg": 82,
+   "lastSeg": 86
+  },
+  {
+   "id": 142,
+   "par": 140,
+   "lv": 8,
+   "label": 2,
+   "name": "因辨西方解釋異同",
+   "seg": 82,
+   "lastSeg": 87
+  },
+  {
+   "id": 150,
+   "par": 142,
+   "lv": 9,
+   "label": 1,
+   "name": "明偈受授",
+   "seg": 87,
+   "lastSeg": 87
+  },
+  {
+   "id": 152,
+   "par": 150,
+   "lv": 10,
+   "label": 1,
+   "name": "稟受彌勒",
+   "seg": 87,
+   "lastSeg": 87
+  },
+  {
+   "id": 153,
+   "par": 150,
+   "lv": 10,
+   "label": 2,
+   "name": "轉授天親",
+   "seg": 87,
+   "lastSeg": 88
+  },
+  {
+   "id": 151,
+   "par": 142,
+   "lv": 9,
+   "label": 2,
+   "name": "明論異同",
+   "seg": 87,
+   "lastSeg": 89
+  },
+  {
+   "id": 154,
+   "par": 151,
+   "lv": 10,
+   "label": 1,
+   "name": "天親斷疑執",
+   "seg": 89,
+   "lastSeg": 89
+  },
+  {
+   "id": 155,
+   "par": 151,
+   "lv": 10,
+   "label": 2,
+   "name": "無著顯行位",
+   "seg": 89,
+   "lastSeg": 90
+  },
+  {
+   "id": 143,
+   "par": 140,
+   "lv": 8,
+   "label": 3,
+   "name": "示今科判依據差別",
+   "seg": 82,
+   "lastSeg": 91
+  },
+  {
+   "id": 156,
+   "par": 143,
+   "lv": 9,
+   "label": 1,
+   "name": "正明科釋所依",
+   "seg": 91,
+   "lastSeg": 91
+  },
+  {
+   "id": 158,
+   "par": 156,
+   "lv": 10,
+   "label": 1,
+   "name": "天親、無著",
+   "seg": 91,
+   "lastSeg": 91
+  },
+  {
+   "id": 159,
+   "par": 156,
+   "lv": 10,
+   "label": 2,
+   "name": "餘論諸疏",
+   "seg": 91,
+   "lastSeg": 92
+  },
+  {
+   "id": 157,
+   "par": 143,
+   "lv": 9,
+   "label": 2,
+   "name": "結成立題所以",
+   "seg": 91,
+   "lastSeg": 93
+  },
+  {
+   "id": 76,
+   "par": 72,
+   "lv": 4,
+   "label": 4,
+   "name": "釋通文義",
+   "seg": 42,
+   "lastSeg": 94
+  },
+  {
+   "id": 160,
+   "par": 76,
+   "lv": 5,
+   "label": 1,
+   "name": "解題目",
+   "seg": 94,
+   "lastSeg": 94
+  },
+  {
+   "id": 162,
+   "par": 160,
+   "lv": 6,
+   "label": 1,
+   "name": "科經",
+   "seg": 94,
+   "lastSeg": 94
+  },
+  {
+   "id": 163,
+   "par": 160,
+   "lv": 6,
+   "label": 2,
+   "name": "釋義",
+   "seg": 94,
+   "lastSeg": 95
+  },
+  {
+   "id": 164,
+   "par": 163,
+   "lv": 7,
+   "label": 1,
+   "name": "釋所詮",
+   "seg": 95,
+   "lastSeg": 95
+  },
+  {
+   "id": 166,
+   "par": 164,
+   "lv": 8,
+   "label": 1,
+   "name": "釋金剛",
+   "seg": 95,
+   "lastSeg": 95
+  },
+  {
+   "id": 169,
+   "par": 166,
+   "lv": 9,
+   "label": 1,
+   "name": "翻名示相",
+   "seg": 95,
+   "lastSeg": 95
+  },
+  {
+   "id": 170,
+   "par": 166,
+   "lv": 9,
+   "label": 2,
+   "name": "約法辨義",
+   "seg": 95,
+   "lastSeg": 96
+  },
+  {
+   "id": 171,
+   "par": 170,
+   "lv": 10,
+   "label": 1,
+   "name": "引經論總彰二義",
+   "seg": 96,
+   "lastSeg": 96
+  },
+  {
+   "id": 173,
+   "par": 171,
+   "lv": 11,
+   "label": 1,
+   "name": "總標略辨",
+   "seg": 96,
+   "lastSeg": 96
+  },
+  {
+   "id": 174,
+   "par": 171,
+   "lv": 11,
+   "label": 2,
+   "name": "引教委釋",
+   "seg": 96,
+   "lastSeg": 97
+  },
+  {
+   "id": 176,
+   "par": 174,
+   "lv": 12,
+   "label": 1,
+   "name": "引經",
+   "seg": 97,
+   "lastSeg": 97
+  },
+  {
+   "id": 177,
+   "par": 174,
+   "lv": 12,
+   "label": 2,
+   "name": "引論",
+   "seg": 97,
+   "lastSeg": 98
+  },
+  {
+   "id": 175,
+   "par": 171,
+   "lv": 11,
+   "label": 3,
+   "name": "結顯喻旨",
+   "seg": 96,
+   "lastSeg": 99
+  },
+  {
+   "id": 172,
+   "par": 170,
+   "lv": 10,
+   "label": 2,
+   "name": "引真諦別示六種",
+   "seg": 96,
+   "lastSeg": 100
+  },
+  {
+   "id": 178,
+   "par": 172,
+   "lv": 11,
+   "label": 1,
+   "name": "正明六種",
+   "seg": 100,
+   "lastSeg": 100
+  },
+  {
+   "id": 180,
+   "par": 178,
+   "lv": 12,
+   "label": 1,
+   "name": "總標",
+   "seg": 100,
+   "lastSeg": 100
+  },
+  {
+   "id": 181,
+   "par": 178,
+   "lv": 12,
+   "label": 2,
+   "name": "別列",
+   "seg": 100,
+   "lastSeg": 101
+  },
+  {
+   "id": 182,
+   "par": 181,
+   "lv": 13,
+   "label": 1,
+   "name": "青色",
+   "seg": 101,
+   "lastSeg": 101
+  },
+  {
+   "id": 183,
+   "par": 181,
+   "lv": 13,
+   "label": 2,
+   "name": "黃色",
+   "seg": 101,
+   "lastSeg": 102
+  },
+  {
+   "id": 184,
+   "par": 181,
+   "lv": 13,
+   "label": 3,
+   "name": "赤色",
+   "seg": 101
+  },
+  {
+   "id": 185,
+   "par": 181,
+   "lv": 13,
+   "label": 4,
+   "name": "白色",
+   "seg": 101
+  },
+  {
+   "id": 186,
+   "par": 181,
+   "lv": 13,
+   "label": 5,
+   "name": "空色",
+   "seg": 101
+  },
+  {
+   "id": 187,
+   "par": 181,
+   "lv": 13,
+   "label": 6,
+   "name": "碧色",
+   "seg": 101
+  },
+  {
+   "id": 179,
+   "par": 172,
+   "lv": 11,
+   "label": 2,
+   "name": "結示傍正",
+   "seg": 100,
+   "lastSeg": 107
+  },
+  {
+   "id": 167,
+   "par": 164,
+   "lv": 8,
+   "label": 2,
+   "name": "釋般若",
+   "seg": 95,
+   "lastSeg": 108
+  },
+  {
+   "id": 188,
+   "par": 167,
+   "lv": 9,
+   "label": 1,
+   "name": "翻名略指",
+   "seg": 108,
+   "lastSeg": 108
+  },
+  {
+   "id": 190,
+   "par": 188,
+   "lv": 10,
+   "label": 1,
+   "name": "翻名",
+   "seg": 108,
+   "lastSeg": 108
+  },
+  {
+   "id": 191,
+   "par": 188,
+   "lv": 10,
+   "label": 2,
+   "name": "指體",
+   "seg": 108,
+   "lastSeg": 109
+  },
+  {
+   "id": 189,
+   "par": 167,
+   "lv": 9,
+   "label": 2,
+   "name": "引教廣辯",
+   "seg": 108,
+   "lastSeg": 110
+  },
+  {
+   "id": 192,
+   "par": 189,
+   "lv": 10,
+   "label": 1,
+   "name": "引論別相釋",
+   "seg": 110,
+   "lastSeg": 110
+  },
+  {
+   "id": 194,
+   "par": 192,
+   "lv": 11,
+   "label": 1,
+   "name": "明總攝三慧",
+   "seg": 110,
+   "lastSeg": 110
+  },
+  {
+   "id": 195,
+   "par": 192,
+   "lv": 11,
+   "label": 2,
+   "name": "引論文釋成",
+   "seg": 110,
+   "lastSeg": 111
+  },
+  {
+   "id": 196,
+   "par": 195,
+   "lv": 12,
+   "label": 1,
+   "name": "正釋成",
+   "seg": 111,
+   "lastSeg": 111
+  },
+  {
+   "id": 197,
+   "par": 195,
+   "lv": 12,
+   "label": 2,
+   "name": "配因果",
+   "seg": 111,
+   "lastSeg": 112
+  },
+  {
+   "id": 198,
+   "par": 197,
+   "lv": 13,
+   "label": 1,
+   "name": "雙引論",
+   "seg": 112,
+   "lastSeg": 112
+  },
+  {
+   "id": 200,
+   "par": 198,
+   "lv": 14,
+   "label": 1,
+   "name": "引無著",
+   "seg": 112,
+   "lastSeg": 315
+  },
+  {
+   "id": 201,
+   "par": 198,
+   "lv": 14,
+   "label": 2,
+   "name": "引智度",
+   "seg": 112
+  },
+  {
+   "id": 199,
+   "par": 197,
+   "lv": 13,
+   "label": 2,
+   "name": "雙解釋",
+   "seg": 112,
+   "lastSeg": 114
+  },
+  {
+   "id": 202,
+   "par": 199,
+   "lv": 14,
+   "label": 1,
+   "name": "正解釋",
+   "seg": 114,
+   "lastSeg": 114
+  },
+  {
+   "id": 203,
+   "par": 199,
+   "lv": 14,
+   "label": 2,
+   "name": "出所以",
+   "seg": 114
+  },
+  {
+   "id": 193,
+   "par": 189,
+   "lv": 10,
+   "label": 2,
+   "name": "引經通相辯",
+   "seg": 110,
+   "lastSeg": 116
+  },
+  {
+   "id": 204,
+   "par": 193,
+   "lv": 11,
+   "label": 1,
+   "name": "引經",
+   "seg": 116,
+   "lastSeg": 116
+  },
+  {
+   "id": 205,
+   "par": 193,
+   "lv": 11,
+   "label": 2,
+   "name": "辯體",
+   "seg": 116,
+   "lastSeg": 117
+  },
+  {
+   "id": 168,
+   "par": 164,
+   "lv": 8,
+   "label": 3,
+   "name": "釋波羅蜜",
+   "seg": 95,
+   "lastSeg": 118
+  },
+  {
+   "id": 206,
+   "par": 168,
+   "lv": 9,
+   "label": 1,
+   "name": "約語對翻",
+   "seg": 118,
+   "lastSeg": 118
+  },
+  {
+   "id": 207,
+   "par": 168,
+   "lv": 9,
+   "label": 2,
+   "name": "約義順釋",
+   "seg": 118,
+   "lastSeg": 119
+  },
+  {
+   "id": 209,
+   "par": 207,
+   "lv": 10,
+   "label": 1,
+   "name": "釋義",
+   "seg": 119,
+   "lastSeg": 119
+  },
+  {
+   "id": 211,
+   "par": 209,
+   "lv": 11,
+   "label": 1,
+   "name": "正釋到離義",
+   "seg": 119,
+   "lastSeg": 119
+  },
+  {
+   "id": 212,
+   "par": 209,
+   "lv": 11,
+   "label": 2,
+   "name": "因明彼岸義",
+   "seg": 119,
+   "lastSeg": 120
+  },
+  {
+   "id": 210,
+   "par": 207,
+   "lv": 10,
+   "label": 2,
+   "name": "通難",
+   "seg": 119,
+   "lastSeg": 121
+  },
+  {
+   "id": 213,
+   "par": 210,
+   "lv": 11,
+   "label": 1,
+   "name": "引經作難",
+   "seg": 121,
+   "lastSeg": 121
+  },
+  {
+   "id": 214,
+   "par": 210,
+   "lv": 11,
+   "label": 2,
+   "name": "據義釋通",
+   "seg": 121,
+   "lastSeg": 122
+  },
+  {
+   "id": 208,
+   "par": 168,
+   "lv": 9,
+   "label": 3,
+   "name": "順義通結",
+   "seg": 118,
+   "lastSeg": 123
+  },
+  {
+   "id": 165,
+   "par": 163,
+   "lv": 7,
+   "label": 2,
+   "name": "釋能詮",
+   "seg": 95,
+   "lastSeg": 124
+  },
+  {
+   "id": 215,
+   "par": 165,
+   "lv": 8,
+   "label": 1,
+   "name": "翻名",
+   "seg": 124,
+   "lastSeg": 124
+  },
+  {
+   "id": 216,
+   "par": 165,
+   "lv": 8,
+   "label": 2,
+   "name": "釋義",
+   "seg": 124,
+   "lastSeg": 125
+  },
+  {
+   "id": 217,
+   "par": 216,
+   "lv": 9,
+   "label": 1,
+   "name": "釋契字",
+   "seg": 125,
+   "lastSeg": 125
+  },
+  {
+   "id": 218,
+   "par": 216,
+   "lv": 9,
+   "label": 2,
+   "name": "釋經字",
+   "seg": 125,
+   "lastSeg": 126
+  },
+  {
+   "id": 161,
+   "par": 76,
+   "lv": 5,
+   "label": 2,
+   "name": "釋經文",
+   "seg": 94,
+   "lastSeg": 127
+  },
+  {
+   "id": 219,
+   "par": 161,
+   "lv": 6,
+   "label": 1,
+   "name": "科分",
+   "seg": 127,
+   "lastSeg": 127
+  },
+  {
+   "id": 220,
+   "par": 161,
+   "lv": 6,
+   "label": 2,
+   "name": "隨釋",
+   "seg": 127,
+   "lastSeg": 128
+  },
+  {
+   "id": 221,
+   "par": 220,
+   "lv": 7,
+   "label": 1,
+   "name": "序分",
+   "seg": 128,
+   "lastSeg": 128
+  },
+  {
+   "id": 224,
+   "par": 221,
+   "lv": 8,
+   "label": 1,
+   "name": "證信序",
+   "seg": 128,
+   "lastSeg": 129
+  },
+  {
+   "id": 226,
+   "par": 224,
+   "lv": 9,
+   "label": 1,
+   "name": "明建立之因",
+   "seg": 129
+  },
+  {
+   "id": 227,
+   "par": 224,
+   "lv": 9,
+   "label": 2,
+   "name": "明建立之意",
+   "seg": 129
+  },
+  {
+   "id": 228,
+   "par": 224,
+   "lv": 9,
+   "label": 3,
+   "name": "正釋文義",
+   "seg": 129,
+   "lastSeg": 131
+  },
+  {
+   "id": 229,
+   "par": 228,
+   "lv": 10,
+   "label": 1,
+   "name": "標列述意",
+   "seg": 131,
+   "lastSeg": 131
+  },
+  {
+   "id": 230,
+   "par": 228,
+   "lv": 10,
+   "label": 2,
+   "name": "依科解釋",
+   "seg": 131,
+   "lastSeg": 132
+  },
+  {
+   "id": 231,
+   "par": 230,
+   "lv": 11,
+   "label": 1,
+   "name": "信成就",
+   "seg": 132,
+   "lastSeg": 132
+  },
+  {
+   "id": 237,
+   "par": 231,
+   "lv": 12,
+   "label": 1,
+   "name": "合釋",
+   "seg": 132,
+   "lastSeg": 132
+  },
+  {
+   "id": 238,
+   "par": 231,
+   "lv": 12,
+   "label": 2,
+   "name": "單釋",
+   "seg": 132,
+   "lastSeg": 133
+  },
+  {
+   "id": 239,
+   "par": 238,
+   "lv": 13,
+   "label": 1,
+   "name": "引智度論",
+   "seg": 133,
+   "lastSeg": 133
+  },
+  {
+   "id": 242,
+   "par": 239,
+   "lv": 14,
+   "label": 1,
+   "name": "標",
+   "seg": 133,
+   "lastSeg": 133
+  },
+  {
+   "id": 243,
+   "par": 239,
+   "lv": 14,
+   "label": 2,
+   "name": "釋",
+   "seg": 133,
+   "lastSeg": 134
+  },
+  {
+   "id": 244,
+   "par": 243,
+   "lv": 15,
+   "label": 1,
+   "name": "答問",
+   "seg": 134,
+   "lastSeg": 134
+  },
+  {
+   "id": 245,
+   "par": 243,
+   "lv": 15,
+   "label": 2,
+   "name": "正顯",
+   "seg": 134,
+   "lastSeg": 135
+  },
+  {
+   "id": 240,
+   "par": 238,
+   "lv": 13,
+   "label": 2,
+   "name": "引劉虯注",
+   "seg": 133,
+   "lastSeg": 136
+  },
+  {
+   "id": 241,
+   "par": 238,
+   "lv": 13,
+   "label": 3,
+   "name": "引梁武帝解",
+   "seg": 133,
+   "lastSeg": 137
+  },
+  {
+   "id": 246,
+   "par": 241,
+   "lv": 14,
+   "label": 1,
+   "name": "雙融顯如",
+   "seg": 137,
+   "lastSeg": 137
+  },
+  {
+   "id": 247,
+   "par": 241,
+   "lv": 14,
+   "label": 2,
+   "name": "雙遮顯是",
+   "seg": 137,
+   "lastSeg": 138
+  },
+  {
+   "id": 232,
+   "par": 230,
+   "lv": 11,
+   "label": 2,
+   "name": "聞成就",
+   "seg": 132,
+   "lastSeg": 139
+  },
+  {
+   "id": 248,
+   "par": 232,
+   "lv": 12,
+   "label": 1,
+   "name": "正釋我聞之義",
+   "seg": 139,
+   "lastSeg": 139
+  },
+  {
+   "id": 250,
+   "par": 248,
+   "lv": 13,
+   "label": 1,
+   "name": "正釋",
+   "seg": 139,
+   "lastSeg": 139
+  },
+  {
+   "id": 251,
+   "par": 248,
+   "lv": 13,
+   "label": 2,
+   "name": "通難",
+   "seg": 139,
+   "lastSeg": 140
+  },
+  {
+   "id": 249,
+   "par": 232,
+   "lv": 12,
+   "label": 2,
+   "name": "商較所聞之法",
+   "seg": 139,
+   "lastSeg": 141
+  },
+  {
+   "id": 252,
+   "par": 249,
+   "lv": 13,
+   "label": 1,
+   "name": "牒難辭",
+   "seg": 141,
+   "lastSeg": 141
+  },
+  {
+   "id": 253,
+   "par": 249,
+   "lv": 13,
+   "label": 2,
+   "name": "通釋",
+   "seg": 141,
+   "lastSeg": 142
+  },
+  {
+   "id": 254,
+   "par": 253,
+   "lv": 14,
+   "label": 1,
+   "name": "姑約佛力",
+   "seg": 142
+  },
+  {
+   "id": 255,
+   "par": 253,
+   "lv": 14,
+   "label": 2,
+   "name": "姑約自力",
+   "seg": 142,
+   "lastSeg": 143
+  },
+  {
+   "id": 256,
+   "par": 253,
+   "lv": 14,
+   "label": 3,
+   "name": "直推其本",
+   "seg": 142,
+   "lastSeg": 142
+  },
+  {
+   "id": 233,
+   "par": 230,
+   "lv": 11,
+   "label": 3,
+   "name": "時成就",
+   "seg": 132,
+   "lastSeg": 145
+  },
+  {
+   "id": 257,
+   "par": 233,
+   "lv": 12,
+   "label": 1,
+   "name": "揀顯釋",
+   "seg": 145,
+   "lastSeg": 145
+  },
+  {
+   "id": 259,
+   "par": 257,
+   "lv": 13,
+   "label": 1,
+   "name": "顯釋",
+   "seg": 145,
+   "lastSeg": 145
+  },
+  {
+   "id": 261,
+   "par": 259,
+   "lv": 14,
+   "label": 1,
+   "name": "時",
+   "seg": 145,
+   "lastSeg": 145
+  },
+  {
+   "id": 260,
+   "par": 257,
+   "lv": 13,
+   "label": 2,
+   "name": "揀釋",
+   "seg": 145,
+   "lastSeg": 146
+  },
+  {
+   "id": 258,
+   "par": 233,
+   "lv": 12,
+   "label": 2,
+   "name": "會法釋",
+   "seg": 145,
+   "lastSeg": 147
+  },
+  {
+   "id": 234,
+   "par": 230,
+   "lv": 11,
+   "label": 4,
+   "name": "主成就",
+   "seg": 132,
+   "lastSeg": 148
+  },
+  {
+   "id": 262,
+   "par": 234,
+   "lv": 12,
+   "label": 1,
+   "name": "翻名",
+   "seg": 148,
+   "lastSeg": 148
+  },
+  {
+   "id": 263,
+   "par": 234,
+   "lv": 12,
+   "label": 2,
+   "name": "釋義",
+   "seg": 148,
+   "lastSeg": 377
+  },
+  {
+   "id": 264,
+   "par": 263,
+   "lv": 13,
+   "label": 1,
+   "name": "引論正釋",
+   "seg": 149,
+   "lastSeg": 149
+  },
+  {
+   "id": 266,
+   "par": 264,
+   "lv": 14,
+   "label": 1,
+   "name": "約體離念釋",
+   "seg": 149,
+   "lastSeg": 149
+  },
+  {
+   "id": 269,
+   "par": 266,
+   "lv": 15,
+   "label": 1,
+   "name": "引文",
+   "seg": 149,
+   "lastSeg": 149
+  },
+  {
+   "id": 270,
+   "par": 266,
+   "lv": 15,
+   "label": 2,
+   "name": "結義",
+   "seg": 149,
+   "lastSeg": 150
+  },
+  {
+   "id": 271,
+   "par": 270,
+   "lv": 16,
+   "label": 2,
+   "name": "約位三義釋",
+   "seg": 151,
+   "lastSeg": 151
+  },
+  {
+   "id": 272,
+   "par": 271,
+   "lv": 17,
+   "label": 1,
+   "name": "總標",
+   "seg": 151,
+   "lastSeg": 151
+  },
+  {
+   "id": 273,
+   "par": 271,
+   "lv": 17,
+   "label": 2,
+   "name": "別釋",
+   "seg": 151,
+   "lastSeg": 152
+  },
+  {
+   "id": 274,
+   "par": 273,
+   "lv": 18,
+   "label": 1,
+   "name": "自覺",
+   "seg": 152,
+   "lastSeg": 152
+  },
+  {
+   "id": 275,
+   "par": 273,
+   "lv": 18,
+   "label": 2,
+   "name": "覺他",
+   "seg": 152,
+   "lastSeg": 153
+  },
+  {
+   "id": 276,
+   "par": 273,
+   "lv": 18,
+   "label": 3,
+   "name": "覺滿",
+   "seg": 152,
+   "lastSeg": 154
+  },
+  {
+   "id": 267,
+   "par": 264,
+   "lv": 14,
+   "label": 2,
+   "name": "引位",
+   "seg": 149
+  },
+  {
+   "id": 268,
+   "par": 264,
+   "lv": 14,
+   "label": 3,
+   "name": "義釋",
+   "seg": 149,
+   "lastSeg": 149
+  },
+  {
+   "id": 265,
+   "par": 263,
+   "lv": 13,
+   "label": 2,
+   "name": "引論反釋",
+   "seg": 149,
+   "lastSeg": 155
+  },
+  {
+   "id": 277,
+   "par": 265,
+   "lv": 14,
+   "label": 1,
+   "name": "反顯",
+   "seg": 155,
+   "lastSeg": 155
+  },
+  {
+   "id": 278,
+   "par": 265,
+   "lv": 14,
+   "label": 2,
+   "name": "引證",
+   "seg": 155,
+   "lastSeg": 156
+  },
+  {
+   "id": 279,
+   "par": 265,
+   "lv": 14,
+   "label": 3,
+   "name": "順結",
+   "seg": 155,
+   "lastSeg": 157
+  },
+  {
+   "id": 280,
+   "par": 279,
+   "lv": 15,
+   "label": 2,
+   "name": "釋秪園",
+   "seg": 159,
+   "lastSeg": 159
+  },
+  {
+   "id": 281,
+   "par": 280,
+   "lv": 16,
+   "label": 1,
+   "name": "總指",
+   "seg": 159,
+   "lastSeg": 159
+  },
+  {
+   "id": 282,
+   "par": 280,
+   "lv": 16,
+   "label": 2,
+   "name": "別釋",
+   "seg": 159,
+   "lastSeg": 160
+  },
+  {
+   "id": 283,
+   "par": 282,
+   "lv": 17,
+   "label": 1,
+   "name": "釋秪陀",
+   "seg": 160,
+   "lastSeg": 160
+  },
+  {
+   "id": 284,
+   "par": 282,
+   "lv": 17,
+   "label": 2,
+   "name": "釋給孤",
+   "seg": 160,
+   "lastSeg": 161
+  },
+  {
+   "id": 285,
+   "par": 282,
+   "lv": 17,
+   "label": 3,
+   "name": "釋園字",
+   "seg": 160,
+   "lastSeg": 162
+  },
+  {
+   "id": 605,
+   "par": 263,
+   "lv": 13,
+   "label": 1.1,
+   "name": "總標",
+   "seg": 377,
+   "lastSeg": 490
+  },
+  {
+   "id": 745,
+   "par": 605,
+   "lv": 14,
+   "label": 2,
+   "name": "別顯",
+   "seg": 491,
+   "lastSeg": 491
+  },
+  {
+   "id": 746,
+   "par": 745,
+   "lv": 15,
+   "label": 1,
+   "name": "對治不忍流轉苦",
+   "seg": 491,
+   "lastSeg": 492
+  },
+  {
+   "id": 747,
+   "par": 745,
+   "lv": 15,
+   "label": 2,
+   "name": "對治不忍相違苦",
+   "seg": 491,
+   "lastSeg": 493
+  },
+  {
+   "id": 748,
+   "par": 747,
+   "lv": 16,
+   "label": 1,
+   "name": "科",
+   "seg": 493
+  },
+  {
+   "id": 749,
+   "par": 747,
+   "lv": 16,
+   "label": 2,
+   "name": "釋",
+   "seg": 493,
+   "lastSeg": 494
+  },
+  {
+   "id": 750,
+   "par": 749,
+   "lv": 17,
+   "label": 1,
+   "name": "正釋",
+   "seg": 494,
+   "lastSeg": 494
+  },
+  {
+   "id": 752,
+   "par": 750,
+   "lv": 18,
+   "label": 1,
+   "name": "引無著顯意",
+   "seg": 494,
+   "lastSeg": 494
+  },
+  {
+   "id": 753,
+   "par": 750,
+   "lv": 18,
+   "label": 2,
+   "name": "約天親釋文",
+   "seg": 494,
+   "lastSeg": 495
+  },
+  {
+   "id": 751,
+   "par": 749,
+   "lv": 17,
+   "label": 2,
+   "name": "指配",
+   "seg": 494
+  },
+  {
+   "id": 606,
+   "par": 263,
+   "lv": 13,
+   "label": 2.2,
+   "name": "別釋",
+   "seg": 377,
+   "lastSeg": 378
+  },
+  {
+   "id": 607,
+   "par": 606,
+   "lv": 14,
+   "label": 1,
+   "name": "無賊",
+   "seg": 378,
+   "lastSeg": 378
+  },
+  {
+   "id": 608,
+   "par": 606,
+   "lv": 14,
+   "label": 2,
+   "name": "不生",
+   "seg": 378
+  },
+  {
+   "id": 609,
+   "par": 606,
+   "lv": 14,
+   "label": 3,
+   "name": "應供",
+   "seg": 378,
+   "lastSeg": 380
+  },
+  {
+   "id": 235,
+   "par": 230,
+   "lv": 11,
+   "label": 5,
+   "name": "處成就",
+   "seg": 132
+  },
+  {
+   "id": 236,
+   "par": 230,
+   "lv": 11,
+   "label": 6,
+   "name": "眾成就",
+   "seg": 132,
+   "lastSeg": 163
+  },
+  {
+   "id": 286,
+   "par": 236,
+   "lv": 12,
+   "label": 1,
+   "name": "釋標類",
+   "seg": 163,
+   "lastSeg": 163
+  },
+  {
+   "id": 287,
+   "par": 236,
+   "lv": 12,
+   "label": 2,
+   "name": "釋舉數",
+   "seg": 163,
+   "lastSeg": 164
+  },
+  {
+   "id": 225,
+   "par": 221,
+   "lv": 8,
+   "label": 2,
+   "name": "發起序",
+   "seg": 128,
+   "lastSeg": 165
+  },
+  {
+   "id": 288,
+   "par": 225,
+   "lv": 9,
+   "label": 1,
+   "name": "敘意",
+   "seg": 165,
+   "lastSeg": 165
+  },
+  {
+   "id": 289,
+   "par": 225,
+   "lv": 9,
+   "label": 2,
+   "name": "隨釋",
+   "seg": 165,
+   "lastSeg": 166
+  },
+  {
+   "id": 290,
+   "par": 289,
+   "lv": 10,
+   "label": 1,
+   "name": "戒",
+   "seg": 166,
+   "lastSeg": 166
+  },
+  {
+   "id": 292,
+   "par": 290,
+   "lv": 11,
+   "label": 1,
+   "name": "標科",
+   "seg": 166,
+   "lastSeg": 166
+  },
+  {
+   "id": 293,
+   "par": 290,
+   "lv": 11,
+   "label": 2,
+   "name": "列釋",
+   "seg": 166,
+   "lastSeg": 167
+  },
+  {
+   "id": 294,
+   "par": 293,
+   "lv": 12,
+   "label": 1,
+   "name": "釋化主",
+   "seg": 167,
+   "lastSeg": 167
+  },
+  {
+   "id": 295,
+   "par": 293,
+   "lv": 12,
+   "label": 2,
+   "name": "釋化時",
+   "seg": 167,
+   "lastSeg": 168
+  },
+  {
+   "id": 296,
+   "par": 293,
+   "lv": 12,
+   "label": 3,
+   "name": "釋化儀",
+   "seg": 167,
+   "lastSeg": 169
+  },
+  {
+   "id": 297,
+   "par": 293,
+   "lv": 12,
+   "label": 4,
+   "name": "釋化處",
+   "seg": 167,
+   "lastSeg": 170
+  },
+  {
+   "id": 298,
+   "par": 293,
+   "lv": 12,
+   "label": 5,
+   "name": "釋化事",
+   "seg": 167,
+   "lastSeg": 171
+  },
+  {
+   "id": 301,
+   "par": 298,
+   "lv": 13,
+   "label": 1,
+   "name": "正釋",
+   "seg": 171,
+   "lastSeg": 171
+  },
+  {
+   "id": 302,
+   "par": 298,
+   "lv": 13,
+   "label": 2,
+   "name": "通難",
+   "seg": 171,
+   "lastSeg": 172
+  },
+  {
+   "id": 299,
+   "par": 293,
+   "lv": 12,
+   "label": 6,
+   "name": "釋化等",
+   "seg": 167,
+   "lastSeg": 173
+  },
+  {
+   "id": 300,
+   "par": 293,
+   "lv": 12,
+   "label": 7,
+   "name": "釋化終",
+   "seg": 167,
+   "lastSeg": 174
+  },
+  {
+   "id": 303,
+   "par": 300,
+   "lv": 13,
+   "label": 1,
+   "name": "會句義",
+   "seg": 174,
+   "lastSeg": 174
+  },
+  {
+   "id": 304,
+   "par": 300,
+   "lv": 13,
+   "label": 2,
+   "name": "通伏難",
+   "seg": 174,
+   "lastSeg": 175
+  },
+  {
+   "id": 305,
+   "par": 300,
+   "lv": 13,
+   "label": 3,
+   "name": "顯齋儀",
+   "seg": 174,
+   "lastSeg": 176
+  },
+  {
+   "id": 291,
+   "par": 289,
+   "lv": 10,
+   "label": 2,
+   "name": "定",
+   "seg": 166,
+   "lastSeg": 177
+  },
+  {
+   "id": 306,
+   "par": 291,
+   "lv": 11,
+   "label": 1,
+   "name": "正解此文",
+   "seg": 177
+  },
+  {
+   "id": 307,
+   "par": 291,
+   "lv": 11,
+   "label": 2,
+   "name": "通前表法",
+   "seg": 177,
+   "lastSeg": 183
+  },
+  {
+   "id": 317,
+   "par": 307,
+   "lv": 12,
+   "label": 1,
+   "name": "約大雲廣辯",
+   "seg": 183,
+   "lastSeg": 183
+  },
+  {
+   "id": 319,
+   "par": 317,
+   "lv": 13,
+   "label": 1,
+   "name": "標",
+   "seg": 183,
+   "lastSeg": 183
+  },
+  {
+   "id": 320,
+   "par": 317,
+   "lv": 13,
+   "label": 2,
+   "name": "釋",
+   "seg": 183,
+   "lastSeg": 184
+  },
+  {
+   "id": 322,
+   "par": 320,
+   "lv": 14,
+   "label": 1,
+   "name": "表通序",
+   "seg": 184,
+   "lastSeg": 184
+  },
+  {
+   "id": 323,
+   "par": 320,
+   "lv": 14,
+   "label": 2,
+   "name": "表別序",
+   "seg": 184,
+   "lastSeg": 185
+  },
+  {
+   "id": 321,
+   "par": 317,
+   "lv": 13,
+   "label": 3,
+   "name": "結",
+   "seg": 183,
+   "lastSeg": 186
+  },
+  {
+   "id": 318,
+   "par": 307,
+   "lv": 12,
+   "label": 2,
+   "name": "引資聖略明",
+   "seg": 183,
+   "lastSeg": 187
+  },
+  {
+   "id": 324,
+   "par": 318,
+   "lv": 13,
+   "label": 1,
+   "name": "正明",
+   "seg": 187,
+   "lastSeg": 187
+  },
+  {
+   "id": 325,
+   "par": 318,
+   "lv": 13,
+   "label": 2,
+   "name": "引證",
+   "seg": 187,
+   "lastSeg": 188
+  },
+  {
+   "id": 308,
+   "par": 291,
+   "lv": 11,
+   "label": 1.1,
+   "name": "標科",
+   "seg": 177,
+   "lastSeg": 177
+  },
+  {
+   "id": 309,
+   "par": 291,
+   "lv": 11,
+   "label": 2.2,
+   "name": "列釋",
+   "seg": 177,
+   "lastSeg": 178
+  },
+  {
+   "id": 310,
+   "par": 309,
+   "lv": 12,
+   "label": 1,
+   "name": "併資緣",
+   "seg": 178,
+   "lastSeg": 178
+  },
+  {
+   "id": 311,
+   "par": 309,
+   "lv": 12,
+   "label": 2,
+   "name": "淨身業",
+   "seg": 178,
+   "lastSeg": 179
+  },
+  {
+   "id": 312,
+   "par": 309,
+   "lv": 12,
+   "label": 3,
+   "name": "正入定",
+   "seg": 178,
+   "lastSeg": 180
+  },
+  {
+   "id": 313,
+   "par": 312,
+   "lv": 13,
+   "label": 1,
+   "name": "正釋入定",
+   "seg": 180,
+   "lastSeg": 180
+  },
+  {
+   "id": 315,
+   "par": 313,
+   "lv": 14,
+   "label": 1,
+   "name": "正釋",
+   "seg": 180,
+   "lastSeg": 180
+  },
+  {
+   "id": 316,
+   "par": 313,
+   "lv": 14,
+   "label": 2,
+   "name": "引證",
+   "seg": 180,
+   "lastSeg": 181
+  },
+  {
+   "id": 314,
+   "par": 312,
+   "lv": 13,
+   "label": 2,
+   "name": "顯入定意",
+   "seg": 180,
+   "lastSeg": 182
+  },
+  {
+   "id": 222,
+   "par": 220,
+   "lv": 7,
+   "label": 2,
+   "name": "正宗分",
+   "seg": 128,
+   "lastSeg": 189
+  },
+  {
+   "id": 326,
+   "par": 222,
+   "lv": 8,
+   "label": 1,
+   "name": "標列章門",
+   "seg": 189,
+   "lastSeg": 189
+  },
+  {
+   "id": 327,
+   "par": 222,
+   "lv": 8,
+   "label": 2,
+   "name": "依章隨釋",
+   "seg": 189,
+   "lastSeg": 190
+  },
+  {
+   "id": 328,
+   "par": 327,
+   "lv": 9,
+   "label": 1,
+   "name": "約無著七種義句以懸判",
+   "seg": 190,
+   "lastSeg": 190
+  },
+  {
+   "id": 330,
+   "par": 328,
+   "lv": 10,
+   "label": 1,
+   "name": "正示七句",
+   "seg": 190,
+   "lastSeg": 191
+  },
+  {
+   "id": 333,
+   "par": 330,
+   "lv": 11,
+   "label": 1,
+   "name": "牒標",
+   "seg": 191,
+   "lastSeg": 191
+  },
+  {
+   "id": 334,
+   "par": 330,
+   "lv": 11,
+   "label": 2,
+   "name": "列釋",
+   "seg": 191,
+   "lastSeg": 192
+  },
+  {
+   "id": 335,
+   "par": 334,
+   "lv": 12,
+   "label": 1,
+   "name": "種性",
+   "seg": 192,
+   "lastSeg": 192
+  },
+  {
+   "id": 336,
+   "par": 334,
+   "lv": 12,
+   "label": 2,
+   "name": "發起",
+   "seg": 192,
+   "lastSeg": 193
+  },
+  {
+   "id": 337,
+   "par": 334,
+   "lv": 12,
+   "label": 3,
+   "name": "住處",
+   "seg": 192,
+   "lastSeg": 194
+  },
+  {
+   "id": 338,
+   "par": 334,
+   "lv": 12,
+   "label": 4,
+   "name": "對治",
+   "seg": 192,
+   "lastSeg": 195
+  },
+  {
+   "id": 342,
+   "par": 338,
+   "lv": 13,
+   "label": 2,
+   "name": "總指後",
+   "seg": 199,
+   "lastSeg": 199
+  },
+  {
+   "id": 339,
+   "par": 334,
+   "lv": 12,
+   "label": 5,
+   "name": "不失",
+   "seg": 192
+  },
+  {
+   "id": 340,
+   "par": 334,
+   "lv": 12,
+   "label": 6,
+   "name": "地位",
+   "seg": 192
+  },
+  {
+   "id": 341,
+   "par": 334,
+   "lv": 12,
+   "label": 7,
+   "name": "立名",
+   "seg": 192
+  },
+  {
+   "id": 331,
+   "par": 328,
+   "lv": 10,
+   "label": 2,
+   "name": "總指後四",
+   "seg": 190
+  },
+  {
+   "id": 332,
+   "par": 328,
+   "lv": 10,
+   "label": 3,
+   "name": "廣釋第三",
+   "seg": 190,
+   "lastSeg": 200
+  },
+  {
+   "id": 343,
+   "par": 332,
+   "lv": 11,
+   "label": 1,
+   "name": "正辯十八住處",
+   "seg": 200,
+   "lastSeg": 200
+  },
+  {
+   "id": 346,
+   "par": 343,
+   "lv": 12,
+   "label": 1,
+   "name": "牒標",
+   "seg": 200,
+   "lastSeg": 200
+  },
+  {
+   "id": 347,
+   "par": 343,
+   "lv": 12,
+   "label": 2,
+   "name": "列釋",
+   "seg": 200,
+   "lastSeg": 201
+  },
+  {
+   "id": 348,
+   "par": 347,
+   "lv": 13,
+   "label": 1,
+   "name": "發心住",
+   "seg": 201,
+   "lastSeg": 201
+  },
+  {
+   "id": 349,
+   "par": 347,
+   "lv": 13,
+   "label": 2,
+   "name": "波羅蜜相應住",
+   "seg": 201,
+   "lastSeg": 202
+  },
+  {
+   "id": 350,
+   "par": 347,
+   "lv": 13,
+   "label": 3,
+   "name": "欲得色身住",
+   "seg": 201
+  },
+  {
+   "id": 351,
+   "par": 347,
+   "lv": 13,
+   "label": 4,
+   "name": "欲得法身住",
+   "seg": 201
+  },
+  {
+   "id": 352,
+   "par": 347,
+   "lv": 13,
+   "label": 5,
+   "name": "修道無慢住",
+   "seg": 201,
+   "lastSeg": 205
+  },
+  {
+   "id": 366,
+   "par": 352,
+   "lv": 14,
+   "label": 1,
+   "name": "正示此文",
+   "seg": 205,
+   "lastSeg": 205
+  },
+  {
+   "id": 367,
+   "par": 352,
+   "lv": 14,
+   "label": 2,
+   "name": "通敘後段",
+   "seg": 205,
+   "lastSeg": 206
+  },
+  {
+   "id": 368,
+   "par": 352,
+   "lv": 14,
+   "label": 3,
+   "name": "別結對治",
+   "seg": 205,
+   "lastSeg": 207
+  },
+  {
+   "id": 353,
+   "par": 347,
+   "lv": 13,
+   "label": 6,
+   "name": "不離佛世住",
+   "seg": 201,
+   "lastSeg": 208
+  },
+  {
+   "id": 354,
+   "par": 347,
+   "lv": 13,
+   "label": 7,
+   "name": "願淨佛土住",
+   "seg": 201,
+   "lastSeg": 209
+  },
+  {
+   "id": 355,
+   "par": 347,
+   "lv": 13,
+   "label": 8,
+   "name": "成熟眾生住",
+   "seg": 201,
+   "lastSeg": 210
+  },
+  {
+   "id": 356,
+   "par": 347,
+   "lv": 13,
+   "label": 9,
+   "name": "遠離外論住",
+   "seg": 201,
+   "lastSeg": 211
+  },
+  {
+   "id": 357,
+   "par": 347,
+   "lv": 13,
+   "label": 10,
+   "name": "觀破色身住",
+   "seg": 201,
+   "lastSeg": 212
+  },
+  {
+   "id": 358,
+   "par": 347,
+   "lv": 13,
+   "label": 11,
+   "name": "給侍如來住",
+   "seg": 201,
+   "lastSeg": 213
+  },
+  {
+   "id": 359,
+   "par": 347,
+   "lv": 13,
+   "label": 12,
+   "name": "遠離退失住",
+   "seg": 201,
+   "lastSeg": 214
+  },
+  {
+   "id": 360,
+   "par": 347,
+   "lv": 13,
+   "label": 13,
+   "name": "忍苦住",
+   "seg": 201
+  },
+  {
+   "id": 361,
+   "par": 347,
+   "lv": 13,
+   "label": 14,
+   "name": "離寂靜味住",
+   "seg": 201
+  },
+  {
+   "id": 362,
+   "par": 347,
+   "lv": 13,
+   "label": 15,
+   "name": "證道離喜住",
+   "seg": 201,
+   "lastSeg": 217
+  },
+  {
+   "id": 363,
+   "par": 347,
+   "lv": 13,
+   "label": 16,
+   "name": "求佛教授住",
+   "seg": 201
+  },
+  {
+   "id": 364,
+   "par": 347,
+   "lv": 13,
+   "label": 17,
+   "name": "證道住",
+   "seg": 201,
+   "lastSeg": 219
+  },
+  {
+   "id": 365,
+   "par": 347,
+   "lv": 13,
+   "label": 18,
+   "name": "求佛地住",
+   "seg": 201,
+   "lastSeg": 220
+  },
+  {
+   "id": 369,
+   "par": 365,
+   "lv": 14,
+   "label": 1,
+   "name": "標六種具足",
+   "seg": 220,
+   "lastSeg": 220
+  },
+  {
+   "id": 370,
+   "par": 365,
+   "lv": 14,
+   "label": 2,
+   "name": "列六種具足",
+   "seg": 220,
+   "lastSeg": 221
+  },
+  {
+   "id": 371,
+   "par": 370,
+   "lv": 15,
+   "label": 1,
+   "name": "國土具足",
+   "seg": 221,
+   "lastSeg": 222
+  },
+  {
+   "id": 372,
+   "par": 370,
+   "lv": 15,
+   "label": 2,
+   "name": "無上見智淨具足",
+   "seg": 221,
+   "lastSeg": 223
+  },
+  {
+   "id": 373,
+   "par": 370,
+   "lv": 15,
+   "label": 3,
+   "name": "無上福具足",
+   "seg": 221,
+   "lastSeg": 224
+  },
+  {
+   "id": 374,
+   "par": 370,
+   "lv": 15,
+   "label": 4,
+   "name": "無上身具足",
+   "seg": 221,
+   "lastSeg": 225
+  },
+  {
+   "id": 375,
+   "par": 370,
+   "lv": 15,
+   "label": 5,
+   "name": "無上語具足",
+   "seg": 221,
+   "lastSeg": 226
+  },
+  {
+   "id": 376,
+   "par": 370,
+   "lv": 15,
+   "label": 6,
+   "name": "無上心具足",
+   "seg": 221,
+   "lastSeg": 227
+  },
+  {
+   "id": 344,
+   "par": 332,
+   "lv": 11,
+   "label": 2,
+   "name": "重以八義相攝",
+   "seg": 200,
+   "lastSeg": 228
+  },
+  {
+   "id": 377,
+   "par": 344,
+   "lv": 12,
+   "label": 1,
+   "name": "標",
+   "seg": 228,
+   "lastSeg": 228
+  },
+  {
+   "id": 378,
+   "par": 344,
+   "lv": 12,
+   "label": 2,
+   "name": "配",
+   "seg": 228,
+   "lastSeg": 229
+  },
+  {
+   "id": 379,
+   "par": 378,
+   "lv": 13,
+   "label": 1,
+   "name": "以六攝十八二以二攝",
+   "seg": 229
+  },
+  {
+   "id": 380,
+   "par": 378,
+   "lv": 13,
+   "label": 1.1,
+   "name": "以六攝",
+   "seg": 229
+  },
+  {
+   "id": 381,
+   "par": 378,
+   "lv": 13,
+   "label": 1.2,
+   "name": "以二攝二二以一攝",
+   "seg": 229,
+   "lastSeg": 229
+  },
+  {
+   "id": 382,
+   "par": 381,
+   "lv": 14,
+   "label": 3,
+   "name": "以一攝十二四以二攝",
+   "seg": 229
+  },
+  {
+   "id": 383,
+   "par": 381,
+   "lv": 14,
+   "label": 1,
+   "name": "以二攝",
+   "seg": 229,
+   "lastSeg": 232
+  },
+  {
+   "id": 384,
+   "par": 381,
+   "lv": 14,
+   "label": 2,
+   "name": "以一攝",
+   "seg": 230,
+   "lastSeg": 230
+  },
+  {
+   "id": 345,
+   "par": 332,
+   "lv": 11,
+   "label": 3,
+   "name": "更約地位配釋",
+   "seg": 200,
+   "lastSeg": 234
+  },
+  {
+   "id": 385,
+   "par": 345,
+   "lv": 12,
+   "label": 1,
+   "name": "標",
+   "seg": 234,
+   "lastSeg": 234
+  },
+  {
+   "id": 386,
+   "par": 345,
+   "lv": 12,
+   "label": 2,
+   "name": "配",
+   "seg": 234,
+   "lastSeg": 235
+  },
+  {
+   "id": 387,
+   "par": 386,
+   "lv": 13,
+   "label": 1,
+   "name": "配資糧",
+   "seg": 235,
+   "lastSeg": 235
+  },
+  {
+   "id": 390,
+   "par": 387,
+   "lv": 14,
+   "label": 10,
+   "name": "住",
+   "seg": 235,
+   "lastSeg": 235
+  },
+  {
+   "id": 391,
+   "par": 387,
+   "lv": 14,
+   "label": 20,
+   "name": "行",
+   "seg": 235,
+   "lastSeg": 236
+  },
+  {
+   "id": 393,
+   "par": 391,
+   "lv": 15,
+   "label": 1,
+   "name": "前",
+   "seg": 236,
+   "lastSeg": 236
+  },
+  {
+   "id": 394,
+   "par": 391,
+   "lv": 15,
+   "label": 2,
+   "name": "第七",
+   "seg": 236
+  },
+  {
+   "id": 395,
+   "par": 391,
+   "lv": 15,
+   "label": 3,
+   "name": "後",
+   "seg": 236,
+   "lastSeg": 238
+  },
+  {
+   "id": 392,
+   "par": 387,
+   "lv": 14,
+   "label": 30,
+   "name": "迴向",
+   "seg": 235
+  },
+  {
+   "id": 388,
+   "par": 386,
+   "lv": 13,
+   "label": 2,
+   "name": "配加行",
+   "seg": 235,
+   "lastSeg": 240
+  },
+  {
+   "id": 396,
+   "par": 388,
+   "lv": 14,
+   "label": 1,
+   "name": "前二位",
+   "seg": 240
+  },
+  {
+   "id": 389,
+   "par": 386,
+   "lv": 13,
+   "label": 3,
+   "name": "配三道",
+   "seg": 235,
+   "lastSeg": 243
+  },
+  {
+   "id": 397,
+   "par": 389,
+   "lv": 14,
+   "label": 1,
+   "name": "前一道",
+   "seg": 243,
+   "lastSeg": 243
+  },
+  {
+   "id": 398,
+   "par": 389,
+   "lv": 14,
+   "label": 2,
+   "name": "後二道",
+   "seg": 243
+  },
+  {
+   "id": 329,
+   "par": 327,
+   "lv": 9,
+   "label": 2,
+   "name": "依天親問答斷疑以科釋",
+   "seg": 190,
+   "lastSeg": 245
+  },
+  {
+   "id": 399,
+   "par": 329,
+   "lv": 10,
+   "label": 1,
+   "name": "牒章分文",
+   "seg": 245,
+   "lastSeg": 245
+  },
+  {
+   "id": 400,
+   "par": 329,
+   "lv": 10,
+   "label": 2,
+   "name": "依章正釋",
+   "seg": 245,
+   "lastSeg": 246
+  },
+  {
+   "id": 401,
+   "par": 400,
+   "lv": 11,
+   "label": 1,
+   "name": "善現申請",
+   "seg": 246,
+   "lastSeg": 246
+  },
+  {
+   "id": 405,
+   "par": 401,
+   "lv": 12,
+   "label": 1,
+   "name": "整儀讚佛",
+   "seg": 246,
+   "lastSeg": 246
+  },
+  {
+   "id": 407,
+   "par": 405,
+   "lv": 13,
+   "label": 1,
+   "name": "釋請人",
+   "seg": 246,
+   "lastSeg": 246
+  },
+  {
+   "id": 408,
+   "par": 405,
+   "lv": 13,
+   "label": 2,
+   "name": "釋請儀",
+   "seg": 246,
+   "lastSeg": 247
+  },
+  {
+   "id": 409,
+   "par": 408,
+   "lv": 14,
+   "label": 1,
+   "name": "正釋經文",
+   "seg": 247,
+   "lastSeg": 247
+  },
+  {
+   "id": 411,
+   "par": 409,
+   "lv": 15,
+   "label": 1,
+   "name": "釋整儀",
+   "seg": 247,
+   "lastSeg": 247
+  },
+  {
+   "id": 412,
+   "par": 409,
+   "lv": 15,
+   "label": 2,
+   "name": "釋讚佛",
+   "seg": 247,
+   "lastSeg": 248
+  },
+  {
+   "id": 410,
+   "par": 408,
+   "lv": 14,
+   "label": 2,
+   "name": "別解菩薩",
+   "seg": 247,
+   "lastSeg": 249
+  },
+  {
+   "id": 406,
+   "par": 401,
+   "lv": 12,
+   "label": 2,
+   "name": "正發問端",
+   "seg": 246,
+   "lastSeg": 250
+  },
+  {
+   "id": 413,
+   "par": 406,
+   "lv": 13,
+   "label": 1,
+   "name": "釋當機",
+   "seg": 250,
+   "lastSeg": 250
+  },
+  {
+   "id": 414,
+   "par": 406,
+   "lv": 13,
+   "label": 2,
+   "name": "釋正問",
+   "seg": 250,
+   "lastSeg": 251
+  },
+  {
+   "id": 415,
+   "par": 414,
+   "lv": 14,
+   "label": 1,
+   "name": "釋魏本",
+   "seg": 251,
+   "lastSeg": 251
+  },
+  {
+   "id": 416,
+   "par": 414,
+   "lv": 14,
+   "label": 2,
+   "name": "會當經",
+   "seg": 251,
+   "lastSeg": 252
+  },
+  {
+   "id": 417,
+   "par": 414,
+   "lv": 14,
+   "label": 3,
+   "name": "引論證",
+   "seg": 251,
+   "lastSeg": 253
+  },
+  {
+   "id": 402,
+   "par": 400,
+   "lv": 11,
+   "label": 2,
+   "name": "如來讚許",
+   "seg": 246,
+   "lastSeg": 254
+  },
+  {
+   "id": 418,
+   "par": 402,
+   "lv": 12,
+   "label": 1,
+   "name": "印讚所讚",
+   "seg": 254
+  },
+  {
+   "id": 419,
+   "par": 402,
+   "lv": 12,
+   "label": 2,
+   "name": "勑聽許說",
+   "seg": 254,
+   "lastSeg": 255
+  },
+  {
+   "id": 420,
+   "par": 402,
+   "lv": 12,
+   "label": 3,
+   "name": "標勸將陳",
+   "seg": 254,
+   "lastSeg": 256
+  },
+  {
+   "id": 403,
+   "par": 400,
+   "lv": 11,
+   "label": 3,
+   "name": "善現佇聞",
+   "seg": 246,
+   "lastSeg": 257
+  },
+  {
+   "id": 404,
+   "par": 400,
+   "lv": 11,
+   "label": 4,
+   "name": "如來正說",
+   "seg": 246,
+   "lastSeg": 258
+  },
+  {
+   "id": 421,
+   "par": 404,
+   "lv": 12,
+   "label": 1,
+   "name": "正答所問",
+   "seg": 258,
+   "lastSeg": 258
+  },
+  {
+   "id": 423,
+   "par": 421,
+   "lv": 13,
+   "label": 1,
+   "name": "舉總標別以牒問",
+   "seg": 258,
+   "lastSeg": 258
+  },
+  {
+   "id": 425,
+   "par": 423,
+   "lv": 14,
+   "label": 1,
+   "name": "正釋經文",
+   "seg": 258,
+   "lastSeg": 258
+  },
+  {
+   "id": 426,
+   "par": 423,
+   "lv": 14,
+   "label": 2,
+   "name": "斥他謬判",
+   "seg": 258
+  },
+  {
+   "id": 427,
+   "par": 423,
+   "lv": 14,
+   "label": 3,
+   "name": "詳定經旨",
+   "seg": 258,
+   "lastSeg": 260
+  },
+  {
+   "id": 428,
+   "par": 423,
+   "lv": 14,
+   "label": 4,
+   "name": "牒難釋通",
+   "seg": 258,
+   "lastSeg": 261
+  },
+  {
+   "id": 424,
+   "par": 421,
+   "lv": 13,
+   "label": 2,
+   "name": "約別顯總以答問",
+   "seg": 258,
+   "lastSeg": 262
+  },
+  {
+   "id": 429,
+   "par": 424,
+   "lv": 14,
+   "label": 1,
+   "name": "答安住降心問",
+   "seg": 262,
+   "lastSeg": 262
+  },
+  {
+   "id": 431,
+   "par": 429,
+   "lv": 15,
+   "label": 1,
+   "name": "廣大心",
+   "seg": 262,
+   "lastSeg": 262
+  },
+  {
+   "id": 435,
+   "par": 431,
+   "lv": 16,
+   "label": 1,
+   "name": "釋標",
+   "seg": 262,
+   "lastSeg": 262
+  },
+  {
+   "id": 436,
+   "par": 431,
+   "lv": 16,
+   "label": 2,
+   "name": "釋列",
+   "seg": 262,
+   "lastSeg": 263
+  },
+  {
+   "id": 437,
+   "par": 436,
+   "lv": 17,
+   "label": 1,
+   "name": "受生差別",
+   "seg": 263,
+   "lastSeg": 263
+  },
+  {
+   "id": 440,
+   "par": 437,
+   "lv": 18,
+   "label": 1,
+   "name": "釋文",
+   "seg": 263,
+   "lastSeg": 263
+  },
+  {
+   "id": 441,
+   "par": 437,
+   "lv": 18,
+   "label": 2,
+   "name": "通難",
+   "seg": 263,
+   "lastSeg": 264
+  },
+  {
+   "id": 438,
+   "par": 436,
+   "lv": 17,
+   "label": 2,
+   "name": "依止差別",
+   "seg": 263,
+   "lastSeg": 265
+  },
+  {
+   "id": 439,
+   "par": 436,
+   "lv": 17,
+   "label": 3,
+   "name": "境界差別",
+   "seg": 263,
+   "lastSeg": 266
+  },
+  {
+   "id": 432,
+   "par": 429,
+   "lv": 15,
+   "label": 2,
+   "name": "第一心",
+   "seg": 262,
+   "lastSeg": 267
+  },
+  {
+   "id": 442,
+   "par": 432,
+   "lv": 16,
+   "label": 1,
+   "name": "釋文",
+   "seg": 267,
+   "lastSeg": 267
+  },
+  {
+   "id": 443,
+   "par": 432,
+   "lv": 16,
+   "label": 2,
+   "name": "通難",
+   "seg": 267,
+   "lastSeg": 268
+  },
+  {
+   "id": 444,
+   "par": 443,
+   "lv": 17,
+   "label": 1,
+   "name": "通五性難",
+   "seg": 268,
+   "lastSeg": 268
+  },
+  {
+   "id": 446,
+   "par": 444,
+   "lv": 18,
+   "label": 1,
+   "name": "難",
+   "seg": 268,
+   "lastSeg": 268
+  },
+  {
+   "id": 447,
+   "par": 444,
+   "lv": 18,
+   "label": 2,
+   "name": "通",
+   "seg": 268
+  },
+  {
+   "id": 445,
+   "par": 443,
+   "lv": 17,
+   "label": 2,
+   "name": "通八難難",
+   "seg": 268
+  },
+  {
+   "id": 433,
+   "par": 429,
+   "lv": 15,
+   "label": 3,
+   "name": "常心",
+   "seg": 262
+  },
+  {
+   "id": 434,
+   "par": 429,
+   "lv": 15,
+   "label": 4,
+   "name": "不倒心",
+   "seg": 262
+  },
+  {
+   "id": 430,
+   "par": 424,
+   "lv": 14,
+   "label": 2,
+   "name": "答修行降心問",
+   "seg": 262,
+   "lastSeg": 274
+  },
+  {
+   "id": 448,
+   "par": 430,
+   "lv": 15,
+   "label": 1,
+   "name": "總標",
+   "seg": 274,
+   "lastSeg": 274
+  },
+  {
+   "id": 453,
+   "par": 448,
+   "lv": 16,
+   "label": 1,
+   "name": "釋文",
+   "seg": 274,
+   "lastSeg": 274
+  },
+  {
+   "id": 454,
+   "par": 448,
+   "lv": 16,
+   "label": 2,
+   "name": "通意",
+   "seg": 274,
+   "lastSeg": 275
+  },
+  {
+   "id": 455,
+   "par": 454,
+   "lv": 17,
+   "label": 1,
+   "name": "問",
+   "seg": 275
+  },
+  {
+   "id": 456,
+   "par": 454,
+   "lv": 17,
+   "label": 2,
+   "name": "答",
+   "seg": 275,
+   "lastSeg": 276
+  },
+  {
+   "id": 457,
+   "par": 456,
+   "lv": 18,
+   "label": 1,
+   "name": "正釋",
+   "seg": 276,
+   "lastSeg": 276
+  },
+  {
+   "id": 458,
+   "par": 456,
+   "lv": 18,
+   "label": 2,
+   "name": "證釋",
+   "seg": 276,
+   "lastSeg": 277
+  },
+  {
+   "id": 459,
+   "par": 458,
+   "lv": 19,
+   "label": 1,
+   "name": "引偈證攝",
+   "seg": 277,
+   "lastSeg": 277
+  },
+  {
+   "id": 460,
+   "par": 458,
+   "lv": 19,
+   "label": 2,
+   "name": "釋攝所以",
+   "seg": 277,
+   "lastSeg": 278
+  },
+  {
+   "id": 449,
+   "par": 430,
+   "lv": 15,
+   "label": 2,
+   "name": "別釋",
+   "seg": 274,
+   "lastSeg": 279
+  },
+  {
+   "id": 461,
+   "par": 449,
+   "lv": 16,
+   "label": 1,
+   "name": "標",
+   "seg": 279,
+   "lastSeg": 280
+  },
+  {
+   "id": 462,
+   "par": 449,
+   "lv": 16,
+   "label": 2,
+   "name": "列",
+   "seg": 279
+  },
+  {
+   "id": 463,
+   "par": 449,
+   "lv": 16,
+   "label": 3,
+   "name": "釋",
+   "seg": 279,
+   "lastSeg": 282
+  },
+  {
+   "id": 464,
+   "par": 463,
+   "lv": 17,
+   "label": 1,
+   "name": "標",
+   "seg": 282,
+   "lastSeg": 282
+  },
+  {
+   "id": 465,
+   "par": 463,
+   "lv": 17,
+   "label": 2,
+   "name": "釋",
+   "seg": 282,
+   "lastSeg": 365
+  },
+  {
+   "id": 476,
+   "par": 465,
+   "lv": 18,
+   "label": 2,
+   "name": "喻說",
+   "seg": 291,
+   "lastSeg": 291
+  },
+  {
+   "id": 545,
+   "par": 465,
+   "lv": 18,
+   "label": 1,
+   "name": "無我執",
+   "seg": 328,
+   "lastSeg": 328
+  },
+  {
+   "id": 546,
+   "par": 465,
+   "lv": 18,
+   "label": 2.1,
+   "name": "無法執",
+   "seg": 328,
+   "lastSeg": 329
+  },
+  {
+   "id": 547,
+   "par": 546,
+   "lv": 19,
+   "label": 2,
+   "name": "商較經旨",
+   "seg": 330,
+   "lastSeg": 330
+  },
+  {
+   "id": 450,
+   "par": 430,
+   "lv": 15,
+   "label": 3,
+   "name": "總結",
+   "seg": 274,
+   "lastSeg": 284
+  },
+  {
+   "id": 466,
+   "par": 450,
+   "lv": 16,
+   "label": 1,
+   "name": "正解經文",
+   "seg": 284,
+   "lastSeg": 284
+  },
+  {
+   "id": 468,
+   "par": 466,
+   "lv": 17,
+   "label": 1,
+   "name": "指前論文",
+   "seg": 284,
+   "lastSeg": 284
+  },
+  {
+   "id": 469,
+   "par": 466,
+   "lv": 17,
+   "label": 2,
+   "name": "顯今經意",
+   "seg": 284,
+   "lastSeg": 285
+  },
+  {
+   "id": 470,
+   "par": 469,
+   "lv": 18,
+   "label": 1,
+   "name": "正解",
+   "seg": 285,
+   "lastSeg": 720
+  },
+  {
+   "id": 1022,
+   "par": 470,
+   "lv": 19,
+   "label": 2,
+   "name": "泡喻受",
+   "seg": 718,
+   "lastSeg": 718
+  },
+  {
+   "id": 1026,
+   "par": 470,
+   "lv": 19,
+   "label": 2.1,
+   "name": "電喻現在",
+   "seg": 721,
+   "lastSeg": 721
+  },
+  {
+   "id": 1027,
+   "par": 470,
+   "lv": 19,
+   "label": 3,
+   "name": "雲喻未來",
+   "seg": 722,
+   "lastSeg": 722
+  },
+  {
+   "id": 471,
+   "par": 469,
+   "lv": 18,
+   "label": 2,
+   "name": "引證",
+   "seg": 285,
+   "lastSeg": 286
+  },
+  {
+   "id": 467,
+   "par": 450,
+   "lv": 16,
+   "label": 2,
+   "name": "指斥謬判",
+   "seg": 284
+  },
+  {
+   "id": 451,
+   "par": 430,
+   "lv": 15,
+   "label": 4,
+   "name": "顯益",
+   "seg": 274,
+   "lastSeg": 288
+  },
+  {
+   "id": 472,
+   "par": 451,
+   "lv": 16,
+   "label": 1,
+   "name": "科釋文意",
+   "seg": 288,
+   "lastSeg": 289
+  },
+  {
+   "id": 474,
+   "par": 472,
+   "lv": 17,
+   "label": 1,
+   "name": "釋徵",
+   "seg": 289,
+   "lastSeg": 289
+  },
+  {
+   "id": 475,
+   "par": 472,
+   "lv": 17,
+   "label": 2,
+   "name": "釋釋",
+   "seg": 289
+  },
+  {
+   "id": 473,
+   "par": 451,
+   "lv": 16,
+   "label": 2,
+   "name": "別辯喻旨",
+   "seg": 288,
+   "lastSeg": 293
+  },
+  {
+   "id": 452,
+   "par": 430,
+   "lv": 15,
+   "label": 5,
+   "name": "結勸",
+   "seg": 274,
+   "lastSeg": 294
+  },
+  {
+   "id": 422,
+   "par": 404,
+   "lv": 12,
+   "label": 2,
+   "name": "躡跡斷疑",
+   "seg": 258,
+   "lastSeg": 295
+  },
+  {
+   "id": 477,
+   "par": 422,
+   "lv": 13,
+   "label": 1,
+   "name": "約論分文",
+   "seg": 295,
+   "lastSeg": 295
+  },
+  {
+   "id": 478,
+   "par": 422,
+   "lv": 13,
+   "label": 2,
+   "name": "依論科釋",
+   "seg": 295,
+   "lastSeg": 296
+  },
+  {
+   "id": 479,
+   "par": 478,
+   "lv": 14,
+   "label": 1,
+   "name": "斷求佛行施住相疑",
+   "seg": 296
+  },
+  {
+   "id": 480,
+   "par": 478,
+   "lv": 14,
+   "label": 2,
+   "name": "斷因果俱深無信疑",
+   "seg": 296,
+   "lastSeg": 316
+  },
+  {
+   "id": 526,
+   "par": 480,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 316,
+   "lastSeg": 316
+  },
+  {
+   "id": 528,
+   "par": 526,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 316,
+   "lastSeg": 316
+  },
+  {
+   "id": 529,
+   "par": 526,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 316,
+   "lastSeg": 317
+  },
+  {
+   "id": 530,
+   "par": 526,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 316,
+   "lastSeg": 318
+  },
+  {
+   "id": 527,
+   "par": 480,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 316,
+   "lastSeg": 319
+  },
+  {
+   "id": 531,
+   "par": 527,
+   "lv": 16,
+   "label": 1,
+   "name": "約無信以呈疑",
+   "seg": 319,
+   "lastSeg": 319
+  },
+  {
+   "id": 532,
+   "par": 527,
+   "lv": 16,
+   "label": 2,
+   "name": "呵疑詞以顯信",
+   "seg": 319,
+   "lastSeg": 320
+  },
+  {
+   "id": 533,
+   "par": 527,
+   "lv": 16,
+   "label": 3,
+   "name": "明能信之所以",
+   "seg": 319,
+   "lastSeg": 321
+  },
+  {
+   "id": 535,
+   "par": 533,
+   "lv": 17,
+   "label": 1,
+   "name": "明歷事善友",
+   "seg": 321
+  },
+  {
+   "id": 536,
+   "par": 533,
+   "lv": 17,
+   "label": 2,
+   "name": "明善友所攝成就信德",
+   "seg": 322,
+   "lastSeg": 322
+  },
+  {
+   "id": 537,
+   "par": 536,
+   "lv": 18,
+   "label": 1,
+   "name": "明攝受得福顯福德門",
+   "seg": 322,
+   "lastSeg": 322
+  },
+  {
+   "id": 539,
+   "par": 537,
+   "lv": 19,
+   "label": 1,
+   "name": "釋佛知見",
+   "seg": 323,
+   "lastSeg": 323
+  },
+  {
+   "id": 540,
+   "par": 537,
+   "lv": 19,
+   "label": 2,
+   "name": "釋得福德",
+   "seg": 324,
+   "lastSeg": 324
+  },
+  {
+   "id": 538,
+   "par": 536,
+   "lv": 18,
+   "label": 2,
+   "name": "明攝受所以顯智慧門",
+   "seg": 322,
+   "lastSeg": 325
+  },
+  {
+   "id": 541,
+   "par": 538,
+   "lv": 19,
+   "label": 1,
+   "name": "敘意科",
+   "seg": 325
+  },
+  {
+   "id": 542,
+   "par": 538,
+   "lv": 19,
+   "label": 2,
+   "name": "依科正釋",
+   "seg": 326,
+   "lastSeg": 326
+  },
+  {
+   "id": 543,
+   "par": 542,
+   "lv": 20,
+   "label": 1,
+   "name": "正明已斷麤執",
+   "seg": 326,
+   "lastSeg": 326
+  },
+  {
+   "id": 544,
+   "par": 542,
+   "lv": 20,
+   "label": 2,
+   "name": "因顯未除細執",
+   "seg": 326,
+   "lastSeg": 331
+  },
+  {
+   "id": 548,
+   "par": 544,
+   "lv": 21,
+   "label": 1,
+   "name": "總明二相",
+   "seg": 331,
+   "lastSeg": 331
+  },
+  {
+   "id": 549,
+   "par": 544,
+   "lv": 21,
+   "label": 2,
+   "name": "別明二相",
+   "seg": 331,
+   "lastSeg": 332
+  },
+  {
+   "id": 550,
+   "par": 549,
+   "lv": 22,
+   "label": 1,
+   "name": "正辨二相",
+   "seg": 332,
+   "lastSeg": 333
+  },
+  {
+   "id": 552,
+   "par": 550,
+   "lv": 23,
+   "label": 1,
+   "name": "引天親",
+   "seg": 333,
+   "lastSeg": 333
+  },
+  {
+   "id": 553,
+   "par": 550,
+   "lv": 23,
+   "label": 2,
+   "name": "引無著",
+   "seg": 333,
+   "lastSeg": 334
+  },
+  {
+   "id": 551,
+   "par": 549,
+   "lv": 22,
+   "label": 2,
+   "name": "別解徵意",
+   "seg": 332,
+   "lastSeg": 335
+  },
+  {
+   "id": 534,
+   "par": 527,
+   "lv": 16,
+   "label": 4,
+   "name": "示中道之玄門",
+   "seg": 319,
+   "lastSeg": 336
+  },
+  {
+   "id": 554,
+   "par": 534,
+   "lv": 17,
+   "label": 1,
+   "name": "正結歸中",
+   "seg": 336,
+   "lastSeg": 337
+  },
+  {
+   "id": 555,
+   "par": 554,
+   "lv": 18,
+   "label": 2,
+   "name": "引說以證",
+   "seg": 338,
+   "lastSeg": 338
+  },
+  {
+   "id": 481,
+   "par": 478,
+   "lv": 14,
+   "label": 3,
+   "name": "斷無相云何得說疑",
+   "seg": 296,
+   "lastSeg": 339
+  },
+  {
+   "id": 556,
+   "par": 481,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 339,
+   "lastSeg": 339
+  },
+  {
+   "id": 558,
+   "par": 556,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 339,
+   "lastSeg": 339
+  },
+  {
+   "id": 559,
+   "par": 556,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 339,
+   "lastSeg": 340
+  },
+  {
+   "id": 560,
+   "par": 556,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 339,
+   "lastSeg": 341
+  },
+  {
+   "id": 557,
+   "par": 481,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 339,
+   "lastSeg": 342
+  },
+  {
+   "id": 561,
+   "par": 557,
+   "lv": 16,
+   "label": 1,
+   "name": "問答斷疑",
+   "seg": 342,
+   "lastSeg": 342
+  },
+  {
+   "id": 563,
+   "par": 561,
+   "lv": 17,
+   "label": 1,
+   "name": "舉疑因以問",
+   "seg": 342
+  },
+  {
+   "id": 564,
+   "par": 561,
+   "lv": 17,
+   "label": 2,
+   "name": "順實理以酬",
+   "seg": 342,
+   "lastSeg": 343
+  },
+  {
+   "id": 565,
+   "par": 561,
+   "lv": 17,
+   "label": 3,
+   "name": "釋無定法之言",
+   "seg": 342,
+   "lastSeg": 344
+  },
+  {
+   "id": 567,
+   "par": 565,
+   "lv": 18,
+   "label": 1,
+   "name": "引無著",
+   "seg": 344,
+   "lastSeg": 345
+  },
+  {
+   "id": 568,
+   "par": 565,
+   "lv": 18,
+   "label": 2,
+   "name": "引天親",
+   "seg": 344,
+   "lastSeg": 346
+  },
+  {
+   "id": 569,
+   "par": 568,
+   "lv": 19,
+   "label": 1,
+   "name": "釋文",
+   "seg": 346,
+   "lastSeg": 346
+  },
+  {
+   "id": 570,
+   "par": 568,
+   "lv": 19,
+   "label": 2,
+   "name": "通難",
+   "seg": 346,
+   "lastSeg": 347
+  },
+  {
+   "id": 566,
+   "par": 561,
+   "lv": 17,
+   "label": 4,
+   "name": "釋無取說之所以",
+   "seg": 342,
+   "lastSeg": 348
+  },
+  {
+   "id": 562,
+   "par": 557,
+   "lv": 16,
+   "label": 2,
+   "name": "較量顯勝",
+   "seg": 342,
+   "lastSeg": 349
+  },
+  {
+   "id": 571,
+   "par": 562,
+   "lv": 17,
+   "label": 1,
+   "name": "舉劣福以問",
+   "seg": 349,
+   "lastSeg": 350
+  },
+  {
+   "id": 572,
+   "par": 562,
+   "lv": 17,
+   "label": 2,
+   "name": "釋福多以酬",
+   "seg": 349,
+   "lastSeg": 351
+  },
+  {
+   "id": 573,
+   "par": 562,
+   "lv": 17,
+   "label": 3,
+   "name": "判經福超過",
+   "seg": 349,
+   "lastSeg": 352
+  },
+  {
+   "id": 575,
+   "par": 573,
+   "lv": 18,
+   "label": 1,
+   "name": "正釋經文",
+   "seg": 352,
+   "lastSeg": 353
+  },
+  {
+   "id": 576,
+   "par": 573,
+   "lv": 18,
+   "label": 2,
+   "name": "別示句相",
+   "seg": 352,
+   "lastSeg": 354
+  },
+  {
+   "id": 577,
+   "par": 576,
+   "lv": 19,
+   "label": 1,
+   "name": "正示",
+   "seg": 354,
+   "lastSeg": 354
+  },
+  {
+   "id": 578,
+   "par": 576,
+   "lv": 19,
+   "label": 2,
+   "name": "通妨",
+   "seg": 354
+  },
+  {
+   "id": 574,
+   "par": 562,
+   "lv": 17,
+   "label": 4,
+   "name": "釋超過所以",
+   "seg": 349,
+   "lastSeg": 356
+  },
+  {
+   "id": 579,
+   "par": 574,
+   "lv": 18,
+   "label": 1,
+   "name": "正釋",
+   "seg": 356,
+   "lastSeg": 356
+  },
+  {
+   "id": 580,
+   "par": 574,
+   "lv": 18,
+   "label": 2,
+   "name": "轉釋",
+   "seg": 356,
+   "lastSeg": 357
+  },
+  {
+   "id": 482,
+   "par": 478,
+   "lv": 14,
+   "label": 4,
+   "name": "斷聲聞得果是取疑",
+   "seg": 296,
+   "lastSeg": 358
+  },
+  {
+   "id": 581,
+   "par": 482,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 358,
+   "lastSeg": 358
+  },
+  {
+   "id": 583,
+   "par": 581,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 358,
+   "lastSeg": 358
+  },
+  {
+   "id": 584,
+   "par": 581,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 358,
+   "lastSeg": 359
+  },
+  {
+   "id": 585,
+   "par": 581,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 358,
+   "lastSeg": 360
+  },
+  {
+   "id": 582,
+   "par": 482,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 358,
+   "lastSeg": 361
+  },
+  {
+   "id": 586,
+   "par": 582,
+   "lv": 16,
+   "label": 1,
+   "name": "入流果",
+   "seg": 361,
+   "lastSeg": 362
+  },
+  {
+   "id": 590,
+   "par": 586,
+   "lv": 17,
+   "label": 1,
+   "name": "正釋經文",
+   "seg": 362,
+   "lastSeg": 362
+  },
+  {
+   "id": 593,
+   "par": 590,
+   "lv": 18,
+   "label": 1,
+   "name": "問",
+   "seg": 362
+  },
+  {
+   "id": 591,
+   "par": 586,
+   "lv": 17,
+   "label": 2,
+   "name": "商較果證",
+   "seg": 362,
+   "lastSeg": 366
+  },
+  {
+   "id": 592,
+   "par": 586,
+   "lv": 17,
+   "label": 3,
+   "name": "結斷疑情",
+   "seg": 362,
+   "lastSeg": 367
+  },
+  {
+   "id": 587,
+   "par": 582,
+   "lv": 16,
+   "label": 1.1,
+   "name": "來果",
+   "seg": 361
+  },
+  {
+   "id": 588,
+   "par": 582,
+   "lv": 16,
+   "label": 3,
+   "name": "不來果",
+   "seg": 361,
+   "lastSeg": 372
+  },
+  {
+   "id": 599,
+   "par": 588,
+   "lv": 17,
+   "label": 1,
+   "name": "問",
+   "seg": 372
+  },
+  {
+   "id": 600,
+   "par": 588,
+   "lv": 17,
+   "label": 2,
+   "name": "答",
+   "seg": 372,
+   "lastSeg": 401
+  },
+  {
+   "id": 601,
+   "par": 588,
+   "lv": 17,
+   "label": 3,
+   "name": "徵",
+   "seg": 372
+  },
+  {
+   "id": 602,
+   "par": 588,
+   "lv": 17,
+   "label": 4,
+   "name": "釋",
+   "seg": 372,
+   "lastSeg": 375
+  },
+  {
+   "id": 589,
+   "par": 582,
+   "lv": 16,
+   "label": 4,
+   "name": "不生果",
+   "seg": 361,
+   "lastSeg": 376
+  },
+  {
+   "id": 603,
+   "par": 589,
+   "lv": 17,
+   "label": 1,
+   "name": "辨得名",
+   "seg": 376
+  },
+  {
+   "id": 604,
+   "par": 589,
+   "lv": 17,
+   "label": 2,
+   "name": "正釋經",
+   "seg": 376,
+   "lastSeg": 381
+  },
+  {
+   "id": 610,
+   "par": 604,
+   "lv": 18,
+   "label": 1,
+   "name": "舉所得以問",
+   "seg": 381,
+   "lastSeg": 381
+  },
+  {
+   "id": 611,
+   "par": 604,
+   "lv": 18,
+   "label": 2,
+   "name": "明無取以答",
+   "seg": 381
+  },
+  {
+   "id": 612,
+   "par": 604,
+   "lv": 18,
+   "label": 3,
+   "name": "引己證令信",
+   "seg": 381,
+   "lastSeg": 386
+  },
+  {
+   "id": 616,
+   "par": 612,
+   "lv": 19,
+   "label": 1,
+   "name": "明佛先印",
+   "seg": 386
+  },
+  {
+   "id": 617,
+   "par": 612,
+   "lv": 19,
+   "label": 2,
+   "name": "彰己不取",
+   "seg": 386
+  },
+  {
+   "id": 618,
+   "par": 612,
+   "lv": 19,
+   "label": 3,
+   "name": "却釋佛意",
+   "seg": 386
+  },
+  {
+   "id": 613,
+   "par": 589,
+   "lv": 17,
+   "label": 3,
+   "name": "釋又",
+   "seg": 384,
+   "lastSeg": 384
+  },
+  {
+   "id": 614,
+   "par": 613,
+   "lv": 18,
+   "label": 1,
+   "name": "正釋",
+   "seg": 384,
+   "lastSeg": 390
+  },
+  {
+   "id": 615,
+   "par": 613,
+   "lv": 18,
+   "label": 2,
+   "name": "反釋",
+   "seg": 384,
+   "lastSeg": 385
+  },
+  {
+   "id": 483,
+   "par": 478,
+   "lv": 14,
+   "label": 5,
+   "name": "斷釋迦然燈取說疑",
+   "seg": 296,
+   "lastSeg": 391
+  },
+  {
+   "id": 619,
+   "par": 483,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 391,
+   "lastSeg": 391
+  },
+  {
+   "id": 621,
+   "par": 619,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 391,
+   "lastSeg": 391
+  },
+  {
+   "id": 622,
+   "par": 619,
+   "lv": 16,
+   "label": 2,
+   "name": "述疑意",
+   "seg": 391
+  },
+  {
+   "id": 623,
+   "par": 619,
+   "lv": 16,
+   "label": 3,
+   "name": "指疑起處便結成疑",
+   "seg": 391
+  },
+  {
+   "id": 620,
+   "par": 483,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 391,
+   "lastSeg": 394
+  },
+  {
+   "id": 484,
+   "par": 478,
+   "lv": 14,
+   "label": 6,
+   "name": "斷嚴土違於不取疑",
+   "seg": 296,
+   "lastSeg": 397
+  },
+  {
+   "id": 624,
+   "par": 484,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 397,
+   "lastSeg": 397
+  },
+  {
+   "id": 626,
+   "par": 624,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 397,
+   "lastSeg": 397
+  },
+  {
+   "id": 627,
+   "par": 624,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 397,
+   "lastSeg": 398
+  },
+  {
+   "id": 628,
+   "par": 624,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 397,
+   "lastSeg": 399
+  },
+  {
+   "id": 625,
+   "par": 484,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 397,
+   "lastSeg": 400
+  },
+  {
+   "id": 629,
+   "par": 625,
+   "lv": 16,
+   "label": 1,
+   "name": "舉取相莊嚴",
+   "seg": 400
+  },
+  {
+   "id": 630,
+   "par": 625,
+   "lv": 16,
+   "label": 2,
+   "name": "釋離相莊嚴答",
+   "seg": 401,
+   "lastSeg": 401
+  },
+  {
+   "id": 631,
+   "par": 630,
+   "lv": 17,
+   "label": 1,
+   "name": "荅",
+   "seg": 401
+  },
+  {
+   "id": 632,
+   "par": 630,
+   "lv": 17,
+   "label": 2,
+   "name": "徵",
+   "seg": 401
+  },
+  {
+   "id": 633,
+   "par": 630,
+   "lv": 17,
+   "label": 3,
+   "name": "釋",
+   "seg": 401,
+   "lastSeg": 403
+  },
+  {
+   "id": 634,
+   "par": 625,
+   "lv": 16,
+   "label": 3,
+   "name": "依淨心莊嚴勸",
+   "seg": 404,
+   "lastSeg": 404
+  },
+  {
+   "id": 485,
+   "par": 478,
+   "lv": 14,
+   "label": 7,
+   "name": "斷受得報身有取疑",
+   "seg": 296,
+   "lastSeg": 405
+  },
+  {
+   "id": 635,
+   "par": 485,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 405,
+   "lastSeg": 405
+  },
+  {
+   "id": 637,
+   "par": 635,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 405,
+   "lastSeg": 405
+  },
+  {
+   "id": 638,
+   "par": 635,
+   "lv": 16,
+   "label": 2,
+   "name": "敘疑",
+   "seg": 405,
+   "lastSeg": 406
+  },
+  {
+   "id": 636,
+   "par": 485,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 405,
+   "lastSeg": 407
+  },
+  {
+   "id": 639,
+   "par": 636,
+   "lv": 16,
+   "label": 1,
+   "name": "問答斷疑",
+   "seg": 407,
+   "lastSeg": 412
+  },
+  {
+   "id": 641,
+   "par": 639,
+   "lv": 17,
+   "label": 1,
+   "name": "問",
+   "seg": 408
+  },
+  {
+   "id": 642,
+   "par": 639,
+   "lv": 17,
+   "label": 2,
+   "name": "答",
+   "seg": 408
+  },
+  {
+   "id": 643,
+   "par": 639,
+   "lv": 17,
+   "label": 3,
+   "name": "徵",
+   "seg": 408
+  },
+  {
+   "id": 644,
+   "par": 639,
+   "lv": 17,
+   "label": 4,
+   "name": "釋",
+   "seg": 408,
+   "lastSeg": 426
+  },
+  {
+   "id": 645,
+   "par": 639,
+   "lv": 17,
+   "label": 1.1,
+   "name": "總釋喻旨",
+   "seg": 412
+  },
+  {
+   "id": 646,
+   "par": 639,
+   "lv": 17,
+   "label": 2.2,
+   "name": "別解非身",
+   "seg": 412,
+   "lastSeg": 416
+  },
+  {
+   "id": 648,
+   "par": 646,
+   "lv": 18,
+   "label": 1,
+   "name": "牒經略指",
+   "seg": 416,
+   "lastSeg": 416
+  },
+  {
+   "id": 649,
+   "par": 646,
+   "lv": 18,
+   "label": 2,
+   "name": "引論廣釋",
+   "seg": 416,
+   "lastSeg": 417
+  },
+  {
+   "id": 650,
+   "par": 649,
+   "lv": 19,
+   "label": 1,
+   "name": "本偈",
+   "seg": 417
+  },
+  {
+   "id": 651,
+   "par": 649,
+   "lv": 19,
+   "label": 2,
+   "name": "引論文",
+   "seg": 417,
+   "lastSeg": 418
+  },
+  {
+   "id": 653,
+   "par": 651,
+   "lv": 20,
+   "label": 1,
+   "name": "雙標",
+   "seg": 418,
+   "lastSeg": 418
+  },
+  {
+   "id": 654,
+   "par": 651,
+   "lv": 20,
+   "label": 2,
+   "name": "雙釋",
+   "seg": 418,
+   "lastSeg": 419
+  },
+  {
+   "id": 655,
+   "par": 651,
+   "lv": 20,
+   "label": 3,
+   "name": "雙結",
+   "seg": 418,
+   "lastSeg": 420
+  },
+  {
+   "id": 640,
+   "par": 636,
+   "lv": 16,
+   "label": 2,
+   "name": "較量顯勝",
+   "seg": 407,
+   "lastSeg": 421
+  },
+  {
+   "id": 656,
+   "par": 640,
+   "lv": 17,
+   "label": 1,
+   "name": "約外財較量廣顯經勝",
+   "seg": 421
+  },
+  {
+   "id": 657,
+   "par": 640,
+   "lv": 17,
+   "label": 2,
+   "name": "約內財較量倍顯經勝",
+   "seg": 421,
+   "lastSeg": 461
+  },
+  {
+   "id": 700,
+   "par": 657,
+   "lv": 18,
+   "label": 1,
+   "name": "較量勝劣",
+   "seg": 461,
+   "lastSeg": 461
+  },
+  {
+   "id": 702,
+   "par": 700,
+   "lv": 19,
+   "label": 2,
+   "name": "所較更勝",
+   "seg": 462,
+   "lastSeg": 462
+  },
+  {
+   "id": 701,
+   "par": 657,
+   "lv": 18,
+   "label": 2,
+   "name": "釋勝所以",
+   "seg": 461,
+   "lastSeg": 463
+  },
+  {
+   "id": 703,
+   "par": 701,
+   "lv": 19,
+   "label": 1,
+   "name": "泣歎未聞深法勝",
+   "seg": 463,
+   "lastSeg": 463
+  },
+  {
+   "id": 704,
+   "par": 701,
+   "lv": 19,
+   "label": 2,
+   "name": "淨心契實具德勝",
+   "seg": 463,
+   "lastSeg": 464
+  },
+  {
+   "id": 708,
+   "par": 704,
+   "lv": 20,
+   "label": 1,
+   "name": "正明",
+   "seg": 464,
+   "lastSeg": 464
+  },
+  {
+   "id": 709,
+   "par": 704,
+   "lv": 20,
+   "label": 2,
+   "name": "拂跡",
+   "seg": 464,
+   "lastSeg": 465
+  },
+  {
+   "id": 705,
+   "par": 701,
+   "lv": 19,
+   "label": 3,
+   "name": "信解三空同佛勝",
+   "seg": 463,
+   "lastSeg": 466
+  },
+  {
+   "id": 710,
+   "par": 705,
+   "lv": 20,
+   "label": 1,
+   "name": "總標信解",
+   "seg": 466,
+   "lastSeg": 466
+  },
+  {
+   "id": 711,
+   "par": 705,
+   "lv": 20,
+   "label": 2,
+   "name": "別顯三空",
+   "seg": 466,
+   "lastSeg": 467
+  },
+  {
+   "id": 713,
+   "par": 711,
+   "lv": 21,
+   "label": 1,
+   "name": "我空",
+   "seg": 467,
+   "lastSeg": 467
+  },
+  {
+   "id": 716,
+   "par": 713,
+   "lv": 22,
+   "label": 1,
+   "name": "徵",
+   "seg": 467,
+   "lastSeg": 467
+  },
+  {
+   "id": 717,
+   "par": 713,
+   "lv": 22,
+   "label": 2,
+   "name": "釋",
+   "seg": 467,
+   "lastSeg": 468
+  },
+  {
+   "id": 714,
+   "par": 711,
+   "lv": 21,
+   "label": 2,
+   "name": "法空",
+   "seg": 467,
+   "lastSeg": 469
+  },
+  {
+   "id": 718,
+   "par": 714,
+   "lv": 22,
+   "label": 1,
+   "name": "徵",
+   "seg": 469,
+   "lastSeg": 469
+  },
+  {
+   "id": 719,
+   "par": 714,
+   "lv": 22,
+   "label": 2,
+   "name": "釋",
+   "seg": 469,
+   "lastSeg": 470
+  },
+  {
+   "id": 715,
+   "par": 711,
+   "lv": 21,
+   "label": 3,
+   "name": "俱空",
+   "seg": 467,
+   "lastSeg": 471
+  },
+  {
+   "id": 720,
+   "par": 715,
+   "lv": 22,
+   "label": 1,
+   "name": "徵",
+   "seg": 471,
+   "lastSeg": 471
+  },
+  {
+   "id": 721,
+   "par": 715,
+   "lv": 22,
+   "label": 2,
+   "name": "釋",
+   "seg": 471,
+   "lastSeg": 472
+  },
+  {
+   "id": 712,
+   "par": 705,
+   "lv": 20,
+   "label": 3,
+   "name": "如來印定",
+   "seg": 466,
+   "lastSeg": 473
+  },
+  {
+   "id": 706,
+   "par": 701,
+   "lv": 19,
+   "label": 4,
+   "name": "聞時不動希有勝",
+   "seg": 463,
+   "lastSeg": 474
+  },
+  {
+   "id": 707,
+   "par": 701,
+   "lv": 19,
+   "label": 5,
+   "name": "大因清淨第一勝",
+   "seg": 463,
+   "lastSeg": 475
+  },
+  {
+   "id": 722,
+   "par": 707,
+   "lv": 20,
+   "label": 1,
+   "name": "徵",
+   "seg": 475,
+   "lastSeg": 475
+  },
+  {
+   "id": 723,
+   "par": 707,
+   "lv": 20,
+   "label": 2,
+   "name": "釋",
+   "seg": 475,
+   "lastSeg": 476
+  },
+  {
+   "id": 647,
+   "par": 636,
+   "lv": 16,
+   "label": 3,
+   "name": "以偈結",
+   "seg": 415,
+   "lastSeg": 415
+  },
+  {
+   "id": 486,
+   "par": 478,
+   "lv": 14,
+   "label": 8,
+   "name": "斷持說未脫苦果疑",
+   "seg": 296,
+   "lastSeg": 477
+  },
+  {
+   "id": 724,
+   "par": 486,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 477,
+   "lastSeg": 477
+  },
+  {
+   "id": 726,
+   "par": 724,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 477,
+   "lastSeg": 477
+  },
+  {
+   "id": 727,
+   "par": 724,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 477,
+   "lastSeg": 478
+  },
+  {
+   "id": 728,
+   "par": 724,
+   "lv": 16,
+   "label": 3,
+   "name": "印定",
+   "seg": 477
+  },
+  {
+   "id": 729,
+   "par": 724,
+   "lv": 16,
+   "label": 4,
+   "name": "結成疑",
+   "seg": 477,
+   "lastSeg": 480
+  },
+  {
+   "id": 725,
+   "par": 486,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 477,
+   "lastSeg": 481
+  },
+  {
+   "id": 730,
+   "par": 725,
+   "lv": 16,
+   "label": 1,
+   "name": "明超忍以斷疑",
+   "seg": 481,
+   "lastSeg": 481
+  },
+  {
+   "id": 732,
+   "par": 730,
+   "lv": 17,
+   "label": 1,
+   "name": "明忍體",
+   "seg": 481,
+   "lastSeg": 481
+  },
+  {
+   "id": 733,
+   "par": 730,
+   "lv": 17,
+   "label": 2,
+   "name": "明忍相",
+   "seg": 481,
+   "lastSeg": 482
+  },
+  {
+   "id": 734,
+   "par": 733,
+   "lv": 18,
+   "label": 1,
+   "name": "引一生證極苦忍",
+   "seg": 482
+  },
+  {
+   "id": 735,
+   "par": 733,
+   "lv": 18,
+   "label": 2,
+   "name": "引多生證相續忍",
+   "seg": 482,
+   "lastSeg": 487
+  },
+  {
+   "id": 736,
+   "par": 733,
+   "lv": 18,
+   "label": 1.1,
+   "name": "一生證極苦忍",
+   "seg": 482,
+   "lastSeg": 482
+  },
+  {
+   "id": 737,
+   "par": 736,
+   "lv": 19,
+   "label": 1,
+   "name": "正明",
+   "seg": 482,
+   "lastSeg": 483
+  },
+  {
+   "id": 739,
+   "par": 737,
+   "lv": 20,
+   "label": 1,
+   "name": "徵",
+   "seg": 483,
+   "lastSeg": 483
+  },
+  {
+   "id": 740,
+   "par": 737,
+   "lv": 20,
+   "label": 2,
+   "name": "釋",
+   "seg": 483,
+   "lastSeg": 484
+  },
+  {
+   "id": 738,
+   "par": 736,
+   "lv": 19,
+   "label": 2,
+   "name": "反顯",
+   "seg": 482,
+   "lastSeg": 485
+  },
+  {
+   "id": 741,
+   "par": 738,
+   "lv": 20,
+   "label": 1,
+   "name": "徵",
+   "seg": 485,
+   "lastSeg": 485
+  },
+  {
+   "id": 742,
+   "par": 738,
+   "lv": 20,
+   "label": 2,
+   "name": "釋",
+   "seg": 485,
+   "lastSeg": 486
+  },
+  {
+   "id": 731,
+   "par": 725,
+   "lv": 16,
+   "label": 2,
+   "name": "勸離相以安忍",
+   "seg": 481,
+   "lastSeg": 488
+  },
+  {
+   "id": 743,
+   "par": 731,
+   "lv": 17,
+   "label": 1,
+   "name": "引論敘意",
+   "seg": 488,
+   "lastSeg": 488
+  },
+  {
+   "id": 744,
+   "par": 731,
+   "lv": 17,
+   "label": 2,
+   "name": "分文正釋",
+   "seg": 488,
+   "lastSeg": 489
+  },
+  {
+   "id": 487,
+   "par": 478,
+   "lv": 14,
+   "label": 9,
+   "name": "斷能證無體非因疑",
+   "seg": 296,
+   "lastSeg": 497
+  },
+  {
+   "id": 754,
+   "par": 487,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 497,
+   "lastSeg": 497
+  },
+  {
+   "id": 756,
+   "par": 754,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 497,
+   "lastSeg": 497
+  },
+  {
+   "id": 757,
+   "par": 754,
+   "lv": 16,
+   "label": 2,
+   "name": "敘疑",
+   "seg": 497,
+   "lastSeg": 498
+  },
+  {
+   "id": 755,
+   "par": 487,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 497,
+   "lastSeg": 499
+  },
+  {
+   "id": 758,
+   "par": 755,
+   "lv": 16,
+   "label": 1,
+   "name": "斷疑",
+   "seg": 499,
+   "lastSeg": 499
+  },
+  {
+   "id": 760,
+   "par": 758,
+   "lv": 17,
+   "label": 1,
+   "name": "略消經意",
+   "seg": 499,
+   "lastSeg": 499
+  },
+  {
+   "id": 761,
+   "par": 758,
+   "lv": 17,
+   "label": 2,
+   "name": "廣釋五語",
+   "seg": 499,
+   "lastSeg": 500
+  },
+  {
+   "id": 759,
+   "par": 755,
+   "lv": 16,
+   "label": 2,
+   "name": "離執",
+   "seg": 499,
+   "lastSeg": 501
+  },
+  {
+   "id": 488,
+   "par": 478,
+   "lv": 14,
+   "label": 10,
+   "name": "斷如遍有得無得疑",
+   "seg": 296,
+   "lastSeg": 502
+  },
+  {
+   "id": 762,
+   "par": 488,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 502,
+   "lastSeg": 502
+  },
+  {
+   "id": 764,
+   "par": 762,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 502,
+   "lastSeg": 502
+  },
+  {
+   "id": 765,
+   "par": 762,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 502,
+   "lastSeg": 503
+  },
+  {
+   "id": 766,
+   "par": 762,
+   "lv": 16,
+   "label": 3,
+   "name": "立理",
+   "seg": 502
+  },
+  {
+   "id": 767,
+   "par": 762,
+   "lv": 16,
+   "label": 4,
+   "name": "結成疑",
+   "seg": 502,
+   "lastSeg": 505
+  },
+  {
+   "id": 763,
+   "par": 488,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 502,
+   "lastSeg": 506
+  },
+  {
+   "id": 768,
+   "par": 763,
+   "lv": 16,
+   "label": 1,
+   "name": "舉喻斷疑",
+   "seg": 506,
+   "lastSeg": 506
+  },
+  {
+   "id": 769,
+   "par": 763,
+   "lv": 16,
+   "label": 2,
+   "name": "讚經功德",
+   "seg": 506,
+   "lastSeg": 507
+  },
+  {
+   "id": 770,
+   "par": 769,
+   "lv": 17,
+   "label": 1,
+   "name": "總標",
+   "seg": 507,
+   "lastSeg": 508
+  },
+  {
+   "id": 771,
+   "par": 769,
+   "lv": 17,
+   "label": 2,
+   "name": "別顯",
+   "seg": 507,
+   "lastSeg": 509
+  },
+  {
+   "id": 772,
+   "par": 771,
+   "lv": 18,
+   "label": 1,
+   "name": "捨命不如",
+   "seg": 509,
+   "lastSeg": 509
+  },
+  {
+   "id": 782,
+   "par": 772,
+   "lv": 19,
+   "label": 1,
+   "name": "捨命福",
+   "seg": 509,
+   "lastSeg": 509
+  },
+  {
+   "id": 783,
+   "par": 772,
+   "lv": 19,
+   "label": 2,
+   "name": "信經福",
+   "seg": 509,
+   "lastSeg": 510
+  },
+  {
+   "id": 773,
+   "par": 771,
+   "lv": 18,
+   "label": 2,
+   "name": "餘乘不測",
+   "seg": 509,
+   "lastSeg": 511
+  },
+  {
+   "id": 774,
+   "par": 771,
+   "lv": 18,
+   "label": 3,
+   "name": "依大心說",
+   "seg": 509,
+   "lastSeg": 512
+  },
+  {
+   "id": 775,
+   "par": 771,
+   "lv": 18,
+   "label": 4,
+   "name": "具德能傳",
+   "seg": 509,
+   "lastSeg": 513
+  },
+  {
+   "id": 776,
+   "par": 771,
+   "lv": 18,
+   "label": 5,
+   "name": "樂小不堪",
+   "seg": 509,
+   "lastSeg": 514
+  },
+  {
+   "id": 777,
+   "par": 771,
+   "lv": 18,
+   "label": 6,
+   "name": "所在如塔",
+   "seg": 509
+  },
+  {
+   "id": 778,
+   "par": 771,
+   "lv": 18,
+   "label": 7,
+   "name": "轉罪為佛",
+   "seg": 509,
+   "lastSeg": 516
+  },
+  {
+   "id": 779,
+   "par": 771,
+   "lv": 18,
+   "label": 8,
+   "name": "超事多尊",
+   "seg": 509,
+   "lastSeg": 517
+  },
+  {
+   "id": 784,
+   "par": 779,
+   "lv": 19,
+   "label": 1,
+   "name": "總敘意",
+   "seg": 517,
+   "lastSeg": 517
+  },
+  {
+   "id": 785,
+   "par": 779,
+   "lv": 19,
+   "label": 2,
+   "name": "別科釋",
+   "seg": 517,
+   "lastSeg": 518
+  },
+  {
+   "id": 786,
+   "par": 785,
+   "lv": 20,
+   "label": 1,
+   "name": "供佛多中全具福",
+   "seg": 518,
+   "lastSeg": 518
+  },
+  {
+   "id": 787,
+   "par": 785,
+   "lv": 20,
+   "label": 2,
+   "name": "持經多中少分福",
+   "seg": 518,
+   "lastSeg": 519
+  },
+  {
+   "id": 780,
+   "par": 771,
+   "lv": 18,
+   "label": 9,
+   "name": "具聞則疑",
+   "seg": 509,
+   "lastSeg": 520
+  },
+  {
+   "id": 781,
+   "par": 771,
+   "lv": 18,
+   "label": 10,
+   "name": "總結幽邃",
+   "seg": 509,
+   "lastSeg": 521
+  },
+  {
+   "id": 489,
+   "par": 478,
+   "lv": 14,
+   "label": 11,
+   "name": "斷住修降伏是我疑",
+   "seg": 296,
+   "lastSeg": 522
+  },
+  {
+   "id": 788,
+   "par": 489,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 522,
+   "lastSeg": 522
+  },
+  {
+   "id": 790,
+   "par": 788,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 522,
+   "lastSeg": 522
+  },
+  {
+   "id": 791,
+   "par": 788,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 522,
+   "lastSeg": 523
+  },
+  {
+   "id": 792,
+   "par": 788,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 522,
+   "lastSeg": 524
+  },
+  {
+   "id": 793,
+   "par": 788,
+   "lv": 16,
+   "label": 4,
+   "name": "敘別義",
+   "seg": 522,
+   "lastSeg": 525
+  },
+  {
+   "id": 794,
+   "par": 793,
+   "lv": 17,
+   "label": 1,
+   "name": "正敘",
+   "seg": 525,
+   "lastSeg": 525
+  },
+  {
+   "id": 795,
+   "par": 793,
+   "lv": 17,
+   "label": 2,
+   "name": "引證",
+   "seg": 525,
+   "lastSeg": 647
+  },
+  {
+   "id": 789,
+   "par": 489,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 522,
+   "lastSeg": 648
+  },
+  {
+   "id": 796,
+   "par": 789,
+   "lv": 16,
+   "label": 1,
+   "name": "問",
+   "seg": 527
+  },
+  {
+   "id": 797,
+   "par": 789,
+   "lv": 16,
+   "label": 2,
+   "name": "答",
+   "seg": 527,
+   "lastSeg": 528
+  },
+  {
+   "id": 798,
+   "par": 797,
+   "lv": 17,
+   "label": 1,
+   "name": "若名菩薩必無我",
+   "seg": 528
+  },
+  {
+   "id": 799,
+   "par": 797,
+   "lv": 17,
+   "label": 2,
+   "name": "若有我相非菩薩",
+   "seg": 528,
+   "lastSeg": 529
+  },
+  {
+   "id": 800,
+   "par": 797,
+   "lv": 17,
+   "label": 3,
+   "name": "能所俱寂是菩提",
+   "seg": 528
+  },
+  {
+   "id": 943,
+   "par": 789,
+   "lv": 16,
+   "label": 1.1,
+   "name": "標科",
+   "seg": 648
+  },
+  {
+   "id": 944,
+   "par": 789,
+   "lv": 16,
+   "label": 2.2,
+   "name": "分釋",
+   "seg": 648,
+   "lastSeg": 649
+  },
+  {
+   "id": 945,
+   "par": 944,
+   "lv": 17,
+   "label": 1,
+   "name": "遮毀相之念",
+   "seg": 649,
+   "lastSeg": 649
+  },
+  {
+   "id": 946,
+   "par": 944,
+   "lv": 17,
+   "label": 2,
+   "name": "出毀相之過",
+   "seg": 649,
+   "lastSeg": 650
+  },
+  {
+   "id": 947,
+   "par": 944,
+   "lv": 17,
+   "label": 3,
+   "name": "明福相不失",
+   "seg": 649
+  },
+  {
+   "id": 948,
+   "par": 944,
+   "lv": 17,
+   "label": 4,
+   "name": "明不失所以",
+   "seg": 649,
+   "lastSeg": 652
+  },
+  {
+   "id": 949,
+   "par": 948,
+   "lv": 18,
+   "label": 1,
+   "name": "明得忍故不失",
+   "seg": 652,
+   "lastSeg": 652
+  },
+  {
+   "id": 950,
+   "par": 948,
+   "lv": 18,
+   "label": 2,
+   "name": "明不受故不失",
+   "seg": 652,
+   "lastSeg": 653
+  },
+  {
+   "id": 951,
+   "par": 950,
+   "lv": 19,
+   "label": 1,
+   "name": "正明",
+   "seg": 653,
+   "lastSeg": 653
+  },
+  {
+   "id": 952,
+   "par": 950,
+   "lv": 19,
+   "label": 2,
+   "name": "徵釋",
+   "seg": 653,
+   "lastSeg": 654
+  },
+  {
+   "id": 490,
+   "par": 478,
+   "lv": 14,
+   "label": 12,
+   "name": "斷佛因是有菩薩疑",
+   "seg": 296,
+   "lastSeg": 531
+  },
+  {
+   "id": 801,
+   "par": 490,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 531,
+   "lastSeg": 531
+  },
+  {
+   "id": 803,
+   "par": 801,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 531,
+   "lastSeg": 531
+  },
+  {
+   "id": 804,
+   "par": 801,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 531,
+   "lastSeg": 540
+  },
+  {
+   "id": 805,
+   "par": 801,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 531,
+   "lastSeg": 541
+  },
+  {
+   "id": 815,
+   "par": 801,
+   "lv": 16,
+   "label": 4,
+   "name": "躡結所斷之旨",
+   "seg": 542,
+   "lastSeg": 542
+  },
+  {
+   "id": 816,
+   "par": 801,
+   "lv": 16,
+   "label": 5,
+   "name": "預指能斷之文",
+   "seg": 543,
+   "lastSeg": 543
+  },
+  {
+   "id": 802,
+   "par": 490,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 531,
+   "lastSeg": 544
+  },
+  {
+   "id": 806,
+   "par": 802,
+   "lv": 16,
+   "label": 1,
+   "name": "舉疑處",
+   "seg": 534,
+   "lastSeg": 534
+  },
+  {
+   "id": 807,
+   "par": 802,
+   "lv": 16,
+   "label": 2,
+   "name": "斷疑念",
+   "seg": 534,
+   "lastSeg": 535
+  },
+  {
+   "id": 808,
+   "par": 802,
+   "lv": 16,
+   "label": 3,
+   "name": "印決定",
+   "seg": 534,
+   "lastSeg": 536
+  },
+  {
+   "id": 809,
+   "par": 802,
+   "lv": 16,
+   "label": 4,
+   "name": "反覆釋",
+   "seg": 534,
+   "lastSeg": 537
+  },
+  {
+   "id": 817,
+   "par": 802,
+   "lv": 16,
+   "label": 1.1,
+   "name": "顯真如是佛故非無",
+   "seg": 544
+  },
+  {
+   "id": 818,
+   "par": 802,
+   "lv": 16,
+   "label": 2.2,
+   "name": "明佛即菩提故無得",
+   "seg": 544,
+   "lastSeg": 545
+  },
+  {
+   "id": 491,
+   "par": 478,
+   "lv": 14,
+   "label": 13,
+   "name": "斷無因則無佛法疑",
+   "seg": 296,
+   "lastSeg": 538
+  },
+  {
+   "id": 810,
+   "par": 491,
+   "lv": 15,
+   "label": 1,
+   "name": "科分",
+   "seg": 538,
+   "lastSeg": 538
+  },
+  {
+   "id": 811,
+   "par": 491,
+   "lv": 15,
+   "label": 2,
+   "name": "隨釋",
+   "seg": 538,
+   "lastSeg": 539
+  },
+  {
+   "id": 812,
+   "par": 811,
+   "lv": 16,
+   "label": 1,
+   "name": "斷一向無佛疑",
+   "seg": 539
+  },
+  {
+   "id": 813,
+   "par": 811,
+   "lv": 16,
+   "label": 2,
+   "name": "斷一向無法疑",
+   "seg": 539,
+   "lastSeg": 546
+  },
+  {
+   "id": 819,
+   "par": 813,
+   "lv": 17,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 546,
+   "lastSeg": 546
+  },
+  {
+   "id": 821,
+   "par": 819,
+   "lv": 18,
+   "label": 1,
+   "name": "標章",
+   "seg": 546,
+   "lastSeg": 546
+  },
+  {
+   "id": 822,
+   "par": 819,
+   "lv": 18,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 546,
+   "lastSeg": 547
+  },
+  {
+   "id": 823,
+   "par": 819,
+   "lv": 18,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 546,
+   "lastSeg": 548
+  },
+  {
+   "id": 824,
+   "par": 819,
+   "lv": 18,
+   "label": 4,
+   "name": "預指能斷之文",
+   "seg": 546,
+   "lastSeg": 549
+  },
+  {
+   "id": 820,
+   "par": 813,
+   "lv": 17,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 546,
+   "lastSeg": 550
+  },
+  {
+   "id": 825,
+   "par": 820,
+   "lv": 18,
+   "label": 1,
+   "name": "遣執遮疑",
+   "seg": 550,
+   "lastSeg": 550
+  },
+  {
+   "id": 826,
+   "par": 820,
+   "lv": 18,
+   "label": 2,
+   "name": "釋義斷疑",
+   "seg": 550,
+   "lastSeg": 551
+  },
+  {
+   "id": 827,
+   "par": 820,
+   "lv": 18,
+   "label": 3,
+   "name": "顯真佛法體",
+   "seg": 552,
+   "lastSeg": 552
+  },
+  {
+   "id": 814,
+   "par": 811,
+   "lv": 16,
+   "label": 3,
+   "name": "顯真佛真法體",
+   "seg": 539
+  },
+  {
+   "id": 492,
+   "par": 478,
+   "lv": 14,
+   "label": 14,
+   "name": "斷無人度生嚴土疑",
+   "seg": 296,
+   "lastSeg": 553
+  },
+  {
+   "id": 828,
+   "par": 492,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 553,
+   "lastSeg": 553
+  },
+  {
+   "id": 830,
+   "par": 828,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 553,
+   "lastSeg": 553
+  },
+  {
+   "id": 831,
+   "par": 828,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 553,
+   "lastSeg": 554
+  },
+  {
+   "id": 832,
+   "par": 828,
+   "lv": 16,
+   "label": 3,
+   "name": "順他以立理",
+   "seg": 553,
+   "lastSeg": 555
+  },
+  {
+   "id": 833,
+   "par": 828,
+   "lv": 16,
+   "label": 4,
+   "name": "結成疑",
+   "seg": 553,
+   "lastSeg": 556
+  },
+  {
+   "id": 829,
+   "par": 492,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 553,
+   "lastSeg": 557
+  },
+  {
+   "id": 834,
+   "par": 829,
+   "lv": 16,
+   "label": 1,
+   "name": "遮度生念",
+   "seg": 557,
+   "lastSeg": 557
+  },
+  {
+   "id": 837,
+   "par": 834,
+   "lv": 17,
+   "label": 1,
+   "name": "明失念",
+   "seg": 557,
+   "lastSeg": 557
+  },
+  {
+   "id": 838,
+   "par": 834,
+   "lv": 17,
+   "label": 2,
+   "name": "明無人",
+   "seg": 557,
+   "lastSeg": 558
+  },
+  {
+   "id": 839,
+   "par": 834,
+   "lv": 17,
+   "label": 3,
+   "name": "引前說",
+   "seg": 557,
+   "lastSeg": 559
+  },
+  {
+   "id": 835,
+   "par": 829,
+   "lv": 16,
+   "label": 2,
+   "name": "遮嚴土念",
+   "seg": 557,
+   "lastSeg": 560
+  },
+  {
+   "id": 840,
+   "par": 835,
+   "lv": 17,
+   "label": 1,
+   "name": "明失念",
+   "seg": 560,
+   "lastSeg": 560
+  },
+  {
+   "id": 841,
+   "par": 835,
+   "lv": 17,
+   "label": 2,
+   "name": "釋所以",
+   "seg": 560,
+   "lastSeg": 561
+  },
+  {
+   "id": 836,
+   "par": 829,
+   "lv": 16,
+   "label": 3,
+   "name": "釋成菩薩",
+   "seg": 557,
+   "lastSeg": 562
+  },
+  {
+   "id": 493,
+   "par": 478,
+   "lv": 14,
+   "label": 15,
+   "name": "斷諸佛不見諸法疑",
+   "seg": 296,
+   "lastSeg": 563
+  },
+  {
+   "id": 842,
+   "par": 493,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 563,
+   "lastSeg": 563
+  },
+  {
+   "id": 845,
+   "par": 842,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 563,
+   "lastSeg": 563
+  },
+  {
+   "id": 846,
+   "par": 842,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 563,
+   "lastSeg": 564
+  },
+  {
+   "id": 847,
+   "par": 842,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 563,
+   "lastSeg": 565
+  },
+  {
+   "id": 843,
+   "par": 493,
+   "lv": 15,
+   "label": 2,
+   "name": "引論彰意",
+   "seg": 563,
+   "lastSeg": 566
+  },
+  {
+   "id": 844,
+   "par": 493,
+   "lv": 15,
+   "label": 3,
+   "name": "依經斷疑",
+   "seg": 563,
+   "lastSeg": 567
+  },
+  {
+   "id": 848,
+   "par": 844,
+   "lv": 16,
+   "label": 1,
+   "name": "約能見五眼明見淨",
+   "seg": 567,
+   "lastSeg": 567
+  },
+  {
+   "id": 850,
+   "par": 848,
+   "lv": 17,
+   "label": 1,
+   "name": "肉眼",
+   "seg": 567,
+   "lastSeg": 567
+  },
+  {
+   "id": 851,
+   "par": 848,
+   "lv": 17,
+   "label": 2,
+   "name": "天眼",
+   "seg": 567
+  },
+  {
+   "id": 852,
+   "par": 848,
+   "lv": 17,
+   "label": 3,
+   "name": "慧眼",
+   "seg": 567
+  },
+  {
+   "id": 853,
+   "par": 848,
+   "lv": 17,
+   "label": 4,
+   "name": "法眼",
+   "seg": 567
+  },
+  {
+   "id": 854,
+   "par": 848,
+   "lv": 17,
+   "label": 5,
+   "name": "佛眼",
+   "seg": 567,
+   "lastSeg": 571
+  },
+  {
+   "id": 855,
+   "par": 854,
+   "lv": 18,
+   "label": 1,
+   "name": "局釋當文",
+   "seg": 571,
+   "lastSeg": 571
+  },
+  {
+   "id": 856,
+   "par": 854,
+   "lv": 18,
+   "label": 2,
+   "name": "通前總顯",
+   "seg": 571,
+   "lastSeg": 572
+  },
+  {
+   "id": 857,
+   "par": 856,
+   "lv": 19,
+   "label": 1,
+   "name": "引無著總釋",
+   "seg": 572,
+   "lastSeg": 572
+  },
+  {
+   "id": 858,
+   "par": 856,
+   "lv": 19,
+   "label": 2,
+   "name": "約古德重結",
+   "seg": 572,
+   "lastSeg": 573
+  },
+  {
+   "id": 849,
+   "par": 844,
+   "lv": 16,
+   "label": 2,
+   "name": "約所知諸心明智淨",
+   "seg": 567,
+   "lastSeg": 574
+  },
+  {
+   "id": 859,
+   "par": 849,
+   "lv": 17,
+   "label": 1,
+   "name": "數沙",
+   "seg": 574,
+   "lastSeg": 574
+  },
+  {
+   "id": 860,
+   "par": 849,
+   "lv": 17,
+   "label": 2,
+   "name": "數河",
+   "seg": 574,
+   "lastSeg": 575
+  },
+  {
+   "id": 861,
+   "par": 849,
+   "lv": 17,
+   "label": 3,
+   "name": "數界",
+   "seg": 574,
+   "lastSeg": 576
+  },
+  {
+   "id": 862,
+   "par": 849,
+   "lv": 17,
+   "label": 4,
+   "name": "數生",
+   "seg": 574,
+   "lastSeg": 577
+  },
+  {
+   "id": 863,
+   "par": 849,
+   "lv": 17,
+   "label": 5,
+   "name": "數心",
+   "seg": 574,
+   "lastSeg": 578
+  },
+  {
+   "id": 864,
+   "par": 863,
+   "lv": 18,
+   "label": 1,
+   "name": "標悉知",
+   "seg": 578
+  },
+  {
+   "id": 865,
+   "par": 863,
+   "lv": 18,
+   "label": 2,
+   "name": "釋悉知",
+   "seg": 578,
+   "lastSeg": 579
+  },
+  {
+   "id": 866,
+   "par": 863,
+   "lv": 18,
+   "label": 3,
+   "name": "釋非心初標悉知",
+   "seg": 578
+  },
+  {
+   "id": 867,
+   "par": 844,
+   "lv": 16,
+   "label": 3,
+   "name": "釋非心",
+   "seg": 580,
+   "lastSeg": 580
+  },
+  {
+   "id": 494,
+   "par": 478,
+   "lv": 14,
+   "label": 16,
+   "name": "斷福德例心顛倒疑",
+   "seg": 296,
+   "lastSeg": 581
+  },
+  {
+   "id": 868,
+   "par": 494,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 581,
+   "lastSeg": 581
+  },
+  {
+   "id": 870,
+   "par": 868,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 581,
+   "lastSeg": 581
+  },
+  {
+   "id": 871,
+   "par": 868,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 581,
+   "lastSeg": 582
+  },
+  {
+   "id": 872,
+   "par": 868,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 581,
+   "lastSeg": 583
+  },
+  {
+   "id": 869,
+   "par": 494,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 581,
+   "lastSeg": 584
+  },
+  {
+   "id": 873,
+   "par": 869,
+   "lv": 16,
+   "label": 1,
+   "name": "標科",
+   "seg": 584,
+   "lastSeg": 584
+  },
+  {
+   "id": 874,
+   "par": 869,
+   "lv": 16,
+   "label": 2,
+   "name": "分釋",
+   "seg": 584,
+   "lastSeg": 585
+  },
+  {
+   "id": 875,
+   "par": 874,
+   "lv": 17,
+   "label": 1,
+   "name": "問福答福",
+   "seg": 585
+  },
+  {
+   "id": 876,
+   "par": 874,
+   "lv": 17,
+   "label": 2,
+   "name": "反釋順釋",
+   "seg": 585,
+   "lastSeg": 586
+  },
+  {
+   "id": 877,
+   "par": 876,
+   "lv": 18,
+   "label": 1,
+   "name": "引論正釋",
+   "seg": 586,
+   "lastSeg": 587
+  },
+  {
+   "id": 878,
+   "par": 876,
+   "lv": 18,
+   "label": 2,
+   "name": "問答解妨",
+   "seg": 586,
+   "lastSeg": 588
+  },
+  {
+   "id": 495,
+   "par": 478,
+   "lv": 14,
+   "label": 17,
+   "name": "斷無為何有相好疑",
+   "seg": 296,
+   "lastSeg": 589
+  },
+  {
+   "id": 879,
+   "par": 495,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 589,
+   "lastSeg": 589
+  },
+  {
+   "id": 881,
+   "par": 879,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 589,
+   "lastSeg": 589
+  },
+  {
+   "id": 882,
+   "par": 879,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 589,
+   "lastSeg": 590
+  },
+  {
+   "id": 883,
+   "par": 879,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 589,
+   "lastSeg": 591
+  },
+  {
+   "id": 884,
+   "par": 879,
+   "lv": 16,
+   "label": 4,
+   "name": "出疑所依",
+   "seg": 589
+  },
+  {
+   "id": 880,
+   "par": 495,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 589,
+   "lastSeg": 593
+  },
+  {
+   "id": 885,
+   "par": 880,
+   "lv": 16,
+   "label": 1,
+   "name": "標科",
+   "seg": 593,
+   "lastSeg": 593
+  },
+  {
+   "id": 886,
+   "par": 880,
+   "lv": 16,
+   "label": 2,
+   "name": "分釋",
+   "seg": 593,
+   "lastSeg": 594
+  },
+  {
+   "id": 887,
+   "par": 886,
+   "lv": 17,
+   "label": 1,
+   "name": "由無身故現身",
+   "seg": 594,
+   "lastSeg": 594
+  },
+  {
+   "id": 889,
+   "par": 887,
+   "lv": 18,
+   "label": 1,
+   "name": "科經",
+   "seg": 594,
+   "lastSeg": 594
+  },
+  {
+   "id": 890,
+   "par": 887,
+   "lv": 18,
+   "label": 2,
+   "name": "釋義",
+   "seg": 594,
+   "lastSeg": 595
+  },
+  {
+   "id": 891,
+   "par": 890,
+   "lv": 19,
+   "label": 1,
+   "name": "指法",
+   "seg": 595,
+   "lastSeg": 595
+  },
+  {
+   "id": 892,
+   "par": 890,
+   "lv": 19,
+   "label": 2,
+   "name": "喻明",
+   "seg": 595
+  },
+  {
+   "id": 893,
+   "par": 890,
+   "lv": 19,
+   "label": 3,
+   "name": "約性相揀收",
+   "seg": 595,
+   "lastSeg": 597
+  },
+  {
+   "id": 894,
+   "par": 890,
+   "lv": 19,
+   "label": 4,
+   "name": "釋相好為佛之由",
+   "seg": 595,
+   "lastSeg": 598
+  },
+  {
+   "id": 895,
+   "par": 890,
+   "lv": 19,
+   "label": 5,
+   "name": "約存泯會釋經文",
+   "seg": 595,
+   "lastSeg": 599
+  },
+  {
+   "id": 888,
+   "par": 886,
+   "lv": 17,
+   "label": 2,
+   "name": "由無相故現相",
+   "seg": 594,
+   "lastSeg": 600
+  },
+  {
+   "id": 896,
+   "par": 888,
+   "lv": 18,
+   "label": 1,
+   "name": "科經",
+   "seg": 600,
+   "lastSeg": 600
+  },
+  {
+   "id": 897,
+   "par": 888,
+   "lv": 18,
+   "label": 2,
+   "name": "釋義",
+   "seg": 600,
+   "lastSeg": 601
+  },
+  {
+   "id": 496,
+   "par": 478,
+   "lv": 14,
+   "label": 18,
+   "name": "斷無身何以說法疑",
+   "seg": 296,
+   "lastSeg": 602
+  },
+  {
+   "id": 898,
+   "par": 496,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 602,
+   "lastSeg": 602
+  },
+  {
+   "id": 900,
+   "par": 898,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 602,
+   "lastSeg": 602
+  },
+  {
+   "id": 901,
+   "par": 898,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 602,
+   "lastSeg": 603
+  },
+  {
+   "id": 902,
+   "par": 898,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 602,
+   "lastSeg": 604
+  },
+  {
+   "id": 899,
+   "par": 496,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 602,
+   "lastSeg": 605
+  },
+  {
+   "id": 903,
+   "par": 899,
+   "lv": 16,
+   "label": 1,
+   "name": "標科",
+   "seg": 605
+  },
+  {
+   "id": 904,
+   "par": 899,
+   "lv": 16,
+   "label": 2,
+   "name": "分釋",
+   "seg": 605,
+   "lastSeg": 606
+  },
+  {
+   "id": 905,
+   "par": 904,
+   "lv": 17,
+   "label": 1,
+   "name": "遮錯解",
+   "seg": 606
+  },
+  {
+   "id": 906,
+   "par": 904,
+   "lv": 17,
+   "label": 2,
+   "name": "釋所以",
+   "seg": 606,
+   "lastSeg": 607
+  },
+  {
+   "id": 907,
+   "par": 904,
+   "lv": 17,
+   "label": 3,
+   "name": "示正見初遮錯解",
+   "seg": 606
+  },
+  {
+   "id": 908,
+   "par": 899,
+   "lv": 16,
+   "label": 3,
+   "name": "示正見",
+   "seg": 608,
+   "lastSeg": 608
+  },
+  {
+   "id": 909,
+   "par": 908,
+   "lv": 17,
+   "label": 1,
+   "name": "疑甚深無信以問",
+   "seg": 610,
+   "lastSeg": 610
+  },
+  {
+   "id": 910,
+   "par": 908,
+   "lv": 17,
+   "label": 2,
+   "name": "揀聖性有人以酬",
+   "seg": 611,
+   "lastSeg": 611
+  },
+  {
+   "id": 911,
+   "par": 908,
+   "lv": 17,
+   "label": 3,
+   "name": "徵是非生信以釋",
+   "seg": 612,
+   "lastSeg": 612
+  },
+  {
+   "id": 497,
+   "par": 478,
+   "lv": 14,
+   "label": 19,
+   "name": "斷無法如何修證疑",
+   "seg": 296,
+   "lastSeg": 613
+  },
+  {
+   "id": 912,
+   "par": 497,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 613,
+   "lastSeg": 613
+  },
+  {
+   "id": 914,
+   "par": 912,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 613,
+   "lastSeg": 613
+  },
+  {
+   "id": 915,
+   "par": 912,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 613,
+   "lastSeg": 614
+  },
+  {
+   "id": 916,
+   "par": 912,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 613,
+   "lastSeg": 615
+  },
+  {
+   "id": 917,
+   "par": 912,
+   "lv": 16,
+   "label": 4,
+   "name": "預指斷疑之意",
+   "seg": 613,
+   "lastSeg": 616
+  },
+  {
+   "id": 913,
+   "par": 497,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 613,
+   "lastSeg": 617
+  },
+  {
+   "id": 918,
+   "par": 913,
+   "lv": 16,
+   "label": 1,
+   "name": "標科",
+   "seg": 617
+  },
+  {
+   "id": 919,
+   "par": 913,
+   "lv": 16,
+   "label": 2,
+   "name": "分釋",
+   "seg": 617,
+   "lastSeg": 618
+  },
+  {
+   "id": 920,
+   "par": 919,
+   "lv": 17,
+   "label": 1,
+   "name": "以無法為正覺",
+   "seg": 618,
+   "lastSeg": 618
+  },
+  {
+   "id": 921,
+   "par": 919,
+   "lv": 17,
+   "label": 2,
+   "name": "以平等為正覺",
+   "seg": 618,
+   "lastSeg": 619
+  },
+  {
+   "id": 922,
+   "par": 919,
+   "lv": 17,
+   "label": 3,
+   "name": "以正助修正覺",
+   "seg": 618,
+   "lastSeg": 620
+  },
+  {
+   "id": 498,
+   "par": 478,
+   "lv": 14,
+   "label": 20,
+   "name": "斷所說無記非因疑",
+   "seg": 296,
+   "lastSeg": 621
+  },
+  {
+   "id": 923,
+   "par": 498,
+   "lv": 15,
+   "label": 1,
+   "name": "標章敘疑",
+   "seg": 621,
+   "lastSeg": 621
+  },
+  {
+   "id": 925,
+   "par": 923,
+   "lv": 16,
+   "label": 1,
+   "name": "標章",
+   "seg": 621,
+   "lastSeg": 621
+  },
+  {
+   "id": 926,
+   "par": 923,
+   "lv": 16,
+   "label": 2,
+   "name": "指疑起處",
+   "seg": 621,
+   "lastSeg": 705
+  },
+  {
+   "id": 927,
+   "par": 923,
+   "lv": 16,
+   "label": 3,
+   "name": "結成疑",
+   "seg": 621,
+   "lastSeg": 706
+  },
+  {
+   "id": 928,
+   "par": 923,
+   "lv": 16,
+   "label": 4,
+   "name": "立理",
+   "seg": 621
+  },
+  {
+   "id": 942,
+   "par": 923,
+   "lv": 16,
+   "label": 5,
+   "name": "結疑名",
+   "seg": 646,
+   "lastSeg": 646
+  },
+  {
+   "id": 924,
+   "par": 498,
+   "lv": 15,
+   "label": 2,
+   "name": "依經斷疑",
+   "seg": 621,
+   "lastSeg": 707
+  },
+  {
+   "id": 929,
+   "par": 924,
+   "lv": 16,
+   "label": 1,
+   "name": "標科",
+   "seg": 629,
+   "lastSeg": 698
+  },
+  {
+   "id": 930,
+   "par": 924,
+   "lv": 16,
+   "label": 2,
+   "name": "分釋",
+   "seg": 629,
+   "lastSeg": 699
+  },
+  {
+   "id": 931,
+   "par": 930,
+   "lv": 17,
+   "label": 1,
+   "name": "遮其錯解",
+   "seg": 630,
+   "lastSeg": 630
+  },
+  {
+   "id": 932,
+   "par": 930,
+   "lv": 17,
+   "label": 2,
+   "name": "示其正見",
+   "seg": 630,
+   "lastSeg": 631
+  },
+  {
+   "id": 933,
+   "par": 930,
+   "lv": 17,
+   "label": 3,
+   "name": "反釋所以",
+   "seg": 630,
+   "lastSeg": 632
+  },
+  {
+   "id": 934,
+   "par": 930,
+   "lv": 17,
+   "label": 4,
+   "name": "展轉拂跡",
+   "seg": 630,
+   "lastSeg": 633
+  },
+  {
+   "id": 937,
+   "par": 930,
+   "lv": 17,
+   "label": 1.1,
+   "name": "問以相表佛",
+   "seg": 637,
+   "lastSeg": 637
+  },
+  {
+   "id": 938,
+   "par": 930,
+   "lv": 17,
+   "label": 2.2,
+   "name": "答因苗識根",
+   "seg": 637,
+   "lastSeg": 638
+  },
+  {
+   "id": 939,
+   "par": 930,
+   "lv": 17,
+   "label": 3.3,
+   "name": "難凡聖不分",
+   "seg": 637,
+   "lastSeg": 639
+  },
+  {
+   "id": 940,
+   "par": 930,
+   "lv": 17,
+   "label": 4.4,
+   "name": "悟佛非相見",
+   "seg": 637,
+   "lastSeg": 640
+  },
+  {
+   "id": 941,
+   "par": 930,
+   "lv": 17,
+   "label": 5,
+   "name": "印見聞不及",
+   "seg": 637,
+   "lastSeg": 641
+  },
+  {
+   "id": 955,
+   "par": 930,
+   "lv": 17,
+   "label": 1.5,
+   "name": "斥錯解",
+   "seg": 660,
+   "lastSeg": 660
+  },
+  {
+   "id": 956,
+   "par": 930,
+   "lv": 17,
+   "label": 2.6,
+   "name": "示正見",
+   "seg": 660,
+   "lastSeg": 661
+  },
+  {
+   "id": 960,
+   "par": 930,
+   "lv": 17,
+   "label": 1.7000000000000002,
+   "name": "約塵界破一異",
+   "seg": 666,
+   "lastSeg": 666
+  },
+  {
+   "id": 962,
+   "par": 960,
+   "lv": 18,
+   "label": 1,
+   "name": "細末方便破麤色",
+   "seg": 666,
+   "lastSeg": 666
+  },
+  {
+   "id": 967,
+   "par": 962,
+   "lv": 19,
+   "label": 1,
+   "name": "引天親約斷疑",
+   "seg": 666,
+   "lastSeg": 667
+  },
+  {
+   "id": 968,
+   "par": 962,
+   "lv": 19,
+   "label": 2,
+   "name": "引無著破執法",
+   "seg": 666,
+   "lastSeg": 668
+  },
+  {
+   "id": 969,
+   "par": 962,
+   "lv": 19,
+   "label": 3,
+   "name": "引大雲示破相",
+   "seg": 666,
+   "lastSeg": 669
+  },
+  {
+   "id": 963,
+   "par": 960,
+   "lv": 18,
+   "label": 2,
+   "name": "不念方便破微塵",
+   "seg": 666,
+   "lastSeg": 670
+  },
+  {
+   "id": 970,
+   "par": 963,
+   "lv": 19,
+   "label": 1,
+   "name": "約斷疑釋",
+   "seg": 670,
+   "lastSeg": 671
+  },
+  {
+   "id": 971,
+   "par": 963,
+   "lv": 19,
+   "label": 2,
+   "name": "約破法釋",
+   "seg": 670,
+   "lastSeg": 672
+  },
+  {
+   "id": 964,
+   "par": 960,
+   "lv": 18,
+   "label": 3,
+   "name": "不念方便破世界",
+   "seg": 666,
+   "lastSeg": 673
+  },
+  {
+   "id": 972,
+   "par": 964,
+   "lv": 19,
+   "label": 1,
+   "name": "引本論斷疑",
+   "seg": 673,
+   "lastSeg": 674
+  },
+  {
+   "id": 973,
+   "par": 964,
+   "lv": 19,
+   "label": 2,
+   "name": "引無著破法",
+   "seg": 673,
+   "lastSeg": 675
+  },
+  {
+   "id": 965,
+   "par": 960,
+   "lv": 18,
+   "label": 4,
+   "name": "俱約塵界破和合",
+   "seg": 666,
+   "lastSeg": 676
+  },
+  {
+   "id": 974,
+   "par": 965,
+   "lv": 19,
+   "label": 1,
+   "name": "引天親解",
+   "seg": 676,
+   "lastSeg": 677
+  },
+  {
+   "id": 975,
+   "par": 965,
+   "lv": 19,
+   "label": 2,
+   "name": "引無著解",
+   "seg": 676,
+   "lastSeg": 678
+  },
+  {
+   "id": 966,
+   "par": 960,
+   "lv": 18,
+   "label": 5,
+   "name": "佛印無中妄執有",
+   "seg": 666,
+   "lastSeg": 679
+  },
+  {
+   "id": 976,
+   "par": 966,
+   "lv": 19,
+   "label": 1,
+   "name": "引天親解",
+   "seg": 679,
+   "lastSeg": 680
+  },
+  {
+   "id": 977,
+   "par": 966,
+   "lv": 19,
+   "label": 2,
+   "name": "引無著解",
+   "seg": 679,
+   "lastSeg": 681
+  },
+  {
+   "id": 978,
+   "par": 966,
+   "lv": 19,
+   "label": 3,
+   "name": "引大雲解",
+   "seg": 679,
+   "lastSeg": 682
+  },
+  {
+   "id": 961,
+   "par": 930,
+   "lv": 17,
+   "label": 2.8,
+   "name": "約止觀破我法",
+   "seg": 666,
+   "lastSeg": 683
+  },
+  {
+   "id": 979,
+   "par": 961,
+   "lv": 18,
+   "label": 1,
+   "name": "除我執",
+   "seg": 684,
+   "lastSeg": 684
+  },
+  {
+   "id": 980,
+   "par": 979,
+   "lv": 19,
+   "label": 1,
+   "name": "斥錯解",
+   "seg": 684,
+   "lastSeg": 684
+  },
+  {
+   "id": 981,
+   "par": 979,
+   "lv": 19,
+   "label": 2,
+   "name": "遣言執",
+   "seg": 684,
+   "lastSeg": 685
+  },
+  {
+   "id": 982,
+   "par": 961,
+   "lv": 18,
+   "label": 2,
+   "name": "除法執",
+   "seg": 686,
+   "lastSeg": 686
+  },
+  {
+   "id": 983,
+   "par": 982,
+   "lv": 19,
+   "label": 1,
+   "name": "除分別",
+   "seg": 686,
+   "lastSeg": 686
+  },
+  {
+   "id": 985,
+   "par": 983,
+   "lv": 20,
+   "label": 1,
+   "name": "明無分別所依",
+   "seg": 686,
+   "lastSeg": 687
+  },
+  {
+   "id": 987,
+   "par": 985,
+   "lv": 21,
+   "label": 1,
+   "name": "總徵三法",
+   "seg": 687
+  },
+  {
+   "id": 988,
+   "par": 985,
+   "lv": 21,
+   "label": 2,
+   "name": "別釋第三",
+   "seg": 688,
+   "lastSeg": 688
+  },
+  {
+   "id": 989,
+   "par": 988,
+   "lv": 22,
+   "label": 1,
+   "name": "總標",
+   "seg": 688,
+   "lastSeg": 688
+  },
+  {
+   "id": 990,
+   "par": 988,
+   "lv": 22,
+   "label": 2,
+   "name": "別釋",
+   "seg": 688,
+   "lastSeg": 689
+  },
+  {
+   "id": 991,
+   "par": 990,
+   "lv": 23,
+   "label": 1,
+   "name": "總彰三義",
+   "seg": 689,
+   "lastSeg": 689
+  },
+  {
+   "id": 992,
+   "par": 990,
+   "lv": 23,
+   "label": 2,
+   "name": "轉釋後義",
+   "seg": 689,
+   "lastSeg": 690
+  },
+  {
+   "id": 986,
+   "par": 983,
+   "lv": 20,
+   "label": 2,
+   "name": "正顯無分別理",
+   "seg": 686,
+   "lastSeg": 691
+  },
+  {
+   "id": 984,
+   "par": 982,
+   "lv": 19,
+   "label": 2,
+   "name": "顯本寂",
+   "seg": 686,
+   "lastSeg": 692
+  },
+  {
+   "id": 996,
+   "par": 930,
+   "lv": 17,
+   "label": 1.9,
+   "name": "明說法功德",
+   "seg": 699,
+   "lastSeg": 699
+  },
+  {
+   "id": 997,
+   "par": 930,
+   "lv": 17,
+   "label": 3,
+   "name": "明說法不染",
+   "seg": 699,
+   "lastSeg": 700
+  },
+  {
+   "id": 998,
+   "par": 997,
+   "lv": 18,
+   "label": 1,
+   "name": "引無著解",
+   "seg": 700,
+   "lastSeg": 701
+  },
+  {
+   "id": 1000,
+   "par": 998,
+   "lv": 19,
+   "label": 1,
+   "name": "申經意",
+   "seg": 701,
+   "lastSeg": 701
+  },
+  {
+   "id": 1001,
+   "par": 998,
+   "lv": 19,
+   "label": 1.1,
+   "name": "銷經文",
+   "seg": 701,
+   "lastSeg": 702
+  },
+  {
+   "id": 999,
+   "par": 997,
+   "lv": 18,
+   "label": 2,
+   "name": "引大雲解",
+   "seg": 700,
+   "lastSeg": 703
+  },
+  {
+   "id": 935,
+   "par": 924,
+   "lv": 16,
+   "label": 1.1,
+   "name": "標科",
+   "seg": 636
+  },
+  {
+   "id": 936,
+   "par": 924,
+   "lv": 16,
+   "label": 2.2,
+   "name": "分釋",
+   "seg": 636
+  },
+  {
+   "id": 953,
+   "par": 924,
+   "lv": 16,
+   "label": 1.3,
+   "name": "標科",
+   "seg": 659
+  },
+  {
+   "id": 954,
+   "par": 924,
+   "lv": 16,
+   "label": 2.4,
+   "name": "分釋",
+   "seg": 659
+  },
+  {
+   "id": 958,
+   "par": 924,
+   "lv": 16,
+   "label": 1.5,
+   "name": "標科",
+   "seg": 665
+  },
+  {
+   "id": 959,
+   "par": 924,
+   "lv": 16,
+   "label": 2.6,
+   "name": "分釋",
+   "seg": 665
+  },
+  {
+   "id": 994,
+   "par": 924,
+   "lv": 16,
+   "label": 1.7000000000000002,
+   "name": "標科",
+   "seg": 698
+  },
+  {
+   "id": 995,
+   "par": 924,
+   "lv": 16,
+   "label": 2.8,
+   "name": "分釋",
+   "seg": 698
+  },
+  {
+   "id": 1002,
+   "par": 924,
+   "lv": 16,
+   "label": 1.9,
+   "name": "開章指文",
+   "seg": 707,
+   "lastSeg": 708
+  },
+  {
+   "id": 1003,
+   "par": 924,
+   "lv": 16,
+   "label": 3,
+   "name": "隨章辨釋",
+   "seg": 707,
+   "lastSeg": 709
+  },
+  {
+   "id": 1004,
+   "par": 1003,
+   "lv": 17,
+   "label": 1,
+   "name": "約兩論釋魏本中九喻",
+   "seg": 709,
+   "lastSeg": 709
+  },
+  {
+   "id": 1007,
+   "par": 1004,
+   "lv": 18,
+   "label": 1,
+   "name": "約本論斷疑",
+   "seg": 709,
+   "lastSeg": 709
+  },
+  {
+   "id": 1008,
+   "par": 1004,
+   "lv": 18,
+   "label": 2,
+   "name": "兼無著釋相",
+   "seg": 709,
+   "lastSeg": 710
+  },
+  {
+   "id": 1009,
+   "par": 1008,
+   "lv": 19,
+   "label": 1,
+   "name": "指論分文",
+   "seg": 710,
+   "lastSeg": 710
+  },
+  {
+   "id": 1010,
+   "par": 1008,
+   "lv": 19,
+   "label": 2,
+   "name": "隨文正釋",
+   "seg": 710,
+   "lastSeg": 711
+  },
+  {
+   "id": 1011,
+   "par": 1010,
+   "lv": 20,
+   "label": 1,
+   "name": "自性相",
+   "seg": 711,
+   "lastSeg": 711
+  },
+  {
+   "id": 1015,
+   "par": 1011,
+   "lv": 21,
+   "label": 1,
+   "name": "釋章意",
+   "seg": 711,
+   "lastSeg": 711
+  },
+  {
+   "id": 1017,
+   "par": 1015,
+   "lv": 22,
+   "label": 2,
+   "name": "別解",
+   "seg": 712,
+   "lastSeg": 712
+  },
+  {
+   "id": 1018,
+   "par": 1015,
+   "lv": 22,
+   "label": 2.1,
+   "name": "翳喻相",
+   "seg": 713,
+   "lastSeg": 713
+  },
+  {
+   "id": 1019,
+   "par": 1015,
+   "lv": 22,
+   "label": 3,
+   "name": "燈喻識",
+   "seg": 714,
+   "lastSeg": 714
+  },
+  {
+   "id": 1016,
+   "par": 1011,
+   "lv": 21,
+   "label": 2,
+   "name": "別解文",
+   "seg": 711
+  },
+  {
+   "id": 1012,
+   "par": 1010,
+   "lv": 20,
+   "label": 2,
+   "name": "著所住味相",
+   "seg": 711
+  },
+  {
+   "id": 1013,
+   "par": 1010,
+   "lv": 20,
+   "label": 3,
+   "name": "隨順過失相",
+   "seg": 711,
+   "lastSeg": 716
+  },
+  {
+   "id": 1020,
+   "par": 1013,
+   "lv": 21,
+   "label": 1,
+   "name": "釋章意",
+   "seg": 716,
+   "lastSeg": 716
+  },
+  {
+   "id": 1021,
+   "par": 1013,
+   "lv": 21,
+   "label": 2,
+   "name": "正解文",
+   "seg": 716
+  },
+  {
+   "id": 1014,
+   "par": 1010,
+   "lv": 20,
+   "label": 4,
+   "name": "隨順出離相",
+   "seg": 711,
+   "lastSeg": 719
+  },
+  {
+   "id": 1023,
+   "par": 1014,
+   "lv": 21,
+   "label": 1,
+   "name": "釋章意",
+   "seg": 719,
+   "lastSeg": 719
+  },
+  {
+   "id": 1024,
+   "par": 1014,
+   "lv": 21,
+   "label": 2,
+   "name": "正解文",
+   "seg": 719
+  },
+  {
+   "id": 1025,
+   "par": 1014,
+   "lv": 21,
+   "label": 3,
+   "name": "總結示",
+   "seg": 719,
+   "lastSeg": 723
+  },
+  {
+   "id": 1005,
+   "par": 1003,
+   "lv": 17,
+   "label": 2,
+   "name": "約諸經顯諸虗假喻之大意",
+   "seg": 709,
+   "lastSeg": 724
+  },
+  {
+   "id": 1006,
+   "par": 1003,
+   "lv": 17,
+   "label": 3,
+   "name": "會通秦譯經本",
+   "seg": 709,
+   "lastSeg": 725
+  },
+  {
+   "id": 1028,
+   "par": 1006,
+   "lv": 18,
+   "label": 1,
+   "name": "指喻顯法",
+   "seg": 725,
+   "lastSeg": 725
+  },
+  {
+   "id": 1030,
+   "par": 1028,
+   "lv": 19,
+   "label": 1,
+   "name": "正釋",
+   "seg": 725,
+   "lastSeg": 725
+  },
+  {
+   "id": 1031,
+   "par": 1028,
+   "lv": 19,
+   "label": 2,
+   "name": "顯益",
+   "seg": 725,
+   "lastSeg": 726
+  },
+  {
+   "id": 1032,
+   "par": 1028,
+   "lv": 19,
+   "label": 3,
+   "name": "結歎",
+   "seg": 725,
+   "lastSeg": 730
+  },
+  {
+   "id": 1029,
+   "par": 1006,
+   "lv": 18,
+   "label": 2,
+   "name": "正會廣略",
+   "seg": 725,
+   "lastSeg": 728
+  },
+  {
+   "id": 1033,
+   "par": 1029,
+   "lv": 19,
+   "label": 1,
+   "name": "牒問",
+   "seg": 728
+  },
+  {
+   "id": 1034,
+   "par": 1029,
+   "lv": 19,
+   "label": 2,
+   "name": "釋通",
+   "seg": 729,
+   "lastSeg": 729
+  },
+  {
+   "id": 957,
+   "par": 498,
+   "lv": 15,
+   "label": 3,
+   "name": "懸指斷疑之意",
+   "seg": 664,
+   "lastSeg": 664
+  },
+  {
+   "id": 993,
+   "par": 498,
+   "lv": 15,
+   "label": 4,
+   "name": "指無化體",
+   "seg": 696,
+   "lastSeg": 696
+  },
+  {
+   "id": 499,
+   "par": 478,
+   "lv": 14,
+   "label": 2.1,
+   "name": "指疑起處",
+   "seg": 297,
+   "lastSeg": 297
+  },
+  {
+   "id": 500,
+   "par": 478,
+   "lv": 14,
+   "label": 3.2,
+   "name": "縱難",
+   "seg": 298,
+   "lastSeg": 298
+  },
+  {
+   "id": 501,
+   "par": 478,
+   "lv": 14,
+   "label": 2.3,
+   "name": "依經斷疑",
+   "seg": 299,
+   "lastSeg": 299
+  },
+  {
+   "id": 502,
+   "par": 501,
+   "lv": 15,
+   "label": 1,
+   "name": "舉疑因以問",
+   "seg": 299
+  },
+  {
+   "id": 503,
+   "par": 501,
+   "lv": 15,
+   "label": 2,
+   "name": "防相得以酬",
+   "seg": 299
+  },
+  {
+   "id": 504,
+   "par": 501,
+   "lv": 15,
+   "label": 3,
+   "name": "釋體異有為",
+   "seg": 299,
+   "lastSeg": 301
+  },
+  {
+   "id": 506,
+   "par": 504,
+   "lv": 16,
+   "label": 1,
+   "name": "正釋經文",
+   "seg": 301,
+   "lastSeg": 301
+  },
+  {
+   "id": 507,
+   "par": 504,
+   "lv": 16,
+   "label": 2,
+   "name": "別明三相",
+   "seg": 301,
+   "lastSeg": 302
+  },
+  {
+   "id": 505,
+   "par": 501,
+   "lv": 15,
+   "label": 4,
+   "name": "印佛身無相",
+   "seg": 299,
+   "lastSeg": 303
+  },
+  {
+   "id": 508,
+   "par": 505,
+   "lv": 16,
+   "label": 1,
+   "name": "釋前二句",
+   "seg": 303,
+   "lastSeg": 304
+  },
+  {
+   "id": 510,
+   "par": 508,
+   "lv": 17,
+   "label": 1,
+   "name": "正釋",
+   "seg": 304,
+   "lastSeg": 304
+  },
+  {
+   "id": 512,
+   "par": 510,
+   "lv": 18,
+   "label": 1,
+   "name": "釋文",
+   "seg": 304,
+   "lastSeg": 304
+  },
+  {
+   "id": 513,
+   "par": 510,
+   "lv": 18,
+   "label": 2,
+   "name": "出意",
+   "seg": 304
+  },
+  {
+   "id": 511,
+   "par": 508,
+   "lv": 17,
+   "label": 2,
+   "name": "引證",
+   "seg": 304,
+   "lastSeg": 306
+  },
+  {
+   "id": 514,
+   "par": 511,
+   "lv": 18,
+   "label": 1,
+   "name": "順顯",
+   "seg": 306,
+   "lastSeg": 307
+  },
+  {
+   "id": 515,
+   "par": 511,
+   "lv": 18,
+   "label": 2,
+   "name": "反顯",
+   "seg": 306,
+   "lastSeg": 308
+  },
+  {
+   "id": 509,
+   "par": 505,
+   "lv": 16,
+   "label": 2,
+   "name": "釋後二句",
+   "seg": 303,
+   "lastSeg": 309
+  },
+  {
+   "id": 516,
+   "par": 509,
+   "lv": 17,
+   "label": 1,
+   "name": "正釋",
+   "seg": 309,
+   "lastSeg": 309
+  },
+  {
+   "id": 518,
+   "par": 516,
+   "lv": 18,
+   "label": 1,
+   "name": "釋相字",
+   "seg": 309,
+   "lastSeg": 309
+  },
+  {
+   "id": 519,
+   "par": 516,
+   "lv": 18,
+   "label": 2,
+   "name": "釋諸字",
+   "seg": 309,
+   "lastSeg": 310
+  },
+  {
+   "id": 517,
+   "par": 509,
+   "lv": 17,
+   "label": 2,
+   "name": "引論釋",
+   "seg": 309,
+   "lastSeg": 311
+  },
+  {
+   "id": 520,
+   "par": 517,
+   "lv": 18,
+   "label": 1,
+   "name": "引起信",
+   "seg": 311,
+   "lastSeg": 311
+  },
+  {
+   "id": 524,
+   "par": 520,
+   "lv": 19,
+   "label": 1,
+   "name": "證諸相皆無義",
+   "seg": 311,
+   "lastSeg": 311
+  },
+  {
+   "id": 525,
+   "par": 520,
+   "lv": 19,
+   "label": 2,
+   "name": "證相無皆佛義",
+   "seg": 311,
+   "lastSeg": 312
+  },
+  {
+   "id": 521,
+   "par": 517,
+   "lv": 18,
+   "label": 2,
+   "name": "引肇注",
+   "seg": 311
+  },
+  {
+   "id": 522,
+   "par": 517,
+   "lv": 18,
+   "label": 3,
+   "name": "引本論",
+   "seg": 311,
+   "lastSeg": 314
+  },
+  {
+   "id": 523,
+   "par": 517,
+   "lv": 18,
+   "label": 4,
+   "name": "依無著",
+   "seg": 311
+  },
+  {
+   "id": 594,
+   "par": 478,
+   "lv": 14,
+   "label": 2.4,
+   "name": "一來果",
+   "seg": 368,
+   "lastSeg": 368
+  },
+  {
+   "id": 595,
+   "par": 594,
+   "lv": 15,
+   "label": 1,
+   "name": "問",
+   "seg": 368
+  },
+  {
+   "id": 596,
+   "par": 594,
+   "lv": 15,
+   "label": 2,
+   "name": "答",
+   "seg": 368
+  },
+  {
+   "id": 597,
+   "par": 594,
+   "lv": 15,
+   "label": 3,
+   "name": "徵",
+   "seg": 368
+  },
+  {
+   "id": 598,
+   "par": 594,
+   "lv": 15,
+   "label": 4,
+   "name": "釋",
+   "seg": 368,
+   "lastSeg": 371
+  },
+  {
+   "id": 652,
+   "par": 478,
+   "lv": 14,
+   "label": 1.5,
+   "name": "引本偈",
+   "seg": 417,
+   "lastSeg": 417
+  },
+  {
+   "id": 658,
+   "par": 478,
+   "lv": 14,
+   "label": 2.6,
+   "name": "約多沙以彰福",
+   "seg": 425,
+   "lastSeg": 425
+  },
+  {
+   "id": 659,
+   "par": 658,
+   "lv": 15,
+   "label": 1,
+   "name": "徵釋",
+   "seg": 425
+  },
+  {
+   "id": 660,
+   "par": 658,
+   "lv": 15,
+   "label": 2,
+   "name": "難通",
+   "seg": 425
+  },
+  {
+   "id": 661,
+   "par": 478,
+   "lv": 14,
+   "label": 2.7,
+   "name": "通又",
+   "seg": 428,
+   "lastSeg": 428
+  },
+  {
+   "id": 662,
+   "par": 661,
+   "lv": 15,
+   "label": 1,
+   "name": "約人通",
+   "seg": 428,
+   "lastSeg": 428
+  },
+  {
+   "id": 663,
+   "par": 661,
+   "lv": 15,
+   "label": 2,
+   "name": "約法通",
+   "seg": 428,
+   "lastSeg": 429
+  },
+  {
+   "id": 664,
+   "par": 661,
+   "lv": 15,
+   "label": 3,
+   "name": "約多福以顯勝",
+   "seg": 430,
+   "lastSeg": 430
+  },
+  {
+   "id": 665,
+   "par": 664,
+   "lv": 16,
+   "label": 2,
+   "name": "釋勝所以",
+   "seg": 431,
+   "lastSeg": 431
+  },
+  {
+   "id": 666,
+   "par": 664,
+   "lv": 16,
+   "label": 2.1,
+   "name": "顯人獲益",
+   "seg": 432,
+   "lastSeg": 432
+  },
+  {
+   "id": 667,
+   "par": 664,
+   "lv": 16,
+   "label": 3,
+   "name": "顯處有佛",
+   "seg": 433,
+   "lastSeg": 433
+  },
+  {
+   "id": 668,
+   "par": 667,
+   "lv": 17,
+   "label": 2,
+   "name": "約義辨名勝",
+   "seg": 434,
+   "lastSeg": 434
+  },
+  {
+   "id": 669,
+   "par": 668,
+   "lv": 18,
+   "label": 1,
+   "name": "問",
+   "seg": 434
+  },
+  {
+   "id": 670,
+   "par": 668,
+   "lv": 18,
+   "label": 2,
+   "name": "答",
+   "seg": 434
+  },
+  {
+   "id": 671,
+   "par": 668,
+   "lv": 18,
+   "label": 3,
+   "name": "徵",
+   "seg": 434
+  },
+  {
+   "id": 672,
+   "par": 668,
+   "lv": 18,
+   "label": 4,
+   "name": "釋",
+   "seg": 434,
+   "lastSeg": 437
+  },
+  {
+   "id": 673,
+   "par": 422,
+   "lv": 13,
+   "label": 3,
+   "name": "佛無異說勝",
+   "seg": 438,
+   "lastSeg": 440
+  },
+  {
+   "id": 674,
+   "par": 673,
+   "lv": 14,
+   "label": 1,
+   "name": "問",
+   "seg": 438
+  },
+  {
+   "id": 675,
+   "par": 673,
+   "lv": 14,
+   "label": 2,
+   "name": "答",
+   "seg": 438
+  },
+  {
+   "id": 676,
+   "par": 673,
+   "lv": 14,
+   "label": 1.1,
+   "name": "標科",
+   "seg": 440,
+   "lastSeg": 454
+  },
+  {
+   "id": 677,
+   "par": 673,
+   "lv": 14,
+   "label": 2.2,
+   "name": "正釋",
+   "seg": 440,
+   "lastSeg": 441
+  },
+  {
+   "id": 679,
+   "par": 677,
+   "lv": 15,
+   "label": 1,
+   "name": "釋無說",
+   "seg": 441,
+   "lastSeg": 441
+  },
+  {
+   "id": 680,
+   "par": 677,
+   "lv": 15,
+   "label": 2,
+   "name": "出所以",
+   "seg": 441
+  },
+  {
+   "id": 681,
+   "par": 677,
+   "lv": 15,
+   "label": 3,
+   "name": "結通諸佛",
+   "seg": 441,
+   "lastSeg": 443
+  },
+  {
+   "id": 682,
+   "par": 677,
+   "lv": 15,
+   "label": 4,
+   "name": "結成上義",
+   "seg": 441,
+   "lastSeg": 444
+  },
+  {
+   "id": 678,
+   "par": 673,
+   "lv": 14,
+   "label": 3,
+   "name": "引證",
+   "seg": 440,
+   "lastSeg": 445
+  },
+  {
+   "id": 683,
+   "par": 678,
+   "lv": 15,
+   "label": 1,
+   "name": "引本論",
+   "seg": 445,
+   "lastSeg": 445
+  },
+  {
+   "id": 684,
+   "par": 678,
+   "lv": 15,
+   "label": 2,
+   "name": "引無著",
+   "seg": 445,
+   "lastSeg": 446
+  },
+  {
+   "id": 685,
+   "par": 422,
+   "lv": 13,
+   "label": 4,
+   "name": "施福劣塵勝",
+   "seg": 447,
+   "lastSeg": 447
+  },
+  {
+   "id": 686,
+   "par": 685,
+   "lv": 14,
+   "label": 1,
+   "name": "問",
+   "seg": 447
+  },
+  {
+   "id": 687,
+   "par": 685,
+   "lv": 14,
+   "label": 2,
+   "name": "答",
+   "seg": 447
+  },
+  {
+   "id": 688,
+   "par": 685,
+   "lv": 14,
+   "label": 3,
+   "name": "釋",
+   "seg": 447,
+   "lastSeg": 449
+  },
+  {
+   "id": 689,
+   "par": 422,
+   "lv": 13,
+   "label": 5,
+   "name": "感果離相勝",
+   "seg": 450,
+   "lastSeg": 454
+  },
+  {
+   "id": 690,
+   "par": 689,
+   "lv": 14,
+   "label": 1,
+   "name": "問",
+   "seg": 450
+  },
+  {
+   "id": 691,
+   "par": 689,
+   "lv": 14,
+   "label": 2,
+   "name": "答",
+   "seg": 450
+  },
+  {
+   "id": 692,
+   "par": 689,
+   "lv": 14,
+   "label": 3,
+   "name": "徵",
+   "seg": 450
+  },
+  {
+   "id": 693,
+   "par": 689,
+   "lv": 14,
+   "label": 4,
+   "name": "釋",
+   "seg": 450,
+   "lastSeg": 458
+  },
+  {
+   "id": 699,
+   "par": 693,
+   "lv": 15,
+   "label": 2,
+   "name": "結釋",
+   "seg": 460,
+   "lastSeg": 460
+  },
+  {
+   "id": 694,
+   "par": 689,
+   "lv": 14,
+   "label": 1.1,
+   "name": "標章",
+   "seg": 454
+  },
+  {
+   "id": 695,
+   "par": 689,
+   "lv": 14,
+   "label": 2.2,
+   "name": "正釋經文",
+   "seg": 454,
+   "lastSeg": 455
+  },
+  {
+   "id": 697,
+   "par": 695,
+   "lv": 15,
+   "label": 1,
+   "name": "敘經起意",
+   "seg": 455,
+   "lastSeg": 455
+  },
+  {
+   "id": 698,
+   "par": 695,
+   "lv": 15,
+   "label": 2,
+   "name": "引證勝劣",
+   "seg": 455
+  },
+  {
+   "id": 696,
+   "par": 689,
+   "lv": 14,
+   "label": 3.3,
+   "name": "轉遮謬解",
+   "seg": 454
+  },
+  {
+   "id": 223,
+   "par": 220,
+   "lv": 7,
+   "label": 3,
+   "name": "流通分",
+   "seg": 128,
+   "lastSeg": 731
+  },
+  {
+   "id": 1035,
+   "par": 223,
+   "lv": 8,
+   "label": 1,
+   "name": "隨經文別釋",
+   "seg": 731,
+   "lastSeg": 732
+  },
+  {
+   "id": 1036,
+   "par": 223,
+   "lv": 8,
+   "label": 2,
+   "name": "引論疏讚釋",
+   "seg": 731,
+   "lastSeg": 733
+  },
+  {
+   "id": 1037,
+   "par": 1036,
+   "lv": 9,
+   "label": 1,
+   "name": "引論",
+   "seg": 733,
+   "lastSeg": 733
+  },
+  {
+   "id": 1038,
+   "par": 1036,
+   "lv": 9,
+   "label": 2,
+   "name": "引疏",
+   "seg": 733
+  },
+  {
+   "id": 107,
+   "par": 72,
+   "lv": 4,
+   "label": 5,
+   "name": "發明真應二果",
+   "seg": 60,
+   "lastSeg": 60
+  },
+  {
+   "id": 108,
+   "par": 107,
+   "lv": 5,
+   "label": 1,
+   "name": "標",
+   "seg": 60,
+   "lastSeg": 60
+  },
+  {
+   "id": 109,
+   "par": 107,
+   "lv": 5,
+   "label": 2,
+   "name": "釋",
+   "seg": 60,
+   "lastSeg": 61
+  },
+  {
+   "id": 110,
+   "par": 107,
+   "lv": 5,
+   "label": 3,
+   "name": "結",
+   "seg": 60,
+   "lastSeg": 62
+  }
+ ]
+}

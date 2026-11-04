@@ -47,7 +47,7 @@ const send = (method, params = {}) => new Promise((res) => {
 await send('Page.enable');
 await send('Emulation.setDeviceMetricsOverride', { width: W, height: 900, deviceScaleFactor: 1, mobile: false });
 await send('Page.reload', { ignoreCache: true });
-await sleep(1500);
+await sleep(+(process.env.WAIT || 1500));
 await send('Runtime.evaluate', { expression: 'document.fonts.ready', awaitPromise: true });
 // 等圖片都有尺寸
 for (let i = 0; i < 40; i++) {

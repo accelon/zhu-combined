@@ -25,6 +25,8 @@ type Api = {
   closePanel(): void;
   reset(): void;
   setTheme(v: string): boolean;
+  openSearch?(q?: string): void;
+  closeSearch?(): void;
 };
 
 const api = (): Api | undefined => (window as unknown as { ZHU_APP?: Api }).ZHU_APP;
@@ -42,6 +44,8 @@ const app = {
       case 'openAlt': a.openPanel('alt'); return;
       case 'openPhrase': a.openPanel('phrase'); return;
       case 'closePanel': a.closePanel(); return;
+      case 'openSearch': a.openSearch?.(); return;
+      case 'closeSearch': a.closeSearch?.(); return;
       case 'reset':
         a.reset();
         if (savedSection != null) a.setSection(savedSection);

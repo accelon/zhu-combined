@@ -11,8 +11,9 @@ export default defineTourConfig({
   formatImport: './format',
   appName: '金剛經合注',
   setKeys: ['theme'],
-  callNames: ['pickSentence', 'openNotes', 'openAlt', 'openPhrase', 'closePanel', 'reset'],
+  callNames: ['pickSentence', 'openNotes', 'openAlt', 'openPhrase', 'closePanel', 'reset', 'openSearch', 'closeSearch'],
   tabNames: ['works', 'alt', 'phrase'],
   apiKeys: ['ready', 'section', 'selected', 'panel', 'tab', 'overlay'],
-  dynamicIds: ['tourHint'],
+  // 科判層（src/kepan/kepan.js）執行時才長出來的 id
+  dynamicIds: ['tourHint', 'kepanBar', 'kbTrail', 'kbNav', 'kbNavBottom', 'kbEd', 'kbTree', 'kbToggle'],
 });

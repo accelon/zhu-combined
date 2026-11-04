@@ -1,0 +1,340 @@
+/* 科文（科判）介面：一條麵包屑 + 一個目錄浮層 + 經文裡的科文標記。
+   只給 vcpp-kepan.html 用；舊的 index.html／vcpp.html 不載入這支。
+
+   顏色照 D:\2026\offtext 的巢式文字：每深一層 HSV 色相 +30°（20° 起，暖色 → 冷色），
+   所以「本文有多深」看顏色就知道。色相由 JS 寫在元素的 --kuhue 上。 */
+
+:root {
+  --kb-h: 34px;
+  --kb-bg: #f3ece0;
+  --kb-bg2: #fffdf8;
+  --kb-line: #ddd0ba;
+  --kb-ink: #4a4034;
+  --kb-accent: #8a5a2f;
+  --kb-tag: #b08a5a;
+}
+body.dark {
+  --kb-bg: #2b2620;
+  --kb-bg2: #232019;
+  --kb-line: #463d31;
+  --kb-ink: #ddd3c4;
+  --kb-accent: #d7a86e;
+  --kb-tag: #a08a6a;
+}
+
+/* 標題列多一列（科文條）：讓它有地方換行 */
+#top { flex-wrap: wrap; row-gap: 8px; }
+
+#kepanBar {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px;
+  flex: 1 0 100%; min-width: 0;
+  font-size: 12.5px; color: var(--kb-ink);
+  font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  border-top: 1px dashed var(--kb-line);
+  padding: 6px 0 3px;
+}
+#kepanBar.kb-off { display: none; }
+.kb-left { display: flex; align-items: center; gap: 6px; flex: 0 0 auto; }
+
+/* 「科文」＝總開關：開＝經文上出現科文（梵文詞暫停）；關＝單色讀經（梵文詞可點） */
+.kb-tag {
+  font-size: 11px; letter-spacing: .18em; color: var(--kb-tag);
+  border: 1px solid var(--kb-line); border-radius: 3px; padding: 1px 6px;
+  background: transparent; font-family: inherit; cursor: pointer; line-height: 1.6;
+}
+.kb-tag:hover { border-color: var(--kb-accent); color: var(--kb-accent); }
+.kb-tag[aria-pressed="true"] {
+  background: var(--kb-accent); border-color: var(--kb-accent); color: #fff;
+}
+.kb-tag[aria-pressed="false"] { border-style: dashed; }
+
+#kbEd {
+  appearance: none; border: 1px solid var(--kb-line); background: var(--kb-bg2);
+  color: var(--kb-ink); font: inherit; border-radius: 999px; padding: 3px 20px 3px 9px;
+  cursor: pointer; outline: none; max-width: 7.5em;
+  background-image: linear-gradient(45deg, transparent 50%, var(--kb-tag) 50%), linear-gradient(135deg, var(--kb-tag) 50%, transparent 50%);
+  background-position: right 9px top 51%, right 5px top 51%;
+  background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
+}
+#kbEd:focus-visible { box-shadow: 0 0 0 3px rgba(138, 90, 47, .18); }
+
+/* 分導覽與「分」下拉整合：標題列上就是「‹ 21 非說所說 ›」，分章不再用下拉 */
+body.kb-layer .search #sec-select { display: none !important; }
+body.kb-layer #reader .chapter-nav { display: none !important; }
+.kb-nav { display: inline-flex; align-items: center; gap: 2px; flex: 0 0 auto; }
+.kb-step {
+  width: 26px; height: 26px; padding: 0; line-height: 1;
+  border: 1px solid var(--kb-line); background: var(--kb-bg2); color: var(--kb-ink);
+  border-radius: 999px; font: inherit; font-size: 15px; cursor: pointer;
+}
+.kb-step:hover:not(:disabled) { border-color: var(--kb-accent); color: var(--kb-accent); }
+.kb-step:disabled { opacity: .3; cursor: default; }
+.kb-cur {
+  display: inline-flex; align-items: baseline; gap: 4px;
+  padding: 3px 6px; border-radius: 6px; cursor: pointer;
+  font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  font-size: 12.5px; color: var(--kb-ink); white-space: nowrap;
+}
+.kb-cur:hover { background: var(--kb-bg); color: var(--kb-accent); }
+.kb-cur b { font-family: "Inter", ui-monospace, monospace; font-size: 11.5px; color: var(--kb-tag); font-weight: 600; }
+
+#kbEd {
+  appearance: none; border: 1px solid var(--kb-line); background: var(--kb-bg2);
+  color: var(--kb-ink); font: inherit; border-radius: 999px; padding: 3px 20px 3px 9px;
+  cursor: pointer; outline: none; max-width: 7.5em;
+  background-image: linear-gradient(45deg, transparent 50%, var(--kb-tag) 50%), linear-gradient(135deg, var(--kb-tag) 50%, transparent 50%);
+  background-position: right 9px top 51%, right 5px top 51%;
+  background-size: 4px 4px, 4px 4px; background-repeat: no-repeat;
+}
+#kbEd:focus-visible { box-shadow: 0 0 0 3px rgba(138, 90, 47, .18); }
+
+/* 分導覽（上一分／第 N 分／下一分）搬到「分」下拉旁邊，跟著 sticky 標題列 */
+.kb-nav { display: inline-flex; align-items: center; flex: 0 0 auto; }
+.kb-nav .chapter-nav { display: inline-flex; align-items: center; gap: 4px; margin: 0; }
+.kb-nav .chapter-nav button {
+  padding: 0; min-width: 26px; height: 26px; line-height: 1;
+  border-radius: 999px; font-size: 14px;
+}
+.kb-nav .chapter-nav .mid { font-size: 11px; letter-spacing: .04em; padding: 0 1px; white-space: nowrap; }
+
+.kb-trail {
+  display: flex; align-items: center; gap: 2px; flex-wrap: wrap;
+  flex: 1 1 240px; min-width: 0; padding-bottom: 2px;
+}
+.kb-trail::-webkit-scrollbar { display: none; }
+.kb-sep { color: var(--kb-tag); opacity: .7; flex: 0 0 auto; font-size: 11px; }
+
+/* 麵包屑晶片：干支序號 ＋ 科名（手機只留序號）；字色隨深度 */
+.kb-chip {
+  flex: 0 0 auto; border: 0; background: transparent;
+  color: hsl(var(--kuhue, 20) 50% 36%);
+  font: inherit; padding: 2px 5px; border-radius: 3px; cursor: pointer;
+  max-width: 14em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.kb-chip:hover { background: hsl(var(--kuhue, 20) 55% 60% / .14); }
+.kb-chip.cur {
+  color: hsl(var(--kuhue, 20) 62% 30%);
+  font-weight: 700;
+  background: hsl(var(--kuhue, 20) 55% 62% / .16);
+}
+body.dark .kb-chip { color: hsl(var(--kuhue, 20) 55% 72%); }
+body.dark .kb-chip.cur { color: hsl(var(--kuhue, 20) 70% 82%); background: hsl(var(--kuhue, 20) 55% 60% / .18); }
+.kb-id:empty { display: none; }
+.kb-id {
+  font-size: 10.5px; letter-spacing: .04em;
+  opacity: .82; margin-right: 3px;
+  font-family: "Inter", ui-monospace, monospace;
+}
+.kb-chip.cur .kb-nm { margin-left: 0; }
+.kb-caret { font-size: 8px; opacity: .55; margin-left: 2px; }
+.kb-more { color: var(--kb-tag); }
+
+.kb-right { display: flex; align-items: center; gap: 4px; flex: 0 0 auto; }
+.kb-btn {
+  border: 1px solid var(--kb-line); background: var(--kb-bg2); color: var(--kb-ink);
+  font: inherit; border-radius: 999px; padding: 2px 8px; cursor: pointer; line-height: 1.5;
+}
+.kb-btn:hover { border-color: var(--kb-accent); color: var(--kb-accent); }
+.kb-btn[aria-pressed="true"] { background: var(--kb-bg); border-color: var(--kb-accent); color: var(--kb-accent); }
+.kb-btn:disabled { opacity: .45; cursor: default; border-color: var(--kb-line); color: var(--kb-ink); }
+.kb-hint { color: var(--kb-tag); font-size: 11.5px; }
+
+/* 下拉：同層節點 */
+#kepanMenu {
+  position: fixed; z-index: 60; min-width: 10em; max-width: min(22em, 88vw);
+  max-height: 60vh; overflow: auto;
+  background: var(--kb-bg2); border: 1px solid var(--kb-line);
+  border-radius: 8px; box-shadow: 0 10px 30px rgba(40, 30, 16, .18);
+  padding: 5px; font-size: 13px;
+}
+#kepanMenu[hidden] { display: none; }
+.kb-item {
+  display: block; width: 100%; text-align: left; border: 0; background: transparent;
+  color: var(--kb-ink); font: inherit; padding: 5px 8px; border-radius: 5px; cursor: pointer;
+}
+.kb-item:hover { background: var(--kb-bg); }
+.kb-item.cur { color: var(--kb-accent); font-weight: 700; }
+.kb-item .kb-n { color: var(--kb-tag); font-size: 11px; margin-right: 6px; }
+
+/* 目錄浮層 */
+#kepanPanel {
+  position: fixed; z-index: 55; left: 50%; transform: translateX(-50%);
+  top: calc(var(--top-h, 96px) + 6px);
+  width: min(640px, 94vw); max-height: min(68vh, 560px);
+  display: flex; flex-direction: column;
+  background: var(--kb-bg2); border: 1px solid var(--kb-line);
+  border-radius: 10px; box-shadow: 0 18px 48px rgba(40, 30, 16, .22);
+  font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+}
+#kepanPanel[hidden] { display: none; }
+.kb-ph { display: flex; align-items: center; gap: 10px; padding: 9px 14px; border-bottom: 1px solid var(--kb-line); }
+.kb-ph b { font-size: 14.5px; letter-spacing: .06em; white-space: nowrap; flex: 0 0 auto; }
+.kb-ph .kb-src { color: var(--kb-tag); font-size: 11.5px; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.kb-pb { overflow: auto; padding: 6px 8px 14px; }
+.kb-node {
+  display: block; width: 100%; text-align: left; border: 0; background: transparent;
+  color: hsl(var(--kuhue, 20) 55% 36%);
+  font: inherit; font-size: 15px; line-height: 1.85;
+  padding: 2px 8px 2px var(--ind, 8px); border-radius: 4px; cursor: pointer;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+body.dark .kb-node { color: hsl(var(--kuhue, 20) 58% 72%); }
+.kb-node:hover { background: var(--kb-bg); }
+.kb-node.cur { color: hsl(var(--kuhue, 20) 65% 30%); font-weight: 700; background: var(--kb-bg); }
+body.dark .kb-node.cur { color: hsl(var(--kuhue, 20) 72% 84%); }
+.kb-node.nk { color: var(--kb-tag); }
+.kb-node .kb-lv { color: inherit; opacity: .6; font-size: 12px; margin-right: 6px; font-family: "Inter", ui-monospace, monospace; }
+.kb-pf { padding: 6px 14px; border-top: 1px solid var(--kb-line); color: var(--kb-tag); font-size: 11.5px; }
+
+/* 經文裡的科文標記與範圍高亮（只在科文「開」時出現） */
+.kb-mark {
+  font-size: 11px; letter-spacing: .04em;
+  color: hsl(var(--kuhue, 20) 55% 34%);
+  border: 1px solid hsl(var(--kuhue, 20) 55% 62% / .7);
+  border-left: 2px solid hsl(var(--kuhue, 20) 55% 48%);
+  background: hsl(var(--kuhue, 20) 55% 70% / .12);
+  border-radius: 0 4px 4px 0;
+  padding: 0 5px; margin: 0 3px 0 1px; cursor: pointer;
+  vertical-align: 2px; white-space: nowrap; font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
+.kb-mark:hover { background: hsl(var(--kuhue, 20) 55% 60% / .22); }
+.kb-mark .kb-mi { font-family: "Inter", ui-monospace, monospace; opacity: .8; margin-right: 3px; cursor: pointer; }
+.kb-mark .kb-mi:hover { opacity: 1; text-decoration: underline dotted; }
+.kb-mark .kb-mn { letter-spacing: .02em; }
+.kb-mark.cur { border-color: hsl(var(--kuhue, 20) 60% 45%); font-weight: 600; }
+body.dark .kb-mark { color: hsl(var(--kuhue, 20) 65% 78%); border-color: hsl(var(--kuhue, 20) 50% 45%); }
+body.dark .kb-mark.cur { border-color: hsl(var(--kuhue, 20) 65% 60%); }
+/* 經文不再按科文深度上色（ancestor 科文已經足夠）：字一律是原文色，
+   只有「目前這一節」那一小段墊一層很淡的暖底，讓眼睛知道現在讀到哪裡。 */
+.kb-t.cur {
+  background: hsl(38 62% 90% / .55);
+  border-radius: 2px;
+}
+body.dark .kb-t.cur { background: hsl(38 40% 55% / .16); }
+.kb-flash { animation: kbflash .9s ease; }
+@keyframes kbflash { 0% { background: rgba(138, 90, 47, .26); } 100% { background: transparent; } }
+
+/* 科文開：經文上的梵文詞暫停（免得點句時誤觸詞卡），經文才好讀 */
+body.kb-on .ifan .sw,
+body.kb-on .ifan .tw { pointer-events: none; cursor: default; }
+/* 科判模式：點句不再展開梵藏（要看梵藏就把科判關掉） */
+body.kb-on #reader .ifan { display: none !important; }
+/* 科文關：經文完全單色（標記與襯底都不存在），梵文詞照常可點 */
+body.kb-plain .kb-mark,
+body.kb-plain .kb-t { color: inherit !important; }
+
+.kb-nav-bottom {
+  display: flex; justify-content: center; align-items: center;
+  margin: 30px 0 10px; padding-top: 16px;
+  border-top: 1px dashed var(--kb-line);
+}
+
+@media (max-width: 1060px) {
+  /* 手機：科判條拆成兩行——上面開關，下面路徑（祖先才有空間展開） */
+  #kepanBar { font-size: 13px; gap: 4px 6px; padding: 5px 0 2px; }
+  .kb-chip:not(.cur) .kb-nm { display: none; }
+  /* 章／節沒有干支序號：那幾格就顯示名字，不然會變空白 */
+  .kb-chip .kb-id:empty + .kb-nm { display: inline; }
+  .kb-chip { max-width: none; padding: 5px 5px; }
+  .kb-chip .kb-id { font-size: 12px; margin-right: 0; letter-spacing: .02em; }
+  .kb-chip.cur .kb-id { margin-right: 3px; }
+  .kb-tag { padding: 3px 7px; letter-spacing: .08em; font-size: 11.5px; }
+  .kb-step { width: 30px; height: 30px; }
+  .kb-cur { font-size: 12px; padding: 4px 5px; }
+  .kb-btn { padding: 4px 10px; }
+  #kepanPanel { top: auto; bottom: 0; left: 0; transform: none; width: 100%; max-height: 78vh; border-radius: 14px 14px 0 0; }
+  .kb-node { font-size: 15.5px; line-height: 2; padding-top: 4px; padding-bottom: 4px; }
+
+  /* 科文豎排：只留干支序號，直排成一小條，不佔行寬（點它跳到那一節） */
+  .kb-mark {
+    writing-mode: vertical-rl; text-orientation: upright;
+    display: inline-block; vertical-align: middle;
+    font-size: 10.5px; line-height: 1; letter-spacing: .06em;
+    padding: 3px 2px; margin: 0 3px 0 1px;
+    border-left: 0; border-top: 2px solid hsl(var(--kuhue, 20) 55% 48%);
+    border-right: 1px solid hsl(var(--kuhue, 20) 55% 62% / .7);
+    border-radius: 0 4px 4px 0;
+    max-height: 3.6em; overflow: hidden;
+  }
+  .kb-mark .kb-mn { display: none; }
+  .kb-mark .kb-mi { margin-right: 0; opacity: .95; }
+}
+@media print {
+  #kepanBar, #kepanMenu, #kepanPanel { display: none !important; }
+}
+
+
+/* 注文超過 100 字：先顯示 100 字，按「…更多」每次多 100 字，直到全部（app.js 在單檔裡打補丁） */
+.ex .more-txt {
+  margin-left: 4px; padding: 1px 8px; border-radius: 999px;
+  border: 1px dashed var(--line); background: transparent; color: var(--accent);
+  font: inherit; font-size: 12px; cursor: pointer; line-height: 1.6; white-space: nowrap;
+}
+.ex .more-txt:hover { border-style: solid; background: rgba(138, 90, 47, .08); }
+body.dark .ex .more-txt { border-color: var(--kb-line); color: var(--kb-accent); }
+
+
+/* 注疏作者鈕按時代上色：色相由 app.js 算好放在 --nb-hue（東晉 20° → 民國 320°）。
+   同一時代同一色，一眼看得出「這幾家是同一期的人」。 */
+/* 未選＝黑底（深墨），選中＝該時代的亮色填滿 + 深字；兩態一眼分得開。
+   色相仍由 --nb-hue 決定，所以「同一時代同一色」還看得出來（字色與選中色）。 */
+.notebtn {
+  color: hsl(var(--nb-hue, 28) 52% 82%);
+  border-color: #372f25;
+  background: #241f19;
+}
+.notebtn:hover { background: #332b22; border-color: #4c4133; }
+.notebtn.on {
+  background: hsl(var(--nb-hue, 28) 66% 84%);
+  border-color: hsl(var(--nb-hue, 28) 46% 50%);
+  color: #1f1a14;
+  font-weight: 700;
+  box-shadow: 0 0 0 2px hsl(var(--nb-hue, 28) 46% 50% / .22);
+}
+body.dark .notebtn { background: #2b241c; color: hsl(var(--nb-hue, 28) 52% 78%); border-color: #3e3529; }
+body.dark .notebtn:hover { background: #372e22; border-color: #524636; }
+body.dark .notebtn.on {
+  background: hsl(var(--nb-hue, 28) 62% 76%);
+  border-color: hsl(var(--nb-hue, 28) 50% 58%);
+  color: #1a1510;
+  box-shadow: 0 0 0 2px hsl(var(--nb-hue, 28) 50% 58% / .3);
+}
+
+
+/* 導覽（🦮）與明暗（☾）放在標題列最左上角 */
+.kb-utils { display: flex; align-items: center; gap: 3px; flex: 0 0 auto; }
+.kb-utils .theme { margin: 0; }
+body.kb-layer #top { justify-content: flex-start; }
+body.kb-layer #top .search { margin-left: auto; }
+
+/* 「目錄」在分導覽中間那格左邊，不要撐成一個大方塊 */
+.kb-btn-tree { margin-right: 2px; padding: 3px 9px; font-size: 12px; }
+
+/* ---- 單本注疏閱讀模式 ---- */
+#kbRead {
+  position: fixed; inset: 0; z-index: 96; display: flex; flex-direction: column;
+  background: var(--kb-paper, #fbf8f0); color: var(--kb-ink, #241f19);
+}
+#kbRead[hidden] { display: none; }
+#kbRead .kr-bar { display: flex; align-items: center; gap: 8px; padding: 10px 14px; border-bottom: 1px solid var(--kb-line, #e3dacb); }
+#kbRead .kr-crumbs { flex: 1 1 auto; font-size: 12.5px; color: var(--kb-dim, #6a5a44); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#kbRead .kr-ed { font-weight: 800; color: var(--kb-accent, #8a4b1e); }
+#kbRead .kr-sep { color: var(--kb-dim, #a08e72); margin: 0 2px; }
+#kbRead .kr-body { flex: 1 1 auto; overflow: auto; padding: 16px 18px 10px; }
+#kbRead .kr-sutra {
+  background: var(--kb-hl, #fff8e7); border-left: 3px solid var(--kb-accent2, #c9a86a);
+  padding: 10px 12px; font-size: 15px; line-height: 1.95; margin-bottom: 14px; border-radius: 0 6px 6px 0;
+}
+#kbRead .kr-tag {
+  display: inline-block; font-size: 11px; color: var(--kb-accent, #8a4b1e);
+  border: 1px solid var(--kb-line2, #d8c9a8); border-radius: 999px; padding: 0 7px; margin-right: 8px; vertical-align: 2px;
+}
+#kbRead .kr-text { font-size: 15.5px; line-height: 2.05; white-space: pre-wrap; }
+#kbRead .kr-tip { font-size: 12px; color: var(--kb-dim, #8a7f6d); margin: 0 0 8px; }
+#kbRead .kr-pager { display: flex; gap: 12px; align-items: center; justify-content: center; margin: 18px 0 4px; font-size: 12px; color: var(--kb-dim, #6a5a44); }
+#kbRead .kr-foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; border-top: 1px solid var(--kb-line, #e3dacb); }
+#kbRead .kr-who { flex: 1 1 auto; text-align: center; font-size: 12px; color: var(--kb-dim, #6a5a44); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#kbRead .kr-btn { border: 1px solid var(--kb-line, #d8cfc0); background: var(--kb-card, #fff); border-radius: 8px; padding: 4px 10px; font-size: 12.5px; color: inherit; cursor: pointer; }
+#kbRead .kr-btn[disabled] { opacity: .35; cursor: default; }
+body.dark #kbRead { background: #17140f; color: #eae1d2; }
+body.dark #kbRead .kr-sutra { background: #221d16; }

@@ -3,10 +3,19 @@
   'use strict';
   const D = window.ZHU;
   const $ = (s) => document.querySelector(s);
-  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // 所有輸出都經過 esc：順便把顯示字轉成繁／簡（原文與索引不動）
+  const simText = (s) => (state.sim && window.LOSSLESS)
+    ? window.LOSSLESS.toSimplified(String(s == null ? '' : s), state.sim)
+    : String(s == null ? '' : s);
+  const esc = (s) => simText(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // 漢譯句子直接相接；英譯（拉丁字母）要用空格
   const joinSents = (v, parts) => parts.join(v && v.lang === 'en' ? ' ' : '');
-  const norm = (s) => s.replace(/[^\u3400-\u9fff]/g, '');
+  // 搜尋／比對用：先把繁簡收斂到同一邊（無損表），再只留漢字
+  const norm = (s) => {
+    let t = String(s == null ? '' : s);
+    if (window.LOSSLESS) t = window.LOSSLESS.canon(t);
+    return t.replace(/[^\u3400-\u9fff]/g, '');
+  };
   const foldSa = (s) => String(s || '').toLowerCase().replace(/[āīūṛṝḷḹēōṃḥṅñṭḍṇśṣ]/g, (c) => ({ 'ā': 'a', 'ī': 'i', 'ū': 'u', 'ṛ': 'r', 'ṝ': 'r', 'ḷ': 'l', 'ḹ': 'l', 'ē': 'e', 'ō': 'o', 'ṃ': 'm', 'ḥ': 'h', 'ṅ': 'n', 'ñ': 'n', 'ṭ': 't', 'ḍ': 'd', 'ṇ': 'n', 'ś': 's', 'ṣ': 's' })[c]);
   // 各譯本對同一個梵文詞的固定譯語。前綴比對（fold 過的詞形）。
   // 「笈多」的譯文是逐詞直譯、詞序同梵文，所以他的用詞可以拿來校正其他譯本：
@@ -91,7 +100,7 @@
   // 手機／平板：右欄是覆蓋式面板（不是並排欄），所以點句與看面板在同一個視口裡
   const isOverlay = () => window.matchMedia('(max-width: 1060px)').matches;
   // 主文固定羅什（BASE）；想看別的譯本一律走面板的「別譯」分頁
-  const state = { u: null, sec: 1, pick: [], altPick: null, tipPin: false, tab: 'works', showNotes: true, bm: [], page: {} };
+  const state = { u: null, sec: 1, pick: [], altPick: null, tipPin: false, tab: 'works', showNotes: true, bm: [], page: {}, sim: 0 };
 
   /* ---------- 索引 ---------- */
   const byUnit = new Map(); // u -> [{w, a, b, p}]
@@ -746,28 +755,177 @@
     if (j >= 0 && j < seq.length) selectUnit(seq[j], { scroll: true });
   }
 
-  /* ---------- 搜尋 ---------- */
-  function search(q) {
-    const nq = norm(q);
-    const latin = /[A-Za-z]/.test(q) && !/[\u3400-\u9fff]/.test(q);
-    if (!nq && !latin) return;
-    const lq = q.trim().toLowerCase();
-    for (let vi = 0; vi < D.versions.length; vi++) {
-      const v = D.versions[vi];
-      const hit = latin
-        ? v.sents.find((s) => s.t.toLowerCase().includes(lq))
-        : v.sents.find((s) => norm(s.t).includes(nq));
-      if (hit) {
-        if (hit.s !== state.sec) { state.sec = hit.s; renderSectionSelect(); }
-        // 命中羅什以外（英譯、古譯…）：跳同一句，並把「別譯」分頁開到那一家
-        if (vi !== BASE) { state.altPick = [vi]; state.tab = 'alt'; }
-        selectUnit(hit.u, { scroll: true });
-        if (vi !== BASE) openPanel('alt');
-        return;
+  /* ---------- 搜尋（放大鏡面板） ---------- */
+  const SEARCH = { scope: 'sutra', q: '', page: 0, results: [], cache: {}, timer: null };
+  const SP_PER = 10;
+  const canon = (s) => (window.LOSSLESS ? window.LOSSLESS.canon(String(s == null ? '' : s)) : String(s == null ? '' : s));
+
+  function searchIndexFor(scope) {
+    if (SEARCH.cache[scope]) return SEARCH.cache[scope];
+    const list = [];
+    if (scope === 'kepan') {
+      const K = window.KEPAN;
+      (K && K.editions ? K.editions : []).forEach((ed) => {
+        if (ed.id === 'zhaoming') return;   // 昭明就是經文本身，已在「經文」範圍
+        (ed.nodes || []).forEach((n) => {
+          const label = [n.lab, n.nm].filter(Boolean).join(' ').trim();
+          if (!label) return;
+          list.push({ text: canon(label), raw: label, u: n.u, ed: ed.short });
+        });
+      });
+    } else if (scope === 'notes') {
+      for (const w of D.works) {
+        if (!w.text) continue;
+        const anchors = (w.anchors || []).slice().sort((a, b) => a[1] - b[1]);
+        list.push({ text: canon(w.text), raw: w.text, w: w, anchors: anchors });
       }
+    } else {
+      for (const se of D.versions[BASE].sents) list.push({ text: canon(se.t), raw: se.t, u: se.u, sec: se.s });
     }
-    alert('找不到：' + q);
+    SEARCH.cache[scope] = list;
+    return list;
   }
+
+  function anchorU(anchors, at) {
+    if (!anchors || !anchors.length) return null;
+    for (const a of anchors) if (at >= a[1] && at < a[2]) return a[0];
+    let best = null;
+    for (const a of anchors) { if (a[1] <= at) best = a; else break; }
+    return best ? best[0] : anchors[0][0];
+  }
+
+  function secOf(u) {
+    const se = D.versions[BASE].sents.find((x) => x.u === u);
+    return se ? se.s : '';
+  }
+
+  function excerptHtml(raw, at, len) {
+    const PAD = 34;
+    const from = Math.max(0, at - PAD);
+    const to = Math.min(raw.length, at + len + PAD);
+    return (from > 0 ? '…' : '') + esc(raw.slice(from, at)) + '<mark>' + esc(raw.slice(at, at + len)) + '</mark>' +
+      esc(raw.slice(at + len, to)) + (to < raw.length ? '…' : '');
+  }
+
+  function runSearch(q) {
+    SEARCH.q = String(q == null ? '' : q);
+    SEARCH.page = 0;
+    const nq = canon(SEARCH.q.trim()).replace(/\s+/g, '');
+    if (!nq) { SEARCH.results = []; renderSearch(); return; }
+    const idx = searchIndexFor(SEARCH.scope);
+    const out = [];
+    const MAX = 300;
+    for (const it of idx) {
+      if (SEARCH.scope === 'notes') {
+        let from = 0;
+        for (;;) {
+          const at = it.text.indexOf(nq, from);
+          if (at < 0) break;
+          out.push({ kind: 'notes', w: it.w, anchors: it.anchors, at: at, len: nq.length, raw: it.raw });
+          from = at + nq.length;
+          if (out.length >= MAX) break;
+        }
+      } else {
+        const at = it.text.indexOf(nq);
+        if (at >= 0) out.push(Object.assign({ kind: SEARCH.scope, at: at, len: nq.length }, it));
+      }
+      if (out.length >= MAX) break;
+    }
+    SEARCH.results = out;
+    renderSearch();
+  }
+
+  function renderSearch() {
+    const list = document.getElementById('spList');
+    const pager = document.getElementById('spPager');
+    const count = document.getElementById('spCount');
+    if (!list) return;
+    const total = SEARCH.results.length;
+    if (count) count.textContent = total ? total + ' 筆' : '';
+    if (!total) {
+      list.innerHTML = '<p class="sp-empty">' +
+        (SEARCH.q.trim() ? '找不到「' + esc(SEARCH.q) + '」' : '輸入關鍵字：預設搜經文，也可切到科文、注文。') + '</p>';
+      if (pager) pager.hidden = true;
+      return;
+    }
+    const pages = Math.max(1, Math.ceil(total / SP_PER));
+    if (SEARCH.page > pages - 1) SEARCH.page = pages - 1;
+    if (SEARCH.page < 0) SEARCH.page = 0;
+    const rows = SEARCH.results.slice(SEARCH.page * SP_PER, SEARCH.page * SP_PER + SP_PER);
+    list.innerHTML = rows.map((r, i) => {
+      const ix = SEARCH.page * SP_PER + i;
+      let meta = '';
+      if (r.kind === 'notes') {
+        const u = anchorU(r.anchors, r.at);
+        const sec = u == null ? '' : secOf(u);
+        meta = esc(r.w.author) + '《' + esc(r.w.title) + '》' + (sec ? ' · 第 ' + sec + ' 分' : '');
+      } else if (r.kind === 'kepan') {
+        meta = esc(r.ed) + ' 科文' + (r.u >= 0 ? ' · 第 ' + secOf(r.u) + ' 分' : '');
+      } else {
+        meta = '第 ' + esc(r.sec) + ' 分';
+      }
+      return '<div class="sp-row"><button type="button" class="sp-go" data-i="' + ix + '">' +
+        '<span class="sp-meta">' + meta + '</span>' +
+        '<span class="sp-text">' + excerptHtml(r.raw, r.at, r.len) + '</span></button></div>';
+    }).join('');
+    if (pager) {
+      pager.hidden = pages <= 1;
+      pager.innerHTML = '<button type="button" data-pg="-1"' + (SEARCH.page <= 0 ? ' disabled' : '') + '>‹ 上一頁</button>' +
+        '<span>' + (SEARCH.page + 1) + ' / ' + pages + '</span>' +
+        '<button type="button" data-pg="1"' + (SEARCH.page >= pages - 1 ? ' disabled' : '') + '>下一頁 ›</button>';
+    }
+  }
+
+  function setScope(scope) {
+    SEARCH.scope = scope;
+    document.querySelectorAll('#searchPanel .sp-scopes button').forEach((b) => {
+      const on = b.dataset.scope === scope;
+      b.classList.toggle('on', on);
+      b.setAttribute('aria-selected', String(on));
+    });
+    runSearch(document.getElementById('spInput') ? document.getElementById('spInput').value : SEARCH.q);
+  }
+
+  function openSearch(q) {
+    const panel = document.getElementById('searchPanel');
+    if (!panel) return;
+    panel.hidden = false;
+    document.body.classList.add('searching');
+    hideBmList();
+    const inp = document.getElementById('spInput');
+    if (inp) {
+      if (q != null) inp.value = q;
+      inp.focus();
+      try { inp.select(); } catch (e) {}
+    }
+    runSearch(inp ? inp.value : '');
+  }
+
+  function closeSearch() {
+    const panel = document.getElementById('searchPanel');
+    if (panel) panel.hidden = true;
+    document.body.classList.remove('searching');
+  }
+
+  function spGo(ix) {
+    const r = SEARCH.results[ix];
+    if (!r) return;
+    if (r.kind === 'notes') {
+      const u = anchorU(r.anchors, r.at);
+      closeSearch();
+      if (u == null) return;
+      state.pick = [r.w.id];
+      state.tab = 'works';
+      selectUnit(u, { scroll: true });
+      openPanel('works');
+      return;
+    }
+    closeSearch();
+    if (r.u != null && r.u >= 0) selectUnit(r.u, { scroll: true });
+  }
+
+  // 舊介面（?q= 與導覽）留一個入口
+  function search(q) { openSearch(q); }
 
   /* ---------- 事件 ---------- */
   function bind() {
@@ -890,6 +1048,8 @@
       const up = e.target.closest('.unpick');
       if (up) { togglePick(up.dataset.w); renderCards(state.u); return; }
     });
+    const simBtn = document.getElementById('simBtn');
+    if (simBtn) simBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSim(); });
     const bmBtn = document.getElementById('bmBtn');
     if (bmBtn) bmBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleBmList(); });
     const bmList = document.getElementById('bmList');
@@ -906,12 +1066,42 @@
       const l = document.getElementById('bmList');
       if (l && !l.hidden && !e.target.closest('#bmList') && !e.target.closest('#bmBtn')) l.hidden = true;
     });
-    $('#q').addEventListener('keydown', (e) => { if (e.key === 'Enter') search(e.target.value); });
+    const searchBtn = document.getElementById('searchBtn');
+    if (searchBtn) searchBtn.addEventListener('click', (e) => { e.stopPropagation(); openSearch(''); });
+    const spPanel = document.getElementById('searchPanel');
+    if (spPanel) {
+      const inp = document.getElementById('spInput');
+      if (inp) {
+        inp.addEventListener('input', () => {
+          clearTimeout(SEARCH.timer);
+          SEARCH.timer = setTimeout(() => runSearch(inp.value), 120);
+        });
+        inp.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') { e.preventDefault(); clearTimeout(SEARCH.timer); runSearch(inp.value); }
+        });
+      }
+      spPanel.addEventListener('click', (e) => {
+        if (e.target.closest('[data-sp-close]') || e.target.closest('#spClose')) { closeSearch(); return; }
+        const sc = e.target.closest('.sp-scopes button');
+        if (sc) { setScope(sc.dataset.scope); return; }
+        const go = e.target.closest('.sp-go');
+        if (go) { spGo(+go.dataset.i); return; }
+        const pg = e.target.closest('#spPager button');
+        if (pg) {
+          SEARCH.page += (+pg.dataset.pg);
+          renderSearch();
+        }
+      });
+    }
     const secSel = document.getElementById('sec-select');
     if (secSel) secSel.addEventListener('change', (e) => setSection(+e.target.value));
     document.addEventListener('keydown', (e) => {
       if ((e.ctrlKey || e.metaKey) && e.altKey && (e.key === 'b' || e.key === 'B')) { e.preventDefault(); toggleNotes(); return; }
-      if (e.key === 'Escape') closeSheet();
+      if (e.key === 'Escape') {
+        const sp = document.getElementById('searchPanel');
+        if (sp && !sp.hidden) { closeSearch(); return; }
+        closeSheet();
+      }
       if (e.target.matches('input,textarea')) return;
       if (e.key === 'ArrowLeft') move(-1);
       if (e.key === 'ArrowRight') move(1);
@@ -924,6 +1114,31 @@
     const b = document.getElementById('theme');
     if (b) b.textContent = dark ? '☀' : '☾';
   }
+  /* ---------- 繁簡（無損簡體） ---------- */
+  function syncSim() {
+    const b = document.getElementById('simBtn');
+    if (!b) return;
+    const on = !!state.sim;
+    b.textContent = on ? '繁' : '简';
+    b.title = on ? '顯示：無損簡體（點一下回原文）' : '顯示：原文（點一下轉無損簡體）';
+    b.setAttribute('aria-pressed', String(on));
+    b.classList.toggle('on', on);
+  }
+  function rerenderAll() {
+    try { renderReader(); } catch (e) {}
+    try { if (state.u != null) renderBody(state.u); } catch (e) {}
+    try { renderSectionSelect(); } catch (e) {}
+    try { if (window.KEPAN && window.KEPAN.rerender) window.KEPAN.rerender(); } catch (e) {}
+  }
+  function toggleSim() {
+    state.sim = state.sim ? 0 : 1;
+    try { localStorage.setItem('zhu-sim', state.sim ? '1' : '0'); } catch (e) {}
+    syncSim();
+    rerenderAll();
+  }
+
+  window.__ZHU_SIM = function () { return state.sim; };
+
   function initTheme() {
     let saved = null;
     const tq = new URLSearchParams(location.search).get('theme');
@@ -1026,6 +1241,8 @@
       closePanel: closeSheet,
       reset: tourReset,
       setTheme: tourSetTheme,
+      openSearch: openSearch,
+      closeSearch: closeSearch,
     };
   }
 
@@ -1033,6 +1250,8 @@
   function boot() {
     const qs = new URLSearchParams(location.search);
     initTheme();
+    try { if (localStorage.getItem('zhu-sim') === '1') state.sim = 1; } catch (e) {}
+    syncSim();
     bmLoad();
     renderBmList();
     try {
