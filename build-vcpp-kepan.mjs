@@ -166,6 +166,12 @@ KP.build = new Date().toISOString();   // 頁面上的「建置」時間，用�
 const META_TITLE = opt('title', '');
 const META_SUB = opt('sub', '');
 if (META_TITLE || META_SUB) D.meta = Object.assign({}, D.meta, { title: META_TITLE || (D.meta && D.meta.title), sub: META_SUB || (D.meta && D.meta.sub) });
+// 辭典（可選）：工作區根目錄有 glossary.json 就一併內嵌
+const glossPath = path.join(CONTENT, 'glossary.json');
+if (fs.existsSync(glossPath)) {
+  try { D.glossary = JSON.parse(fs.readFileSync(glossPath, 'utf8')); console.log('辭典 ' + (D.glossary.entries || []).length + ' 條'); }
+  catch (e) { console.warn('glossary.json 解析失敗，略過：' + e.message); }
+}
 const payload = JSON.stringify({ zhu: D, kepan: KP });
 const gz = zlib.gzipSync(Buffer.from(payload, 'utf8'), { level: 9 });
 const b64 = gz.toString('base64');

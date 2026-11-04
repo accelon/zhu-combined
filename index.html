@@ -13,7 +13,7 @@
     <h1>經注閱讀器</h1>
     <p class="sub"></p>
   </div>
-  <div class="search"><select id="sec-select" title="選分"></select><button id="searchBtn" class="theme" title="搜尋（經文／科文／注文）" aria-label="搜尋">🔍</button><button id="fsBtn" class="theme" title="全屏" aria-label="全屏">⛶</button><button id="bmBtn" class="theme" title="書籤" aria-label="書籤">♡</button><button id="theme" class="theme" title="明暗切換">☾</button><button id="simBtn" class="theme" title="繁體 / 無損簡體">简</button><button id="tourEntry" class="theme tour-icon" title="操作導覽（跟著做一次就會用）" aria-label="操作導覽">🦮</button></div>
+  <div class="search"><select id="sec-select" title="選分"></select><button id="searchBtn" class="theme" title="搜尋（經文／科文／注文）" aria-label="搜尋">🔍</button><button id="glossBtn" class="theme" hidden title="辭典／速查" aria-label="辭典">辭</button><button id="fsBtn" class="theme" title="全屏" aria-label="全屏">⛶</button><button id="bmBtn" class="theme" title="書籤" aria-label="書籤">♡</button><button id="theme" class="theme" title="明暗切換">☾</button><button id="simBtn" class="theme" title="繁體 / 無損簡體">简</button><button id="tourEntry" class="theme tour-icon" title="操作導覽（跟著做一次就會用）" aria-label="操作導覽">🦮</button></div>
 </header>
 
 <div id="searchPanel" hidden role="dialog" aria-modal="true" aria-label="搜尋">
@@ -32,6 +32,25 @@
     </div>
     <div id="spList" class="sp-list"></div>
     <div id="spPager" class="sp-pager" hidden></div>
+  </div>
+</div>
+
+<div id="glossPanel" hidden role="dialog" aria-modal="true" aria-label="辭典">
+  <div class="gp-veil" data-gp-close></div>
+  <div class="gp-box">
+    <div class="gp-h">
+      <span class="gp-t">辭典</span>
+      <input id="gpInput" type="search" placeholder="搜尋詞條、別名、梵藏英…" autocomplete="off" spellcheck="false" aria-label="搜尋詞條">
+      <button id="gpClose" class="gp-x" type="button" title="關閉（Esc）" aria-label="關閉">✕</button>
+    </div>
+    <div id="gpChips" class="gp-chips"></div>
+    <div class="gp-body">
+      <div class="gp-left">
+        <ul id="gpList" class="gp-list"></ul>
+        <p id="gpEmpty" class="gp-empty" hidden>沒有符合的詞條。</p>
+      </div>
+      <div class="gp-right"><div id="gpDetail" class="gp-detail"><p class="gp-hint">左邊選一條詞條。</p></div></div>
+    </div>
   </div>
 </div>
 

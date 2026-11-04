@@ -83,6 +83,30 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 **本 repo 不部署**。部署（上傳官網孵化區 `/incubator/`）由內容工作區負責：
 `D:\2026\vcpp\deploy.mjs`（`node deploy.mjs --check` → `node deploy.mjs`）。
 
+## 辭典／速查（可選）
+
+工作區提供 `glossary.json`（或把 `glossary` 放進 `window.ZHU`）時，頂欄會出現「辭」入口：
+
+```json
+{
+  "schema": 1,
+  "categories": [{ "id": "人物", "label": "人物", "count": 17 }],
+  "entries": [{
+    "id": "p-ananda", "term": "阿難", "aliases": ["阿難陀"], "category": "人物",
+    "gloss": "佛陀堂弟…", "sa": "Ānanda", "tib": "ཀུན་དགའ་བོ", "en": "Ānanda",
+    "ref": null, "count": 458, "truncated": true,
+    "workHits": { "T1799": 559 },
+    "occurrences": [{ "s": 8, "juan": 0, "page": "19p105c", "quote": "…" }]
+  }]
+}
+```
+
+- `occurrences[].s` 是主文句序（`versions[0].sents[i]`），點一筆就跳該句並閃一下；
+  也可以直接給 `u`。
+- `workHits` 的名稱由 `meta.workNames`（id → 顯示名）決定，沒有就顯示 id。
+- 五類固定（人物／名詞／論點／呂澂批評／譯者版本），但晶片是照 `categories` 畫的，換經群可換分類。
+- 沒有 `glossary` 就不顯示入口；資料欄位只增不改，未知欄位會被忽略。
+
 ## 應用清單（apps.json）
 
 閱讀器不綁定任何一部經。每個數據工作區在 `apps.json` 登記一列：

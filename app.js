@@ -1227,6 +1227,210 @@
     });
   }
 
+  /* ---------- 辭典／速查（資料可選：ZHU.glossary） ---------- */
+  const GLOSS = (function () {
+    const G = D.glossary;
+    if (!G || !Array.isArray(G.entries) || !G.entries.length) return null;
+    const KEY = 'zhu.glossary.v1';
+    const CAT_ALL = '全部';
+    const HUE = { 人物: 12, 名詞: 200, 論點: 280, 呂澂批評: 0, 譯者版本: 120 };
+    let cat = CAT_ALL, q = '', idx = 0, rows = [], cur = null;
+
+    function store() {
+      try { localStorage.setItem(KEY, JSON.stringify({ cat: cat, q: q })); } catch (e) {}
+    }
+    function load() {
+      try {
+        const v = JSON.parse(localStorage.getItem(KEY) || '{}');
+        if (v.cat) cat = v.cat;
+        if (v.q) q = v.q;
+      } catch (e) {}
+    }
+    function hit(s, needle) {
+      if (!needle) return s;
+      const i = s.toLowerCase().indexOf(needle);
+      if (i < 0) return esc(s);
+      return esc(s.slice(0, i)) + '<mark>' + esc(s.slice(i, i + needle.length)) + '</mark>' + esc(s.slice(i + needle.length));
+    }
+    function hayStrict(e) {
+      return [e.term, (e.aliases || []).join(' '), e.sa, e.tib, e.en, e.ref, e.category]
+        .filter(Boolean).join(' ').toLowerCase();
+    }
+    function hayAll(e) {
+      return hayStrict(e) + ' ' + String(e.gloss || '').toLowerCase();
+    }
+    function apply() {
+      const n = q.trim().toLowerCase();
+      const pool = (G.entries || []).filter((e) => cat === CAT_ALL || e.category === cat);
+      // 先比詞條／別名／梵藏英／條號／分類；都沒中才退一步比簡釋
+      let hit = pool.filter((e) => !n || hayStrict(e).includes(n));
+      if (n && !hit.length) hit = pool.filter((e) => hayAll(e).includes(n));
+      // 完全符合詞條的排前面（例如搜「阿難」時，阿難優先於「阿難遭摩登伽」）
+      if (n) {
+        const rank = (e) => (String(e.term || '').toLowerCase() === n ? 0 :
+          (e.aliases || []).some((a) => String(a).toLowerCase() === n) ? 1 :
+          String(e.term || '').toLowerCase().startsWith(n) ? 2 : 3);
+        hit = hit.slice().sort((a, b) => rank(a) - rank(b));
+      }
+      rows = hit;
+      idx = Math.min(idx, Math.max(0, rows.length - 1));
+      renderList();
+      if (rows[idx]) show(rows[idx]); else showEmpty();
+    }
+    function renderChips() {
+      const box = document.getElementById('gpChips');
+      if (!box) return;
+      const cats = [{ id: CAT_ALL, label: CAT_ALL, count: (G.entries || []).length }].concat(G.categories || []);
+      box.innerHTML = cats.map((c) =>
+        '<button type="button" class="gp-chip' + (c.id === cat ? ' on' : '') + '" data-cat="' + esc(c.id) + '">' +
+        esc(c.label) + '<span class="n">' + (c.count != null ? c.count : '') + '</span></button>').join('');
+    }
+    function renderList() {
+      const ul = document.getElementById('gpList');
+      const empty = document.getElementById('gpEmpty');
+      if (!ul) return;
+      ul.innerHTML = rows.map((e, i) =>
+        '<li class="gp-item' + (i === idx ? ' on' : '') + '" data-i="' + i + '" tabindex="-1">' +
+        '<div class="gp-term"><span class="gp-dot" style="background:hsl(' + (HUE[e.category] || 20) + ' 62% 45%)"></span>' +
+        hit(String(e.term || ''), q.trim().toLowerCase()) + '</div>' +
+        '<div class="gp-sub">' + esc(e.category || '') +
+        (e.count != null ? ' · ' + e.count + ' 次' : '') +
+        ((e.aliases || []).length ? ' · ' + esc(e.aliases.join('、')) : '') + '</div></li>').join('');
+      if (empty) empty.hidden = rows.length > 0;
+    }
+    function showEmpty() {
+      const d = document.getElementById('gpDetail');
+      if (d) d.innerHTML = '<p class="gp-hint">沒有符合的詞條。</p>';
+    }
+    function workName(id) {
+      const m = (D.meta && D.meta.workNames) || {};
+      return m[id] || id;
+    }
+    function show(e) {
+      cur = e;
+      const box = document.getElementById('gpDetail');
+      if (!box) return;
+      const n = q.trim().toLowerCase();
+      const alias = (e.aliases || []).length ? '<p class="gp-alias">別名：' + esc(e.aliases.join('、')) + '</p>' : '';
+      const rowsHtml = [
+        ['梵', e.sa], ['藏', e.tib], ['英', e.en],
+      ].map(([k, v]) => '<dt>' + k + '</dt><dd>' + (v ? hit(String(v), n) : '<span class="gp-note">—</span>') + '</dd>').join('');
+      const hits = e.workHits ? Object.keys(e.workHits).map((k) =>
+        '<span>' + esc(workName(k)) + ' ' + e.workHits[k] + '</span>').join('') : '';
+      const occ = (e.occurrences || []);
+      const list = occ.map((o, i) => {
+        const juan = o.juan === 0 ? '卷首' : '卷' + o.juan;
+        return '<li data-occ="' + i + '"><span class="meta">' + esc(juan) + ' · ' + esc(o.page || '') + '</span>' +
+          hit(String(o.quote || '').slice(0, 90), n) + '</li>';
+      }).join('');
+      box.innerHTML =
+        '<button type="button" class="gp-back" data-gp-back>‹ 回清單</button>' +
+        '<h3>' + hit(String(e.term || ''), n) + '</h3>' + alias +
+        '<p><span class="gp-cat">' + esc(e.category || '') + '</span>' +
+        (e.ref ? ' <span class="gp-cat" style="background:rgba(166,51,43,.16)">呂澂 ' + esc(e.ref) + '</span>' : '') + '</p>' +
+        '<p class="gp-gloss">' + (e.gloss ? hit(String(e.gloss), n) : '<span class="gp-note">（無簡釋）</span>') + '</p>' +
+        '<dl class="gp-rows">' + rowsHtml + '</dl>' +
+        (hits ? '<div class="gp-hits">' + hits + '</div>' : '') +
+        (occ.length
+          ? '<div class="gp-occ"><h4>出處 ' + (e.count != null ? '（共 ' + e.count + ' 次' : '') +
+            (e.truncated ? '，只列前 ' + occ.length + ' 筆' : '') + (e.count != null ? '）' : '') + '</h4><ol>' + list + '</ol></div>'
+          : '<p class="gp-note">研究條目，無主文出處。</p>');
+    }
+    function jump(occ) {
+      if (!occ) return;
+      let u = null;
+      if (typeof occ.u === 'number') u = occ.u;
+      else if (typeof occ.s === 'number' && D.versions && D.versions[0]) {
+        const se = D.versions[BASE].sents[occ.s];
+        if (se) u = se.u;
+      }
+      if (u == null) return;
+      close();
+      const sec = (D.versions[BASE].sents.find((x) => x.u === u) || {}).s;
+      if (sec != null && state.sec !== sec && ZHU_APP.setSection) ZHU_APP.setSection(sec);
+      setTimeout(function () {
+        selectUnit(u);
+        const el = document.querySelector('#reader .sent[data-u="' + u + '"]');
+        if (el) { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1400); }
+      }, 60);
+    }
+    function open() {
+      const p = document.getElementById('glossPanel');
+      if (!p) return;
+      load();
+      p.hidden = false;
+      p.querySelector('.gp-box').classList.remove('gp-detail-open');
+      const inp = document.getElementById('gpInput');
+      if (inp) { inp.value = q; }
+      renderChips();
+      apply();
+      if (inp) setTimeout(function () { inp.focus(); }, 30);
+    }
+    function close() {
+      const p = document.getElementById('glossPanel');
+      if (p) p.hidden = true;
+    }
+    function isOpen() { const p = document.getElementById('glossPanel'); return !!p && !p.hidden; }
+    function bind() {
+      document.addEventListener('click', function (ev) {
+        const t = ev.target;
+        if (!t || !t.closest) return;
+        if (t.closest('[data-gp-close]')) { close(); return; }
+        const chip = t.closest('#gpChips .gp-chip');
+        if (chip) { cat = chip.dataset.cat; idx = 0; store(); renderChips(); apply(); return; }
+        const it = t.closest('#gpList .gp-item');
+        if (it) {
+          idx = +it.dataset.i;
+          renderList();
+          if (rows[idx]) show(rows[idx]);
+          const box = document.querySelector('#glossPanel .gp-box');
+          if (box && window.matchMedia('(max-width: 760px)').matches) box.classList.add('gp-detail-open');
+          return;
+        }
+        const li = t.closest('#gpList .gp-item');
+        if (li) return;
+        const back = t.closest('[data-gp-back]');
+        if (back) { const box = document.querySelector('#glossPanel .gp-box'); if (box) box.classList.remove('gp-detail-open'); return; }
+        const oc = t.closest('#gpDetail .gp-occ li[data-occ]');
+        if (oc && cur) { jump((cur.occurrences || [])[+oc.dataset.occ]); return; }
+      });
+      const inp = document.getElementById('gpInput');
+      if (inp) {
+        let t = 0;
+        inp.addEventListener('input', function () {
+          clearTimeout(t);
+          t = setTimeout(function () { q = inp.value; idx = 0; store(); apply(); }, 120);
+        });
+        inp.addEventListener('keydown', function (ev) {
+          if (ev.key === 'Escape') { ev.preventDefault(); close(); }
+          if (ev.key === 'Enter' && rows[idx]) { show(rows[idx]); const box = document.querySelector('#glossPanel .gp-box'); if (box) box.classList.add('gp-detail-open'); }
+        });
+      }
+      const btn = document.getElementById('gpClose');
+      if (btn) btn.addEventListener('click', close);
+      document.addEventListener('keydown', function (ev) {
+        if (!isOpen()) {
+          if (ev.key === '/' && !/^(INPUT|TEXTAREA|SELECT)$/.test(document.activeElement.tagName)) {
+            ev.preventDefault(); open();
+          }
+          return;
+        }
+        if (ev.key === 'Escape') { close(); return; }
+        if (ev.key === 'ArrowDown' || ev.key === 'ArrowUp') {
+          const d = ev.key === 'ArrowDown' ? 1 : -1;
+          if (!rows.length) return;
+          idx = (idx + d + rows.length) % rows.length;
+          renderList();
+          if (rows[idx]) show(rows[idx]);
+          const el = document.querySelector('#gpList .gp-item.on');
+          if (el && el.scrollIntoView) el.scrollIntoView({ block: 'nearest' });
+          ev.preventDefault();
+        }
+      });
+    }
+    return { open: open, close: close, bind: bind, has: true };
+  })();
+
   /* ---------- 全屏 ---------- */
   function syncFs() {
     const b = document.getElementById('fsBtn');
@@ -1389,6 +1593,11 @@
     syncFs();
     renderFoot();
     initWx();
+    if (GLOSS) {
+      const gb = document.getElementById('glossBtn');
+      if (gb) { gb.hidden = false; gb.addEventListener('click', function (e) { e.stopPropagation(); GLOSS.open(); }); }
+      GLOSS.bind();
+    }
     bmLoad();
     // 開發版（資料用 script 直接載入）沒有解壓流程，啟動後收掉遮罩
     const bootEl = document.getElementById('boot');
