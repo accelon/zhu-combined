@@ -1116,6 +1116,57 @@
     const b = document.getElementById('theme');
     if (b) b.textContent = dark ? '☀' : '☾';
   }
+  /* ---------- 微信號：手機點一下複製（桌面純文字，不放 weixin:// 連結） ---------- */
+  function wxToast(msg) {
+    let el = document.getElementById('wxToast');
+    if (!el) { el = document.createElement('div'); el.id = 'wxToast'; document.body.appendChild(el); }
+    el.textContent = msg;
+    el.style.opacity = '1';
+    clearTimeout(wxToast._t);
+    wxToast._t = setTimeout(function () { el.style.opacity = '0'; }, 2200);
+  }
+  function wxCopy(text) {
+    const fallback = function () {
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.setAttribute('readonly', '');
+        ta.style.cssText = 'position:fixed;left:-9999px;top:0';
+        document.body.appendChild(ta); ta.select();
+        const ok = document.execCommand('copy');
+        ta.remove();
+        return ok;
+      } catch (e) { return false; }
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text).then(function () { return true; }, function () { return fallback(); });
+    }
+    return Promise.resolve(fallback());
+  }
+  function initWx() {
+    const el = document.getElementById('wxId');
+    if (!el) return;
+    const touch = window.matchMedia('(hover: none), (max-width: 760px)').matches;
+    document.body.classList.toggle('wx-tap', touch);
+    if (!touch || el.dataset.wxBound) return;
+    el.dataset.wxBound = '1';
+    el.setAttribute('role', 'button');
+    el.setAttribute('tabindex', '0');
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      var id = el.dataset.wx || el.textContent.trim();
+      var done = false;
+      var say = function (ok) {
+        done = true;
+        wxToast(ok ? '微信號已複製，打開微信搜尋它' : '請長按複製：' + id);
+      };
+      try {
+        wxCopy(id).then(say, function () { say(false); });
+      } catch (err) { say(false); }
+      // 剪貼簿若被瀏覽器擋住（沒有使用者手勢／權限），至少給一個提示
+      setTimeout(function () { if (!done) wxToast('微信號：' + id + '（打開微信搜尋）'); }, 700);
+    });
+  }
+
   /* ---------- 全屏 ---------- */
   function syncFs() {
     const b = document.getElementById('fsBtn');
@@ -1275,6 +1326,7 @@
     try { if (localStorage.getItem('zhu-sim') === '1') state.sim = 1; } catch (e) {}
     syncSim();
     syncFs();
+    initWx();
     bmLoad();
     renderBmList();
     try {

@@ -86,6 +86,17 @@ button { font: inherit; color: inherit; }
 #foot .foot-free b { color: #8a7f6d; font-weight: 700; letter-spacing: .06em; }
 #foot .foot-free a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 #foot .foot-free a:hover { color: #8a4b1e; }
+body.wx-tap #foot .wx-id {
+  color: #8a4b1e; border-bottom: 1px dashed currentColor; cursor: pointer; padding-bottom: 1px;
+}
+body.wx-tap #foot .wx-id:active { opacity: .6; }
+#wxToast {
+  position: fixed; left: 50%; bottom: 18%; transform: translateX(-50%);
+  max-width: 80vw; padding: 10px 16px; border-radius: 10px; z-index: 200;
+  background: rgba(36, 31, 25, .94); color: #fff; font-size: 13.5px; line-height: 1.6;
+  text-align: center; box-shadow: 0 8px 24px rgba(0, 0, 0, .25);
+  font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
+}
 @media (max-width: 640px) { #foot .foot-free { font-size: 11px; line-height: 2; } }
 
 /* ---------- sheet ---------- */
