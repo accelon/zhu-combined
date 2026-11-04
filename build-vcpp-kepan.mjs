@@ -122,7 +122,7 @@ const app = patchApp(read('app.js'));
 function patchHead(src) {
   const TITLE = '金剛經合注 · 科文版';
   const DESC = '羅什譯《金剛經》配昭明三十二分，十一種別譯、四十一家注疏、梵藏逐詞；' +
-    '加上昭明／江味農／印順／宗密科會四套科判，科文與經文雙向連動，科文另存、離文標註。純靜態單頁。';
+    '加上昭明／江味農／印順／宗密四套科判，科文與經文雙向連動，科文另存、離文標註。純靜態單頁。';
   const tags = [
     '<meta name="description" content="' + DESC + '">',
     '<meta property="og:type" content="website">',
