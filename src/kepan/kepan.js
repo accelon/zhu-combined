@@ -262,10 +262,10 @@
     var w = document.createElement('span');
     w.className = 'kb-nav';
     if (id) w.id = id;
-    // 兩顆箭頭放在一起（在分名後面）：分名長度改變時箭頭位置不動，才能連按
-    w.innerHTML = '<span class="kb-cur" data-cur="1" role="button" tabindex="0" title="點一下開科判目錄"></span>' +
-      '<button type="button" class="kb-step" data-step="-1" title="上一分">‹</button>' +
-      '<button type="button" class="kb-step" data-step="1" title="下一分">›</button>';
+    // 兩顆箭頭放在分名前面（上下兩份都一樣）：前後相鄰，連按不會落空
+    w.innerHTML = '<button type="button" class="kb-step" data-step="-1" title="上一分">‹</button>' +
+      '<button type="button" class="kb-step" data-step="1" title="下一分">›</button>' +
+      '<span class="kb-cur" data-cur="1" role="button" tabindex="0" title="點一下開科判目錄"></span>';
     w.addEventListener('click', onNavClick);
     w.addEventListener('keydown', onNavKey);
     return w;
@@ -288,7 +288,8 @@
     var total = (Z.sections || []).length;
     var meta = (Z.sections || []).filter(function (x) { return x.n === sec; })[0] || {};
     var nm = String(meta.title || '').replace(/分第[一二三四五六七八九十]+$/, '') || ('第 ' + sec + ' 分');
-    var html = '<b>' + sec + '</b><span class="kb-cur-nm">' + esc(nm) + '</span>';
+    var shortId = String(meta.title || '').split(/[　 ]/)[0] || ('第 ' + sec + ' 分');
+    var html = '<b>' + esc(shortId) + '</b>';
     var tip = '第 ' + sec + ' 分／' + total + '：' + (meta.title || '') + '（點一下開科判目錄）';
     var key = sec + '|' + total;
     var nodes = document.querySelectorAll('.kb-nav');
@@ -693,8 +694,7 @@
         html += '<span class="kb-mark' + (m.cur ? ' cur' : '') + '" data-k="' + m.id + '"' +
           ' style="--kuhue:' + m.hue + '"' +
           ' title="科文：' + esc(m.full || m.name) + '（點一下跳到這一節）">' +
-          '<span class="kb-mi">' + esc(m.ord) + '</span>' +
-          '<span class="kb-mn">' + esc(m.name) + '</span></span>';
+          '<span class="kb-mi">' + esc(m.ord) + '</span></span>';
       });
       if (b > a) {
         var seg = esc(t.slice(a, b));
