@@ -1,5 +1,5 @@
 /**
- * 操作導覽的轉接層：把 self-explaining-tour 的播放器接到金剛經合注。
+ * 操作導覽的轉接層：把 self-explaining-tour 的播放器接到閱讀器。
  *
  * 播放器本身不認得這個 App；它只透過下面幾個動作操作 UI，
  * 其餘（指向哪個元素、說什麼話）都在 `tours/*.tour` 裡。
@@ -137,7 +137,7 @@ function maybeHint(): void {
 
 // ------------------------------------------------------------------ 接線
 initTour(app, { index: TOUR_INDEX, blobs: TOUR_BLOBS }, {
-  appName: '金剛經合注',
+  appName: (window as any).__TOUR_APP_NAME || '經注閱讀器',
   storagePrefix: 'zhu.tour',
   finishHtml: '導覽結束。想再看一次：按標題列的 🦮。<br>畫面已還原到你原來讀的地方。',
 });

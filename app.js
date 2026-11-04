@@ -1,4 +1,4 @@
-/* 金剛經合注 · zhu-combined（file:// 可直接開） */
+/* 經注閱讀器 · zhu-combined（file:// 可直接開；資料由經群工作區提供） */
 (function () {
   'use strict';
   const D = window.ZHU;
@@ -148,7 +148,7 @@
       }
     });
   });
-  // 科判（X466、X491）不是注疏，不列入
+  // 科判（資料裡 kind 標成科判者）不是注疏，不列入
   const visible = (x) => x.w.kind !== '科判';
   const unitCount = (u) => (byUnit.get(u) || []).filter(visible).length;
 
@@ -178,7 +178,7 @@
     const short = (t) => esc(String(t || '').replace(/分第.*$/, ''));
     let html = '<div class="chapter-nav">' +
       '<button data-goto="' + (sec - 1) + '"' + (prevS ? '' : ' disabled') + '>← ' + (prevS ? short(prevS.title) : '—') + '</button>' +
-      '<span class="mid">第 ' + sec + ' 分 / 32</span>' +
+      '<span class="mid">第 ' + sec + ' 分 / ' + (D.sections || []).length + '</span>' +
       '<button data-goto="' + (sec + 1) + '"' + (nextS ? '' : ' disabled') + '>' + (nextS ? short(nextS.title) : '—') + ' →</button>' +
       '</div>';
     html += '<section class="sec" id="sec' + sec + '"><h2><span class="no">' + sec + '</span>' + esc(meta.title) + '</h2>';
@@ -270,7 +270,12 @@
     if (!list.length) { $('#cards').innerHTML = emptyCardsHtml(u); return; }
     let html = '<div class="note-bar">' + list.map((x) =>
       `<button class="notebtn${ids.has(x.w.id) ? ' on' : ''}" data-w="${esc(x.w.id)}" title="${esc(x.w.author)}《${esc(x.w.title)}》">${esc(authorShort(x.w.author))}</button>`
-    ).join('') + (u === 38 ? '<a class="note-link" href="shuzheng-u38.md" target="_blank">書證 ↗</a>' : '') + '</div>';
+    ).join('') + (function () {
+      // 資料可以指定某一句的「書證」外部連結（meta.links[u] = {href, text}）
+      const lk = (D.meta && D.meta.links && D.meta.links[String(u)]) || null;
+      return lk && lk.href ? '<a class="note-link" href="' + esc(lk.href) + '" target="_blank" rel="noopener">' +
+        esc(lk.text || '延伸閱讀') + ' ↗</a>' : '';
+    })() + '</div>';
     html += picks.length
       ? picks.map((x) => {
           const raw = x.w.text ? x.w.text.slice(x.a, x.b) : '';
@@ -679,7 +684,7 @@
   }
 
   function setSection(n) {
-    if (!(n >= 1 && n <= 32)) return;
+    if (!(n >= 1 && n <= (D.sections || []).length)) return;
     const hadSel = state.u != null; // 換章前有選句 → 桌面自動選新章第一句，右欄才不會空掉
     state.sec = n;
     state.u = null;

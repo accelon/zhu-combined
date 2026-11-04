@@ -27,7 +27,8 @@ const limitArg = String(opt('limit', 'all')).toLowerCase();
 const LIMIT = (limitArg === 'all' || limitArg === '0') ? Infinity : +limitArg;
 const MAX_MB = +opt('max', 8);
 const OUT = path.resolve(opt('out', path.join(CONTENT, 'vcpp.html')));
-const KEEP = new Set(['Y01']);
+// 輕量版要保留全文的 work id（由內容工作區用 --keep 指定；預設不保留）
+const KEEP = new Set(String(opt('keep', '')).split(',').map((x) => x.trim()).filter(Boolean));
 
 const html = fs.readFileSync(path.join(SELF, 'index.html'), 'utf8');
 const css = fs.readFileSync(path.join(SELF, 'style.css'), 'utf8');
@@ -57,7 +58,7 @@ D.lite = {
 // 書名／副標由內容工作區指定（--title／--sub），閱讀器本身保持中立
 const META_TITLE = opt('title', '');
 const META_SUB = opt('sub', '');
-if (META_TITLE || META_SUB) D.meta = { title: META_TITLE || undefined, sub: META_SUB || undefined };
+if (META_TITLE || META_SUB) D.meta = Object.assign({}, D.meta, { title: META_TITLE || (D.meta && D.meta.title), sub: META_SUB || (D.meta && D.meta.sub) });
 const json = JSON.stringify(D);
 const gz = zlib.gzipSync(Buffer.from(json, 'utf8'), { level: 9 });
 const b64 = gz.toString('base64');

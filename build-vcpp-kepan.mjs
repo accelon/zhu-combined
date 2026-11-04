@@ -28,7 +28,8 @@ const limitArg = String(opt('limit', 'all')).toLowerCase();
 const LIMIT = (limitArg === 'all' || limitArg === '0') ? Infinity : +limitArg;
 const MAX_MB = +opt('max', 8);
 const OUT = path.resolve(opt('out', path.join(CONTENT, 'vcpp-kepan.html')));
-const KEEP = new Set(['Y01']);
+// 輕量版要保留全文的 work id（由內容工作區用 --keep 指定；預設不保留）
+const KEEP = new Set(String(opt('keep', '')).split(',').map((x) => x.trim()).filter(Boolean));
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
 const html = read('index.html');
@@ -125,9 +126,8 @@ const app = patchApp(read('app.js'));
  * 單檔的 head：換標題、補 description 與 og（孵化區規定要寫；index.html 不動）。
  */
 function patchHead(src) {
-  const TITLE = '金剛經合注 · 科文版';
-  const DESC = '羅什譯《金剛經》配昭明三十二分，十一種別譯、四十一家注疏、梵藏逐詞；' +
-    '加上昭明／江味農／印順／宗密四套科判，科文與經文雙向連動，科文另存、離文標註。純靜態單頁。';
+  const TITLE = opt('title', '') || '經注閱讀器 · 科文版';
+  const DESC = opt('desc', '') || '經注對讀：分章、別譯、注疏、梵藏逐詞與科判。純靜態單頁。';
   const tags = [
     '<meta name="description" content="' + DESC + '">',
     '<meta property="og:type" content="website">',
@@ -164,7 +164,7 @@ KP.build = new Date().toISOString();   // 頁面上的「建置」時間，用�
 // 書名／副標由內容工作區指定（--title／--sub）
 const META_TITLE = opt('title', '');
 const META_SUB = opt('sub', '');
-if (META_TITLE || META_SUB) D.meta = { title: META_TITLE || undefined, sub: META_SUB || undefined };
+if (META_TITLE || META_SUB) D.meta = Object.assign({}, D.meta, { title: META_TITLE || (D.meta && D.meta.title), sub: META_SUB || (D.meta && D.meta.sub) });
 const payload = JSON.stringify({ zhu: D, kepan: KP });
 const gz = zlib.gzipSync(Buffer.from(payload, 'utf8'), { level: 9 });
 const b64 = gz.toString('base64');
