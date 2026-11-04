@@ -338,3 +338,39 @@ body.kb-layer #top .search { margin-left: auto; }
 #kbRead .kr-btn[disabled] { opacity: .35; cursor: default; }
 body.dark #kbRead { background: #17140f; color: #eae1d2; }
 body.dark #kbRead .kr-sutra { background: #221d16; }
+
+/* ---- 手機：科文條一行（分導覽與放大鏡併進來，麵包屑接在「科判」後） ---- */
+@media (max-width: 760px) {
+  #kepanBar.kb-mobile { flex-wrap: nowrap; gap: 4px 6px; align-items: center; }
+  #kepanBar.kb-mobile .kb-left { gap: 4px; }
+  #kepanBar.kb-mobile .kb-trail {
+    flex: 1 1 auto; min-width: 0; flex-wrap: nowrap; overflow-x: auto; overflow-y: hidden;
+    white-space: nowrap; padding-bottom: 0;
+  }
+  #kepanBar.kb-mobile .kb-trail .kb-chip { flex: 0 0 auto; }
+  #kepanBar.kb-mobile #kbNav { flex: 0 0 auto; margin-left: auto; }
+  #kepanBar.kb-mobile #kbNav .kb-cur { padding: 2px 4px; font-size: 11.5px; }
+  #kepanBar.kb-mobile #kbNav .kb-cur .kb-cur-nm { display: none; }
+  #kepanBar.kb-mobile #searchBtn { flex: 0 0 auto; width: 26px; height: 26px; font-size: 12px; }
+  #kepanBar.kb-mobile .kb-step { width: 22px; height: 22px; font-size: 13px; }
+}
+
+/* ---- 閱讀模式：麵包屑可以換行、顏色與下拉同主條 ---- */
+#kbRead .kr-crumbs {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 2px 2px;
+  white-space: normal; overflow: visible; line-height: 1.9;
+}
+#kbRead .kr-crumbs .kb-chip { white-space: nowrap; }
+#kbRead .kr-sep { flex: 0 0 auto; }
+
+/* ---- 閱讀模式按鈕：暗色底要有對比（原本白底＋淺字看不見） ---- */
+#kbRead .kr-btn {
+  background: var(--kb-bg2, #fff); color: var(--kb-ink, #4a4034);
+  border-color: var(--kb-line, #ddd0ba);
+}
+#kbRead .kr-btn:hover:not([disabled]) { border-color: var(--kb-accent, #8a5a2f); color: var(--kb-accent, #8a5a2f); }
+body.dark #kbRead .kr-btn { background: #2a241c; color: #efe6d6; border-color: #4a4033; }
+body.dark #kbRead .kr-btn:hover:not([disabled]) { color: var(--kb-accent, #d7a86e); border-color: var(--kb-accent, #d7a86e); }
+
+/* 下拉浮層要蓋過閱讀層（z-index 96） */
+#kepanMenu { z-index: 120; }

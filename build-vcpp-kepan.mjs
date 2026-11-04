@@ -176,7 +176,7 @@ const earlyMove = `
   if (!top) return;
   var box = top.querySelector('.kb-utils');
   if (!box) { box = document.createElement('div'); box.className = 'kb-utils'; }
-  ['bmBtn', 'tourEntry', 'theme'].forEach(function (id) {
+  ['bmBtn', 'simBtn', 'fsBtn', 'tourEntry', 'theme'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el && el.parentNode !== box) box.appendChild(el);
   });

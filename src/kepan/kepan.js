@@ -174,7 +174,7 @@
     var box = top.querySelector('.kb-utils');
     var had = !!box;
     if (!box) { box = document.createElement('div'); box.className = 'kb-utils'; }
-    ['bmBtn', 'simBtn', 'tourEntry', 'theme'].forEach(function (id) {
+    ['bmBtn', 'simBtn', 'fsBtn', 'tourEntry', 'theme'].forEach(function (id) {
       var el = document.getElementById(id);
       if (el && el.parentNode !== box) box.appendChild(el);
     });
@@ -205,11 +205,11 @@
     var t = ev.target;
     if (!t || !t.closest) return;
 
-    var chip = t.closest('#kepanBar .kb-chip');
+    var chip = t.closest('#kepanBar .kb-chip, #kbRead .kb-chip');
     // 保險：若按下的那顆晶片剛好被重畫換掉，改用座標找（click 的 target 會退到共同祖先）
     if (!chip && typeof ev.clientX === 'number' && ev.clientX >= 0) {
       var at = document.elementFromPoint(ev.clientX, ev.clientY);
-      if (at && at.closest) chip = at.closest('#kepanBar .kb-chip');
+      if (at && at.closest) chip = at.closest('#kepanBar .kb-chip, #kbRead .kb-chip');
     }
     if (chip) {
       ev.preventDefault();
@@ -311,6 +311,28 @@
     if (secEl.nextSibling !== b) secEl.parentNode.insertBefore(b, secEl.nextSibling);
   }
 
+  /* ------------------------------------------------------------ 手機：分導覽＋放大鏡併進科文條 */
+  var mNav = document.getElementById('kbNav');
+  var mSearch = document.getElementById('searchBtn');
+  var mNavHome = mNav ? { p: mNav.parentNode, n: mNav.nextSibling } : null;
+  var mSearchHome = mSearch ? { p: mSearch.parentNode, n: mSearch.nextSibling } : null;
+  function placeMobileControls() {
+    var barEl = document.getElementById('kepanBar');
+    if (!barEl) return;
+    var mobile = window.matchMedia('(max-width: 760px)').matches;
+    if (mobile) {
+      if (mNav && mNav.parentNode !== barEl) barEl.appendChild(mNav);
+      if (mSearch && mSearch.parentNode !== barEl) barEl.appendChild(mSearch);
+      barEl.classList.add('kb-mobile');
+    } else {
+      if (mNav && mNavHome && mNav.parentNode !== mNavHome.p) mNavHome.p.insertBefore(mNav, mNavHome.n);
+      if (mSearch && mSearchHome && mSearch.parentNode !== mSearchHome.p) mSearchHome.p.insertBefore(mSearch, mSearchHome.n);
+      barEl.classList.remove('kb-mobile');
+    }
+  }
+  placeMobileControls();
+  window.addEventListener('resize', placeMobileControls);
+
   var trail = document.getElementById('kbTrail');
   var menu = document.createElement('div');
   menu.id = 'kepanMenu';
@@ -324,7 +346,7 @@
     // 點麵包屑上的晶片：交給晶片自己開新的下拉，不要在這裡先收掉
     // 「目錄」按鈕不含在 #kepanBar 裡（它搬到分導覽左邊），要一併排除，
     // 否則點它會先被這裡關掉、再被按鈕自己打開，看起來像沒反應。
-    if (ev.target && ev.target.closest && ev.target.closest('#kepanBar, #kbTree')) return;
+    if (ev.target && ev.target.closest && ev.target.closest('#kepanBar, #kbTree, #kbRead, #kepanMenu')) return;
     closeMenu();
   }, true);
   window.addEventListener('resize', closeMenu);
@@ -850,15 +872,16 @@
     var nx = Math.max(0, Math.min(ss.length - 1, ix + d));
     if (nx === ix) return;
     READ.u = ss[nx].u; READ.page = 0;
+    state.u = READ.u;
     renderRead();
   }
   function renderRead() {
     var el = ensureRead();
     var u = READ.u;
     var path = readPath(u);
-    var crumbs = path.map(function (n) { return esc(titleOf(n)); }).join(' <span class="kr-sep">›</span> ');
     document.getElementById('krCrumbs').innerHTML =
-      '<span class="kr-ed">' + esc(ed.short) + '</span>' + (crumbs ? ' <span class="kr-sep">›</span> ' + crumbs : '');
+      '<span class="kr-ed">' + esc(ed.short) + '</span>' +
+      (path.length ? ' <span class="kr-sep">›</span> ' + trailHtml(path) : '');
     var se = zSent(u);
     var content = readContent(u);
     var pages = readPages(content.text || '');

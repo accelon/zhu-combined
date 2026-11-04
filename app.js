@@ -1048,6 +1048,8 @@
       const up = e.target.closest('.unpick');
       if (up) { togglePick(up.dataset.w); renderCards(state.u); return; }
     });
+    const fsBtn = document.getElementById('fsBtn');
+    if (fsBtn) fsBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleFs(); });
     const simBtn = document.getElementById('simBtn');
     if (simBtn) simBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleSim(); });
     const bmBtn = document.getElementById('bmBtn');
@@ -1114,6 +1116,26 @@
     const b = document.getElementById('theme');
     if (b) b.textContent = dark ? '☀' : '☾';
   }
+  /* ---------- 全屏 ---------- */
+  function syncFs() {
+    const b = document.getElementById('fsBtn');
+    if (!b) return;
+    const on = !!document.fullscreenElement;
+    b.textContent = on ? '⤢' : '⛶';
+    b.title = on ? '退出全屏' : '全屏';
+    b.setAttribute('aria-pressed', String(on));
+  }
+  function toggleFs() {
+    try {
+      if (document.fullscreenElement) {
+        document.exitFullscreen();
+      } else if (document.documentElement.requestFullscreen) {
+        document.documentElement.requestFullscreen().catch(function () {});
+      }
+    } catch (e) {}
+  }
+  document.addEventListener('fullscreenchange', syncFs);
+
   /* ---------- 繁簡（無損簡體） ---------- */
   function syncSim() {
     const b = document.getElementById('simBtn');
@@ -1252,6 +1274,7 @@
     initTheme();
     try { if (localStorage.getItem('zhu-sim') === '1') state.sim = 1; } catch (e) {}
     syncSim();
+    syncFs();
     bmLoad();
     renderBmList();
     try {

@@ -43,6 +43,14 @@ const send = (method, params = {}) => new Promise((res) => {
 });
 
 await send('Runtime.enable');
+const win = (process.env.CDP_WIN || '').split(',').map((x) => +x);
+if (win.length === 2 && win[0] > 0) {
+  await send('Emulation.setDeviceMetricsOverride', {
+    width: win[0], height: win[1], deviceScaleFactor: 2, mobile: win[0] < 700,
+  });
+  await send('Page.reload', { ignoreCache: true });
+  await sleep(1200);
+}
 await sleep(WAIT);
 const r = await send('Runtime.evaluate', {
   expression: `Promise.resolve().then(function(){ return (${js}); }).then(function(v){ return JSON.stringify(v); }, function(e){ return 'ERR ' + e; })`,

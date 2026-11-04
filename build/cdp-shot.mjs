@@ -49,6 +49,13 @@ const send = (method, params = {}) => new Promise((res) => {
 });
 
 await send('Page.enable');
+// CDP_WIN="390,844" 時用裝置模擬（只給 --window-size 在 headless 下不會改截圖尺寸）
+const win = (process.env.CDP_WIN || '').split(',').map((x) => +x);
+if (win.length === 2 && win[0] > 0) {
+  await send('Emulation.setDeviceMetricsOverride', {
+    width: win[0], height: win[1], deviceScaleFactor: 2, mobile: win[0] < 700,
+  });
+}
 await sleep(WAIT_MS);
 if (script) {
   const r = await send('Runtime.evaluate', { expression: script, awaitPromise: true, returnByValue: true });
