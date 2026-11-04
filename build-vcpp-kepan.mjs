@@ -101,15 +101,15 @@ function patchApp(src) {
       '  };\n' +
       '  function renderCards(u) {'],
     ['add 按鈕時代色相',
-      'data-w="${esc(x.w.id)}" title="${esc(x.w.author)}《${esc(x.w.title)}》"',
-      'data-w="${esc(x.w.id)}" style="--nb-hue:${nbHue(x.w.year)}" title="${esc(x.w.author)}《${esc(x.w.title)}》"'],
+      'data-w="${esc(w.id)}" title="${esc(w.author)}《${esc(w.title)}》"',
+      'data-w="${esc(w.id)}" style="--nb-hue:${nbHue(w.year)}" title="${esc(w.author)}《${esc(w.title)}》"'],
     ['add 按鈕用簡稱規則',
-      '    let html = \'<div class="note-bar">\' + list.map((x) =>',
-      '    const labelOf = nbLabels(list);\n' +
-      '    let html = \'<div class="note-bar">\' + list.map((x) =>'],
+      '    let html = \'<div class="note-bar">\' + allWorks.map((w) =>',
+      '    const labelOf = nbLabels(allWorks.map((w) => ({ w })));\n' +
+      '    let html = \'<div class="note-bar">\' + allWorks.map((w) =>'],
     ['add 按鈕標籤',
-      '>${esc(authorShort(x.w.author))}</button>`',
-      '>${esc(labelOf(x.w))}</button>`'],
+      '>${esc(authorShort(w.author))}</button>`',
+      '>${esc(labelOf(w))}</button>`'],
   ];
   let out = src;
   for (const [label, find, repl] of reps) {

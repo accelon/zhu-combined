@@ -707,3 +707,23 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
   .gp-back { display: inline-block; }
 }
 .gp-back { display: none; border: 0; background: transparent; font: inherit; font-size: 13px; color: var(--accent); cursor: pointer; padding: 0 0 8px; }
+/* 淡掉的作者名（這一句沒有他的注文） */
+.notebtn.dim { opacity: .45; }
+.notebtn.dim:hover { opacity: .8; }
+.ke-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+.ke-bar select { font: inherit; font-size: 13px; padding: 4px 8px; border: 1px solid var(--line); border-radius: 8px; background: var(--card); color: var(--ink); max-width: 100%; }
+.ke-meta { font-size: 11.5px; color: var(--muted); }
+.ke-body { white-space: pre-wrap; font-family: "Noto Serif TC", serif; font-size: 13.5px; line-height: 1.95; margin: 0; color: var(--ink); }
+.gp-search { padding: 10px 12px 6px; }
+.gp-search .gp-in { width: 100%; box-sizing: border-box; font: inherit; font-size: 13px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 999px; background: var(--card); color: var(--ink); outline: none; }
+.gp-search .gp-in:focus { border-color: var(--accent); }
+#cards .gp-body { grid-template-columns: minmax(0, 1fr); }
+#cards .gp-left { border-right: 0; }
+#cards .gp-right { display: none; }
+#cards.gp-detail-open .gp-left { display: none; }
+#cards.gp-detail-open .gp-right { display: block; }
+@media (min-width: 761px) {
+  #cards .gp-body { grid-template-columns: 260px minmax(0, 1fr); }
+  #cards .gp-left { border-right: 1px solid var(--line); }
+  #cards .gp-right { display: block; }
+}

@@ -83,6 +83,21 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 **本 repo 不部署**。部署（上傳官網孵化區 `/incubator/`）由內容工作區負責：
 `D:\2026\vcpp\deploy.mjs`（`node deploy.mjs --check` → `node deploy.mjs`）。
 
+## 右欄分頁（依資料長出來）
+
+`#tabs2` 不是寫死的，依 `window.ZHU` 有什麼畫什麼：
+
+| 分頁 | 出現條件 | 資料 |
+|---|---|---|
+| 注疏 | `works.length` | `works[]`（anchors 對到句） |
+| 科判 | `ke.length` | `ke: [{ id, title, author, text }]`，全文 pre-wrap |
+| 別譯 | `versions.length > 1` 或 `english` | `versions[]`；`byJuan` 的譯本（如英譯 Luk）按卷顯示 |
+| 辭典 | `glossary.entries` | `glossary` |
+| 詞組 | `pdf.length` | `pdf[]` |
+
+- 注疏的作者列**列出全部**，這一句沒有他的注文就淡掉；點淡掉的會顯示「最接近的段落」。
+- 頂欄「辭」切到辭典分頁並聚焦搜尋，再按一次回上一個分頁；手機上一樣（面板全屏）。
+
 ## 辭典／速查（可選）
 
 工作區提供 `glossary.json`（或把 `glossary` 放進 `window.ZHU`）時，頂欄會出現「辭」入口：

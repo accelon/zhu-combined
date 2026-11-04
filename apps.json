@@ -7,14 +7,28 @@
       "name": "金剛經合注",
       "workspace": "D:\\2026\\vcpp",
       "build": "build.mjs",
-      "outputs": ["vcpp-kepan.html", "vcpp-nokepan.html"]
+      "outputs": [
+        "vcpp-kepan.html",
+        "vcpp-nokepan.html"
+      ]
     },
     {
       "id": "xinjing",
       "name": "心經注釋",
       "workspace": "D:\\2026\\xinjing",
       "build": "build.mjs",
-      "outputs": ["xinjing.html"]
+      "outputs": [
+        "xinjing.html"
+      ]
+    },
+    {
+      "id": "surangama",
+      "name": "楞嚴經合注",
+      "workspace": "D:\\2026\\surangama\\site",
+      "build": "build.mjs",
+      "outputs": [
+        "reader/surangama.html"
+      ]
     }
   ]
 }
