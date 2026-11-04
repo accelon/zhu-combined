@@ -83,6 +83,20 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 **本 repo 不部署**。部署（上傳官網孵化區 `/incubator/`）由內容工作區負責：
 `D:\2026\vcpp\deploy.mjs`（`node deploy.mjs --check` → `node deploy.mjs`）。
 
+## 科判（共用層）
+
+科判不是金剛經專屬：介面（`src/kepan/`）留在閱讀器，資料在內容工作區。
+
+- **資料**：工作區放 `kepan/kepan-data.js`（`window.KEPAN`，每家一套科判樹，
+  節點記 `u`／`off` 起點，`workId` 指到注疏、`base` 標分章本）。
+- **打包**：`node build-kepan.mjs`（＝舊名 `build-vcpp-kepan.mjs`，相容別名）。
+  預設讀 `<工作區>/kepan/kepan-data.js`，可用 `--kepan <路徑>` 指定；
+  沒有科判資料時會直接說「這個工作區沒有科判」，改用 `build-vcpp.mjs` 即可。
+- **一般版**：`build-vcpp.mjs` 不載科判層；科判版多內嵌 `KEPAN` 與介面 CSS／JS。
+- **只有科判「文字」的工作區**（例：楞嚴的六部科文）：閱讀器右欄「科判」分頁直接顯示
+  全文（`ZHU.ke`），不需要科判樹；要做成麵包屑／目錄的科判版，得先把那部科文
+  對到經文句（節點 `u`／`off`），不是打包能代勞的。
+
 ## 右欄分頁（依資料長出來）
 
 `#tabs2` 不是寫死的，依 `window.ZHU` 有什麼畫什麼：
@@ -184,3 +198,18 @@ node build-all.mjs --list     # 看清單
 ## 授權
 
 見 `LICENSE`。
+
+
+## 科判：邏輯在閱讀器、內容在各工作區
+
+**所有科判邏輯**（麵包屑、目錄浮層、經文 `kb-mark` 變色、版本切換、打包）都在本區：`src/kepan/kepan.js`、`kepan.css`、`build-vcpp-kepan.mjs`；
+**科判內容**由各經注群工作區管理，只提供 `kepan/kepan-data.js`（`window.KEPAN`）。
+
+合成資料（把 `kepan/*.json` 併成 `kepan-data.js`）：
+
+```text
+node D:\2026\zhu-combined\build\kepan\build.mjs --root D:\2026\vcpp
+```
+
+- `build/kepan/lib.mjs`：正規化、8 字窗單調對齊等共用工具
+- `KEPAN.md`：科判介面與資料格式（2026-11-05 自 vcpp 移回）
