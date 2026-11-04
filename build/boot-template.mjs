@@ -181,7 +181,12 @@ ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
     step();
   }
 
-  try { decode(); } catch (e) { fail(e); }
+  // 先讓外殼（標題列／版面）畫一帧，再做解碼與解壓這種重活
+  requestAnimationFrame(function () {
+    setTimeout(function () {
+      try { decode(); } catch (e) { fail(e); }
+    }, 0);
+  });
 })();
 </script>`;
 }
