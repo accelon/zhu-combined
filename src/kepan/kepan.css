@@ -1,5 +1,5 @@
 /* 科文（科判）介面：一條麵包屑 + 一個目錄浮層 + 經文裡的科文標記。
-   只給 vcpp-kepan.html 用；舊的 index.html／vcpp.html 不載入這支。
+   科判層的介面樣式（閱讀器通用）；由 build-kepan.mjs 內嵌。
 
    顏色照 D:\2026\offtext 的巢式文字：每深一層 HSV 色相 +30°（20° 起，暖色 → 冷色），
    所以「本文有多深」看顏色就知道。色相由 JS 寫在元素的 --kuhue 上。 */
@@ -70,10 +70,16 @@ body.kb-layer #reader .chapter-nav { display: none !important; }
 .kb-step:hover:not(:disabled) { border-color: var(--kb-accent); color: var(--kb-accent); }
 .kb-step:disabled { opacity: .3; cursor: default; }
 .kb-cur {
-  display: inline-flex; align-items: baseline; gap: 4px;
+  display: inline-flex; align-items: baseline; justify-content: center; gap: 4px;
   padding: 3px 6px; border-radius: 6px; cursor: pointer;
   font-family: "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
   font-size: 12.5px; color: var(--kb-ink); white-space: nowrap;
+  /* 固定寬度：分名長短不影響兩顆箭頭的位置，才能連按 */
+  width: 7.6em; min-width: 7.6em; max-width: 7.6em;
+  overflow: hidden; text-overflow: ellipsis;
+}
+@media (max-width: 1060px) {
+  .kb-cur { width: 3.4em; min-width: 3.4em; max-width: 3.4em; }
 }
 .kb-cur:hover { background: var(--kb-bg); color: var(--kb-accent); }
 .kb-cur b { font-family: "Inter", ui-monospace, monospace; font-size: 11.5px; color: var(--kb-tag); font-weight: 600; }
