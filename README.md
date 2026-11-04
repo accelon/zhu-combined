@@ -65,6 +65,19 @@ node ..\zhu-combined\build-vcpp-kepan.mjs           # → vcpp-kepan.html（含�
 - 每次部署都順帶產生 `vcpp.html.gz`（見 vcpp 的 `deploy.mjs`）。
 - 舊的 `--limit`／`--max` 參數照舊。
 
+## 導覽（🦮）
+
+導覽引擎在本目錄（`src/tour/`），**劇本與成品 `tour.js` 在內容工作區**：
+
+```powershell
+cd D:\2026\vcpp
+node build-tour.mjs            # tours/*.tour → tour.js（編譯器在閱讀器）
+node build-tour.mjs --check    # 劇本與 tour.js 是否同步
+```
+
+- 打包器只內嵌工作區的 `tour.js`；工作區沒提供時，標題列的 🦮 會自動收起。
+- 編譯器產生的 `src/tour/tour-data.ts` 是中間檔，不進版控。
+
 ## 部署
 
 **本 repo 不部署**。部署（上傳官網孵化區 `/incubator/`）由內容工作區負責：
