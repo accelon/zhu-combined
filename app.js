@@ -958,11 +958,7 @@
   function openGloss() {
     if (!GLOSS) return;
     const sheet = document.getElementById('sheet');
-    if (state.tab === 'gloss' && state.u != null) {
-      setTab(state.prevTab || 'works');
-      if (state.u != null) renderSheet(state.u);
-      return;
-    }
+    // 按「辭」就是打開辭典（不再切回上一個分頁，免得看起來像跳到注疏）
     state.prevTab = state.tab;
     if (state.u == null) {
       const sec = state.sec || 1;
@@ -1571,6 +1567,7 @@
     function mount(root) {
       if (!root) return;
       state2.root = root;
+      root.classList.remove('gp-detail-open');
       const inline = root.id === 'cards';
       root.innerHTML =
         '<div class="gp-chips"></div>' +

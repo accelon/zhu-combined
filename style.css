@@ -748,11 +748,6 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
 #cards .gp-right { display: none; }
 #cards.gp-detail-open .gp-left { display: none; }
 #cards.gp-detail-open .gp-right { display: block; }
-@media (min-width: 761px) {
-  #cards .gp-body { grid-template-columns: 260px minmax(0, 1fr); }
-  #cards .gp-left { border-right: 1px solid var(--line); }
-  #cards .gp-right { display: block; }
-}
 
 /* ---------- PWA：安裝提示與全屏關閉鈕 ---------- */
 #pwaBar {
@@ -782,17 +777,17 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
 #appClose:hover { color: var(--accent); border-color: var(--accent); }
 
 /* 桌面辭典（#cards 內嵌）：清單預設收起，搜尋聚焦／選分類才展開；詳情有「回清單」 */
-@media (min-width: 761px) {
-  #cards .gp-body { grid-template-columns: minmax(0, 1fr); }
-  #cards .gp-left { display: none; }
-  #cards.gp-list-open .gp-body { grid-template-columns: 260px minmax(0, 1fr); }
-  #cards.gp-list-open .gp-left { display: block; }
-  #cards.gp-detail-open .gp-back { display: inline-block; }
-  .gp-box .gp-body { grid-template-columns: minmax(0, 1fr); }
-  .gp-box .gp-left { display: none; }
-  .gp-box.gp-list-open .gp-body { grid-template-columns: 320px minmax(0, 1fr); }
-  .gp-box.gp-list-open .gp-left { display: block; }
-  .gp-box.gp-detail-open .gp-back { display: inline-block; }
+/* 辭典在 #cards 內嵌：手機／平板兩層（清單↔詳情），桌面兩欄 */
+@media (min-width: 1061px) {
+  #cards .gp-body { grid-template-columns: 260px minmax(0, 1fr); }
+  #cards .gp-left { border-right: 1px solid var(--line); display: block; }
+  #cards .gp-right { display: block; }
+}
+
+/* 手機／平板：辭典詳情一定要有「回清單」 */
+@media (max-width: 1060px) {
+  #cards .gp-back { display: inline-block; }
+  #cards .gp-detail { padding-top: 4px; }
 }
 
 /* 注疏面板：所注經文＋上下句 */
