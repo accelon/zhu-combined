@@ -291,8 +291,16 @@
       .sort((a, b) => (a.year || 9999) - (b.year || 9999) || String(a.author).localeCompare(String(b.author)));
     if (!allWorks.length) { $('#cards').innerHTML = emptyCardsHtml(u); return; }
     const exactIds = new Set(list.map((x) => x.w.id));
+    const eraOf = (w) => {
+      const y = w.year || 0;
+      if (!y) return 'other';
+      if (y < 1200) return 'song';
+      if (y < 1650) return 'ming';
+      if (y < 1900) return 'qing';
+      return 'modern';
+    };
     let html = '<div class="note-bar">' + allWorks.map((w) =>
-      `<button class="notebtn${ids.has(w.id) ? ' on' : ''}${exactIds.has(w.id) ? '' : ' dim'}" data-w="${esc(w.id)}" title="${esc(w.author)}《${esc(w.title)}》">${esc(authorShort(w.author))}</button>`
+      `<button class="notebtn era-${eraOf(w)}${ids.has(w.id) ? ' on' : ''}${exactIds.has(w.id) ? '' : ' dim'}" data-w="${esc(w.id)}" title="${esc(w.author)}《${esc(w.title)}》">${esc(authorShort(w.author))}</button>`
     ).join('') + (function () {
       // 資料可以指定某一句的「書證」外部連結（meta.links[u] = {href, text}）
       const lk = (D.meta && D.meta.links && D.meta.links[String(u)]) || null;
@@ -316,7 +324,7 @@
             '<button class="unpick" data-w="' + esc(x.w.id) + '" title="收起">✕</button></div>' +
             approxNote + '<p class="ex" data-w="' + esc(x.w.id) + '">' + txt + '</p></div>';
         }).join('')
-      : '<p class="empty">點上面的作者名看注疏（可同時開 1–3 家）。</p>';
+      : '<p class="empty">點上面的作者名看注疏（可同時開 1–5 家）。</p>';
     $('#cards').innerHTML = html;
     applyPages();
   }
@@ -411,11 +419,23 @@
     const el = document.getElementById('bmList');
     if (el) el.hidden = true;
   }
+  function positionBmList() {
+    const el = document.getElementById('bmList');
+    const btn = document.getElementById('bmBtn');
+    if (!el || !btn) return;
+    const b = btn.getBoundingClientRect();
+    const w = el.offsetWidth || 320;
+    const left = Math.max(8, Math.min(window.innerWidth - w - 8, b.right - w));
+    el.style.left = Math.round(left) + 'px';
+    el.style.top = Math.round(b.bottom + 6) + 'px';
+    el.style.right = 'auto';
+  }
   function toggleBmList() {
     const el = document.getElementById('bmList');
     if (!el) return;
     renderBmList();
     el.hidden = !el.hidden;
+    if (!el.hidden) positionBmList();
   }
   function openBm(id) {
     const w = bmWork(id);
@@ -439,7 +459,7 @@
   function togglePick(id) {
     const i = state.pick.indexOf(id);
     if (i >= 0) { state.pick.splice(i, 1); return false; }
-    if (state.pick.length >= 3) return null; // 已滿
+    if (state.pick.length >= 5) return null; // 已滿（系統規定 5 家）
     state.pick.unshift(id); // 新開的放最前面（prepend），不必往下捲
     return true;
   }
@@ -449,7 +469,7 @@
   }
 
   /* ---------- 面板 ---------- */
-  // 別譯：一排譯者名按鈕（inline），可同時挑 1–3 種，新挑的排最前面
+  // 別譯：一排譯者名按鈕（inline），可同時挑 1–5 種，新挑的排最前面
   /* ---------- 科判分頁（資料可選：ZHU.ke） ---------- */
   function renderKe() {
     const cards = document.getElementById('cards');
@@ -458,6 +478,27 @@
     const ids = ke.map(function (k) { return k.id; });
     if (!state.kePick || ids.indexOf(state.kePick) < 0) state.kePick = ids[0];
     const cur = ke.filter(function (k) { return k.id === state.kePick; })[0];
+    // 有層級的科判樹（分→卷→節）；沒有樹就退回平鋪分節
+    let jumps = '';
+    if (D.keTree && D.keTree.length) {
+      jumps = '<div class="ke-tree">' + D.keTree.map(function (part, pi) {
+        const leaves = (part.children || []).map(function (jn) {
+          return '<details class="ke-juan"' + (pi === 0 ? ' open' : '') + '><summary>' + esc(jn.title) +
+            '<span class="ke-cnt">' + (jn.children || []).length + '</span></summary>' +
+            (jn.children || []).map(function (s) {
+              return '<button type="button" class="ke-jump' + (s.n === state.sec ? ' on' : '') +
+                '" data-sec="' + s.n + '">' + esc(s.title) + '</button>';
+            }).join('') + '</details>';
+        }).join('');
+        return '<details class="ke-part"' + (pi === 0 ? ' open' : '') + '><summary>' + esc(part.title) + '</summary>' + leaves + '</details>';
+      }).join('') + '</div>';
+    } else {
+      jumps = (D.sections || []).map(function (s) {
+        return '<button type="button" class="ke-jump' + (s.n === state.sec ? ' on' : '') + '" data-sec="' + s.n + '">' +
+          esc(s.title || ('第 ' + s.n + ' 分')) + '</button>';
+      }).join('');
+      if (jumps) jumps = '<div class="ke-jumps">' + jumps + '</div>';
+    }
     cards.innerHTML =
       '<div class="ke-bar"><select id="keSel" aria-label="選科判">' +
       ke.map(function (k) {
@@ -465,23 +506,33 @@
           esc(k.label || titleOf2(k)) + '</option>';
       }).join('') + '</select>' +
       '<span class="ke-meta">' + esc(cur.author || '') + ' · ' + cur.text.length.toLocaleString('en-US') + ' 字</span></div>' +
+      jumps +
       '<pre class="ke-body">' + esc(cur.text) + '</pre>';
     const sel = document.getElementById('keSel');
     if (sel) sel.addEventListener('change', function () { state.kePick = sel.value; renderKe(); });
+    cards.querySelectorAll('.ke-jump').forEach(function (b) {
+      b.addEventListener('click', function () { setSection(+b.dataset.sec); });
+    });
   }
   function titleOf2(k) { return String(k.title || k.id).replace(/^(楞嚴經|大佛頂)/, ''); }
 
   function renderAlt(u) {
     const cards = document.getElementById('cards');
     const avail = D.versions.map(function (v, i) { return { v: v, i: i }; })
-      .filter(function (x) { return x.v.byJuan || (x.v.sents || []).some(function (s) { return s.u === u; }); });
+      .filter(function (x) { return x.v.byJuan || x.v.bySection || (x.v.sents || []).some(function (s) { return s.u === u; }); });
     const en = D.english && D.english.byJuan ? D.english : null;
     if (!avail.length) { cards.innerHTML = '<p class="empty">此句沒有其他譯本。</p>'; return; }
     const ok = new Set(avail.map(function (x) { return x.i; }));
     if (state.altPick == null) {
-      // 預設：主文＋按卷的譯本（有的話），讓「別譯」一打開就有字
-      const byJuan = avail.filter(function (x) { return x.v.byJuan; })[0];
-      state.altPick = byJuan ? [ok.has(BASE) ? BASE : avail[0].i, byJuan.i] : [ok.has(BASE) ? BASE : avail[0].i];
+      // 預設：主文＋所有可用的別譯（最多 3 個），一打開就有字
+      const special = avail.filter(function (x) { return x.v.byJuan || x.v.bySection; })[0];
+      if (special) {
+        state.altPick = [ok.has(BASE) ? BASE : avail[0].i, special.i];
+      } else {
+        const list = avail.slice(0, 3).map(function (x) { return x.i; });
+        if (ok.has(BASE) && list.indexOf(BASE) < 0) list.unshift(BASE);
+        state.altPick = list;
+      }
     }
     state.altPick = state.altPick.filter(function (i) { return ok.has(i); });
     const picks = state.altPick;
@@ -491,16 +542,20 @@
     }).join('');
     const panes = picks.map(function (i) {
       const v = D.versions[i];
-      const t = v.byJuan
-        ? String(v.byJuan[String(Math.max(0, (state.sec || 1) - 1))] || '')
-        : joinSents(v, v.sents.filter(function (s) { return s.u === u; }).map(function (s) { return s.t; }));
-      const missing = v.byJuan && !t;
-      return '<div class="alt-pane"><div class="alt-who">' + esc(v.label) + '　' + esc(v.trans) + '</div>' +
+      const bySec = v.bySection ? String(v.bySection[String(state.sec || 1)] || '') : null;
+      const t = bySec != null
+        ? bySec
+        : (v.byJuan
+          ? String(v.byJuan[String(Math.max(0, (state.sec || 1) - 1))] || '')
+          : joinSents(v, v.sents.filter(function (s) { return s.u === u; }).map(function (s) { return s.t; })));
+      const missing = (v.byJuan || v.bySection) && !t;
+      const note = v.bySection ? '本節' : '';
+      return '<div class="alt-pane"><div class="alt-who">' + esc(v.label) + '　' + esc(v.trans) + (note ? '　·　' + note : '') + '</div>' +
         (t ? '<div class="alt-body' + (v.lang === 'en' ? ' en' : '') + '">' + esc(t) + '</div>'
            : '<p class="empty">' + (missing ? '這一卷沒有英譯（Luk 由卷一開始）。' : '這個譯本沒有對應這一句。') + '</p>') + '</div>';
     }).join('');
     cards.innerHTML = '<div class="alt-bar">' + bar + '</div>' +
-      (panes || '<p class="empty">點上面的譯者名看譯文（可同時開 1–3 種）。</p>');
+      (panes || '<p class="empty">點上面的譯者名看譯文（可同時開 1–5 種）。</p>');
   }
 
 
@@ -718,8 +773,48 @@
 
   function renderSheet(u) {
     renderBody(u);
+    addSheetNav(u);
     document.querySelectorAll('.sent.sel,.pv-t').forEach(function (el) { el.dataset.base = el.innerHTML; });
     $('#sheet').classList.remove('closed');
+  }
+
+  function addSheetNav(u) {
+    const cards = document.getElementById('cards');
+    if (!cards || u == null) return;
+    const ver = D.versions[BASE] || {};
+    const sents = ver.sents || [];
+    const cur = sents.find(function (x) { return x.u === u; });
+    if (!cur) return;
+    const secSents = sents.filter(function (x) { return x.s === cur.s; });
+    const idx = secSents.indexOf(cur);
+    const prev = idx > 0 ? secSents[idx - 1] : null;
+    const next = idx >= 0 && idx < secSents.length - 1 ? secSents[idx + 1] : null;
+    const nav = document.createElement('div');
+    nav.className = 'sheet-nav';
+    nav.innerHTML =
+      '<button type="button" class="sn-btn sn-prev"' + (prev ? '' : ' disabled') + ' title="上一句">‹</button>' +
+      '<div class="sn-text">' + esc(cur.t || '') + '</div>' +
+      '<button type="button" class="sn-btn sn-next"' + (next ? '' : ' disabled') + ' title="下一句">›</button>';
+    cards.insertBefore(nav, cards.firstChild);
+    // 換句後把面板拉回可視範圍（手機上 selectUnit 會把頁面捲到經文，面板就被推到上面）
+    function keepSheetVisible() {
+      setTimeout(function () {
+        const sheet = document.getElementById('sheet');
+        if (!sheet || state.u == null) return;
+        // 手機：selectUnit 會把面板收起來，這裡再打開（否則上下句一按面板就不見）
+        if (isOverlay()) {
+          renderSheet(state.u);
+          sheet.classList.remove('closed');
+        }
+        const r = sheet.getBoundingClientRect();
+        if (r.bottom < 80 || r.top > window.innerHeight - 80) sheet.scrollIntoView({ block: 'nearest' });
+      }, 60);
+    }
+    const p = nav.querySelector('.sn-prev');
+    const n = nav.querySelector('.sn-next');
+    if (p && prev) p.addEventListener('click', function () { selectUnit(prev.u); keepSheetVisible(); });
+    if (n && next) n.addEventListener('click', function () { selectUnit(next.u); keepSheetVisible(); });
+
   }
 
   function renderEmpty() {
@@ -1116,7 +1211,7 @@
         if (state.altPick == null) state.altPick = [BASE];
         const k = state.altPick.indexOf(i);
         if (k >= 0) state.altPick.splice(k, 1);
-        else { if (state.altPick.length >= 3) return; state.altPick.unshift(i); }
+        else { if (state.altPick.length >= 5) return; state.altPick.unshift(i); }
         renderAlt(state.u);
         return;
       }
@@ -1276,6 +1371,7 @@
     const f = (D.meta && D.meta.foot) || null;
     if (!f) { foot.hidden = true; box.innerHTML = ''; return; }
     const parts = [];
+    if (f.initiator) parts.push('<span class="foot-initiator">' + esc(f.initiator) + '</span>');
     if (f.free) parts.push('<b>' + esc(f.free) + '</b>');
     if (f.sponsor && f.sponsor.text) {
       const t = esc(f.sponsor.text);
@@ -1367,7 +1463,7 @@
     function renderChips() {
       const box = q('.gp-chips');
       if (!box) return;
-      const cats = [{ id: CAT_ALL, label: CAT_ALL, count: (G.entries || []).length }].concat(G.categories || []);
+      const cats = (G.categories || []).slice();
       box.innerHTML = cats.map((c) =>
         '<button type="button" class="gp-chip' + (c.id === state2.cat ? ' on' : '') + '" data-cat="' + esc(c.id) + '">' +
         esc(c.label) + '<span class="n">' + (c.count != null ? c.count : '') + '</span></button>').join('');
@@ -1398,7 +1494,8 @@
         .map(([k, v]) => '<dt>' + k + '</dt><dd>' + (v ? hit(String(v), n) : '<span class="gp-note">—</span>') + '</dd>').join('');
       const hits = e.workHits ? Object.keys(e.workHits).map((k) =>
         '<span>' + esc(workName(k)) + ' ' + e.workHits[k] + '</span>').join('') : '';
-      const occ = e.occurrences || [];
+      const occ = (e.occurrences || []).slice(0, 5);
+      const occTotal = e.count != null ? e.count : (e.occurrences || []).length;
       const list = occ.map((o, i) => {
         const juan = o.juan === 0 ? '卷首' : '卷' + o.juan;
         return '<li data-occ="' + i + '"><span class="meta">' + esc(juan) + ' · ' + esc(o.page || '') + '</span>' +
@@ -1413,8 +1510,8 @@
         '<dl class="gp-rows">' + rowsHtml + '</dl>' +
         (hits ? '<div class="gp-hits">' + hits + '</div>' : '') +
         (occ.length
-          ? '<div class="gp-occ"><h4>出處（共 ' + (e.count != null ? e.count : occ.length) + ' 次' +
-            (e.truncated ? '，只列前 ' + occ.length + ' 筆' : '') + '）</h4><ol>' + list + '</ol></div>'
+          ? '<div class="gp-occ"><h4>書證（共 ' + occTotal + ' 次' +
+            (occTotal > occ.length ? '，列前 ' + occ.length + ' 筆' : '') + '）</h4><ol>' + list + '</ol></div>'
           : '<p class="gp-note">研究條目，無主文出處。</p>');
     }
     function jump(occ) {
@@ -1445,19 +1542,20 @@
       const inline = root.id === 'cards';
       root.innerHTML =
         '<div class="gp-chips"></div>' +
-        '<div class="gp-body">' +
-        '<div class="gp-left">' +
         '<div class="gp-search"><input class="gp-in" type="search" placeholder="搜尋詞條、別名、梵藏英…" autocomplete="off" spellcheck="false" aria-label="搜尋詞條"></div>' +
-        '<ul class="gp-list"></ul><p class="gp-empty" hidden>沒有符合的詞條。</p></div>' +
-        '<div class="gp-right"><div class="gp-detail"><p class="gp-hint">左邊選一條詞條。</p></div></div></div>';
+        '<div class="gp-body">' +
+        '<div class="gp-left"><ul class="gp-list"></ul><p class="gp-empty" hidden>沒有符合的詞條。</p></div>' +
+        '<div class="gp-right"><div class="gp-detail"><p class="gp-hint">輸入關鍵字開始查；選一條看解釋與出處。</p></div></div></div>';
       const inp = root.querySelector('.gp-in');
       if (inp) inp.value = state2.q;
       renderChips();
       apply();
       if (inp) {
         let t = 0;
+        inp.addEventListener('focus', function () { root.classList.add('gp-list-open'); });
         inp.addEventListener('input', function () {
           clearTimeout(t);
+          root.classList.add('gp-list-open');
           t = setTimeout(function () { state2.q = inp.value; state2.idx = 0; save(); apply(); }, 120);
         });
         inp.addEventListener('keydown', function (ev) {
@@ -1469,17 +1567,18 @@
         const t = ev.target;
         if (!t.closest) return;
         const chip = t.closest('.gp-chip');
-        if (chip) { state2.cat = chip.dataset.cat; state2.idx = 0; save(); renderChips(); apply(); return; }
+        if (chip) { state2.cat = chip.dataset.cat; state2.idx = 0; save(); renderChips(); apply(); root.classList.add('gp-list-open'); return; }
         const it = t.closest('.gp-item');
         if (it) {
           state2.idx = +it.dataset.i;
           renderList();
           if (state2.rows[state2.idx]) show(state2.rows[state2.idx]);
-          if (window.matchMedia('(max-width: 760px)').matches && inline) root.classList.add('gp-detail-open');
+          root.classList.add('gp-detail-open');
+          root.classList.remove('gp-list-open');
           return;
         }
         const back = t.closest('[data-gp-back]');
-        if (back) { root.classList.remove('gp-detail-open'); return; }
+        if (back) { root.classList.remove('gp-detail-open'); root.classList.add('gp-list-open'); return; }
         const oc = t.closest('.gp-occ li[data-occ]');
         if (oc && state2.cur) { jump((state2.cur.occurrences || [])[+oc.dataset.occ]); return; }
       });
@@ -1764,6 +1863,24 @@
     initWx();
     PWA.init();
     buildTabs();
+    if (D.ke && D.ke.length) {
+      const kb = document.getElementById('keBtn');
+      if (kb) {
+        kb.hidden = false;
+        kb.addEventListener('click', function (e) {
+          e.stopPropagation();
+          if (state.u == null) {
+            const first = (D.versions[BASE].sents.find(function (x) { return x.s === state.sec; }) || {}).u;
+            if (first != null) state.u = first;
+          }
+          state.tab = 'ke';
+          setTab('ke');
+          const sh = document.getElementById('sheet');
+          if (sh) sh.classList.remove('closed');
+          if (state.u != null) renderSheet(state.u); else renderKe();
+        });
+      }
+    }
     if (GLOSS) {
       const gb = document.getElementById('glossBtn');
       if (gb) { gb.hidden = false; gb.addEventListener('click', function (e) { e.stopPropagation(); openGloss(); }); }

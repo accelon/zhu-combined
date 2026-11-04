@@ -84,6 +84,7 @@ button { font: inherit; color: inherit; }
 }
 #foot .foot-free { margin: 0; text-align: center; line-height: 1.9; }
 #foot .foot-free b { color: #8a7f6d; font-weight: 700; letter-spacing: .06em; }
+#foot .foot-free .foot-initiator { color: inherit; font-weight: 700; font-size: 1.08em; letter-spacing: .05em; }
 #foot .foot-free a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 #foot .foot-free a:hover { color: #8a4b1e; }
 body.wx-tap #foot .wx-id {
@@ -359,6 +360,15 @@ body.dark .occ-mark { color: #ff9a8a; background: rgba(255, 154, 138, .16); }
 }
 .notebtn:hover { background: var(--paper2); }
 .notebtn.on { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+/* 注家按時代上色：宋綠、明赭、清藍、民國紫 */
+.notebtn.era-song { border-color: #6f8a5a; box-shadow: inset 0 -2px 0 #6f8a5a; }
+.notebtn.era-ming { border-color: #a4652f; box-shadow: inset 0 -2px 0 #a4652f; }
+.notebtn.era-qing { border-color: #4f6f99; box-shadow: inset 0 -2px 0 #4f6f99; }
+.notebtn.era-modern { border-color: #8a4b7a; box-shadow: inset 0 -2px 0 #8a4b7a; }
+.notebtn.era-song.on { background: #6f8a5a; border-color: #6f8a5a; }
+.notebtn.era-ming.on { background: #a4652f; border-color: #a4652f; }
+.notebtn.era-qing.on { background: #4f6f99; border-color: #4f6f99; }
+.notebtn.era-modern.on { background: #8a4b7a; border-color: #8a4b7a; }
 .note-link { margin-left: auto; font-size: 11px; color: var(--accent); text-decoration: none; }
 .note-link:hover { text-decoration: underline; }
 .note-open { border-left: 3px solid var(--accent); padding: 2px 0 2px 12px; margin: 0 0 16px; }
@@ -625,6 +635,14 @@ body.dark .sp-text mark { background: #7c1f1f; color: #ffe3e3; }
 }
 #boot .boot-bar.is-busy i { width: 35% !important; animation: bootslide 1.1s ease-in-out infinite; }
 @keyframes bootslide { 0% { margin-left: -35%; } 100% { margin-left: 100%; } }
+/* 進度還沒開始跳之前，先讓畫面有東西在動（不確定態） */
+#boot .boot-bar.is-indet { position: relative; }
+#boot .boot-bar.is-indet::after {
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 34%;
+  background: linear-gradient(90deg, rgba(138,90,47,0), rgba(138,90,47,.85), rgba(138,90,47,0));
+  animation: bootindet 1.15s ease-in-out infinite;
+}
+@keyframes bootindet { 0% { transform: translateX(-120%); } 100% { transform: translateX(320%); } }
 #boot .boot-n {
   font-size: 13px; letter-spacing: .08em; color: #8a7f6d;
   font-variant-numeric: tabular-nums;
@@ -754,3 +772,52 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
   box-shadow: 0 2px 10px rgba(0, 0, 0, .12);
 }
 #appClose:hover { color: var(--accent); border-color: var(--accent); }
+
+/* 桌面辭典（#cards 內嵌）：清單預設收起，搜尋聚焦／選分類才展開；詳情有「回清單」 */
+@media (min-width: 761px) {
+  #cards .gp-body { grid-template-columns: minmax(0, 1fr); }
+  #cards .gp-left { display: none; }
+  #cards.gp-list-open .gp-body { grid-template-columns: 260px minmax(0, 1fr); }
+  #cards.gp-list-open .gp-left { display: block; }
+  #cards.gp-detail-open .gp-back { display: inline-block; }
+  .gp-box .gp-body { grid-template-columns: minmax(0, 1fr); }
+  .gp-box .gp-left { display: none; }
+  .gp-box.gp-list-open .gp-body { grid-template-columns: 320px minmax(0, 1fr); }
+  .gp-box.gp-list-open .gp-left { display: block; }
+  .gp-box.gp-detail-open .gp-back { display: inline-block; }
+}
+
+/* 注疏面板：所注經文＋上下句 */
+/* 所注經文＋上下句：黏在可視區頂端，捲到注文深處也點得到 */
+.sheet-nav {
+  display: flex; gap: 8px; align-items: flex-start; padding: 8px 10px 10px;
+  border-bottom: 1px solid var(--line); margin-bottom: 10px;
+  position: sticky; top: 0; z-index: 5;
+  background: var(--paper); box-shadow: 0 1px 0 var(--line);
+}
+/* 手機：panel 不滾、頁面滾，黏在分頁列下面 */
+@media (max-width: 1060px) {
+  .sheet-nav { top: 118px; }
+}
+
+.sheet-nav .sn-text { flex: 1; font-size: 13.5px; line-height: 1.8; color: var(--ink); max-height: 5.6em; overflow: auto; }
+.sheet-nav .sn-btn { flex: none; width: 30px; height: 30px; border: 1px solid var(--line); background: var(--card); color: var(--ink); border-radius: 8px; cursor: pointer; font-size: 15px; }
+.sheet-nav .sn-btn[disabled] { opacity: .3; cursor: default; }
+
+/* 科判分頁：分節捷徑 */
+.ke-jumps { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 12px; }
+.ke-jump {
+  font: inherit; font-size: 12px; padding: 3px 9px; border: 1px solid var(--line);
+  background: var(--card); color: var(--ink); border-radius: 999px; cursor: pointer;
+}
+.ke-jump:hover { border-color: var(--accent); color: var(--accent); }
+.ke-jump.on { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+/* 科判樹 */
+.ke-tree { margin: 0 0 14px; }
+.ke-part { border: 1px solid var(--line); border-radius: 10px; padding: 6px 10px; margin-bottom: 8px; background: var(--card); }
+.ke-part > summary { font-weight: 700; cursor: pointer; }
+.ke-juan { margin: 6px 0 2px 14px; }
+.ke-juan > summary { cursor: pointer; color: var(--muted); }
+.ke-cnt { margin-left: 6px; font-size: 11px; color: var(--muted); }
+.ke-tree .ke-jump { display: block; width: 100%; text-align: left; margin: 4px 0 0 14px; }
