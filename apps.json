@@ -1,0 +1,20 @@
+{
+  "note": "應用清單：每個數據工作區一個條目。更新個別應用用 --app <id>；「更新所有應用」用 --all；不指定時只打包 default（心經）。",
+  "default": "xinjing",
+  "apps": [
+    {
+      "id": "vcpp",
+      "name": "金剛經合注",
+      "workspace": "D:\\2026\\vcpp",
+      "build": "build.mjs",
+      "outputs": ["vcpp-kepan.html", "vcpp-nokepan.html"]
+    },
+    {
+      "id": "xinjing",
+      "name": "心經注釋",
+      "workspace": "D:\\2026\\xinjing",
+      "build": "build.mjs",
+      "outputs": ["xinjing.html"]
+    }
+  ]
+}

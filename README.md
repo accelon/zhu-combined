@@ -83,6 +83,30 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 **本 repo 不部署**。部署（上傳官網孵化區 `/incubator/`）由內容工作區負責：
 `D:\2026\vcpp\deploy.mjs`（`node deploy.mjs --check` → `node deploy.mjs`）。
 
+## 應用清單（apps.json）
+
+閱讀器不綁定任何一部經。每個數據工作區在 `apps.json` 登記一列：
+
+```json
+{ "id": "xinjing", "name": "心經注釋", "workspace": "D:\\2026\\xinjing", "build": "build.mjs", "outputs": ["xinjing.html"] }
+```
+
+```powershell
+node build-all.mjs            # 只打包 default（目前是心經）
+node build-all.mjs --app vcpp # 只打包金剛經
+node build-all.mjs --all      # 更新所有應用
+node build-all.mjs --list     # 看清單
+```
+
+## 啟動畫面與圖示
+
+- 單檔開啟時先顯示「載入數據中」遮罩，邊解壓邊更新進度（base64 → 解壓 → 啟動）。
+  解壓用 `TransformStream` 數 bytes，約每 100ms 更新；gzip 尾端的 ISIZE 當分母。
+  舊瀏覽器（沒有 `DecompressionStream`）走純 JS 解壓，顯示不確定動畫。
+- 想慢慢看遮罩：`?slowboot=2000`（毫秒，測試用）。
+- 網頁圖示（favicon）內嵌在 `index.html`（data URI），來源是
+  `D:\2026\adb-converter\www\img\appicon.png`，縮成 64×64。
+
 ## 版控與分支
 
 - `main`：穩定版（給當時的《金剛經合注》用）。

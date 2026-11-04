@@ -11,6 +11,8 @@
       '<p>找不到資料（<code>window.ZHU</code>）。這個頁面只是閱讀器，經文與注疏由「經群工作區」提供。</p>' +
       '<p>開發時把工作區的 <code>zhu-data.js</code> 放到本目錄（或建連結），或用打包器把資料內嵌成單檔。</p>';
     document.body.appendChild(box);
+    const bootEl = document.getElementById('boot');
+    if (bootEl) bootEl.remove();
     return;
   }
   const $ = (s) => document.querySelector(s);
@@ -1174,6 +1176,32 @@
     }
     return Promise.resolve(fallback());
   }
+  /** 頁尾：每個數據工作區有自己的發起人／聯絡方式（meta.foot），沒有就不顯示 */
+  function renderFoot() {
+    const foot = document.getElementById('foot');
+    const box = document.getElementById('footFree');
+    if (!foot || !box) return;
+    const f = (D.meta && D.meta.foot) || null;
+    if (!f) { foot.hidden = true; box.innerHTML = ''; return; }
+    const parts = [];
+    if (f.free) parts.push('<b>' + esc(f.free) + '</b>');
+    if (f.sponsor && f.sponsor.text) {
+      const t = esc(f.sponsor.text);
+      parts.push(f.sponsor.url
+        ? '<a href="' + esc(f.sponsor.url) + '" target="_blank" rel="noopener">' + t + '</a>' + esc(f.sponsor.after || '')
+        : t + esc(f.sponsor.after || ''));
+    }
+    if (f.contact) parts.push(esc(f.contact));
+    if (f.wechat && f.wechat.id) {
+      parts.push('微信：<span class="wx-id" id="wxId" data-wx="' + esc(f.wechat.id) + '" title="' +
+        esc(f.wechat.id) + '">' + esc(f.wechat.id) + '</span>' +
+        (f.wechat.note ? '，' + esc(f.wechat.notePrefix || '加微注明「') + esc(f.wechat.note) + esc(f.wechat.noteSuffix || '」') : ''));
+    }
+    if (f.extra) parts.push(esc(f.extra));
+    box.innerHTML = parts.join('　');
+    foot.hidden = false;
+  }
+
   function initWx() {
     const el = document.getElementById('wxId');
     if (!el) return;
@@ -1359,8 +1387,12 @@
     try { if (localStorage.getItem('zhu-sim') === '1') state.sim = 1; } catch (e) {}
     syncSim();
     syncFs();
+    renderFoot();
     initWx();
     bmLoad();
+    // 開發版（資料用 script 直接載入）沒有解壓流程，啟動後收掉遮罩
+    const bootEl = document.getElementById('boot');
+    if (bootEl) { const bar = document.getElementById('bootBar'); if (bar) bar.style.width = '100%'; setTimeout(function () { bootEl.remove(); }, 60); }
     renderBmList();
     try {
       if (localStorage.getItem('zhu-notes') === '0') state.showNotes = false;

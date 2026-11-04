@@ -13,6 +13,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import zlib from 'node:zlib';
+import { renderBoot } from './build/boot-template.mjs';
 
 const args = process.argv.slice(2);
 const opt = (name, fallback) => {
@@ -71,68 +72,8 @@ if (META_TITLE) out = out.replace(/<title>[^<]*<\/title>/, '<title>' + META_TITL
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
 const appCode = app.replace(/<\/script/gi, '<\\/script');
 const tourCode = tour.replace(/<\/script/gi, '<\\/script');
-const boot = `
-<script>
-${gunzip}
-function __startApp(){
-${lossless}
-${appCode}
-${tourCode}
-}
-(function () {
-  var el = document.getElementById('zhu-b64');
-  if (!el) return;
-  var b64 = el.textContent.trim();
+const boot = renderBoot({ gunzip: gunzip, lossless: lossless, app: app, tour: tour });
 
-  function bytesOf() {
-    var bin = atob(b64), a = new Uint8Array(bin.length);
-    for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
-    return a;
-  }
-  function note(on) {
-    var d = document.getElementById('__loadnote');
-    if (!on && d && d.parentNode) d.parentNode.removeChild(d);
-    if (on && !d) {
-      d = document.createElement('div');
-      d.id = '__loadnote';
-      d.textContent = '正在解壓資料…';
-      d.style.cssText = 'position:fixed;left:0;right:0;top:0;padding:10px;text-align:center;font:14px/1.5 sans-serif;background:#333;color:#fff;z-index:99999';
-      document.body.appendChild(d);
-    }
-  }
-  function start(text) {
-    note(false);
-    window.ZHU = JSON.parse(text);
-    __startApp();
-  }
-  function fail(msg) {
-    note(false);
-    document.body.innerHTML = '<p style="padding:2rem;font:16px/1.8 sans-serif">資料載入失敗：' +
-      (msg && msg.message ? msg.message : msg) +
-      '<br>請換新版 Chrome、Edge 或 Safari 開啟，或回報給作者。</p>';
-  }
-  // 舊 Safari（iOS 16.4 以前）沒有 DecompressionStream，走純 JS 解壓
-  function fallback() {
-    note(true);
-    setTimeout(function () {
-      try { start(new TextDecoder('utf-8').decode(__gunzip(bytesOf()))); }
-      catch (e) { fail(e); }
-    }, 30);
-  }
-
-  if ('DecompressionStream' in window) {
-    try {
-      var bytes = bytesOf();
-      var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
-      new Response(stream).text().then(start).catch(fallback);
-    } catch (e) {
-      fallback();
-    }
-  } else {
-    fallback();
-  }
-})();
-</script>`;
 out = out.replace('</body>', dataTag + boot + '\n</body>');
 
 fs.writeFileSync(OUT, out);
