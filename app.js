@@ -7,6 +7,20 @@
   const simText = (s) => (state.sim && window.LOSSLESS)
     ? window.LOSSLESS.toSimplified(String(s == null ? '' : s), state.sim)
     : String(s == null ? '' : s);
+  // 書名與副標由資料決定（window.ZHU.meta）；沒有就用中性預設
+  function applyMeta() {
+    const m = (D && D.meta) || {};
+    const title = String(m.title || '').trim();
+    const sub = String(m.sub || '').trim();
+    if (title) {
+      document.title = title;
+      const h1 = document.querySelector('.brand h1');
+      if (h1) h1.textContent = title;
+    }
+    const p = document.querySelector('.brand .sub');
+    if (p) p.textContent = sub;
+  }
+
   const esc = (s) => simText(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   // 漢譯句子直接相接；英譯（拉丁字母）要用空格
   const joinSents = (v, parts) => parts.join(v && v.lang === 'en' ? ' ' : '');
@@ -1322,6 +1336,7 @@
   /* ---------- 啟動 ---------- */
   function boot() {
     const qs = new URLSearchParams(location.search);
+    applyMeta();
     initTheme();
     try { if (localStorage.getItem('zhu-sim') === '1') state.sim = 1; } catch (e) {}
     syncSim();

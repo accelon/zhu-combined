@@ -53,6 +53,10 @@ D.lite = {
   note: dropped.length ? '大部頭全文未收錄' : '全文收錄',
 };
 
+// 書名／副標由內容工作區指定（--title／--sub），閱讀器本身保持中立
+const META_TITLE = opt('title', '');
+const META_SUB = opt('sub', '');
+if (META_TITLE || META_SUB) D.meta = { title: META_TITLE || undefined, sub: META_SUB || undefined };
 const json = JSON.stringify(D);
 const gz = zlib.gzipSync(Buffer.from(json, 'utf8'), { level: 9 });
 const b64 = gz.toString('base64');
@@ -60,7 +64,7 @@ const b64 = gz.toString('base64');
 let out = html;
 out = out.replace('<link rel="stylesheet" href="style.css">', '<style>\n' + css + '\n</style>');
 out = out.replace(/<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/, '');
-out = out.replace('<title>金剛經合注 · zhu-combined</title>', '<title>金剛經合注 · vcpp</title>');
+if (META_TITLE) out = out.replace(/<title>[^<]*<\/title>/, '<title>' + META_TITLE + '</title>');
 
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
 const appCode = app.replace(/<\/script/gi, '<\\/script');

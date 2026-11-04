@@ -136,7 +136,7 @@ function patchHead(src) {
     '<meta name="theme-color" content="#1b1815" media="(prefers-color-scheme: dark)">',
   ].join('\n');
   return src
-    .replace(/<title>[^<]*<\/title>/, '<title>' + TITLE + '</title>\n' + tags)
+    .replace(/<title>[^<]*<\/title>/, '<title>' + (opt('title', '') || TITLE) + '</title>\n' + tags)
     .replace('<meta name="viewport" content="width=device-width,initial-scale=1">',
              '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">');
 }
@@ -160,6 +160,10 @@ D.lite = {
 };
 
 KP.build = new Date().toISOString();   // 頁面上的「建置」時間，用來確認有沒有重新載入
+// 書名／副標由內容工作區指定（--title／--sub）
+const META_TITLE = opt('title', '');
+const META_SUB = opt('sub', '');
+if (META_TITLE || META_SUB) D.meta = { title: META_TITLE || undefined, sub: META_SUB || undefined };
 const payload = JSON.stringify({ zhu: D, kepan: KP });
 const gz = zlib.gzipSync(Buffer.from(payload, 'utf8'), { level: 9 });
 const b64 = gz.toString('base64');
@@ -188,8 +192,7 @@ const earlyMove = `
 })();
 </script>`;
 out = out.replace('</header>', '</header>' + earlyMove);
-out = out.replace('<p class="sub">姚秦 鳩摩羅什譯 · 別譯十一種 · 四十一家注疏 · 昭明三十二分</p>',
-  '<p class="sub">11 種別譯 · 41 家注疏 · 3 家科判</p>');
+
 
 const safe = (s) => s.replace(/<\/script/gi, '<\\/script');
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
