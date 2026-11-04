@@ -101,7 +101,7 @@ body.kb-layer #reader .chapter-nav { display: none !important; }
   padding: 0; min-width: 26px; height: 26px; line-height: 1;
   border-radius: 999px; font-size: 14px;
 }
-.kb-nav .chapter-nav .mid { font-size: 11px; letter-spacing: .04em; padding: 0 1px; white-space: nowrap; }
+.kb-nav .chapter-nav .mid { font-size: 9.5px; letter-spacing: .02em; padding: 0 1px; white-space: nowrap; }
 
 .kb-trail {
   display: flex; align-items: center; gap: 2px; flex-wrap: wrap;
@@ -177,30 +177,37 @@ body.dark .kb-chip.cur { color: hsl(var(--kuhue, 20) 70% 82%); background: hsl(v
 .kb-ph b { font-size: 14.5px; letter-spacing: .06em; white-space: nowrap; flex: 0 0 auto; }
 .kb-ph .kb-src { color: var(--kb-tag); font-size: 11.5px; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .kb-pb { overflow: auto; padding: 6px 8px 14px; }
+/* 目錄樹：彩點不內縮（accelon26 的做法）——深度用 9px 彩點表示，所有列同寬同高 */
 .kb-node {
-  display: block; width: 100%; text-align: left; border: 0; background: transparent;
-  color: hsl(var(--kuhue, 20) 55% 36%);
-  font: inherit; font-size: 15px; line-height: 1.85;
-  padding: 2px 8px 2px var(--ind, 8px); border-radius: 4px; cursor: pointer;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 6px; width: 100%; text-align: left;
+  border: 0; background: transparent; color: hsl(var(--kuhue, 20) 50% 36%);
+  font: inherit; font-size: 13.5px; line-height: 1.5;
+  height: 24px; padding: 0 8px; border-radius: 4px; cursor: pointer;
+  white-space: nowrap; overflow: hidden;
 }
+.kb-node .kb-dot {
+  width: 9px; height: 9px; border-radius: 2px; flex: 0 0 auto;
+  background: hsl(var(--kuhue, 20) 55% 46%);
+}
+body.dark .kb-node .kb-dot { background: hsl(var(--kuhue, 20) 62% 62%); }
+.kb-node .kb-txt { overflow: hidden; text-overflow: ellipsis; }
 body.dark .kb-node { color: hsl(var(--kuhue, 20) 58% 72%); }
 .kb-node:hover { background: var(--kb-bg); }
 .kb-node.cur { color: hsl(var(--kuhue, 20) 65% 30%); font-weight: 700; background: var(--kb-bg); }
 body.dark .kb-node.cur { color: hsl(var(--kuhue, 20) 72% 84%); }
 .kb-node.nk { color: var(--kb-tag); }
-.kb-node .kb-lv { color: inherit; opacity: .6; font-size: 12px; margin-right: 6px; font-family: "Inter", ui-monospace, monospace; }
+.kb-node .kb-lv { color: inherit; opacity: .62; font-size: 11px; flex: 0 0 auto; font-family: "Inter", ui-monospace, monospace; }
 .kb-pf { padding: 6px 14px; border-top: 1px solid var(--kb-line); color: var(--kb-tag); font-size: 11.5px; }
 
 /* 經文裡的科文標記與範圍高亮（只在科文「開」時出現） */
 .kb-mark {
-  font-size: 11px; letter-spacing: .04em;
+  font-size: 9.5px; letter-spacing: .02em;
   color: hsl(var(--kuhue, 20) 55% 34%);
   border: 1px solid hsl(var(--kuhue, 20) 55% 62% / .7);
   border-left: 2px solid hsl(var(--kuhue, 20) 55% 48%);
   background: hsl(var(--kuhue, 20) 55% 70% / .12);
   border-radius: 0 4px 4px 0;
-  padding: 0 5px; margin: 0 3px 0 1px; cursor: pointer;
+  padding: 0 4px; margin: 0 2px 0 1px; cursor: pointer;
   vertical-align: 2px; white-space: nowrap; font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
 }
 .kb-mark:hover { background: hsl(var(--kuhue, 20) 55% 60% / .22); }

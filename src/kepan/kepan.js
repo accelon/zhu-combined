@@ -512,17 +512,18 @@
     var onPath = new Set(path.map(function (n) { return n.id; }));
     var body = document.getElementById('kbPanelBody');
     var rows = [];
-    var step = (window.matchMedia && window.matchMedia('(max-width: 1060px)').matches) ? 9 : 13;
     function walk(ids, depth) {
       for (var i = 0; i < ids.length; i++) {
         var n = ed.byId.get(ids[i]);
         if (!n) continue;
-        var ind = 8 + Math.min(depth, 9) * step;
         if (!n.nm && !n.lab) { if (n.ch && n.ch.length) walk(n.ch, depth + 1); continue; }
+        // 彩點不內縮（仿 accelon26 的目錄樹）：深度用色點表示，列高固定、不隨層級縮排
         rows.push('<button type="button" class="kb-node' + (n.nk ? ' nk' : '') + (onPath.has(n.id) ? ' cur' : '') +
-          '" data-k="' + n.id + '" style="--ind:' + ind + 'px;--kuhue:' + hueOf(n.lv) + '" title="' +
+          '" data-k="' + n.id + '" style="--kuhue:' + hueOf(n.lv) + '" title="' +
           esc(titleOf(n) || '（無名）') + (n.nk ? '（總論，不對應經文）' : '：u' + n.u) + '">' +
-          '<span class="kb-lv">' + esc(ordOf(n)) + '</span>' + esc(n.nm || '（無名）') + '</button>');
+          '<span class="kb-dot"></span>' +
+          '<span class="kb-lv">' + esc(ordOf(n)) + '</span>' +
+          '<span class="kb-txt">' + esc(n.nm || '（無名）') + '</span></button>');
         if (n.ch && n.ch.length) walk(n.ch, depth + 1);
       }
     }
@@ -530,7 +531,10 @@
     body.innerHTML = rows.join('');
     // 點擊交給 panelBody 上的委派（見 init），重畫 innerHTML 也不會掉
     var src = document.getElementById('kbSrc');
-    if (src) src.textContent = ed.author + ' · ' + ed.title + ' · ' + (ed.source ? ed.source.base : '');
+    if (src) {
+      var bits = [ed.author, ed.title, ed.source && ed.source.base].filter(function (x) { return x && x !== 'undefined'; });
+      src.textContent = bits.join(' · ');
+    }
     var foot = document.getElementById('kbPanelFoot');
     if (foot) {
       var bt = K.build ? new Date(K.build) : null;
