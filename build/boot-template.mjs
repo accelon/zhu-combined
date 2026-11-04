@@ -29,8 +29,11 @@ ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
   var bar = document.getElementById('bootBar');
   var label = document.getElementById('bootNum');
   var t0 = Date.now();
+  // ?bootlog=1：把進度取樣記在 window.__bootLog（測試用）
+  var LOG = /[?&]bootlog=1/.test(location.search);
 
   function setPct(p, text) {
+    if (LOG) (window.__bootLog = window.__bootLog || []).push([Date.now() - t0, Math.round(p * 10) / 10]);
     if (bar) bar.style.width = Math.max(0, Math.min(100, p)).toFixed(1) + '%';
     if (label) label.textContent = text != null ? text : Math.round(p) + '%';
   }
