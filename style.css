@@ -831,3 +831,40 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
 .ke-node { display: block; width: 100%; text-align: left; border: 0; background: transparent; color: var(--ink);
   font: inherit; font-size: 12.5px; line-height: 1.9; padding: 2px 8px; cursor: pointer; }
 .ke-node:hover { background: var(--paper2); color: var(--accent); }
+
+
+/* 科文條加入後，標題不要被壓成細條 */
+#top { flex-wrap: wrap; row-gap: 6px; }
+#top .brand { flex: 0 0 auto; min-width: 190px; }
+#top .search { flex: 1 1 auto; }
+
+/* ---------- 彩點列（科判樹、科文分頁共用；仿 accelon26 目錄樹） ---------- */
+.zrow {
+  display: flex; align-items: center; gap: 6px; width: 100%; box-sizing: border-box;
+  height: 24px; padding: 0 8px; border: 0; border-radius: 4px; background: transparent;
+  font: inherit; font-size: 13.5px; line-height: 1.5; text-align: left;
+  color: var(--ink); cursor: pointer; white-space: nowrap; overflow: hidden;
+}
+.zrow:hover { background: var(--paper2, rgba(128, 100, 60, .08)); }
+.zrow.static { cursor: default; }
+.zrow.static:hover { background: transparent; }
+.zrow.static.head { margin-top: 2px; }
+/* 科文分頁：整部科文動輒兩三千行，自己在框內捲，不要撐高整頁 */
+.ke-rows { max-height: min(62vh, 620px); overflow: auto; padding-right: 4px; }
+/* 分卷捷徑也別無限長（楞嚴的科判樹分節很多） */
+.ke-tree { max-height: min(34vh, 320px); overflow: auto; }
+.ke-nodes { max-height: 240px; overflow: auto; }
+@media (max-width: 1060px) { .ke-rows { max-height: 58vh; } }
+.zrow .zdot {
+  width: 9px; height: 9px; border-radius: 2px; flex: 0 0 auto;
+  background: hsl(var(--zhue, 20) 55% 46%);
+}
+.zrow .zlabel {
+  flex: 0 0 auto; font-family: "Inter", ui-monospace, monospace;
+  font-size: 11px; opacity: .62;
+}
+.zrow .zname { overflow: hidden; text-overflow: ellipsis; }
+.zrow.head .zname { font-weight: 700; }
+.zrow.cur { background: var(--paper2, rgba(128, 100, 60, .12)); font-weight: 700; }
+body.dark .zrow .zdot { background: hsl(var(--zhue, 20) 62% 62%); }
+body.dark .zrow:hover { background: rgba(215, 168, 110, .1); }

@@ -518,12 +518,21 @@
         if (!n) continue;
         if (!n.nm && !n.lab) { if (n.ch && n.ch.length) walk(n.ch, depth + 1); continue; }
         // 彩點不內縮（仿 accelon26 的目錄樹）：深度用色點表示，列高固定、不隨層級縮排
-        rows.push('<button type="button" class="kb-node' + (n.nk ? ' nk' : '') + (onPath.has(n.id) ? ' cur' : '') +
-          '" data-k="' + n.id + '" style="--kuhue:' + hueOf(n.lv) + '" title="' +
-          esc(titleOf(n) || '（無名）') + (n.nk ? '（總論，不對應經文）' : '：u' + n.u) + '">' +
-          '<span class="kb-dot"></span>' +
-          '<span class="kb-lv">' + esc(ordOf(n)) + '</span>' +
-          '<span class="kb-txt">' + esc(n.nm || '（無名）') + '</span></button>');
+        var cls = 'kb-node' + (n.nk ? ' nk' : '') + (onPath.has(n.id) ? ' cur' : '');
+        var title = titleOf(n) || '（無名）';
+        if (n.nk) title += '（總論，不對應經文）';
+        // 與科文分頁共用同一個彩點列（app.js 的 window.ZHU_ZROW）
+        if (window.ZHU_ZROW) {
+          rows.push(window.ZHU_ZROW({
+            hue: hueOf(n.lv), label: ordOf(n), name: n.nm || '（無名）',
+            cls: cls, attrs: ' data-k="' + n.id + '"', title: title,
+          }));
+        } else {
+          rows.push('<button type="button" class="zrow ' + cls + '" data-k="' + n.id +
+            '" style="--zhue:' + hueOf(n.lv) + '"><span class="zdot"></span>' +
+            '<span class="zlabel">' + esc(ordOf(n)) + '</span>' +
+            '<span class="zname">' + esc(n.nm || '（無名）') + '</span></button>');
+        }
         if (n.ch && n.ch.length) walk(n.ch, depth + 1);
       }
     }

@@ -183,7 +183,8 @@
       '<span class="mid">第 ' + sec + ' 分 / ' + (D.sections || []).length + '</span>' +
       '<button data-goto="' + (sec + 1) + '"' + (nextS ? '' : ' disabled') + '>' + (nextS ? short(nextS.title) : '—') + ' →</button>' +
       '</div>';
-    html += '<section class="sec" id="sec' + sec + '"><h2><span class="no">' + sec + '</span>' + esc(meta.title) + '</h2>';
+    const shortTitle = String(meta.title || '').split(/[　 ]/)[0] || String(sec);
+    html += '<section class="sec" id="sec' + sec + '"><h2><span class="no">' + esc(shortTitle) + '</span></h2>';
 
     let curPage = '';
     const fanShown = new Set();
@@ -471,6 +472,28 @@
   /* ---------- 面板 ---------- */
   // 別譯：一排譯者名按鈕（inline），可同時挑 1–5 種，新挑的排最前面
   /* ---------- 科判分頁（資料可選：ZHU.ke） ---------- */
+  /** 科文純文字 → 彩點列。科文多半沒有縮排資訊，這裡只拆「序號＋名」，
+   *  顏色用序號家族（數字／初／天干）區分，不假造層級。 */
+  function keRowsHtml(text) {
+    const LABEL = /^([○△◉◎▪·・※\s]*)([甲乙丙丁戊己庚辛壬癸]{1,2}\d?|[初][0-9一二三四五六七八九十]?|[一二三四五六七八九十]{1,3}[、.．]?|[0-9]{1,3}[、.．]?)\s*(.*)$/;
+    const HUE = { gan: 20, chu: 100, num: 60, arab: 160, head: 320 };
+    const rows = String(text || '').split(/\r?\n/).map(function (l) { return l.trim(); }).filter(Boolean).map(function (line) {
+      const m = LABEL.exec(line);
+      let label = '', name = line, hue = HUE.head, head = true;
+      if (m) {
+        label = m[2].replace(/[、.．]$/, '');
+        name = m[3] || '';
+        head = false;
+        if (/^[甲乙丙丁戊己庚辛壬癸]/.test(label)) hue = HUE.gan;
+        else if (/^初/.test(label)) hue = HUE.chu;
+        else if (/^[0-9]/.test(label)) hue = HUE.arab;
+        else hue = HUE.num;
+      }
+      return window.ZHU_ZROW({ hue: hue, label: label, name: name, head: head, tag: 'div' });
+    });
+    return '<div class="ke-rows">' + rows.join('') + '</div>';
+  }
+
   function renderKe() {
     const cards = document.getElementById('cards');
     const ke = D.ke || [];
@@ -514,7 +537,7 @@
               esc(n.text) + '</button>';
           }).join('') + '</div></details>'
         : '') +
-      '<pre class="ke-body">' + esc(cur.text) + '</pre>';
+      keRowsHtml(cur.text);
     const sel = document.getElementById('keSel');
     if (sel) sel.addEventListener('change', function () { state.kePick = sel.value; renderKe(); });
     cards.querySelectorAll('.ke-node').forEach(function (b) {
@@ -1442,6 +1465,20 @@
       setTimeout(function () { if (!done) wxToast('微信號：' + id + '（打開微信搜尋）'); }, 700);
     });
   }
+
+  /* ---------- 彩點列（科判樹／科文分頁共用） ---------- */
+  // 一支：{hue, label, name, cls, attrs, title} → <button class="zrow">
+  window.ZHU_ZROW = function (o) {
+    o = o || {};
+    const tag = o.tag === 'div' ? 'div' : 'button';
+    const cls = 'zrow' + (tag === 'div' ? ' static' : '') + (o.cls ? ' ' + o.cls : '') + (o.head ? ' head' : '');
+    return '<' + tag + (tag === 'button' ? ' type="button"' : '') + ' class="' + cls + '"' + (o.attrs || '') +
+      ' style="--zhue:' + (o.hue == null ? 20 : o.hue) + '"' +
+      (o.title ? ' title="' + esc(o.title) + '"' : '') + '>' +
+      '<span class="zdot"></span>' +
+      (o.label ? '<span class="zlabel">' + esc(o.label) + '</span>' : '') +
+      '<span class="zname">' + esc(o.name || '') + '</span></' + tag + '>';
+  };
 
   /* ---------- 辭典（資料可選：ZHU.glossary；右欄分頁） ---------- */
   const GLOSS = (function () {

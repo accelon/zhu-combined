@@ -177,26 +177,13 @@ body.dark .kb-chip.cur { color: hsl(var(--kuhue, 20) 70% 82%); background: hsl(v
 .kb-ph b { font-size: 14.5px; letter-spacing: .06em; white-space: nowrap; flex: 0 0 auto; }
 .kb-ph .kb-src { color: var(--kb-tag); font-size: 11.5px; flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .kb-pb { overflow: auto; padding: 6px 8px 14px; }
-/* 目錄樹：彩點不內縮（accelon26 的做法）——深度用 9px 彩點表示，所有列同寬同高 */
-.kb-node {
-  display: flex; align-items: center; gap: 6px; width: 100%; text-align: left;
-  border: 0; background: transparent; color: hsl(var(--kuhue, 20) 50% 36%);
-  font: inherit; font-size: 13.5px; line-height: 1.5;
-  height: 24px; padding: 0 8px; border-radius: 4px; cursor: pointer;
-  white-space: nowrap; overflow: hidden;
-}
-.kb-node .kb-dot {
-  width: 9px; height: 9px; border-radius: 2px; flex: 0 0 auto;
-  background: hsl(var(--kuhue, 20) 55% 46%);
-}
-body.dark .kb-node .kb-dot { background: hsl(var(--kuhue, 20) 62% 62%); }
-.kb-node .kb-txt { overflow: hidden; text-overflow: ellipsis; }
-body.dark .kb-node { color: hsl(var(--kuhue, 20) 58% 72%); }
+
+body.dark .kb-node { color: hsl(var(--zhue, 20) 58% 72%); }
 .kb-node:hover { background: var(--kb-bg); }
-.kb-node.cur { color: hsl(var(--kuhue, 20) 65% 30%); font-weight: 700; background: var(--kb-bg); }
-body.dark .kb-node.cur { color: hsl(var(--kuhue, 20) 72% 84%); }
+.kb-node.cur { color: hsl(var(--zhue, 20) 65% 30%); font-weight: 700; background: var(--kb-bg); }
+body.dark .kb-node.cur { color: hsl(var(--zhue, 20) 72% 84%); }
 .kb-node.nk { color: var(--kb-tag); }
-.kb-node .kb-lv { color: inherit; opacity: .62; font-size: 11px; flex: 0 0 auto; font-family: "Inter", ui-monospace, monospace; }
+
 .kb-pf { padding: 6px 14px; border-top: 1px solid var(--kb-line); color: var(--kb-tag); font-size: 11.5px; }
 
 /* 經文裡的科文標記與範圍高亮（只在科文「開」時出現） */
@@ -256,7 +243,8 @@ body.kb-plain .kb-t { color: inherit !important; }
   .kb-cur { font-size: 12px; padding: 4px 5px; }
   .kb-btn { padding: 4px 10px; }
   #kepanPanel { top: auto; bottom: 0; left: 0; transform: none; width: 100%; max-height: 78vh; border-radius: 14px 14px 0 0; }
-  .kb-node { font-size: 15.5px; line-height: 2; padding-top: 4px; padding-bottom: 4px; }
+  /* 手機：列高仍固定 24px（彩點不內縮），只把字縮小一點 */
+  .kb-node.zrow { height: 26px; font-size: 13.5px; }
 
   /* 科文豎排：只留干支序號，直排成一小條，不佔行寬（點它跳到那一節） */
   .kb-mark {
