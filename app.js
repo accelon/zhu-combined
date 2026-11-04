@@ -30,6 +30,8 @@
     }
     const p = document.querySelector('.brand .sub');
     if (p) p.textContent = sub;
+    const note = document.getElementById('wxNote');
+    if (note) note.textContent = title || '經注';
   }
 
   const esc = (s) => simText(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -1379,6 +1381,11 @@
     const tb = qs.get('tab');
     if (tb === 'alt' || tb === 'phrase' || tb === 'works') { setTab(tb); if (state.u != null) openPanel(tb); }
     exposeTourApi();
+    // 這一區沒有導覽劇本（工作區沒提供 tour.js）就把入口收起來
+    if (!window.tourState) {
+      const t = document.getElementById('tourEntry');
+      if (t) t.style.display = 'none';
+    }
   }
   boot();
 })();

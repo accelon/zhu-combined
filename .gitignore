@@ -25,3 +25,5 @@ build/_tour-out/
 build/_*.png
 # 開發用的資料（由內容工作區提供，例如 D:\2026\vcpp\zhu-data.js）
 zhu-data.js
+# 導覽劇本編譯出來的資料（劇本在工作區；由 build-tour.mjs --root 生成）
+src/tour/tour-data.ts

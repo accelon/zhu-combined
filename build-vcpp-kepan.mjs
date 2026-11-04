@@ -35,7 +35,8 @@ const html = read('index.html');
 const css = read('style.css');
 const kepanCss = read('src/kepan/kepan.css');
 const kepanJs = read('src/kepan/kepan.js');
-const tour = read('tour.js');
+const tourFile = path.join(CONTENT, 'tour.js');
+const tour = fs.existsSync(tourFile) ? fs.readFileSync(tourFile, 'utf8') : '';
 const lossless = read('lossless.js');
 const gunzip = read('build/gunzip.js');
 
