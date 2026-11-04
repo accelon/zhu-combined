@@ -507,9 +507,19 @@
       }).join('') + '</select>' +
       '<span class="ke-meta">' + esc(cur.author || '') + ' · ' + cur.text.length.toLocaleString('en-US') + ' 字</span></div>' +
       jumps +
+      (D.keNodes && D.keNodes.length
+        ? '<details class="ke-nodes"><summary>科文節點（' + D.keNodes.length.toLocaleString('en-US') + '，可跳正文）</summary><div class="ke-node-list">' +
+          D.keNodes.map(function (n, i) {
+            return '<button type="button" class="ke-node" data-u="' + n.u + '" style="padding-left:' + (8 + (n.level || 0) * 12) + 'px">' +
+              esc(n.text) + '</button>';
+          }).join('') + '</div></details>'
+        : '') +
       '<pre class="ke-body">' + esc(cur.text) + '</pre>';
     const sel = document.getElementById('keSel');
     if (sel) sel.addEventListener('change', function () { state.kePick = sel.value; renderKe(); });
+    cards.querySelectorAll('.ke-node').forEach(function (b) {
+      b.addEventListener('click', function () { selectUnit(+b.dataset.u); });
+    });
     cards.querySelectorAll('.ke-jump').forEach(function (b) {
       b.addEventListener('click', function () { setSection(+b.dataset.sec); });
     });
@@ -781,6 +791,9 @@
   function addSheetNav(u) {
     const cards = document.getElementById('cards');
     if (!cards || u == null) return;
+    // 換頁／換句時先清掉舊的（nav 放在 #cards 外面，重畫注文不會把它洗掉）
+    const oldNav = document.querySelector('#sheet .sheet-nav');
+    if (oldNav && oldNav.parentNode) oldNav.parentNode.removeChild(oldNav);
     const ver = D.versions[BASE] || {};
     const sents = ver.sents || [];
     const cur = sents.find(function (x) { return x.u === u; });
@@ -795,7 +808,9 @@
       '<button type="button" class="sn-btn sn-prev"' + (prev ? '' : ' disabled') + ' title="上一句">‹</button>' +
       '<div class="sn-text">' + esc(cur.t || '') + '</div>' +
       '<button type="button" class="sn-btn sn-next"' + (next ? '' : ' disabled') + ' title="下一句">›</button>';
-    cards.insertBefore(nav, cards.firstChild);
+    const panel = document.querySelector('#sheet .panel');
+    if (panel) panel.insertBefore(nav, cards);
+    else cards.insertBefore(nav, cards.firstChild);
     // 換句後把面板拉回可視範圍（手機上 selectUnit 會把頁面捲到經文，面板就被推到上面）
     function keepSheetVisible() {
       setTimeout(function () {
@@ -1201,7 +1216,13 @@
       const b = e.target.closest('button[data-t]');
       if (!b) return;
       setTab(b.dataset.t);
-      if (state.u != null) { renderBody(state.u); document.querySelectorAll('.sent.sel,.pv-t').forEach(function (el) { el.dataset.base = el.innerHTML; }); }
+      const oldNav = document.querySelector('#sheet .sheet-nav');
+      if (oldNav && oldNav.parentNode) oldNav.parentNode.removeChild(oldNav);
+      if (state.u != null) {
+        renderBody(state.u);
+        if (b.dataset.t === 'works') addSheetNav(state.u);
+        document.querySelectorAll('.sent.sel,.pv-t').forEach(function (el) { el.dataset.base = el.innerHTML; });
+      }
     });
     $('#cards').addEventListener('click', (e) => {
       // 別譯：點譯者名切換要看的譯本

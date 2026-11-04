@@ -796,16 +796,15 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
 }
 
 /* 注疏面板：所注經文＋上下句 */
-/* 所注經文＋上下句：黏在可視區頂端，捲到注文深處也點得到 */
+/* 所注經文＋上下句：桌面留在面板頂端（跟著版面走，不浮在正文上）；
+   手機（panel 不滾、頁面滾）才黏在分頁列下面，免得換句後點不到 */
 .sheet-nav {
   display: flex; gap: 8px; align-items: flex-start; padding: 8px 10px 10px;
   border-bottom: 1px solid var(--line); margin-bottom: 10px;
-  position: sticky; top: 0; z-index: 5;
-  background: var(--paper); box-shadow: 0 1px 0 var(--line);
+  background: var(--paper);
 }
-/* 手機：panel 不滾、頁面滾，黏在分頁列下面 */
 @media (max-width: 1060px) {
-  .sheet-nav { top: 118px; }
+  .sheet-nav { position: sticky; top: 118px; z-index: 5; box-shadow: 0 1px 0 var(--line); }
 }
 
 .sheet-nav .sn-text { flex: 1; font-size: 13.5px; line-height: 1.8; color: var(--ink); max-height: 5.6em; overflow: auto; }
@@ -829,3 +828,11 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
 .ke-juan > summary { cursor: pointer; color: var(--muted); }
 .ke-cnt { margin-left: 6px; font-size: 11px; color: var(--muted); }
 .ke-tree .ke-jump { display: block; width: 100%; text-align: left; margin: 4px 0 0 14px; }
+
+/* 科文節點清單 */
+.ke-nodes { margin: 0 0 14px; }
+.ke-nodes > summary { cursor: pointer; font-size: 13px; color: var(--accent); }
+.ke-node-list { max-height: 46vh; overflow: auto; border: 1px solid var(--line); border-radius: 8px; margin-top: 6px; background: var(--card); }
+.ke-node { display: block; width: 100%; text-align: left; border: 0; background: transparent; color: var(--ink);
+  font: inherit; font-size: 12.5px; line-height: 1.9; padding: 2px 8px; cursor: pointer; }
+.ke-node:hover { background: var(--paper2); color: var(--accent); }
