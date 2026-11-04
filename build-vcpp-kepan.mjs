@@ -185,6 +185,8 @@ out = out.replace(
   /<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/,
   '');
 out = patchHead(out);   // 標題、description、og（孵化區規定）
+// 外殼先顯示正確書名（資料還沒到時標題列就不是「經注閱讀器」）
+out = out.replace('<h1>經注閱讀器</h1>', '<h1>' + (opt('title', '') || '經注閱讀器') + '</h1>');
 // 標題列按鈕（書籤／導覽／明暗）在第一次繪製前就搬到最左上，避免載入後由右跳到左
 const earlyMove = `
 <script>
