@@ -73,7 +73,7 @@
     });
     return {
       id: e.id, short: e.short, title: e.title, author: e.author, date: e.date,
-      note: e.note, source: e.source, roots: roots, byId: byId,
+      note: e.note, source: e.source, workId: e.workId || '', roots: roots, byId: byId,
       linked: e.linked, nodes: e.nodes,
       ordStyle: e.ordStyle || '', flat: !!e.flat, noMarks: !!e.noMarks,
     };
@@ -769,7 +769,8 @@
      科文開、且不是昭明時，點一句＝進這一家的閱讀模式：
      麵包屑（這一科的層級）＋所注經文＋他的注文（可翻頁），不跳 #sheet。 */
   var READ = { open: false, u: null, page: 0 };
-  var ED_WORK = { yinshun: 'Y01', zongmi: 'X491', jiang: '' };
+  // 這一家的注文是哪一部 work：由資料（kepan/<家>.json 的 workId）指定，閱讀器不認識任何一家
+  var ED_WORK = {};
 
   function zWork(id) {
     if (!id) return null;
@@ -803,7 +804,7 @@
     }
     return out.length ? out : [''];
   }
-  function readWorkOf() { return zWork(ED_WORK[ed.id] || ''); }
+  function readWorkOf() { return zWork(ed.workId || ED_WORK[ed.id] || ''); }
   function readContent(u) {
     var w = readWorkOf();
     if (w) {
