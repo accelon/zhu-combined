@@ -84,6 +84,8 @@ button { font: inherit; color: inherit; }
 }
 #foot .foot-free { margin: 0; text-align: center; line-height: 1.9; }
 #foot .foot-free b { color: #8a7f6d; font-weight: 700; letter-spacing: .06em; }
+#foot .foot-free a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
+#foot .foot-free a:hover { color: #8a4b1e; }
 @media (max-width: 640px) { #foot .foot-free { font-size: 11px; line-height: 2; } }
 
 /* ---------- sheet ---------- */
