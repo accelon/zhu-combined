@@ -262,8 +262,9 @@
     var w = document.createElement('span');
     w.className = 'kb-nav';
     if (id) w.id = id;
-    w.innerHTML = '<button type="button" class="kb-step" data-step="-1" title="上一分">‹</button>' +
-      '<span class="kb-cur" data-cur="1" role="button" tabindex="0" title="點一下開科判目錄"></span>' +
+    // 兩顆箭頭放在一起（在分名後面）：分名長度改變時箭頭位置不動，才能連按
+    w.innerHTML = '<span class="kb-cur" data-cur="1" role="button" tabindex="0" title="點一下開科判目錄"></span>' +
+      '<button type="button" class="kb-step" data-step="-1" title="上一分">‹</button>' +
       '<button type="button" class="kb-step" data-step="1" title="下一分">›</button>';
     w.addEventListener('click', onNavClick);
     w.addEventListener('keydown', onNavKey);
