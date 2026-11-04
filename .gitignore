@@ -23,3 +23,5 @@ vcpp-nokepan.html
 # 開發截圖／導覽回放輸出
 build/_tour-out/
 build/_*.png
+# 開發用的資料（由內容工作區提供，例如 D:\2026\vcpp\zhu-data.js）
+zhu-data.js

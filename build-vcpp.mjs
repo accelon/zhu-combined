@@ -11,28 +11,31 @@
 //   node build-vcpp.mjs --max 16 --limit 80000
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import zlib from 'node:zlib';
 
-const ROOT = 'D:\\2026\\zhu-combined';
 const args = process.argv.slice(2);
 const opt = (name, fallback) => {
   const i = args.indexOf('--' + name);
   return i >= 0 && args[i + 1] && !args[i + 1].startsWith('--') ? args[i + 1] : fallback;
 };
+// 閱讀器程式在這一支所在的目錄；內容（zhu-data.js 等）在 --root 指定的工作區。
+const SELF = path.dirname(fileURLToPath(import.meta.url));
+const CONTENT = path.resolve(opt('root', process.cwd()));
 
 const limitArg = String(opt('limit', 'all')).toLowerCase();
 const LIMIT = (limitArg === 'all' || limitArg === '0') ? Infinity : +limitArg;
 const MAX_MB = +opt('max', 8);
-const OUT = path.join(ROOT, opt('out', 'vcpp.html'));
+const OUT = path.resolve(opt('out', path.join(CONTENT, 'vcpp.html')));
 const KEEP = new Set(['Y01']);
 
-const html = fs.readFileSync(path.join(ROOT, 'index.html'), 'utf8');
-const css = fs.readFileSync(path.join(ROOT, 'style.css'), 'utf8');
-const app = fs.readFileSync(path.join(ROOT, 'app.js'), 'utf8');
-const lossless = fs.readFileSync(path.join(ROOT, 'lossless.js'), 'utf8');
-const tour = fs.readFileSync(path.join(ROOT, 'tour.js'), 'utf8');
-const dataSrc = fs.readFileSync(path.join(ROOT, 'zhu-data.js'), 'utf8');
-const gunzip = fs.readFileSync(path.join(ROOT, 'build', 'gunzip.js'), 'utf8');
+const html = fs.readFileSync(path.join(SELF, 'index.html'), 'utf8');
+const css = fs.readFileSync(path.join(SELF, 'style.css'), 'utf8');
+const app = fs.readFileSync(path.join(SELF, 'app.js'), 'utf8');
+const lossless = fs.readFileSync(path.join(SELF, 'lossless.js'), 'utf8');
+const tour = fs.readFileSync(path.join(SELF, 'tour.js'), 'utf8');
+const dataSrc = fs.readFileSync(path.join(CONTENT, 'zhu-data.js'), 'utf8');
+const gunzip = fs.readFileSync(path.join(SELF, 'build', 'gunzip.js'), 'utf8');
 const D = JSON.parse(dataSrc.replace(/^window\.ZHU=/, '').replace(/;\s*$/, ''));
 
 const dropped = [];

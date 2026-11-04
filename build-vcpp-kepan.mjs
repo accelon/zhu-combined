@@ -11,19 +11,23 @@
 //   node build-vcpp-kepan.mjs --max 16
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import zlib from 'node:zlib';
 
-const ROOT = 'D:\\2026\\zhu-combined';
 const args = process.argv.slice(2);
 const opt = (name, fallback) => {
   const i = args.indexOf('--' + name);
   return i >= 0 && args[i + 1] && !args[i + 1].startsWith('--') ? args[i + 1] : fallback;
 };
+// 閱讀器程式（index.html／app.js／style.css／tour.js／src/kepan）在這一支的目錄；
+// 內容（zhu-data.js、kepan/kepan-data.js）在 --root 指定的工作區。
+const ROOT = path.dirname(fileURLToPath(import.meta.url));
+const CONTENT = path.resolve(opt('root', process.cwd()));
 
 const limitArg = String(opt('limit', 'all')).toLowerCase();
 const LIMIT = (limitArg === 'all' || limitArg === '0') ? Infinity : +limitArg;
 const MAX_MB = +opt('max', 8);
-const OUT = path.join(ROOT, opt('out', 'vcpp-kepan.html'));
+const OUT = path.resolve(opt('out', path.join(CONTENT, 'vcpp-kepan.html')));
 const KEEP = new Set(['Y01']);
 
 const read = (p) => fs.readFileSync(path.join(ROOT, p), 'utf8');
@@ -137,8 +141,8 @@ function patchHead(src) {
              '<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">');
 }
 
-const D = JSON.parse(read('zhu-data.js').replace(/^window\.ZHU=/, '').replace(/;\s*$/, ''));
-const KP = JSON.parse(read('kepan/kepan-data.js').replace(/^window\.KEPAN=/, '').replace(/;\s*$/, ''));
+const D = JSON.parse(fs.readFileSync(path.join(CONTENT, 'zhu-data.js'), 'utf8').replace(/^window\.ZHU=/, '').replace(/;\s*$/, ''));
+const KP = JSON.parse(fs.readFileSync(path.join(CONTENT, 'kepan', 'kepan-data.js'), 'utf8').replace(/^window\.KEPAN=/, '').replace(/;\s*$/, ''));
 
 const dropped = [];
 for (const w of D.works) {
