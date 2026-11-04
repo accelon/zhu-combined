@@ -174,7 +174,7 @@
     var box = top.querySelector('.kb-utils');
     var had = !!box;
     if (!box) { box = document.createElement('div'); box.className = 'kb-utils'; }
-    ['bmBtn', 'simBtn', 'fsBtn', 'tourEntry', 'theme'].forEach(function (id) {
+    ['fsBtn', 'bmBtn', 'theme', 'simBtn'].forEach(function (id) {
       var el = document.getElementById(id);
       if (el && el.parentNode !== box) box.appendChild(el);
     });
@@ -274,6 +274,15 @@
     var sel0 = document.getElementById('sec-select');
     if (sel0 && sel0.parentNode) sel0.parentNode.insertBefore(kbNav, sel0);
     else if (top) top.appendChild(kbNav);
+
+    // 🦮 放到分導覽最左邊（‹ 的左邊）
+    var tour = document.getElementById('tourEntry');
+    if (tour) {
+      var prev = kbNav.querySelector('.kb-step[data-step="-1"]');
+      if (prev) kbNav.insertBefore(tour, prev);
+      else kbNav.insertBefore(tour, kbNav.firstChild);
+    }
+    placeMobileControls();
   })();
 
   /** 更新畫面上所有分導覽（標題列那一份＋每章末尾那一份）
@@ -312,25 +321,29 @@
   }
 
   /* ------------------------------------------------------------ 手機：分導覽＋放大鏡併進科文條 */
-  var mNav = document.getElementById('kbNav');
-  var mSearch = document.getElementById('searchBtn');
-  var mNavHome = mNav ? { p: mNav.parentNode, n: mNav.nextSibling } : null;
-  var mSearchHome = mSearch ? { p: mSearch.parentNode, n: mSearch.nextSibling } : null;
+  var mHome = null;
   function placeMobileControls() {
     var barEl = document.getElementById('kepanBar');
-    if (!barEl) return;
+    var nav = document.getElementById('kbNav');
+    var sb = document.getElementById('searchBtn');
+    if (!barEl || !nav) return;
+    if (!mHome) {
+      mHome = {
+        nav: { p: nav.parentNode, n: nav.nextSibling },
+        sb: sb ? { p: sb.parentNode, n: sb.nextSibling } : null,
+      };
+    }
     var mobile = window.matchMedia('(max-width: 760px)').matches;
     if (mobile) {
-      if (mNav && mNav.parentNode !== barEl) barEl.appendChild(mNav);
-      if (mSearch && mSearch.parentNode !== barEl) barEl.appendChild(mSearch);
+      if (nav.parentNode !== barEl) barEl.appendChild(nav);
+      if (sb && sb.parentNode !== barEl) barEl.appendChild(sb);
       barEl.classList.add('kb-mobile');
     } else {
-      if (mNav && mNavHome && mNav.parentNode !== mNavHome.p) mNavHome.p.insertBefore(mNav, mNavHome.n);
-      if (mSearch && mSearchHome && mSearch.parentNode !== mSearchHome.p) mSearchHome.p.insertBefore(mSearch, mSearchHome.n);
+      if (mHome.nav.p && nav.parentNode !== mHome.nav.p) mHome.nav.p.insertBefore(nav, mHome.nav.n);
+      if (sb && mHome.sb && sb.parentNode !== mHome.sb.p) mHome.sb.p.insertBefore(sb, mHome.sb.n);
       barEl.classList.remove('kb-mobile');
     }
   }
-  placeMobileControls();
   window.addEventListener('resize', placeMobileControls);
 
   var trail = document.getElementById('kbTrail');

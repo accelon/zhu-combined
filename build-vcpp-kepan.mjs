@@ -176,7 +176,7 @@ const earlyMove = `
   if (!top) return;
   var box = top.querySelector('.kb-utils');
   if (!box) { box = document.createElement('div'); box.className = 'kb-utils'; }
-  ['bmBtn', 'simBtn', 'fsBtn', 'tourEntry', 'theme'].forEach(function (id) {
+  ['fsBtn', 'bmBtn', 'theme', 'simBtn'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el && el.parentNode !== box) box.appendChild(el);
   });
@@ -185,7 +185,7 @@ const earlyMove = `
 </script>`;
 out = out.replace('</header>', '</header>' + earlyMove);
 out = out.replace('<p class="sub">姚秦 鳩摩羅什譯 · 別譯十一種 · 四十一家注疏 · 昭明三十二分</p>',
-  '<p class="sub">11 種別譯 · 41 家注疏 · 4 家科判</p>');
+  '<p class="sub">11 種別譯 · 41 家注疏 · 3 家科判</p>');
 
 const safe = (s) => s.replace(/<\/script/gi, '<\\/script');
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
