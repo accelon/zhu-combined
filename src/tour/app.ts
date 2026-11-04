@@ -112,7 +112,7 @@ function maybeHint(): void {
   box.id = 'tourHint';
   box.setAttribute('role', 'note');
   box.innerHTML =
-    '<span class="th-text">第一次用？按右上角的 <b>🦮</b> 一分鐘走一遍</span>' +
+    '<span class="th-text">第一次用？按標題列的 <b>🦮</b> 一分鐘走一遍</span>' +
     '<button type="button" class="th-x" id="tourHintX" aria-label="關閉提示" title="關閉提示">✕</button>';
   document.body.appendChild(box);
   placeHint();
@@ -135,7 +135,7 @@ function maybeHint(): void {
 initTour(app, { index: TOUR_INDEX, blobs: TOUR_BLOBS }, {
   appName: '金剛經合注',
   storagePrefix: 'zhu.tour',
-  finishHtml: '導覽結束。想再看一次：按右上角的 🦮。<br>畫面已還原到你原來讀的地方。',
+  finishHtml: '導覽結束。想再看一次：按標題列的 🦮。<br>畫面已還原到你原來讀的地方。',
 });
 
 document.getElementById('tourEntry')?.addEventListener('click', () => { void start(); });

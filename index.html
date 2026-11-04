@@ -12,8 +12,13 @@
     <h1>金剛經合注</h1>
     <p class="sub">姚秦 鳩摩羅什譯 · 別譯十一種 · 四十一家注疏 · 昭明三十二分</p>
   </div>
-  <div class="search"><select id="sec-select" title="選分"></select><input id="q" type="search" placeholder="搜尋經文…" autocomplete="off"><button id="tourEntry" class="theme tour-icon" title="操作導覽（跟著做一次就會用）" aria-label="操作導覽">🦮</button><button id="theme" class="theme" title="明暗切換">☾</button></div>
+  <div class="search"><select id="sec-select" title="選分"></select><input id="q" type="search" placeholder="搜尋經文…" autocomplete="off"><button id="bmBtn" class="theme" title="書籤" aria-label="書籤">♡</button><button id="tourEntry" class="theme tour-icon" title="操作導覽（跟著做一次就會用）" aria-label="操作導覽">🦮</button><button id="theme" class="theme" title="明暗切換">☾</button></div>
 </header>
+
+<div id="bmList" hidden role="dialog" aria-label="書籤清單">
+  <div class="bm-h"><span>書籤</span><button type="button" class="bm-x" aria-label="關閉">✕</button></div>
+  <div class="bm-body"></div>
+</div>
 
 <div id="layout">
   <main id="reader"></main>

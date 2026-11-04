@@ -91,7 +91,7 @@
   // 手機／平板：右欄是覆蓋式面板（不是並排欄），所以點句與看面板在同一個視口裡
   const isOverlay = () => window.matchMedia('(max-width: 1060px)').matches;
   // 主文固定羅什（BASE）；想看別的譯本一律走面板的「別譯」分頁
-  const state = { u: null, sec: 1, pick: [], altPick: null, tipPin: false, tab: 'works', showNotes: true };
+  const state = { u: null, sec: 1, pick: [], altPick: null, tipPin: false, tab: 'works', showNotes: true, bm: [], page: {} };
 
   /* ---------- 索引 ---------- */
   const byUnit = new Map(); // u -> [{w, a, b, p}]
@@ -242,13 +242,133 @@
           const txt = x.w.text
             ? (body ? esc(body) : '<span class="lite">（這一句沒有疏文）</span>')
             : '<span class="lite">輕量版：此書全文未收錄</span>';
-          return '<div class="note-open"><div class="note-h"><b>' + esc(x.w.author) + '</b>《' + esc(x.w.title) + '》' +
+          return '<div class="note-open"><div class="note-h">' +
+            '<button class="bm' + (bmHas(x.w.id) ? ' on' : '') + '" data-w="' + esc(x.w.id) + '"' +
+            ' aria-pressed="' + bmHas(x.w.id) + '" title="' + (bmHas(x.w.id) ? '取消書籤' : '加入書籤') + '">' +
+            (bmHas(x.w.id) ? '♥' : '♡') + '</button>' +
+            '<b>' + esc(x.w.author) + '</b>《' + esc(x.w.title) + '》' +
             '<span class="note-src">' + esc(x.w.corpus) + ' ' + esc(x.w.no) + ' · ' + esc(x.p) + '</span>' +
             '<button class="unpick" data-w="' + esc(x.w.id) + '" title="收起">✕</button></div>' +
-            '<p class="ex">' + txt + '</p></div>';
+            '<p class="ex" data-w="' + esc(x.w.id) + '">' + txt + '</p></div>';
         }).join('')
       : '<p class="empty">點上面的作者名看注疏（可同時開 1–3 家）。</p>';
     $('#cards').innerHTML = html;
+    applyPages();
+  }
+
+  /* ---------- 注文分頁：每頁約 180 字，盡量切在句末 ---------- */
+  const NOTE_PAGE = 180;
+  function splitPages(full) {
+    const out = [];
+    let i = 0;
+    while (i < full.length) {
+      let end = Math.min(full.length, i + NOTE_PAGE);
+      if (end < full.length) {
+        let j = end;
+        while (j > i + NOTE_PAGE * 0.55 && '。！？；'.indexOf(full.charAt(j - 1)) < 0) j--;
+        if (j > i + NOTE_PAGE * 0.55) end = j;
+      }
+      out.push(full.slice(i, end));
+      i = end;
+    }
+    return out;
+  }
+  function pagerHtml(p, n) {
+    return '<span class="pager">' +
+      '<button type="button" class="pg" data-d="-1"' + (p > 0 ? '' : ' disabled') + '>‹ 上一頁</button>' +
+      '<span class="pg-no">' + (p + 1) + ' / ' + n + '</span>' +
+      '<button type="button" class="pg" data-d="1"' + (p < n - 1 ? '' : ' disabled') + '>下一頁 ›</button>' +
+      '</span>';
+  }
+  function showPage(el, p) {
+    const pages = el && el.__pages;
+    if (!pages || !pages.length) return;
+    p = Math.max(0, Math.min(pages.length - 1, p));
+    state.page = state.page || {};
+    state.page[el.dataset.w] = p;
+    el.innerHTML = esc(pages[p]) + (pages.length > 1 ? pagerHtml(p, pages.length) : '');
+    el.dataset.shown = String(p);
+  }
+  function applyPages() {
+    document.querySelectorAll('#cards p.ex[data-w]').forEach((el) => {
+      if (el.__pages) return;
+      const full = el.textContent || '';
+      if (full.length <= NOTE_PAGE) return;   // 短注不分頁
+      const pages = splitPages(full);
+      if (pages.length < 2) return;
+      el.__full = full;
+      el.__pages = pages;
+      showPage(el, state.page[el.dataset.w] || 0);
+    });
+  }
+
+  /* ---------- 書籤（只記注疏；存 localStorage） ---------- */
+  function bmLoad() {
+    try {
+      const a = JSON.parse(localStorage.getItem('zhu-bm') || '[]');
+      state.bm = Array.isArray(a) ? a.filter((x) => typeof x === 'string') : [];
+    } catch (e) { state.bm = []; }
+  }
+  function bmSave() {
+    try { localStorage.setItem('zhu-bm', JSON.stringify(state.bm)); } catch (e) {}
+  }
+  function bmHas(id) { return state.bm.indexOf(id) >= 0; }
+  function bmWork(id) { return (D.works || []).filter((w) => w.id === id)[0]; }
+  function bmToggle(id) {
+    const i = state.bm.indexOf(id);
+    if (i >= 0) state.bm.splice(i, 1); else state.bm.push(id);
+    bmSave();
+    renderBmList();
+    document.querySelectorAll('.bm[data-w="' + id.replace(/"/g, '\\"') + '"]').forEach((b) => {
+      const on = bmHas(id);
+      b.classList.toggle('on', on);
+      b.textContent = on ? '♥' : '♡';
+      b.setAttribute('aria-pressed', String(on));
+      b.title = on ? '取消書籤' : '加入書籤';
+    });
+    return bmHas(id);
+  }
+  function bmListHtml() {
+    if (!state.bm.length) return '<p class="bm-empty">還沒有書籤。點注疏標題旁的 ♡ 加入。</p>';
+    return state.bm.map((id) => {
+      const w = bmWork(id);
+      if (!w) return '';
+      return '<div class="bm-row"><button type="button" class="bm-go" data-w="' + esc(id) + '" title="打開這部注疏">' +
+        esc(w.author) + '《' + esc(w.title) + '》</button>' +
+        '<button type="button" class="bm-del" data-w="' + esc(id) + '" title="取消書籤">✕</button></div>';
+    }).join('');
+  }
+  function renderBmList() {
+    const box = document.querySelector('#bmList .bm-body');
+    if (box) box.innerHTML = bmListHtml();
+  }
+  function hideBmList() {
+    const el = document.getElementById('bmList');
+    if (el) el.hidden = true;
+  }
+  function toggleBmList() {
+    const el = document.getElementById('bmList');
+    if (!el) return;
+    renderBmList();
+    el.hidden = !el.hidden;
+  }
+  function openBm(id) {
+    const w = bmWork(id);
+    if (!w) return;
+    hideBmList();
+    const here = (byUnit.get(state.u) || []).some((x) => x.w.id === id && visible(x));
+    if (!here) {
+      const us = (w.anchors || []).map((a) => a[0]).sort((a, b) => a - b);
+      if (!us.length) return;
+      let next = us.filter((u) => u >= state.u)[0];
+      if (next == null) next = us[0];
+      selectUnit(next);
+    }
+    if (state.pick.indexOf(id) < 0) state.pick.unshift(id);
+    state.pick = state.pick.slice(0, 3);
+    state.tab = 'works';
+    renderCards(state.u);
+    if (isOverlay()) openPanel('works');
   }
 
   function togglePick(id) {
@@ -750,6 +870,16 @@
         }
         return;
       }
+      // 注疏：愛心（書籤）、翻頁
+      const bm = e.target.closest('.bm');
+      if (bm) { e.preventDefault(); e.stopPropagation(); bmToggle(bm.dataset.w); return; }
+      const pg = e.target.closest('button.pg');
+      if (pg) {
+        e.preventDefault(); e.stopPropagation();
+        const pe = pg.closest('p.ex');
+        if (pe) showPage(pe, (state.page[pe.dataset.w] || 0) + (+pg.dataset.d));
+        return;
+      }
       // 注疏：點作者名開／關
       const nb = e.target.closest('.notebtn');
       if (nb) {
@@ -759,6 +889,22 @@
       }
       const up = e.target.closest('.unpick');
       if (up) { togglePick(up.dataset.w); renderCards(state.u); return; }
+    });
+    const bmBtn = document.getElementById('bmBtn');
+    if (bmBtn) bmBtn.addEventListener('click', (e) => { e.stopPropagation(); toggleBmList(); });
+    const bmList = document.getElementById('bmList');
+    if (bmList) {
+      bmList.addEventListener('click', (e) => {
+        const go = e.target.closest('.bm-go');
+        if (go) { openBm(go.dataset.w); return; }
+        const del = e.target.closest('.bm-del');
+        if (del) { bmToggle(del.dataset.w); return; }
+        if (e.target.closest('.bm-x')) hideBmList();
+      });
+    }
+    document.addEventListener('click', (e) => {
+      const l = document.getElementById('bmList');
+      if (l && !l.hidden && !e.target.closest('#bmList') && !e.target.closest('#bmBtn')) l.hidden = true;
     });
     $('#q').addEventListener('keydown', (e) => { if (e.key === 'Enter') search(e.target.value); });
     const secSel = document.getElementById('sec-select');
@@ -887,6 +1033,8 @@
   function boot() {
     const qs = new URLSearchParams(location.search);
     initTheme();
+    bmLoad();
+    renderBmList();
     try {
       if (localStorage.getItem('zhu-notes') === '0') state.showNotes = false;
     } catch (e) {}
