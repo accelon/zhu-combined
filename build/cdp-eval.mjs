@@ -42,7 +42,25 @@ const send = (method, params = {}) => new Promise((res) => {
   ws.send(JSON.stringify({ id: mid, method, params }));
 });
 
+await send('Runtime.enable');await send('Runtime.enable');
+// CDP_INIT：在頁面腳本之前注入一段 JS（測試用，例如偽裝已安裝）
+if (process.env.CDP_INIT) {
+  await send('Page.addScriptToEvaluateOnNewDocument', { source: process.env.CDP_INIT });
+}
 await send('Runtime.enable');
+// CDP_MEDIA="display-mode:fullscreen" → 模擬安裝後的顯示模式
+if (process.env.CDP_MEDIA) {
+  const [name, value] = String(process.env.CDP_MEDIA).split(':');
+  await send('Emulation.setEmulatedMedia', { features: [{ name, value }] });
+}
+
+// 覆寫類的設定（CDP_INIT／CDP_MEDIA）要重新載入頁面才會生效
+if (process.env.CDP_INIT || process.env.CDP_MEDIA) {
+  await send('Page.enable');
+  await send('Page.navigate', { url });
+  await sleep(1500);
+}
+
 // 先把載入期間的錯誤收起來
 await send('Page.addScriptToEvaluateOnNewDocument', { source: "window.__errs=[];window.__bootLog=[];addEventListener('error',function(e){window.__errs.push(String(e.message))});" });
 

@@ -14,6 +14,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import zlib from 'node:zlib';
 import { renderBoot } from './build/boot-template.mjs';
+import { writePWA } from './build/pwa.mjs';
 
 const args = process.argv.slice(2);
 const opt = (name, fallback) => {
@@ -204,6 +205,9 @@ out = out.replace('</header>', '</header>' + earlyMove);
 
 const safe = (s) => s.replace(/<\/script/gi, '<\\/script');
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
+// PWA 產物（manifest／sw.js／圖示）
+const pwa = writePWA({ outFile: OUT, title: META_TITLE || TITLE, sub: META_SUB || '', startUrl: opt('start', '') });
+out = out.replace('</head>', '<link rel="manifest" href="' + pwa.manifestName + '">\n</head>');
 const boot = renderBoot({ gunzip: gunzip, lossless: lossless, app: app, tour: tour, kepanJs: kepanJs });
 
 out = out.replace('</body>', dataTag + boot + '\n</body>');

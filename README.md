@@ -122,6 +122,22 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 - 五類固定（人物／名詞／論點／呂澂批評／譯者版本），但晶片是照 `categories` 畫的，換經群可換分類。
 - 沒有 `glossary` 就不顯示入口；資料欄位只增不改，未知欄位會被忽略。
 
+## PWA（可安裝）
+
+打包器會在同一個目錄產出：
+
+| 檔案 | 內容 |
+|---|---|
+| `<名稱>.webmanifest` | `name`、`start_url`、`display: fullscreen`、192／512 圖示（讀 `assets/icon-*.png`，來源是 adb-converter 的 appicon） |
+| `sw.js` | 離線快取（network-first，離線回快取） |
+| `icon-192.png`／`icon-512.png` | 由 `build/pwa.mjs` 從 `assets/` 複製 |
+
+- 打包時用 `--start <部署後的檔名>` 指定 `start_url`（例：`--start vcpp.html`，因為 deploy 會把 `vcpp-kepan.html` 改名）。
+- 開啟時（`https` 或 localhost）會問「要安裝到桌面嗎」：Chrome／Edge 用 `beforeinstallprompt`，iOS 顯示「分享 → 加入主畫面」的說明；按「稍後」記在 `localStorage` 七天。
+- 已安裝（`display-mode: fullscreen/standalone`）就全屏開；**只有全屏時**右上角才出現 ✕，一般分頁不顯示。
+- `file://` 直接開不會註冊 service worker（正常，瀏覽器限制）。
+- 部署時 `<名稱>.webmanifest`、`sw.js`、`icon-192.png`、`icon-512.png` 要一起上傳到同一目錄（vcpp 的 `deploy.mjs` 已加）。
+
 ## 應用清單（apps.json）
 
 閱讀器不綁定任何一部經。每個數據工作區在 `apps.json` 登記一列：

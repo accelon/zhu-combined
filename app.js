@@ -1491,6 +1491,115 @@
     return { mount: mount, focus: focusSearch, has: true };
   })();
 
+  /* ---------- PWA：安裝提示、service worker、全屏關閉鈕 ---------- */
+  const PWA = (function () {
+    const KEY = 'zhu.pwa.dismissed';
+    let deferred = null;
+    let bar = null;
+
+    function installed() {
+      return window.matchMedia('(display-mode: standalone)').matches ||
+        window.matchMedia('(display-mode: fullscreen)').matches ||
+        window.matchMedia('(display-mode: minimal-ui)').matches ||
+        navigator.standalone === true;
+    }
+    function isIOS() {
+      return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    }
+    function dismissedRecently() {
+      try {
+        const t = +localStorage.getItem(KEY) || 0;
+        return t && Date.now() - t < 7 * 24 * 3600 * 1000;
+      } catch (e) { return false; }
+    }
+    function dismiss() {
+      try { localStorage.setItem(KEY, String(Date.now())); } catch (e) {}
+      hide();
+    }
+    function hide() { if (bar && bar.parentNode) bar.parentNode.removeChild(bar); bar = null; }
+    function say(html, buttons) {
+      hide();
+      bar = document.createElement('div');
+      bar.id = 'pwaBar';
+      bar.setAttribute('role', 'dialog');
+      bar.innerHTML = html + '<div class="pwa-b">' +
+        buttons.map(function (b, i) { return '<button class="pwa-btn' + (i === 0 ? ' main' : '') + '" data-pwa="' + b.id + '">' + b.text + '</button>'; }).join('') +
+        '</div>';
+      document.body.appendChild(bar);
+      bar.addEventListener('click', function (ev) {
+        const b = ev.target.closest('button[data-pwa]');
+        if (!b) return;
+        if (b.dataset.pwa === 'install') {
+          if (deferred) {
+            deferred.prompt();
+            deferred.userChoice && deferred.userChoice.then(function (c) {
+              if (c && c.outcome === 'accepted') hide();
+              else dismiss();
+            });
+            deferred = null;
+          } else dismiss();
+        } else dismiss();
+      });
+    }
+    function ask() {
+      if (installed() || dismissedRecently()) return;
+      const title = esc((D.meta && D.meta.title) || document.title || '這個站');
+      if (deferred) {
+        say('<div class="pwa-t">把「' + title + '」裝到桌面？</div>' +
+            '<div class="pwa-s">裝好後可全屏閱讀，離線也打得開。</div>',
+            [{ id: 'install', text: '安裝' }, { id: 'later', text: '稍後' }]);
+      } else if (isIOS()) {
+        say('<div class="pwa-t">加到主畫面</div>' +
+            '<div class="pwa-s">Safari：點下方的「分享」→「加入主畫面」，就會像 App 一樣全屏開啟。</div>',
+            [{ id: 'later', text: '知道了' }]);
+      }
+    }
+    /** 全屏（已安裝）時在右上角放一顆關閉鈕；瀏覽器分頁裡不放 */
+    function closeButton() {
+      const on = installed();
+      const old = document.getElementById('appClose');
+      if (!on) { if (old) old.remove(); return; }
+      if (old) return;
+      const b = document.createElement('button');
+      b.id = 'appClose';
+      b.type = 'button';
+      b.title = '關閉';
+      b.setAttribute('aria-label', '關閉');
+      b.textContent = '✕';
+      b.addEventListener('click', function () {
+        try { window.close(); } catch (e) {}
+        setTimeout(function () {
+          if (!document.hidden) {
+            // 有些環境不允許關，退回上一頁／首頁
+            try { history.length > 1 ? history.back() : (location.href = 'about:blank'); } catch (e) {}
+          }
+        }, 250);
+      });
+      document.body.appendChild(b);
+    }
+    function registerSW() {
+      if (!('serviceWorker' in navigator)) return;
+      if (!/^https?:$/.test(location.protocol)) return; // file:// 不註冊
+      navigator.serviceWorker.register('./sw.js', { scope: './' }).catch(function (e) {
+        console.warn('service worker 沒註冊成功：' + e.message);
+      });
+    }
+    function init() {
+      registerSW();
+      closeButton();
+      window.matchMedia('(display-mode: fullscreen)').addEventListener &&
+        window.matchMedia('(display-mode: fullscreen)').addEventListener('change', closeButton);
+      window.addEventListener('beforeinstallprompt', function (e) {
+        e.preventDefault();
+        deferred = e;
+        ask();
+      });
+      window.addEventListener('appinstalled', function () { hide(); });
+      setTimeout(ask, 1200);
+    }
+    return { init: init, installed: installed };
+  })();
+
   /* ---------- 全屏 ---------- */
   function syncFs() {
     const b = document.getElementById('fsBtn');
@@ -1653,6 +1762,7 @@
     syncFs();
     renderFoot();
     initWx();
+    PWA.init();
     buildTabs();
     if (GLOSS) {
       const gb = document.getElementById('glossBtn');

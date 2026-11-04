@@ -8,6 +8,9 @@
 //   3. JSON.parse＋啟動（96–100%）
 // 舊 Safari 沒有 DecompressionStream 時走純 JS 解壓：同步、無法回報細進度，
 // 改顯示「解壓中…」的不確定動畫。
+//
+// 執行順序：lossless → tour → app。tour.js 先把 window.tourState 掛上，
+// app 初始化時才不會以為「沒有導覽」而把 🦮 收起來（2026-11-04 修）。
 
 const safe = (s) => String(s == null ? '' : s).replace(/<\/script/gi, '<\\/script');
 
@@ -17,8 +20,8 @@ export function renderBoot({ gunzip, lossless, app, tour, kepanJs }) {
 ${safe(gunzip)}
 function __startApp(){
 ${safe(lossless)}
-${safe(app)}
 ${safe(tour)}
+${safe(app)}
 }
 ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
 (function () {

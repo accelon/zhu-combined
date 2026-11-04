@@ -14,6 +14,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import zlib from 'node:zlib';
 import { renderBoot } from './build/boot-template.mjs';
+import { writePWA } from './build/pwa.mjs';
 
 const args = process.argv.slice(2);
 const opt = (name, fallback) => {
@@ -74,6 +75,10 @@ let out = html;
 out = out.replace('<link rel="stylesheet" href="style.css">', '<style>\n' + css + '\n</style>');
 out = out.replace(/<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/, '');
 if (META_TITLE) out = out.replace(/<title>[^<]*<\/title>/, '<title>' + META_TITLE + '</title>');
+
+// PWA：manifest／sw.js／圖示，跟單檔放同一個目錄
+const pwa = writePWA({ outFile: OUT, title: META_TITLE || '經注閱讀器', sub: META_SUB || '', startUrl: opt('start', '') });
+out = out.replace('</head>', '<link rel="manifest" href="' + pwa.manifestName + '">\n</head>');
 
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
 const appCode = app.replace(/<\/script/gi, '<\\/script');
