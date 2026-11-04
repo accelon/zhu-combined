@@ -804,7 +804,7 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
   background: var(--paper);
 }
 @media (max-width: 1060px) {
-  .sheet-nav { position: sticky; top: 118px; z-index: 5; box-shadow: 0 1px 0 var(--line); }
+  .sheet-nav { position: sticky; top: 47px; z-index: 5; box-shadow: 0 1px 0 var(--line); }
 }
 
 .sheet-nav .sn-text { flex: 1; font-size: 13.5px; line-height: 1.8; color: var(--ink); max-height: 5.6em; overflow: auto; }

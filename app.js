@@ -811,6 +811,17 @@
     const panel = document.querySelector('#sheet .panel');
     if (panel) panel.insertBefore(nav, cards);
     else cards.insertBefore(nav, cards.firstChild);
+    // 黏的位置要看分頁列實際高度：全螢幕面板與頁面捲動兩種情形座標原點不同
+    (function () {
+      if (!matchMedia('(max-width: 1060px)').matches) return;   // 桌面不用 sticky
+      const sheet = document.getElementById('sheet');
+      const tabs = document.querySelector('#sheet .tabs2');
+      if (!sheet || !tabs) return;
+      const fixed = getComputedStyle(sheet).position === 'fixed';
+      const tb = tabs.getBoundingClientRect().bottom;
+      const top = fixed ? tb - sheet.getBoundingClientRect().top + 2 : tb + 2;
+      nav.style.top = Math.max(0, Math.round(top)) + 'px';
+    })();
     // 換句後把面板拉回可視範圍（手機上 selectUnit 會把頁面捲到經文，面板就被推到上面）
     function keepSheetVisible() {
       setTimeout(function () {
