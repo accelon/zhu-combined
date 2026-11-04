@@ -20,3 +20,6 @@ Thumbs.db
 # 單檔建置產物（node build-vcpp*.mjs 產生）
 vcpp-kepan.html
 vcpp-nokepan.html
+# 開發截圖／導覽回放輸出
+build/_tour-out/
+build/_*.png
