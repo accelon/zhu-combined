@@ -478,7 +478,11 @@
     const en = D.english && D.english.byJuan ? D.english : null;
     if (!avail.length) { cards.innerHTML = '<p class="empty">此句沒有其他譯本。</p>'; return; }
     const ok = new Set(avail.map(function (x) { return x.i; }));
-    if (state.altPick == null) state.altPick = [ok.has(BASE) ? BASE : avail[0].i];
+    if (state.altPick == null) {
+      // 預設：主文＋按卷的譯本（有的話），讓「別譯」一打開就有字
+      const byJuan = avail.filter(function (x) { return x.v.byJuan; })[0];
+      state.altPick = byJuan ? [ok.has(BASE) ? BASE : avail[0].i, byJuan.i] : [ok.has(BASE) ? BASE : avail[0].i];
+    }
     state.altPick = state.altPick.filter(function (i) { return ok.has(i); });
     const picks = state.altPick;
     const bar = avail.map(function (x) {
@@ -1347,8 +1351,8 @@
     function apply() {
       const n = state2.q.trim().toLowerCase();
       const pool = (G.entries || []).filter((e) => state2.cat === CAT_ALL || e.category === state2.cat);
-      let rows = pool.filter((e) => !n || hayStrict(e).includes(n));
-      if (n && !rows.length) rows = pool.filter((e) => hayAll(e).includes(n));
+      // 詞條／別名／梵藏英／條號／分類／簡釋都比（規格要求 gloss 也算）
+      let rows = pool.filter((e) => !n || hayAll(e).includes(n));
       if (n) {
         const rank = (e) => (String(e.term || '').toLowerCase() === n ? 0 :
           (e.aliases || []).some((a) => String(a).toLowerCase() === n) ? 1 :
