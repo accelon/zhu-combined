@@ -79,6 +79,9 @@ button { font: inherit; color: inherit; }
   display: flex; gap: 22px; justify-content: center; flex-wrap: wrap;
   font-family: "PingFang TC", "Microsoft JhengHei", sans-serif;
 }
+#foot .foot-free { margin: 0; text-align: center; line-height: 1.9; }
+#foot .foot-free b { color: #8a7f6d; font-weight: 700; letter-spacing: .06em; }
+@media (max-width: 640px) { #foot .foot-free { font-size: 11px; line-height: 2; } }
 
 /* ---------- sheet ---------- */
 #sheet { position: fixed; inset: 0; z-index: 50; }
