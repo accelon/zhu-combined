@@ -27,3 +27,5 @@ build/_*.png
 zhu-data.js
 # 導覽劇本編譯出來的資料（劇本在工作區；由 build-tour.mjs --root 生成）
 src/tour/tour-data.ts
+build/_*.js
+build/_*.py
