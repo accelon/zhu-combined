@@ -43,6 +43,9 @@ const send = (method, params = {}) => new Promise((res) => {
 });
 
 await send('Runtime.enable');
+// 先把載入期間的錯誤收起來
+await send('Page.addScriptToEvaluateOnNewDocument', { source: "window.__errs=[];addEventListener('error',function(e){window.__errs.push(String(e.message))});" });
+
 const win = (process.env.CDP_WIN || '').split(',').map((x) => +x);
 if (win.length === 2 && win[0] > 0) {
   await send('Emulation.setDeviceMetricsOverride', {

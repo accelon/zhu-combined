@@ -2,6 +2,17 @@
 (function () {
   'use strict';
   const D = window.ZHU;
+  if (!window.ZHU) {
+    // 閱讀器本身不含資料：沒有 window.ZHU 就給人話，而不是白屏
+    document.body.innerHTML = '';
+    const box = document.createElement('div');
+    box.style.cssText = 'max-width:34em;margin:12vh auto;padding:0 20px;font:15px/1.9 sans-serif;color:#4a4034';
+    box.innerHTML = '<h1 style="font-size:20px;margin:0 0 10px">經注閱讀器</h1>' +
+      '<p>找不到資料（<code>window.ZHU</code>）。這個頁面只是閱讀器，經文與注疏由「經群工作區」提供。</p>' +
+      '<p>開發時把工作區的 <code>zhu-data.js</code> 放到本目錄（或建連結），或用打包器把資料內嵌成單檔。</p>';
+    document.body.appendChild(box);
+    return;
+  }
   const $ = (s) => document.querySelector(s);
   // 所有輸出都經過 esc：順便把顯示字轉成繁／簡（原文與索引不動）
   const simText = (s) => (state.sim && window.LOSSLESS)
