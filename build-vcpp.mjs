@@ -80,12 +80,13 @@ if (META_TITLE) out = out.replace(/<title>[^<]*<\/title>/, '<title>' + META_TITL
 const pwa = writePWA({ outFile: OUT, title: META_TITLE || '經注閱讀器', sub: META_SUB || '', startUrl: opt('start', '') });
 out = out.replace('</head>', '<link rel="manifest" href="' + pwa.manifestName + '">\n</head>');
 
+const EARLY_TICK = '<script>(function(){var n=0;var t=setInterval(function(){var b=document.getElementById("bootBar"),l=document.getElementById("bootNum");if(!b){clearInterval(t);return;}n=Math.min(86,n+2.4);b.style.width=n.toFixed(1)+"%";if(l)l.textContent=Math.round(n)+"%…";},120);window.__bootTickStop=function(){clearInterval(t);};})();</scr' + 'ipt>';
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
 const appCode = app.replace(/<\/script/gi, '<\\/script');
 const tourCode = tour.replace(/<\/script/gi, '<\\/script');
 const boot = renderBoot({ gunzip: gunzip, lossless: lossless, app: app, tour: tour });
 
-out = out.replace('</body>', dataTag + boot + '\n</body>');
+out = out.replace('</body>', EARLY_TICK + dataTag + boot + '\n</body>');
 
 fs.writeFileSync(OUT, out);
 const bytes = fs.statSync(OUT).size;

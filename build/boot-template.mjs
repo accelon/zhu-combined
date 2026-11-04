@@ -32,49 +32,63 @@ ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
   var bar = document.getElementById('bootBar');
   var label = document.getElementById('bootNum');
   var t0 = Date.now();
-  // ?bootlog=1：把進度取樣記在 window.__bootLog（測試用）
   var LOG = /[?&]bootlog=1/.test(location.search);
 
-  function setPct(p, text) {
-    if (LOG) (window.__bootLog = window.__bootLog || []).push([Date.now() - t0, Math.round(p * 10) / 10]);
-    if (bar) bar.style.width = Math.max(0, Math.min(100, p)).toFixed(1) + '%';
-    if (label) label.textContent = text != null ? text : Math.round(p) + '%';
+  var shown = bar ? (parseFloat(bar.style.width) || 0) : 0,   // 接手早期假進度，不讓它倒退
+      fakeTimer = null,
+      fake = 0,
+      done = false;
+
+  function paint(p, text) {
+    p = Math.max(0, Math.min(100, p));
+    shown = Math.max(shown, p);
+    if (LOG) (window.__bootLog = window.__bootLog || []).push([Date.now() - t0, Math.round(shown * 10) / 10]);
+    if (bar) bar.style.width = shown.toFixed(1) + '%';
+    if (label) label.textContent = text != null ? text : Math.round(shown) + '%';
   }
   function busy(text) {
-    if (bar) bar.style.width = '35%';
-    if (bar && bar.parentNode) bar.parentNode.classList.add('is-busy');
+    if (bar) { bar.style.width = '100%'; if (bar.parentNode) bar.parentNode.classList.add('is-busy'); }
     if (label) label.textContent = text || '解壓中…';
   }
   function hideBoot() {
+    done = true;
+    if (fakeTimer) { clearInterval(fakeTimer); fakeTimer = null; }
     if (boot && boot.parentNode) boot.parentNode.removeChild(boot);
   }
-
-  setPct(0, '0%');
-
-  // 分幾段解 base64，讓畫面有機會更新
-  var bin = '';
-  try {
-    var CHUNK = 1 << 20;
-    for (var i = 0; i < el.textContent.length; i += CHUNK) {
-      bin += atob(el.textContent.substr(i, CHUNK).replace(/\\s+/g, ''));
-      setPct(6 * Math.min(1, (i + CHUNK) / el.textContent.length));
-    }
-  } catch (e) {
-    bin = atob(el.textContent.trim());
+  /** 假進度：先自己慢慢爬到 88%，真實進度只往上蓋，不會停在 0% */
+  function startFake() {
+    fake = 0;
+    paint(2, '讀取資料…');
+    fakeTimer = setInterval(function () {
+      if (done) return;
+      fake = Math.min(88, fake + (fake < 30 ? 3.5 : fake < 60 ? 1.8 : 0.9));
+      if (fake > shown) paint(fake, Math.round(fake) + '%…');
+    }, 120);
   }
-  var bytes = new Uint8Array(bin.length);
-  for (var k = 0; k < bin.length; k++) bytes[k] = bin.charCodeAt(k);
-  bin = null;
+  function phase(x) { if (LOG) window.__bootPhase = x; }
+  function setReal(p, text) {
+    if (p > shown) paint(p, text);
+  }
+
+  try { window.__bootTickStop && window.__bootTickStop(); } catch (e) {}
+  startFake();
+
+  function toBytes(bin) {
+    var a = new Uint8Array(bin.length);
+    for (var i = 0; i < bin.length; i++) a[i] = bin.charCodeAt(i);
+    return a;
+  }
 
   // gzip 尾端 4 bytes = 原始大小（小於 4GB 時可靠）
-  var total = 0;
-  if (bytes.length >= 18) {
+  function isizeOf(bytes) {
+    if (bytes.length < 18) return 0;
     var n = bytes.length;
-    total = ((bytes[n - 4] | (bytes[n - 3] << 8) | (bytes[n - 2] << 16) | (bytes[n - 1] << 24)) >>> 0);
+    return ((bytes[n - 4] | (bytes[n - 3] << 8) | (bytes[n - 2] << 16) | (bytes[n - 1] << 24)) >>> 0);
   }
 
   function start(text) {
-    setPct(96, '準備畫面…');
+    phase('start');
+    paint(96, '準備畫面…');
     var pack = JSON.parse(text);
     if (pack && pack.zhu && pack.kepan !== undefined && typeof __startKepan === 'function') {
       window.ZHU = pack.zhu;
@@ -86,9 +100,10 @@ ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
     if (typeof __startKepan === 'function') {
       try { __startKepan(); } catch (e) { console.error('科文介面載入失敗', e); }
     }
-    setPct(100, '完成');
-    // 讓最後一格跑完再收
-    requestAnimationFrame(function () { setTimeout(hideBoot, 120); });
+    paint(100, '完成');
+    // 載入很快時也讓遮罩至少停留一下，不要一閃而過
+    var left = Math.max(0, 420 - (Date.now() - t0));
+    setTimeout(function () { try { hideBoot(); } catch (e) {} }, left);
     try { console.log('資料載入 ' + (Date.now() - t0) + ' ms'); } catch (e) {}
   }
   function fail(msg) {
@@ -98,7 +113,8 @@ ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
       '<br>請換新版 Chrome、Edge 或 Safari 開啟，或回報給作者。</p>';
   }
 
-  function fallback() {
+  function fallback(bytes) {
+    phase('fallback');
     busy('解壓中…（舊瀏覽器，稍等）');
     setTimeout(function () {
       try { start(new TextDecoder('utf-8').decode(__gunzip(bytes))); }
@@ -106,35 +122,66 @@ ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
     }, 30);
   }
 
-  // 測試用：?slowboot=1500 會延後解壓，方便看遮罩與進度（不影響正常載入）
+  // 測試用：?slowboot=1500 會延後解壓，方便看遮罩與進度
   var slow = /[?&]slowboot=(\\d+)/.exec(location.search);
-  function decompress() {
-  if ('DecompressionStream' in window) {
-    try {
-      var got = 0, last = 0;
-      var counter = new TransformStream({
-        transform: function (chunk, ctrl) {
-          got += chunk.byteLength;
-          var now = Date.now();
-          if (now - last > 100) {
-            last = now;
-            var p = total ? Math.min(1, got / total) : 0;
-            setPct(6 + 90 * p,
-              Math.round(got / 1024) + ' KB' + (total ? ' / ' + Math.round(total / 1024) + ' KB' : ''));
-          }
-          ctrl.enqueue(chunk);
-        },
-      });
-      var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip')).pipeThrough(counter);
-      new Response(stream).text().then(start).catch(fallback);
-    } catch (e) {
-      fallback();
+
+  function decompress(bytes) {
+    phase('decompress:' + bytes.length);
+    var total = isizeOf(bytes);
+    if ('DecompressionStream' in window) {
+      try {
+        var got = 0, last = 0;
+        var counter = new TransformStream({
+          transform: function (chunk, ctrl) {
+            got += chunk.byteLength;
+            var now = Date.now();
+            if (now - last > 100) {
+              last = now;
+              var p = total ? Math.min(1, got / total) : 0;
+              setReal(88 + 8 * p, '解壓 ' + Math.round(6 + 90 * p) + '%');
+            }
+            ctrl.enqueue(chunk);
+          },
+        });
+        var stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip')).pipeThrough(counter);
+        new Response(stream).text().then(start).catch(function () { fallback(bytes); });
+      } catch (e) {
+        fallback(bytes);
+      }
+    } else {
+      fallback(bytes);
     }
-  } else {
-    fallback();
   }
+
+  // 分塊解 base64（每塊 256KB、必須是 4 的倍數），每塊之間讓瀏覽器有機會重畫
+  function decode() {
+    phase('decode');
+    var text = el.textContent;
+    var len = text.length;
+    var CHUNK = 1 << 18;
+    var parts = [];
+    var bytesTotal = 0;
+    var i = 0;
+    function step() {
+      var end = Math.min(len, i + CHUNK);
+      var bin = atob(text.slice(i, end).replace(/\\s+/g, ''));
+      var arr = toBytes(bin);
+      parts.push(arr);
+      bytesTotal += arr.length;
+      i = end;
+      setReal(6 * i / Math.max(1, len));
+      if (i < len) { setTimeout(step, 0); return; }
+      var bytes = new Uint8Array(bytesTotal);
+      var off = 0;
+      for (var k = 0; k < parts.length; k++) { bytes.set(parts[k], off); off += parts[k].length; }
+      parts = null;
+      if (slow) setTimeout(function () { decompress(bytes); }, +slow[1] || 0);
+      else decompress(bytes);
+    }
+    step();
   }
-  if (slow) setTimeout(decompress, +slow[1]); else decompress();
+
+  try { decode(); } catch (e) { fail(e); }
 })();
 </script>`;
 }

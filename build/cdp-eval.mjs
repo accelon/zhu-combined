@@ -54,6 +54,10 @@ if (process.env.CDP_MEDIA) {
   await send('Emulation.setEmulatedMedia', { features: [{ name, value }] });
 }
 
+// CDP_CPU=6 → 模擬慢手機（CPU 節流 6 倍）
+if (process.env.CDP_CPU) {
+  await send('Emulation.setCPUThrottlingRate', { rate: +process.env.CDP_CPU || 1 });
+}
 // 覆寫類的設定（CDP_INIT／CDP_MEDIA）要重新載入頁面才會生效
 if (process.env.CDP_INIT || process.env.CDP_MEDIA) {
   await send('Page.enable');

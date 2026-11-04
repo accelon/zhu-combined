@@ -8,7 +8,7 @@
       "workspace": "D:\\2026\\vcpp",
       "build": "build.mjs",
       "outputs": [
-        "vcpp-kepan.html",
+        "vcpp.html",
         "vcpp-nokepan.html"
       ]
     },

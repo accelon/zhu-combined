@@ -48,7 +48,13 @@ const send = (method, params = {}) => new Promise((res) => {
   ws.send(JSON.stringify({ id: mid, method, params }));
 });
 
-await send('Page.enable');
+await send('Page.enable');await send('Page.enable');
+// CDP_CPU=6 → 模擬慢手機，方便截到載入遮罩
+if (process.env.CDP_CPU) {
+  await send('Emulation.setCPUThrottlingRate', { rate: +process.env.CDP_CPU || 1 });
+  await send('Page.reload', { ignoreCache: true });
+}
+
 // CDP_WIN="390,844" 時用裝置模擬（只給 --window-size 在 headless 下不會改截圖尺寸）
 const win = (process.env.CDP_WIN || '').split(',').map((x) => +x);
 if (win.length === 2 && win[0] > 0) {
