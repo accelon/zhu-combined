@@ -115,7 +115,7 @@ for (const r of trace) {
 console.log('failed:', JSON.stringify(failedTotal));
 const outOfView = trace.filter((r) => r.spot && r.inView === false);
 console.log('spotlight out of viewport:', outOfView.length);
-console.log('states:', JSON.stringify(await evalIn("({sec: ZHU_APP.state().section, sel: ZHU_APP.state().selected, panel: ZHU_APP.state().panel, q: document.getElementById('q').value, theme: document.body.classList.contains('dark')})")));
+console.log('states:', JSON.stringify(await evalIn("({sec: ZHU_APP.state().section, sel: ZHU_APP.state().selected, panel: ZHU_APP.state().panel, q: (document.getElementById('spInput') || {}).value || '', theme: document.body.classList.contains('dark')})")));
 ws.close();
 child.kill();
 await sleep(300);
