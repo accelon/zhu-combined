@@ -275,13 +275,6 @@
     if (sel0 && sel0.parentNode) sel0.parentNode.insertBefore(kbNav, sel0);
     else if (top) top.appendChild(kbNav);
 
-    // 🦮 放到分導覽最左邊（‹ 的左邊）
-    var tour = document.getElementById('tourEntry');
-    if (tour) {
-      var prev = kbNav.querySelector('.kb-step[data-step="-1"]');
-      if (prev) kbNav.insertBefore(tour, prev);
-      else kbNav.insertBefore(tour, kbNav.firstChild);
-    }
     placeMobileControls();
   })();
 
@@ -320,27 +313,28 @@
     if (secEl.nextSibling !== b) secEl.parentNode.insertBefore(b, secEl.nextSibling);
   }
 
-  /* ------------------------------------------------------------ 手機：分導覽＋放大鏡併進科文條 */
+  /* ------------------------------------------------------------ 手機：分導覽進科文條，🦮 與放大鏡留在標題列最右 */
   var mHome = null;
   function placeMobileControls() {
     var barEl = document.getElementById('kepanBar');
     var nav = document.getElementById('kbNav');
-    var sb = document.getElementById('searchBtn');
+    var tour = document.getElementById('tourEntry');
+    var search = document.querySelector('.search');
     if (!barEl || !nav) return;
-    if (!mHome) {
-      mHome = {
-        nav: { p: nav.parentNode, n: nav.nextSibling },
-        sb: sb ? { p: sb.parentNode, n: sb.nextSibling } : null,
-      };
-    }
+    if (!mHome) mHome = { nav: { p: nav.parentNode, n: nav.nextSibling } };
     var mobile = window.matchMedia('(max-width: 760px)').matches;
     if (mobile) {
       if (nav.parentNode !== barEl) barEl.appendChild(nav);
-      if (sb && sb.parentNode !== barEl) barEl.appendChild(sb);
+      if (search) search.classList.add('kb-head-right');
+      if (tour && search && tour.parentNode !== search) search.appendChild(tour);
       barEl.classList.add('kb-mobile');
     } else {
       if (mHome.nav.p && nav.parentNode !== mHome.nav.p) mHome.nav.p.insertBefore(nav, mHome.nav.n);
-      if (sb && mHome.sb && sb.parentNode !== mHome.sb.p) mHome.sb.p.insertBefore(sb, mHome.sb.n);
+      if (search) search.classList.remove('kb-head-right');
+      if (tour) {
+        var prev = nav.querySelector('.kb-step[data-step="-1"]');
+        if (prev && tour.parentNode !== nav) nav.insertBefore(tour, prev);
+      }
       barEl.classList.remove('kb-mobile');
     }
   }

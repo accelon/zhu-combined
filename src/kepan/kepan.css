@@ -374,3 +374,18 @@ body.dark #kbRead .kr-btn:hover:not([disabled]) { color: var(--kb-accent, #d7a86
 
 /* 下拉浮層要蓋過閱讀層（z-index 96） */
 #kepanMenu { z-index: 120; }
+/* 手機：🦮 與 🔍 留在標題列最右（與「金剛經合注」同列），科文條只放分導覽 */
+@media (max-width: 760px) {
+  /* 一列塞得下：工具列（4 顆）＋書名＋🦮🔍 */
+  #top { flex-wrap: wrap; gap: 6px; padding: 8px 10px; }
+  .kb-utils { gap: 3px; flex: 0 0 auto; }
+  .kb-utils .theme { width: 28px; height: 28px; font-size: 12px; }
+  .brand { flex: 0 1 auto; min-width: 0; }
+  .brand h1 { font-size: 17px; letter-spacing: .06em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .search.kb-head-right {
+    margin-left: auto; display: flex; align-items: center; gap: 4px;
+    flex: 0 0 auto; width: auto;
+  }
+  .search.kb-head-right #sec-select { display: none !important; }
+  .search.kb-head-right .theme { width: 28px; height: 28px; font-size: 13px; }
+}
