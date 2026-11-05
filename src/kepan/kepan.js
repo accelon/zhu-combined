@@ -122,10 +122,15 @@
     return (n.lab || '') + (n.nm || '');
   }
 
-  /* 深度 → 色相：仿 offtext 的巢式文字（每深一層 HSV 色相 +30°，20° 暖色起點）。
-     手機上的麵包屑只留「干支序號」，所以另外要一個 ordOf()。 */
+  /* 深度 → 色相（經文標記用）；目錄樹改用 rootHue，只分三大支。 */
   var GAN = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥';
   function hueOf(lv) { return (20 + Math.max(0, lv - 1) * 30) % 360; }
+  function rootHue(n) {
+    var seen = 0;
+    while (n && n.par != null && seen++ < 64) n = ed.byId.get(n.par);
+    var i = n ? ed.roots.indexOf(n.id) : -1;
+    return [12, 158, 210, 42][i >= 0 ? i % 4 : 0];
+  }
   function ordOf(n) {
     var lab = n.lab || '';
     if (!lab) return '';                                   // 章／節 沒有序號
@@ -191,6 +196,8 @@
   edSel.value = String(edIx);
   edSel.title = '換一家的科判';
   edSel.onchange = function () {
+    kbOpen = {};
+    kbAll = null;
     edIx = +edSel.value;
     ed = eds[edIx];
     try { localStorage.setItem('zhu.kb.ed', ed.id); } catch (e) {}
@@ -395,7 +402,7 @@
 
   function chipHtml(n, cur) {
     return '<button type="button" class="kb-chip' + (cur ? ' cur' : '') + '" data-k="' + n.id + '"' +
-      ' style="--kuhue:' + hueOf(n.lv) + '"' +
+      ' style="--kuhue:' + rootHue(n) + '"' +
       ' title="' + esc(titleOf(n) || '（無名）') + '：點一下換同一層的其他節">' +
       '<span class="kb-id">' + esc(ordOf(n)) + '</span>' +
       '<span class="kb-nm">' + esc(shortOf(n)) + '</span>' +
@@ -489,13 +496,23 @@
   panel.id = 'kepanPanel';
   panel.hidden = true;
   panel.innerHTML = '<div class="kb-ph"><b>科判目錄</b><span class="kb-src" id="kbSrc"></span>' +
+    '<span class="kb-all"><button type="button" class="kb-btn" id="kbAllOpen" title="展開整棵樹">展開全部</button>' +
+    '<button type="button" class="kb-btn" id="kbAllClose" title="收起整棵樹">收合</button></span>' +
     '<button type="button" class="kb-btn" id="kbPanelX" title="關閉">✕</button></div>' +
     '<div class="kb-pb" id="kbPanelBody"></div>' +
     '<div class="kb-pf" id="kbPanelFoot"></div>';
   document.body.appendChild(panel);
-  panelBody = document.getElementById('kbPanelBody');
+  var panelBody = document.getElementById('kbPanelBody');
+  document.addEventListener('click', function (ev) {
+    var c = ev.target && ev.target.closest && ev.target.closest('#kepanPanel .kb-tgl[data-tgl]');
+    if (!c) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    var id = c.getAttribute('data-tgl');
+    kbOpen[id] = c.classList.contains('open') ? 0 : 1;
+    buildTree();
+  }, true);
 
-  var panelBody = null;
   function onTreeClick(b) {
     if (!b) return;
     var n = ed.byId.get(+b.dataset.k);
@@ -506,34 +523,52 @@
     var cur2 = document.querySelector('#kepanPanel .kb-node.cur');
     if (cur2) cur2.scrollIntoView({ block: 'center' });
   }
+  var kbOpen = {};
+  var kbAll = null;   // null = 自動；true = 全開；false = 全收
+  function setAll(v) {
+    kbAll = v;
+    kbOpen = {};
+    buildTree();
+  }
+  document.getElementById('kbAllOpen').onclick = function (ev) { ev.stopPropagation(); setAll(true); };
+  document.getElementById('kbAllClose').onclick = function (ev) { ev.stopPropagation(); setAll(false); };
   function buildTree() {
     var cur = state.u == null ? (SEC_FIRST[sectionNow()] || 0) : state.u;
     var path = pathAt(posOf(cur, 0));
     var onPath = new Set(path.map(function (n) { return n.id; }));
     var body = document.getElementById('kbPanelBody');
     var rows = [];
+    var seen = {};
     function walk(ids, depth) {
       for (var i = 0; i < ids.length; i++) {
         var n = ed.byId.get(ids[i]);
-        if (!n) continue;
+        if (!n || seen[n.id]) continue;
+        seen[n.id] = 1;
         if (!n.nm && !n.lab) { if (n.ch && n.ch.length) walk(n.ch, depth + 1); continue; }
-        // 彩點不內縮（仿 accelon26 的目錄樹）：深度用色點表示，列高固定、不隨層級縮排
+        // 只做小幅度內縮（最多 10 層），高層級仍靠色點與序號辨識
         var cls = 'kb-node' + (n.nk ? ' nk' : '') + (onPath.has(n.id) ? ' cur' : '');
         var title = titleOf(n) || '（無名）';
         if (n.nk) title += '（總論，不對應經文）';
         // 與科文分頁共用同一個彩點列（app.js 的 window.ZHU_ZROW）
-        if (window.ZHU_ZROW) {
-          rows.push(window.ZHU_ZROW({
-            hue: hueOf(n.lv), label: ordOf(n), name: n.nm || '（無名）',
+        var hasKids = !!(n.ch && n.ch.length);
+        var explicit = kbOpen[n.id];
+        var auto = onPath.has(n.id) || n.lv <= 2;
+        var expand = hasKids && (kbAll === true ? true : kbAll === false ? false : (explicit === 1 || (explicit !== 0 && auto)));
+        var row = window.ZHU_ZROW ? window.ZHU_ZROW({
+            hue: rootHue(n), label: ordOf(n), name: n.nm || '（無名）',
             cls: cls, attrs: ' data-k="' + n.id + '"', title: title,
-          }));
-        } else {
-          rows.push('<button type="button" class="zrow ' + cls + '" data-k="' + n.id +
-            '" style="--zhue:' + hueOf(n.lv) + '"><span class="zdot"></span>' +
+          }) : ('<button type="button" class="zrow ' + cls + '" data-k="' + n.id +
+            '" style="--zhue:' + rootHue(n) + '"><span class="zdot"></span>' +
             '<span class="zlabel">' + esc(ordOf(n)) + '</span>' +
             '<span class="zname">' + esc(n.nm || '（無名）') + '</span></button>');
+        var indent = ' style="--kdepth:' + Math.min(depth, 10) + '"';
+        if (hasKids) {
+          rows.push('<div class="kb-row"' + indent + '><button type="button" class="kb-tgl' + (expand ? ' open' : '') +
+            '" data-tgl="' + n.id + '">' + (expand ? '▾' : '▸') + '</button>' + row + '</div>');
+        } else {
+          rows.push('<div class="kb-row"' + indent + '><span class="kb-tgl kb-tgl-leaf"></span>' + row + '</div>');
         }
-        if (n.ch && n.ch.length) walk(n.ch, depth + 1);
+        if (hasKids && expand) walk(n.ch, depth + 1);
       }
     }
     walk(ed.roots, 0);
@@ -587,9 +622,10 @@
     if (panel.contains(ev.target)) return;
     // 「目錄」按鈕不在 #kepanBar 裡（它搬到分導覽左邊），要一併排除，
     // 否則點它會先被這裡關掉、再被按鈕自己打開，看起來像關不起來。
-    // .kb-node 是目錄裡的一列：點下去會重畫目錄，舊的節點已經脫離 DOM，
-    // panel.contains() 就認不出來，會被誤判成「點到外面」而把面板關掉。
-    if (ev.target && ev.target.closest && ev.target.closest('#kepanBar, #kbTree, .kb-node')) return;
+    // .kb-node／.kb-tgl 是目錄裡的列與小三角：點下去會重畫目錄，舊的節點已經脫離 DOM，
+    // panel.contains() 就認不出來，會被誤判成「點到外面」而把面板關掉（看起來像閃退）。
+    if (ev.target && ev.target.closest && ev.target.closest('#kepanBar, #kbTree, .kb-node, .kb-tgl')) return;
+    if (ev.target && ev.target.isConnected === false) return;
     closeTree();
   }, true);
 
@@ -661,30 +697,31 @@
     if (path.length) {
       var last = path[path.length - 1];
       var r = clip(last, u, t.length);
-      if (r) ranges.push({ s: r[0], e: r[1], cur: true, hue: hueOf(last.lv) });
+      if (r) ranges.push({ s: r[0], e: r[1], cur: true, hue: rootHue(last) });
     }
 
     if (state.on && path.length && !ed.flat && !ed.noMarks) {
       var last2 = path[path.length - 1];
-      // 科判一開就把整棵樹的科文都標出來（不再分同層／全部）
-      var list = [];
-      (function walk(ids) {
-        ids.forEach(function (id) {
-          var n = ed.byId.get(id);
-          if (!n) return;
-          if (!n.nk) list.push(n);          // nk＝不連經文，自己不標，但子節要往下走
-          if (n.ch && n.ch.length) walk(n.ch);
-        });
-      })(ed.roots);
+      // 只標「目前路徑」上的節點。以前走整棵樹，遇到大量同 u 的節點
+      // （交光 PDF 在 u=3700 有幾百個）會把同一句塞滿重複的丙二、丁二…
+      var list = path.filter(function (n) { return n && !n.nk; });
       for (var i = 0; i < list.length; i++) {
         var n = list[i];
-        if (n.nk || n.u !== u) continue;
+        if (n.u !== u) continue;
         if (n.off < 0 || n.off > t.length) continue;
         marks.push({
-          pos: n.off, id: n.id, lv: n.lv, cur: n.id === (last2 && last2.id), hue: hueOf(n.lv),
+          pos: n.off, id: n.id, lv: n.lv, cur: n.id === (last2 && last2.id), hue: rootHue(n),
           ord: ordOf(n), name: shortOf(n), full: titleOf(n),
         });
       }
+      // 同一位置、同一序號只留一個（不同分支在 PDF 裡可能重複掛同一個 u）
+      var seenMark = {};
+      marks = marks.filter(function (m) {
+        var k = m.pos + '|' + m.ord;
+        if (seenMark[k]) return false;
+        seenMark[k] = 1;
+        return true;
+      });
     }
 
     // 同一位置會有好幾層（甲次→乙初→丙初 都從同一個字開始）：**全部留著**，
@@ -1022,3 +1059,7 @@
     tree: function () { openTree(); },
   };
 })();
+
+
+
+

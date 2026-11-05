@@ -868,3 +868,7 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
 .zrow.cur { background: var(--paper2, rgba(128, 100, 60, .12)); font-weight: 700; }
 body.dark .zrow .zdot { background: hsl(var(--zhue, 20) 62% 62%); }
 body.dark .zrow:hover { background: rgba(215, 168, 110, .1); }
+/* 辭典：條號選取（僅在 glossary.clauses 存在時出現） */
+.gp-clausebar { display: flex; align-items: center; gap: 8px; padding: 8px 0 2px; font-size: .84rem; color: var(--soft); }
+.gp-clausebar label { display: flex; align-items: center; gap: 6px; }
+.gp-clause { max-width: 15em; padding: 4px 8px; border: 1px solid var(--line); border-radius: 4px; background: var(--card); color: var(--ink); font: inherit; }
