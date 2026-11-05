@@ -1,0 +1,11 @@
+import fs from 'node:fs';
+const raw = ['001', '002'].map((v) => fs.readFileSync(`build/_xy/KR6c0075_${v}.txt`, 'utf8')).join('\n');
+const body = raw.replace(/^#.*$/gm, '').replace(/<pb:[^>]+>¶/g, '').replace(/¶/g, '\n');
+const re = /【([\s\S]*?)】|「([\s\S]*?)」/g;
+const blocks = [];
+let m;
+while ((m = re.exec(body))) blocks.push(m[1] != null ? { t: 'S', v: m[1].replace(/\s+/g, '') } : { t: 'J', v: m[2].replace(/\s+/g, '') });
+const sents = [];
+blocks.forEach((b) => { if (b.t === 'S') for (const s of b.v.split('。').map((x) => x.trim()).filter(Boolean)) sents.push(s); });
+const [a, b] = [Number(process.argv[2]), Number(process.argv[3])];
+for (let i = a; i < b && i < sents.length; i++) console.log(i, sents[i].slice(0, 40));

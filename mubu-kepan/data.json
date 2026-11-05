@@ -1,0 +1,889 @@
+{
+  "generatedAt": "2026-11-04T22:26:34.372Z",
+  "source": "mubu.com",
+  "catalogs": [
+    {
+      "id": "1eys4Vhta6b",
+      "title": "佛经科判资源列表",
+      "author": "败空破有",
+      "url": "https://mubu.com/explore/1eys4Vhta6b",
+      "nodes": 276,
+      "file": "catalogs/佛经科判资源列表.md"
+    },
+    {
+      "id": "4Q57srEo6b",
+      "title": "佛经整理目录--更新中",
+      "author": "败空破有",
+      "url": "https://mubu.com/explore/4Q57srEo6b",
+      "nodes": 264,
+      "file": "catalogs/佛经整理目录--更新中.md"
+    }
+  ],
+  "docs": [
+    {
+      "id": "uhrdY5VTZQ",
+      "kind": "explore",
+      "title": "《入行论释 · 善说海》大科判",
+      "author": "圆本",
+      "url": "https://mubu.com/explore/uhrdY5VTZQ",
+      "nodes": 3825,
+      "depth": 19,
+      "file": "docs/01-《入行论释 · 善说海》大科判.md",
+      "raw": "raw/explore-uhrdY5VTZQ.json",
+      "mirrors": []
+    },
+    {
+      "id": "cOs0qr8s2n",
+      "kind": "explore",
+      "title": "《入菩萨行论广解》科判 + 偈颂（隆莲法师 | 如石法师对照版）",
+      "author": "慈悲喜舍",
+      "url": "https://mubu.com/explore/cOs0qr8s2n",
+      "nodes": 3005,
+      "depth": 19,
+      "file": "docs/02-《入菩萨行论广解》科判 + 偈颂（隆莲法师 _ 如石法师对照版）.md",
+      "raw": "raw/explore-cOs0qr8s2n.json",
+      "mirrors": [
+        {
+          "id": "7agMTySBOl7",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/7agMTySBOl7"
+        }
+      ]
+    },
+    {
+      "id": "6hBfNBt_4b8",
+      "kind": "explore",
+      "title": "《中论广释讲记》科判—(大恩上师)",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/6hBfNBt_4b8",
+      "nodes": 870,
+      "depth": 20,
+      "file": "docs/03-《中论广释讲记》科判—(大恩上师).md",
+      "raw": "raw/explore-6hBfNBt_4b8.json",
+      "mirrors": []
+    },
+    {
+      "id": "2tZPGqwJcb8",
+      "kind": "explore",
+      "title": "《中论释》科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/2tZPGqwJcb8",
+      "nodes": 768,
+      "depth": 17,
+      "file": "docs/04-《中论释》科判.md",
+      "raw": "raw/explore-2tZPGqwJcb8.json",
+      "mirrors": []
+    },
+    {
+      "id": "1Us85FD-5KI",
+      "kind": "explore",
+      "title": "成佛之道的科判",
+      "author": "马梁瑞",
+      "url": "https://mubu.com/explore/1Us85FD-5KI",
+      "nodes": 617,
+      "depth": 12,
+      "file": "docs/05-成佛之道的科判.md",
+      "raw": "raw/explore-1Us85FD-5KI.json",
+      "mirrors": []
+    },
+    {
+      "id": "32gC9Kv8P2n",
+      "kind": "explore",
+      "title": "《亲友书释•明义论》科判",
+      "author": "慈悲喜舍",
+      "url": "https://mubu.com/explore/32gC9Kv8P2n",
+      "nodes": 594,
+      "depth": 8,
+      "file": "docs/06-《亲友书释•明义论》科判.md",
+      "raw": "raw/explore-32gC9Kv8P2n.json",
+      "mirrors": [
+        {
+          "id": "zYWpiz2KC7",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/zYWpiz2KC7"
+        }
+      ]
+    },
+    {
+      "id": "eSym7Z-Ddo",
+      "kind": "doc",
+      "title": "《亲友书》科判 & 上师讲记脉络",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/doc/eSym7Z-Ddo",
+      "nodes": 542,
+      "depth": 22,
+      "file": "docs/07-《亲友书》科判 & 上师讲记脉络.md",
+      "raw": "raw/doc-eSym7Z-Ddo.json",
+      "mirrors": []
+    },
+    {
+      "id": "4KHGw3xDIkW",
+      "kind": "explore",
+      "title": "入中论颂文科判",
+      "author": "本来如此",
+      "url": "https://mubu.com/explore/4KHGw3xDIkW",
+      "nodes": 495,
+      "depth": 24,
+      "file": "docs/08-入中论颂文科判.md",
+      "raw": "raw/explore-4KHGw3xDIkW.json",
+      "mirrors": [
+        {
+          "id": "ggqOBcEBg0",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/ggqOBcEBg0",
+          "nodes": 495
+        }
+      ]
+    },
+    {
+      "id": "54tN4XGV8DA",
+      "kind": "explore",
+      "title": "《大圆满心性休息》科判",
+      "author": "圆嘉嘉嘉",
+      "url": "https://mubu.com/explore/54tN4XGV8DA",
+      "nodes": 462,
+      "depth": 11,
+      "file": "docs/09-《大圆满心性休息》科判.md",
+      "raw": "raw/explore-54tN4XGV8DA.json",
+      "mirrors": [
+        {
+          "id": "hWiSDYKu10",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/hWiSDYKu10"
+        }
+      ]
+    },
+    {
+      "id": "6s0IfvzlLr8",
+      "kind": "explore",
+      "title": "《俱舍论》-科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/6s0IfvzlLr8",
+      "nodes": 442,
+      "depth": 15,
+      "file": "docs/10-《俱舍论》-科判.md",
+      "raw": "raw/explore-6s0IfvzlLr8.json",
+      "mirrors": []
+    },
+    {
+      "id": "OKIjBnE2w8",
+      "kind": "explore",
+      "title": "《中观总义》-科判&重点笔记",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/OKIjBnE2w8",
+      "nodes": 414,
+      "depth": 8,
+      "file": "docs/11-《中观总义》-科判&重点笔记.md",
+      "raw": "raw/explore-OKIjBnE2w8.json",
+      "mirrors": []
+    },
+    {
+      "id": "7tAFcEg11E",
+      "kind": "explore",
+      "title": "金刚经讲义科判",
+      "author": "大中",
+      "url": "https://mubu.com/explore/7tAFcEg11E",
+      "nodes": 348,
+      "depth": 17,
+      "file": "docs/12-金刚经讲义科判.md",
+      "raw": "raw/explore-7tAFcEg11E.json",
+      "mirrors": [
+        {
+          "id": "5GeaiCGP72U",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/5GeaiCGP72U"
+        }
+      ]
+    },
+    {
+      "id": "5WUorLk2dH8",
+      "kind": "explore",
+      "title": "《亲友书》科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/5WUorLk2dH8",
+      "nodes": 315,
+      "depth": 21,
+      "file": "docs/13-《亲友书》科判.md",
+      "raw": "raw/explore-5WUorLk2dH8.json",
+      "mirrors": []
+    },
+    {
+      "id": "cF5Ib51BF0",
+      "kind": "doc",
+      "title": "科判资源列表",
+      "author": "败空破有",
+      "url": "https://mubu.com/doc/cF5Ib51BF0",
+      "nodes": 304,
+      "depth": 4,
+      "file": "docs/14-科判资源列表.md",
+      "raw": "raw/doc-cF5Ib51BF0.json",
+      "mirrors": []
+    },
+    {
+      "id": "1eys4Vhta6b",
+      "kind": "explore",
+      "title": "佛经科判资源列表",
+      "author": "败空破有",
+      "url": "https://mubu.com/explore/1eys4Vhta6b",
+      "nodes": 276,
+      "depth": 2,
+      "file": "docs/15-佛经科判资源列表.md",
+      "raw": "raw/explore-1eys4Vhta6b.json",
+      "mirrors": []
+    },
+    {
+      "id": "39e6mY0KDD8",
+      "kind": "explore",
+      "title": "解深密经四品科判（By 赵国森）",
+      "author": "月是故乡明",
+      "url": "https://mubu.com/explore/39e6mY0KDD8",
+      "nodes": 274,
+      "depth": 7,
+      "file": "docs/16-解深密经四品科判（By 赵国森）.md",
+      "raw": "raw/explore-39e6mY0KDD8.json",
+      "mirrors": [
+        {
+          "id": "7NYpgQGH7T8",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/7NYpgQGH7T8"
+        }
+      ]
+    },
+    {
+      "id": "1UUdtyMwmX8",
+      "kind": "explore",
+      "title": "《大圆满前行引导文》－科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/1UUdtyMwmX8",
+      "nodes": 264,
+      "depth": 7,
+      "file": "docs/17-《大圆满前行引导文》－科判.md",
+      "raw": "raw/explore-1UUdtyMwmX8.json",
+      "mirrors": [
+        {
+          "id": "ajUsyDroLo",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/ajUsyDroLo"
+        }
+      ]
+    },
+    {
+      "id": "1g_wfMuzHR4",
+      "kind": "explore",
+      "title": "《大圆满前行》大科判",
+      "author": "圆本",
+      "url": "https://mubu.com/explore/1g_wfMuzHR4",
+      "nodes": 246,
+      "depth": 7,
+      "file": "docs/18-《大圆满前行》大科判.md",
+      "raw": "raw/explore-1g_wfMuzHR4.json",
+      "mirrors": [
+        {
+          "id": "ApqalcwwA",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/ApqalcwwA"
+        }
+      ]
+    },
+    {
+      "id": "4h91btg9Emo",
+      "kind": "explore",
+      "title": "《极乐愿文大疏》科判",
+      "author": "崔宇轩",
+      "url": "https://mubu.com/explore/4h91btg9Emo",
+      "nodes": 199,
+      "depth": 9,
+      "file": "docs/19-《极乐愿文大疏》科判.md",
+      "raw": "raw/explore-4h91btg9Emo.json",
+      "mirrors": []
+    },
+    {
+      "id": "2xYTRk1C0b0",
+      "kind": "explore",
+      "title": "金刚经科判",
+      "author": "",
+      "url": "https://mubu.com/explore/2xYTRk1C0b0",
+      "nodes": 187,
+      "depth": 7,
+      "file": "docs/20-金刚经科判.md",
+      "raw": "raw/explore-2xYTRk1C0b0.json",
+      "mirrors": []
+    },
+    {
+      "id": "WivoDS8kH8",
+      "kind": "explore",
+      "title": "《二规教言论》-科判（积聚圣天世德之宝）",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/WivoDS8kH8",
+      "nodes": 185,
+      "depth": 8,
+      "file": "docs/21-《二规教言论》-科判（积聚圣天世德之宝）.md",
+      "raw": "raw/explore-WivoDS8kH8.json",
+      "mirrors": [
+        {
+          "id": "yyEoDiTUno",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/yyEoDiTUno"
+        }
+      ]
+    },
+    {
+      "id": "o36ZmQPNqY",
+      "kind": "explore",
+      "title": "四分律科判",
+      "author": "慧命(仁弘)",
+      "url": "https://mubu.com/explore/o36ZmQPNqY",
+      "nodes": 165,
+      "depth": 10,
+      "file": "docs/22-四分律科判.md",
+      "raw": "raw/explore-o36ZmQPNqY.json",
+      "mirrors": []
+    },
+    {
+      "id": "2UQ9VMqjH8",
+      "kind": "explore",
+      "title": "《事师五十颂》—科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/2UQ9VMqjH8",
+      "nodes": 165,
+      "depth": 8,
+      "file": "docs/23-《事师五十颂》—科判.md",
+      "raw": "raw/explore-2UQ9VMqjH8.json",
+      "mirrors": [
+        {
+          "id": "48TiV21CYUE",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/48TiV21CYUE"
+        }
+      ]
+    },
+    {
+      "id": "2wmWkuj4r2n",
+      "kind": "explore",
+      "title": "妙法莲花经玄赞 观世音普门品（窥基大师科判）",
+      "author": "慈悲喜舍",
+      "url": "https://mubu.com/explore/2wmWkuj4r2n",
+      "nodes": 140,
+      "depth": 6,
+      "file": "docs/24-妙法莲花经玄赞 观世音普门品（窥基大师科判）.md",
+      "raw": "raw/explore-2wmWkuj4r2n.json",
+      "mirrors": [
+        {
+          "id": "o4Cbe-lJO7",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/o4Cbe-lJO7"
+        }
+      ]
+    },
+    {
+      "id": "7mHxk9KDfS4",
+      "kind": "explore",
+      "title": "《缘起赞》科判",
+      "author": "德钦拉姆",
+      "url": "https://mubu.com/explore/7mHxk9KDfS4",
+      "nodes": 128,
+      "depth": 9,
+      "file": "docs/25-《缘起赞》科判.md",
+      "raw": "raw/explore-7mHxk9KDfS4.json",
+      "mirrors": []
+    },
+    {
+      "id": "3YQgZa4y0H8",
+      "kind": "explore",
+      "title": "《佛子行三十七颂》--科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/3YQgZa4y0H8",
+      "nodes": 109,
+      "depth": 8,
+      "file": "docs/26-《佛子行三十七颂》--科判.md",
+      "raw": "raw/explore-3YQgZa4y0H8.json",
+      "mirrors": [
+        {
+          "id": "rEkQSE1z9o",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/rEkQSE1z9o"
+        }
+      ]
+    },
+    {
+      "id": "2pUZR0uN2g8",
+      "kind": "doc",
+      "title": "1、《中观根本慧论》全论总科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/doc/2pUZR0uN2g8",
+      "nodes": 74,
+      "depth": 8,
+      "file": "docs/27-1、《中观根本慧论》全论总科判.md",
+      "raw": "raw/doc-2pUZR0uN2g8.json",
+      "mirrors": []
+    },
+    {
+      "id": "3SyJ9L-yvr8",
+      "kind": "explore",
+      "title": "《修心七要》耳传略释——科判",
+      "author": "子茗（圓雲）",
+      "url": "https://mubu.com/explore/3SyJ9L-yvr8",
+      "nodes": 68,
+      "depth": 3,
+      "file": "docs/28-《修心七要》耳传略释——科判.md",
+      "raw": "raw/explore-3SyJ9L-yvr8.json",
+      "mirrors": [
+        {
+          "id": "4NcDA0S_ai8",
+          "kind": "doc",
+          "url": "https://mubu.com/doc/4NcDA0S_ai8"
+        }
+      ]
+    }
+  ],
+  "listEntries": [
+    {
+      "section": "《不动佛国经》",
+      "text": "格式：幕布https://share.mubu.com/doc/4ItfsDrfv9b",
+      "url": "https://share.mubu.com/doc/4ItfsDrfv9b",
+      "docId": "4ItfsDrfv9b",
+      "alive": false
+    },
+    {
+      "section": "★★★《大方等大集经贤护分》★★★",
+      "text": "格式：幕布https://share.mubu.com/doc/3C_EGr0ANLb",
+      "url": "https://share.mubu.com/doc/3C_EGr0ANLb",
+      "docId": "3C_EGr0ANLb",
+      "alive": false
+    },
+    {
+      "section": "★★★《佛说首楞严三昧经》★★★",
+      "text": "格式：幕布 https://www.mubu.com/doc/1W4v6eg7PdH",
+      "url": "https://www.mubu.com/doc/1W4v6eg7PdH",
+      "docId": "1W4v6eg7PdH",
+      "alive": false
+    },
+    {
+      "section": "★★★《佛说观佛三昧海经》★★★",
+      "text": "格式：幕布https://www.mubucm.com/doc/2b_n3Rebw0r",
+      "url": "https://www.mubucm.com/doc/2b_n3Rebw0r",
+      "docId": "2b_n3Rebw0r",
+      "alive": false
+    },
+    {
+      "section": "《大悲莲华经》",
+      "text": "格式：幕布https://share.mubu.com/doc/7VZHLqvU1Xr",
+      "url": "https://share.mubu.com/doc/7VZHLqvU1Xr",
+      "docId": "7VZHLqvU1Xr",
+      "alive": false
+    },
+    {
+      "section": "《虚空藏菩萨经》",
+      "text": "格式：幕布https://share.mubu.com/doc/whgZNOe6Xr",
+      "url": "https://share.mubu.com/doc/whgZNOe6Xr",
+      "docId": "whgZNOe6Xr",
+      "alive": false
+    },
+    {
+      "section": "《十法法门经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/1GkLgxrIZHr",
+      "url": "https://www.mubucm.com/doc/1GkLgxrIZHr",
+      "docId": "1GkLgxrIZHr",
+      "alive": false
+    },
+    {
+      "section": "《大菩萨藏经》",
+      "text": "格式：幕布https://share.mubu.com/doc/K9gSq5LSgr",
+      "url": "https://share.mubu.com/doc/K9gSq5LSgr",
+      "docId": "K9gSq5LSgr",
+      "alive": false
+    },
+    {
+      "section": "《陀罗尼自在王菩萨经》",
+      "text": "格式：幕布https://share.mubu.com/doc/cxG0-bx4V0",
+      "url": "https://share.mubu.com/doc/cxG0-bx4V0",
+      "docId": "cxG0-bx4V0",
+      "alive": false
+    },
+    {
+      "section": "《除盖障菩萨所问经》",
+      "text": "格式：幕布https://share.mubu.com/doc/479O9CwGw3r",
+      "url": "https://share.mubu.com/doc/479O9CwGw3r",
+      "docId": "479O9CwGw3r",
+      "alive": false
+    },
+    {
+      "section": "《佛说如来不思议秘密大乘经》",
+      "text": "格式：幕布https://share.mubu.com/doc/4LXGGJeP5Lb",
+      "url": "https://share.mubu.com/doc/4LXGGJeP5Lb",
+      "docId": "4LXGGJeP5Lb",
+      "alive": false
+    },
+    {
+      "section": "《金光明最胜王经》",
+      "text": "格式：幕布https://share.mubu.com/doc/5OBnzUYqzlr",
+      "url": "https://share.mubu.com/doc/5OBnzUYqzlr",
+      "docId": "5OBnzUYqzlr",
+      "alive": false
+    },
+    {
+      "section": "《大集经-宝幢分》",
+      "text": "格式：幕布https://share.mubu.com/doc/70w2rbi1TXr",
+      "url": "https://share.mubu.com/doc/70w2rbi1TXr",
+      "docId": "70w2rbi1TXr",
+      "alive": false
+    },
+    {
+      "section": "《大集经-虚空目分》",
+      "text": "格式：幕布https://share.mubu.com/doc/nvGq9MD5br",
+      "url": "https://share.mubu.com/doc/nvGq9MD5br",
+      "docId": "nvGq9MD5br",
+      "alive": false
+    },
+    {
+      "section": "《大集经-日藏分》",
+      "text": "格式：幕布https://share.mubu.com/doc/6trgo7MUCXr",
+      "url": "https://share.mubu.com/doc/6trgo7MUCXr",
+      "docId": "6trgo7MUCXr",
+      "alive": false
+    },
+    {
+      "section": "《大集经-月藏分》",
+      "text": "格式：幕布https://share.mubu.com/doc/4H544AbOSXr",
+      "url": "https://share.mubu.com/doc/4H544AbOSXr",
+      "docId": "4H544AbOSXr",
+      "alive": false
+    },
+    {
+      "section": "《大集经-地藏分》",
+      "text": "格式：幕布https://share.mubu.com/doc/7WdZZLeC8Rr",
+      "url": "https://share.mubu.com/doc/7WdZZLeC8Rr",
+      "docId": "7WdZZLeC8Rr",
+      "alive": false
+    },
+    {
+      "section": "《大集经-须弥藏分》",
+      "text": "格式：幕布https://share.mubu.com/doc/4B4Nk33CaHr",
+      "url": "https://share.mubu.com/doc/4B4Nk33CaHr",
+      "docId": "4B4Nk33CaHr",
+      "alive": false
+    },
+    {
+      "section": "《大集经-虚空藏分》",
+      "text": "格式：幕布https://share.mubu.com/doc/B0nOYOnl-0",
+      "url": "https://share.mubu.com/doc/B0nOYOnl-0",
+      "docId": "B0nOYOnl-0",
+      "alive": false
+    },
+    {
+      "section": "《大集经-海慧分》",
+      "text": "格式：幕布https://share.mubu.com/doc/2r9A2FedaXr",
+      "url": "https://share.mubu.com/doc/2r9A2FedaXr",
+      "docId": "2r9A2FedaXr",
+      "alive": false
+    },
+    {
+      "section": "《大集经-无尽意分》",
+      "text": "格式：幕布https://share.mubu.com/doc/0fk_kaogG_q",
+      "url": "https://share.mubu.com/doc/0fk_kaogG_q",
+      "docId": "0fk_kaogG_q",
+      "alive": false
+    },
+    {
+      "section": "《大集经-宝髻分》",
+      "text": "格式：幕布https://www.mubucm.com/doc/1v9tdecvDHr",
+      "url": "https://www.mubucm.com/doc/1v9tdecvDHr",
+      "docId": "1v9tdecvDHr",
+      "alive": false
+    },
+    {
+      "section": "《菩萨见实三昧经》",
+      "text": "格式：幕布https://share.mubu.com/doc/1srQHW_9YAr",
+      "url": "https://share.mubu.com/doc/1srQHW_9YAr",
+      "docId": "1srQHW_9YAr",
+      "alive": false
+    },
+    {
+      "section": "《月灯三昧经》",
+      "text": "格式：幕布https://share.mubu.com/doc/3X7aUw6bCQr",
+      "url": "https://share.mubu.com/doc/3X7aUw6bCQr",
+      "docId": "3X7aUw6bCQr",
+      "alive": false
+    },
+    {
+      "section": "《广博严净不退转轮经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/5kznIhwzgPr",
+      "url": "https://www.mubucm.com/doc/5kznIhwzgPr",
+      "docId": "5kznIhwzgPr",
+      "alive": false
+    },
+    {
+      "section": "《大乘造像功德经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/12fHuBNFx9r",
+      "url": "https://www.mubucm.com/doc/12fHuBNFx9r",
+      "docId": "12fHuBNFx9r",
+      "alive": false
+    },
+    {
+      "section": "《遗教经论》",
+      "text": "格式：幕布https://share.mubu.com/doc/6P5CR8ZBJlH",
+      "url": "https://share.mubu.com/doc/6P5CR8ZBJlH",
+      "docId": "6P5CR8ZBJlH",
+      "alive": false
+    },
+    {
+      "section": "★★★《瑜伽师地论》★★★",
+      "text": "格式：xmind。幕布https://share.mubu.com/doc/6rN4bOXRgJb",
+      "url": "https://share.mubu.com/doc/6rN4bOXRgJb",
+      "docId": "6rN4bOXRgJb",
+      "alive": false
+    },
+    {
+      "section": "《摄大乘论》",
+      "text": "格式：xmind，幕布 https://mubu.com/doc/6kRygyW3lg",
+      "url": "https://mubu.com/doc/6kRygyW3lg",
+      "docId": "6kRygyW3lg",
+      "alive": false
+    },
+    {
+      "section": "《大乘阿毗达摩杂集论》",
+      "text": "格式：幕布 https://mubu.com/doc/49l8B-ZLd3b",
+      "url": "https://mubu.com/doc/49l8B-ZLd3b",
+      "docId": "49l8B-ZLd3b",
+      "alive": false
+    },
+    {
+      "section": "《成唯识论》",
+      "text": "格式：xmind、幕布 https://mubu.com/doc/rqTy2Vzzl0",
+      "url": "https://mubu.com/doc/rqTy2Vzzl0",
+      "docId": "rqTy2Vzzl0",
+      "alive": false
+    },
+    {
+      "section": "《显扬圣教论》",
+      "text": "格式：幕布 https://mubu.com/doc/5Gv4u6dtwvX",
+      "url": "https://mubu.com/doc/5Gv4u6dtwvX",
+      "docId": "5Gv4u6dtwvX",
+      "alive": false
+    },
+    {
+      "section": "《大乘庄严经论颂》",
+      "text": "格式：幕布 https://mubu.com/doc/tGKD5Nrsg0",
+      "url": "https://mubu.com/doc/tGKD5Nrsg0",
+      "docId": "tGKD5Nrsg0",
+      "alive": false
+    },
+    {
+      "section": "《辨中边论颂-科释》",
+      "text": "格式：幕布 https://mubu.com/doc/aPbSE2D8x0",
+      "url": "https://mubu.com/doc/aPbSE2D8x0",
+      "docId": "aPbSE2D8x0",
+      "alive": false
+    },
+    {
+      "section": "《大乘百法明门论》",
+      "text": "格式：幕布https://mubu.com/doc/3k1ubSPV9fX",
+      "url": "https://mubu.com/doc/3k1ubSPV9fX",
+      "docId": "3k1ubSPV9fX",
+      "alive": false
+    },
+    {
+      "section": "《大乘五蕴论》",
+      "text": "格式：幕布 https://mubu.com/doc/6om06gK4nlH",
+      "url": "https://mubu.com/doc/6om06gK4nlH",
+      "docId": "6om06gK4nlH",
+      "alive": false
+    },
+    {
+      "section": "《唯识二十论》",
+      "text": "格式：幕布https://mubu.com/doc/7btlBEbMxEb",
+      "url": "https://mubu.com/doc/7btlBEbMxEb",
+      "docId": "7btlBEbMxEb",
+      "alive": false
+    },
+    {
+      "section": "《楞伽经》",
+      "text": "格式：幕布 https://mubu.com/doc/kmXmwzqWR0",
+      "url": "https://mubu.com/doc/kmXmwzqWR0",
+      "docId": "kmXmwzqWR0",
+      "alive": false
+    },
+    {
+      "section": "《解深密经》",
+      "text": "格式：幕布 https://mubu.com/doc/g5CLAsNfl0",
+      "url": "https://mubu.com/doc/g5CLAsNfl0",
+      "docId": "g5CLAsNfl0",
+      "alive": false
+    },
+    {
+      "section": "《瑜伽菩萨戒》",
+      "text": "格式：幕布https://mubu.com/doc/2KOGBP1qQCX",
+      "url": "https://mubu.com/doc/2KOGBP1qQCX",
+      "docId": "2KOGBP1qQCX",
+      "alive": false
+    },
+    {
+      "section": "《大乘法苑义林章》",
+      "text": "格式：幕布https://share.mubu.com/doc/3FJQbmj3CCH",
+      "url": "https://share.mubu.com/doc/3FJQbmj3CCH",
+      "docId": "3FJQbmj3CCH",
+      "alive": false
+    },
+    {
+      "section": "★★★《大智度论》★★★",
+      "text": "格式：幕布 https://mubu.com/doc/sKkZMiBvF0",
+      "url": "https://mubu.com/doc/sKkZMiBvF0",
+      "docId": "sKkZMiBvF0",
+      "alive": false
+    },
+    {
+      "section": "《现观庄严论》",
+      "text": "格式：幕布 https://mubu.com/doc/svpNCiyCX0",
+      "url": "https://mubu.com/doc/svpNCiyCX0",
+      "docId": "svpNCiyCX0",
+      "alive": false
+    },
+    {
+      "section": "《现观庄严论》与《摩诃般若波罗蜜经》对照本",
+      "text": "格式：幕布 https://mubu.com/doc/y7kP1nHv80",
+      "url": "https://mubu.com/doc/y7kP1nHv80",
+      "docId": "y7kP1nHv80",
+      "alive": false
+    },
+    {
+      "section": "《中论》",
+      "text": "格式：幕布 https://mubu.com/doc/qTIy5mI-V0",
+      "url": "https://mubu.com/doc/qTIy5mI-V0",
+      "docId": "qTIy5mI-V0",
+      "alive": false
+    },
+    {
+      "section": "《精研论》",
+      "text": "格式：幕布 https://mubu.com/doc/808e6gLlG0",
+      "url": "https://mubu.com/doc/808e6gLlG0",
+      "docId": "808e6gLlG0",
+      "alive": false
+    },
+    {
+      "section": "《迴諍论》",
+      "text": "格式：幕布 https://mubu.com/doc/h_DuRIgRG0",
+      "url": "https://mubu.com/doc/h_DuRIgRG0",
+      "docId": "h_DuRIgRG0",
+      "alive": false
+    },
+    {
+      "section": "《七十空性论》",
+      "text": "格式：幕布 https://mubu.com/doc/Cy7Luk_xY0",
+      "url": "https://mubu.com/doc/Cy7Luk_xY0",
+      "docId": "Cy7Luk_xY0",
+      "alive": false
+    },
+    {
+      "section": "《六十正理论》",
+      "text": "格式：幕布 https://mubu.com/doc/oGg3SVfgg0",
+      "url": "https://mubu.com/doc/oGg3SVfgg0",
+      "docId": "oGg3SVfgg0",
+      "alive": false
+    },
+    {
+      "section": "《中观宝鬘论颂》",
+      "text": "格式：幕布 https://mubu.com/doc/8AnrEzf9X0",
+      "url": "https://mubu.com/doc/8AnrEzf9X0",
+      "docId": "8AnrEzf9X0",
+      "alive": false
+    },
+    {
+      "section": "《大方广如来藏经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/wATo7muMO0",
+      "url": "https://www.mubucm.com/doc/wATo7muMO0",
+      "docId": "wATo7muMO0",
+      "alive": false
+    },
+    {
+      "section": "《佛说不增不减经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/2FCrOOLLEPr",
+      "url": "https://www.mubucm.com/doc/2FCrOOLLEPr",
+      "docId": "2FCrOOLLEPr",
+      "alive": false
+    },
+    {
+      "section": "《佛说无上依经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/7N4uDXYdk3r",
+      "url": "https://www.mubucm.com/doc/7N4uDXYdk3r",
+      "docId": "7N4uDXYdk3r",
+      "alive": false
+    },
+    {
+      "section": "《法华经》",
+      "text": "格式：xmind、幕布https://mubu.com/doc/mqpxx5umX0",
+      "url": "https://mubu.com/doc/mqpxx5umX0",
+      "docId": "mqpxx5umX0",
+      "alive": false
+    },
+    {
+      "section": "★★★《占察善恶业报经》★★★",
+      "text": "格式：xmind、幕布 https://mubu.com/doc/890EL0aq30",
+      "url": "https://mubu.com/doc/890EL0aq30",
+      "docId": "890EL0aq30",
+      "alive": false
+    },
+    {
+      "section": "《十地经论》",
+      "text": "格式：幕布https://mubu.com/doc/MeggcpP2wH",
+      "url": "https://mubu.com/doc/MeggcpP2wH",
+      "docId": "MeggcpP2wH",
+      "alive": false
+    },
+    {
+      "section": "《大乘起信论》",
+      "text": "格式：xmind、幕布 https://mubu.com/doc/mZYaspo8x0",
+      "url": "https://mubu.com/doc/mZYaspo8x0",
+      "docId": "mZYaspo8x0",
+      "alive": false
+    },
+    {
+      "section": "《佛地经论》",
+      "text": "格式：幕布https://mubu.com/doc/2ll0usf2D4b",
+      "url": "https://mubu.com/doc/2ll0usf2D4b",
+      "docId": "2ll0usf2D4b",
+      "alive": false
+    },
+    {
+      "section": "《大乘法界无差别论》",
+      "text": "格式：https://mubu.com/doc/AIeSnBG02H",
+      "url": "https://mubu.com/doc/AIeSnBG02H",
+      "docId": "AIeSnBG02H",
+      "alive": false
+    },
+    {
+      "section": "《大乘无上续论》",
+      "text": "格式：幕布 https://mubu.com/doc/ht9ZgIcRv0",
+      "url": "https://mubu.com/doc/ht9ZgIcRv0",
+      "docId": "ht9ZgIcRv0",
+      "alive": false
+    },
+    {
+      "section": "《佛性论》",
+      "text": "格式：幕布https://mubu.com/doc/71DsFH73bib",
+      "url": "https://mubu.com/doc/71DsFH73bib",
+      "docId": "71DsFH73bib",
+      "alive": false
+    },
+    {
+      "section": "《辨法法性论颂》",
+      "text": "格式：幕布 https://mubu.com/doc/gHDF3-H8x0",
+      "url": "https://mubu.com/doc/gHDF3-H8x0",
+      "docId": "gHDF3-H8x0",
+      "alive": false
+    },
+    {
+      "section": "《正法念处经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/1b3Jto_OwFb",
+      "url": "https://www.mubucm.com/doc/1b3Jto_OwFb",
+      "docId": "1b3Jto_OwFb",
+      "alive": false
+    },
+    {
+      "section": "《梵网六十二见经》",
+      "text": "格式：幕布https://www.mubucm.com/doc/21Y0ybwyQYX",
+      "url": "https://www.mubucm.com/doc/21Y0ybwyQYX",
+      "docId": "21Y0ybwyQYX",
+      "alive": false
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+import fs from 'node:fs';
+const ROOT = 'D:\\2026\\vcpp';
+const code = fs.readFileSync('lossless.js', 'utf8');
+const win = {};
+new Function('window', `${code};return window.LOSSLESS;`)(win);
+const canon = win.LOSSLESS.canon;
+const norm2 = (s) => canon(s);
+const D = JSON.parse(fs.readFileSync(ROOT + '\\zhu-data.js', 'utf8').replace(/^window\.ZHU=/, '').replace(/;\s*$/, ''));
+const units = D.versions[0].sents.map((s) => s.t);
+let T = '';
+units.forEach((t) => { for (const ch of t) if (/[\u3400-\u9fff]/.test(ch)) T += norm2(ch); });
+
+const raw = ['001', '002'].map((v) => fs.readFileSync(`build/_xy/KR6c0075_${v}.txt`, 'utf8')).join('\n');
+const body = raw.replace(/^#.*$/gm, '').replace(/<pb:[^>]+>¶/g, '').replace(/¶/g, '\n');
+const re = /【([\s\S]*?)】|「([\s\S]*?)」/g;
+const blocks = [];
+let m;
+while ((m = re.exec(body))) blocks.push(m[1] != null ? { t: 'S', v: m[1].replace(/\s+/g, '') } : { t: 'J', v: m[2].replace(/\s+/g, '') });
+console.log('blocks', blocks.length, 'T', T.length);
+console.log('first J at block', blocks.findIndex((b) => b.t === 'J'));
+const j = blocks.find((b) => b.t === 'J');
+console.log('first J text', j.v.slice(0, 30), '→ norm', norm2(j.v).slice(0, 30));
+const q = norm2(j.v);
+console.log('indexOf 8', T.indexOf(q.slice(0, 8)));
+console.log('T head', T.slice(0, 30));
