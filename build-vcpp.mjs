@@ -73,7 +73,7 @@ const b64 = gz.toString('base64');
 
 let out = html;
 out = out.replace('<link rel="stylesheet" href="style.css">', '<style>\n' + css + '\n</style>');
-out = out.replace(/<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/, '');
+out = out.replace(/<script src="mantra\/mantra-data\.js"><\/script>\s*<script src="src\/mantra\/mantra\.js"><\/script>\s*<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/, '');
 if (META_TITLE) out = out.replace(/<title>[^<]*<\/title>/, '<title>' + META_TITLE + '</title>');
 // 外殼先顯示正確書名（資料還沒到時標題列就不是「經注閱讀器」）
 if (META_TITLE) out = out.replace('<h1>經注閱讀器</h1>', '<h1>' + META_TITLE + '</h1>');
@@ -102,3 +102,5 @@ if (bytes > MAX_MB * 1024 * 1024) {
   console.error('✗ 超過 ' + MAX_MB + ' MiB，請降低 --limit 或用 --max 放寬');
   process.exit(1);
 }
+
+

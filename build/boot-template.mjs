@@ -14,7 +14,7 @@
 
 const safe = (s) => String(s == null ? '' : s).replace(/<\/script/gi, '<\\/script');
 
-export function renderBoot({ gunzip, lossless, app, tour, kepanJs }) {
+export function renderBoot({ gunzip, lossless, app, tour, kepanJs, mantraJs }) {
   return `
 <script>
 ${safe(gunzip)}
@@ -24,6 +24,7 @@ ${safe(tour)}
 ${safe(app)}
 }
 ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
+${mantraJs ? 'function __startMantra(){\n' + safe(mantraJs) + '\n}' : ''}
 (function () {
   var el = document.getElementById('zhu-b64');
   if (!el) return;
@@ -90,11 +91,16 @@ ${kepanJs ? 'function __startKepan(){\n' + safe(kepanJs) + '\n}' : ''}
     phase('start');
     paint(96, '準備畫面…');
     var pack = JSON.parse(text);
-    if (pack && pack.zhu && pack.kepan !== undefined && typeof __startKepan === 'function') {
+    if (pack && pack.zhu) {
       window.ZHU = pack.zhu;
-      window.KEPAN = pack.kepan;
+      if (pack.kepan !== undefined) window.KEPAN = pack.kepan;
+      if (pack.mantra) window.MANTRA = pack.mantra;
     } else {
       window.ZHU = pack;
+    }
+    // 咒語介面要在 app 的 buildTabs() 之前就緒（它讀 window.MANTRA）
+    if (typeof __startMantra === 'function') {
+      try { __startMantra(); } catch (e) { console.error('咒語介面載入失敗', e); }
     }
     __startApp();
     if (typeof __startKepan === 'function') {

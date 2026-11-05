@@ -43,6 +43,9 @@ const html = read('index.html');
 const css = read('style.css');
 const kepanCss = read('src/kepan/kepan.css');
 const kepanJs = read('src/kepan/kepan.js');
+// 咒語分頁（可選）：介面在閱讀器，資料在工作區
+const mantraCss = read('src/mantra/mantra.css');
+const mantraJs = read('src/mantra/mantra.js');
 const tourFile = path.join(CONTENT, 'tour.js');
 const tour = fs.existsSync(tourFile) ? fs.readFileSync(tourFile, 'utf8') : '';
 const lossless = read('lossless.js');
@@ -133,8 +136,8 @@ const app = patchApp(read('app.js'));
 /**
  * 單檔的 head：換標題、補 description 與 og（孵化區規定要寫；index.html 不動）。
  */
+const TITLE = opt('title', '') || '經注閱讀器 · 科文版';
 function patchHead(src) {
-  const TITLE = opt('title', '') || '經注閱讀器 · 科文版';
   const DESC = opt('desc', '') || '經注對讀：分章、別譯、注疏、梵藏逐詞與科判。純靜態單頁。';
   const tags = [
     '<meta name="description" content="' + DESC + '">',
@@ -184,15 +187,24 @@ if (fs.existsSync(glossPath)) {
   try { D.glossary = JSON.parse(fs.readFileSync(glossPath, 'utf8')); console.log('辭典 ' + (D.glossary.entries || []).length + ' 條'); }
   catch (e) { console.warn('glossary.json 解析失敗，略過：' + e.message); }
 }
-const payload = JSON.stringify({ zhu: D, kepan: KP });
+// 咒語資料（可選）：<工作區>/mantra/mantra-data.js（window.MANTRA）
+const MANTRA_PATH = path.resolve(CONTENT, opt('mantra', path.join('mantra', 'mantra-data.js')));
+let MT = null;
+if (fs.existsSync(MANTRA_PATH)) {
+  try {
+    MT = JSON.parse(fs.readFileSync(MANTRA_PATH, 'utf8').replace(/^window\.MANTRA\s*=\s*/, '').replace(/;\s*$/, ''));
+    console.log('咒語 ' + ((MT.units || []).length) + ' unit（' + (MT.coverage && MT.coverage.note ? MT.coverage.note : '') + '）');
+  } catch (e) { console.warn('mantra-data.js 解析失敗，略過：' + e.message); }
+}
+const payload = JSON.stringify(MT ? { zhu: D, kepan: KP, mantra: MT } : { zhu: D, kepan: KP });
 const gz = zlib.gzipSync(Buffer.from(payload, 'utf8'), { level: 9 });
 const b64 = gz.toString('base64');
 
 let out = html;
 out = out.replace('<link rel="stylesheet" href="style.css">',
-  '<style>\n' + css + '\n</style>\n<style>\n' + kepanCss + '\n</style>');
+  '<style>\n' + css + '\n</style>\n<style>\n' + kepanCss + '\n</style>\n<style>\n' + mantraCss + '\n</style>');
 out = out.replace(
-  /<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/,
+  /<script src="mantra\/mantra-data\.js"><\/script>\s*<script src="src\/mantra\/mantra\.js"><\/script>\s*<script src="lossless\.js"><\/script>\s*<script src="zhu-data\.js"><\/script>\s*<script src="app\.js"><\/script>\s*<script src="tour\.js"><\/script>/,
   '');
 out = patchHead(out);   // 標題、description、og（孵化區規定）
 // 外殼先顯示正確書名（資料還沒到時標題列就不是「經注閱讀器」）
@@ -201,7 +213,9 @@ out = out.replace('<h1>經注閱讀器</h1>', '<h1>' + (opt('title', '') || '經
 const earlyMove = `
 <script>
 (function () {
-  document.body.classList.add('kb-layer');
+  // kepan=off 時不掛 kb-layer：那一層的 CSS 會把「分」下拉與經文裡的 chapter-nav 收起來，
+  // 但 off 模式根本沒有科判介面可替代，收起來就兩邊都沒了。
+  if (!/[?&]kepan=off(&|#|$)/.test(location.search)) document.body.classList.add('kb-layer');
   var top = document.getElementById('top');
   if (!top) return;
   var box = top.querySelector('.kb-utils');
@@ -222,7 +236,7 @@ const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
 // PWA 產物（manifest／sw.js／圖示）
 const pwa = writePWA({ outFile: OUT, title: META_TITLE || TITLE, sub: META_SUB || '', startUrl: opt('start', '') });
 out = out.replace('</head>', '<link rel="manifest" href="' + pwa.manifestName + '">\n</head>');
-const boot = renderBoot({ gunzip: gunzip, lossless: lossless, app: app, tour: tour, kepanJs: kepanJs });
+const boot = renderBoot({ gunzip: gunzip, lossless: lossless, app: app, tour: tour, kepanJs: kepanJs, mantraJs: mantraJs });
 
 out = out.replace('</body>', EARLY_TICK + dataTag + boot + '\n</body>');
 

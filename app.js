@@ -192,7 +192,7 @@
       const sel = state.u === s.u;
       let pg = '';
       if (s.p && s.p !== curPage) { curPage = s.p; pg = '<span class="pg" title="大正/卍續頁碼">' + esc(s.p) + '</span>'; }
-      const n = unitCount(s.u);
+      const n = (D.meta && D.meta.hideBadge) ? 0 : unitCount(s.u);
       html += '<span class="sent' + (sel ? ' sel' : '') + '" data-u="' + s.u + '" data-p="' + esc(s.p) + '">' + pg +
         esc(s.t.replace(/[「『]$/, '')) + (n ? '<sup class="badge" title="' + n + ' 家注疏">' + n + '</sup>' : '') + '</span>';
       // 點句：句下就地展開梵藏，再一行按鈕決定要不要開面板（手機／平板）
@@ -214,6 +214,7 @@
       '<button class="act-main" data-open="works">注疏' + (n ? '<b>' + n + ' 家</b>' : '') + ' ›</button>' +
       '<button data-open="alt">別譯</button>' +
       (hasSa ? '<button data-open="phrase">詞組</button>' : '') +
+      (window.MANTRA_UI && window.MANTRA_UI.byU.has(u) ? '<button class="mt-link" data-mantra="' + u + '" title="這一句有咒語詞級資料">咒</button>' : '') +
       '</div>';
   }
   /* ---------- 注疏：一排作者名按鈕，點誰展開誰 ---------- */
@@ -227,6 +228,7 @@
     else if (state.tab === 'ke') renderKe(u);
     else if (state.tab === 'gloss') { if (GLOSS) GLOSS.mount(document.getElementById('cards')); }
     else if (state.tab === 'phrase') renderPhrase(u);
+    else if (state.tab === 'mantra' && window.MANTRA_UI) window.MANTRA_UI.render({ keepFocus: true });
     else renderCards(u);
     // 重繪後記下原始 HTML，hover 高亮才有東西可還原
     document.querySelectorAll('.sent.sel,.pv-t').forEach((el) => { el.dataset.base = el.innerHTML; });
@@ -861,8 +863,8 @@
     }
     const p = nav.querySelector('.sn-prev');
     const n = nav.querySelector('.sn-next');
-    if (p && prev) p.addEventListener('click', function () { selectUnit(prev.u); keepSheetVisible(); });
-    if (n && next) n.addEventListener('click', function () { selectUnit(next.u); keepSheetVisible(); });
+    if (p && prev) p.addEventListener('click', function () { selectUnit(prev.u, { keepPos: true }); if (!isOverlay()) keepSheetVisible(); });
+    if (n && next) n.addEventListener('click', function () { selectUnit(next.u, { keepPos: true }); if (!isOverlay()) keepSheetVisible(); });
 
   }
 
@@ -906,10 +908,21 @@
     state.u = u;
     if (!state.showNotes) { state.showNotes = true; applyView(); }
     const overlay = isOverlay();
-    if (overlay) $('#sheet').classList.add('closed');
+    // 從面板自己的「‹ ›」換句（keepPos）時不要關面板再開——那會閃一下。
+    const keepSheet = !!(opts && opts.keepPos) && overlay;
+    if (overlay && !keepSheet) $('#sheet').classList.add('closed');
+    // 句下「‹ ›」換句時 keepPos：桌面上不重新置中，只有跑出畫面才補最小捲動量。
+    // （手機走 overlay 分支，本來就有自己的最小捲動，不套這裡。）
+    const anchorEl = (opts && opts.keepPos && !overlay) ? document.querySelector('.sent[data-u="' + u + '"]') : null;
+    const anchorTop = anchorEl ? anchorEl.getBoundingClientRect().top : null;
     const sy = window.scrollY;
     renderReader();
-    if (overlay) {
+    if (keepSheet) {
+      // 面板本來就開著：直接換內容，不經 close→open
+      renderSheet(u);
+      const panel = document.querySelector('#sheet .panel');
+      if (panel) panel.scrollTop = 0;
+    } else if (overlay) {
       // 手機：梵文展開後若超出畫面，才補最小的捲動量把句子＋梵文＋按鈕整段帶進來
       const el = document.querySelector('.sent[data-u="' + u + '"]');
       const bar = document.querySelector('.actbar[data-u="' + u + '"]');
@@ -933,6 +946,22 @@
     if (!overlay && (!opts || opts.scroll)) {
       const el = document.querySelector('.sent[data-u="' + u + '"]');
       if (el) { const r = el.getBoundingClientRect(); window.scrollTo({ top: Math.max(0, window.scrollY + r.top - window.innerHeight / 2), behavior: 'auto' }); }
+    }
+    // 咒語頁跳過來時，閃一下對應的字元範圍（char 是原句 offset，缺了就只選句）
+    if (opts && opts.hl && window.MANTRA_UI && window.MANTRA_UI.flashRange) {
+      setTimeout(function () { window.MANTRA_UI.flashRange(u, opts.hl[0], opts.hl[1]); }, 0);
+    }
+    // keepPos：換句不重新置中。只有這句話真的跑出畫面（標題列以下／底部以上）
+    // 才補「最小」捲動量；還在畫面裡就完全不動，免得每按一次整頁跳一下。
+    if (anchorTop != null) {
+      const now = document.querySelector('.sent[data-u="' + u + '"]');
+      if (now) {
+        const r = now.getBoundingClientRect();
+        const topEl = document.getElementById('top');
+        const head = (topEl ? topEl.getBoundingClientRect().height : 0) + 12;
+        if (r.top < head) window.scrollTo(0, window.scrollY + r.top - head);
+        else if (r.bottom > window.innerHeight - 12) window.scrollTo(0, window.scrollY + r.bottom - window.innerHeight + 12);
+      }
     }
   }
 
@@ -969,6 +998,7 @@
       ['alt', '別譯', (D.versions || []).length > 1 || !!D.english],
       ['gloss', '辭典', !!(D.glossary && D.glossary.entries && D.glossary.entries.length)],
       ['phrase', '詞組', (D.pdf || []).length > 0],
+      ['mantra', '咒語', !!(window.MANTRA && window.MANTRA.units && window.MANTRA.units.length)],
     ].filter(function (x) { return x[2]; });
     const cur = state.tab || 'works';
     box.innerHTML = defs.map(function (x) {
@@ -994,6 +1024,23 @@
     if (state.u != null) renderSheet(state.u);
     else { buildTabs(); GLOSS.mount(document.getElementById('cards')); }
     setTimeout(function () { GLOSS.focus(); }, 120);
+  }
+
+  /** 咒語頁：不依賴 state.u（沒選句也能開）；帶 u 就自動切到該 unit 並閃一下 */
+  function openMantra(opts) {
+    const UI = window.MANTRA_UI;
+    if (!UI || !UI.has) return;
+    const o = opts || {};
+    state.tab = 'mantra';
+    setTab('mantra');
+    const sheet = document.getElementById('sheet');
+    if (sheet) sheet.classList.remove('closed');
+    const oldNav = document.querySelector('#sheet .sheet-nav');
+    if (oldNav && oldNav.parentNode) oldNav.parentNode.removeChild(oldNav);
+    if (o.u != null && !UI.byU.has(o.u)) wxToast('這一句尚無詞級資料，先開第一會');
+    UI.render(o.u != null && UI.byU.has(o.u) ? { focusU: o.u } : {});
+    const panel = document.querySelector('#sheet .panel');
+    if (panel) panel.scrollTop = 0;
   }
 
   function setTab(t) {
@@ -1238,13 +1285,17 @@
 
     $('#reader').addEventListener('click', (e) => {
       const b = e.target.closest('button[data-goto]');
-      if (b) setSection(+b.dataset.goto);
+      if (b) { setSection(+b.dataset.goto); return; }
+      const m = e.target.closest('button[data-mantra]');
+      if (m) { openMantra({ u: +m.dataset.mantra }); return; }
     });
     $('#close').addEventListener('click', closeSheet);
     $('#sheet').addEventListener('click', (e) => { if (e.target.matches('[data-close]')) closeSheet(); });
     $('#tabs2').addEventListener('click', (e) => {
       const b = e.target.closest('button[data-t]');
       if (!b) return;
+      // 咒語頁不依賴選句：沒選句也要能開
+      if (b.dataset.t === 'mantra') { openMantra(); return; }
       setTab(b.dataset.t);
       const oldNav = document.querySelector('#sheet .sheet-nav');
       if (oldNav && oldNav.parentNode) oldNav.parentNode.removeChild(oldNav);
@@ -1489,8 +1540,8 @@
     const HUE = { 人物: 12, 名詞: 200, 論點: 280, 呂澂批評: 0, 譯者版本: 120 };
     let saved = {};
     try { saved = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch (e) {}
-    const state2 = { cat: saved.cat || CAT_ALL, q: saved.q || '', idx: 0, rows: [], cur: null, root: null };
-    const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ cat: state2.cat, q: state2.q })); } catch (e) {} };
+    const state2 = { cat: saved.cat || CAT_ALL, q: saved.q || '', clause: saved.clause || 0, idx: 0, rows: [], cur: null, root: null };
+    const save = () => { try { localStorage.setItem(KEY, JSON.stringify({ cat: state2.cat, q: state2.q, clause: state2.clause })); } catch (e) {} };
 
     function hit(s, needle) {
       if (!needle) return esc(s);
@@ -1511,7 +1562,8 @@
 
     function apply() {
       const n = state2.q.trim().toLowerCase();
-      const pool = (G.entries || []).filter((e) => state2.cat === CAT_ALL || e.category === state2.cat);
+      let pool = (G.entries || []).filter((e) => state2.cat === CAT_ALL || e.category === state2.cat);
+      if (state2.clause) pool = pool.filter((e) => (e.clauses || []).includes(state2.clause));
       // 詞條／別名／梵藏英／條號／分類／簡釋都比（規格要求 gloss 也算）
       let rows = pool.filter((e) => !n || hayAll(e).includes(n));
       if (n) {
@@ -1555,8 +1607,10 @@
       if (!box) return;
       const n = state2.q.trim().toLowerCase();
       const alias = (e.aliases || []).length ? '<p class="gp-alias">別名：' + esc(e.aliases.join('、')) + '</p>' : '';
+      // 梵／藏／英只列有值的：像《傷寒論》這種漢文辭典整份都沒有這三欄，不必印三行「—」
       const rowsHtml = [['梵', e.sa], ['藏', e.tib], ['英', e.en]]
-        .map(([k, v]) => '<dt>' + k + '</dt><dd>' + (v ? hit(String(v), n) : '<span class="gp-note">—</span>') + '</dd>').join('');
+        .filter(([, v]) => v)
+        .map(([k, v]) => '<dt>' + k + '</dt><dd>' + hit(String(v), n) + '</dd>').join('');
       const hits = e.workHits ? Object.keys(e.workHits).map((k) =>
         '<span>' + esc(workName(k)) + ' ' + e.workHits[k] + '</span>').join('') : '';
       const occ = (e.occurrences || []).slice(0, 5);
@@ -1570,9 +1624,9 @@
         '<button type="button" class="gp-back" data-gp-back>‹ 回清單</button>' +
         '<h3>' + hit(String(e.term || ''), n) + '</h3>' + alias +
         '<p><span class="gp-cat">' + esc(e.category || '') + '</span>' +
-        (e.ref ? ' <span class="gp-cat">呂澂 ' + esc(e.ref) + '</span>' : '') + '</p>' +
+        (e.ref ? ' <span class="gp-cat">' + esc(e.refLabel || '呂澂') + ' ' + esc(e.ref) + '</span>' : '') + '</p>' +
         '<p class="gp-gloss">' + (e.gloss ? hit(String(e.gloss), n) : '<span class="gp-note">（無簡釋）</span>') + '</p>' +
-        '<dl class="gp-rows">' + rowsHtml + '</dl>' +
+        (rowsHtml ? '<dl class="gp-rows">' + rowsHtml + '</dl>' : '') +
         (hits ? '<div class="gp-hits">' + hits + '</div>' : '') +
         (occ.length
           ? '<div class="gp-occ"><h4>書證（共 ' + occTotal + ' 次' +
@@ -1601,14 +1655,17 @@
         if (el) { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); el.classList.add('flash'); setTimeout(function () { el.classList.remove('flash'); }, 1400); }
       }, 60);
     }
+    // 這份辭典有沒有梵／藏／英欄位（《傷寒論》這類漢文辭典沒有，就不必在提示裡提）
+    const hasScript = () => (G.entries || []).some(function (e) { return e.sa || e.tib || e.en; });
     function mount(root) {
       if (!root) return;
       state2.root = root;
       root.classList.remove('gp-detail-open');
       const inline = root.id === 'cards';
       root.innerHTML =
+        (G.clauses && G.clauses.length ? '<div class="gp-clausebar"><label>條 <select class="gp-clause"><option value="0">全部</option>' + G.clauses.map(function (c) { return '<option value="' + c.n + '"' + (state2.clause === c.n ? ' selected' : '') + '>' + esc(c.n + ' ' + (c.label || '')) + '</option>'; }).join('') + '</select></label></div>' : '') +
         '<div class="gp-chips"></div>' +
-        '<div class="gp-search"><input class="gp-in" type="search" placeholder="搜尋詞條、別名、梵藏英…" autocomplete="off" spellcheck="false" aria-label="搜尋詞條"></div>' +
+        '<div class="gp-search"><input class="gp-in" type="search" placeholder="' + (hasScript() ? '搜尋詞條、別名、梵藏英…' : '搜尋詞條、別名、簡釋…') + '" autocomplete="off" spellcheck="false" aria-label="搜尋詞條"></div>' +
         '<div class="gp-body">' +
         '<div class="gp-left"><ul class="gp-list"></ul><p class="gp-empty" hidden>沒有符合的詞條。</p></div>' +
         '<div class="gp-right"><div class="gp-detail"><p class="gp-hint">輸入關鍵字開始查；選一條看解釋與出處。</p></div></div></div>';
@@ -1629,6 +1686,14 @@
           if (ev.key === 'Enter' && state2.rows[state2.idx]) show(state2.rows[state2.idx]);
         });
       }
+      const csel = root.querySelector('.gp-clause');
+      if (csel) csel.addEventListener('change', function () {
+        state2.clause = +csel.value || 0;
+        state2.idx = 0;
+        save();
+        apply();
+        root.classList.add('gp-list-open');
+      });
       root.addEventListener('click', function (ev) {
         const t = ev.target;
         if (!t.closest) return;
@@ -1910,6 +1975,8 @@
       pickSentence: tourPickSentence,
       openPanel: tourOpenPanel,
       closePanel: closeSheet,
+      selectUnit: selectUnit,
+      openMantra: openMantra,
       reset: tourReset,
       setTheme: tourSetTheme,
       openSearch: openSearch,
@@ -1988,4 +2055,10 @@
   }
   boot();
 })();
+
+
+
+
+
+
 

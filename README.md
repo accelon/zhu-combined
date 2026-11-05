@@ -17,13 +17,13 @@ window.ZHU = {
   pdf:      [{ no, secTitle, sa, tib, shi, zang, jing, note, jie, u, us }], // 梵藏逐詞
   works:    [{ id, title, author, date, year, corpus, no, vol, kind,
                text, pages, anchors: [[u, a, b, page], …] }],          // 注疏
-  kepan?:   { editions: [...] }             // 可選：科判（由 build-vcpp-kepan.mjs 內嵌）
+  kepan?:   { editions: [...] }             // 可選：科判（由 build-kepan.mjs 內嵌）
 };
 ```
 
 - 主文的 `versions[0]` 就是頁面主欄；`sents[].u` 是跨檔對齊的單位編號。
 - 注疏以 `anchors` 掛到 `u`；閱讀器只做顯示與對齊，不認識任何一家注疏。
-- 科判（`kepan/kepan-data.js`）是選用層：放在 `window.KEPAN`，由 `build-vcpp-kepan.mjs` 一起打包。
+- 科判（`kepan/kepan-data.js`）是選用層：放在 `window.KEPAN`，由 `build-kepan.mjs` 一起打包。
 
 ## 目錄
 
@@ -32,8 +32,9 @@ index.html app.js style.css      閱讀器（file:// 可直接開，但需要資
 lossless.js                      無損簡體（顯示用；build/make-lossless.mjs 從 agent-norms 產生）
 tour.js tours/ src/tour/         操作導覽（self-explaining-tour）
 src/kepan/kepan.js kepan.css     科判層（麵包屑、目錄、單本注疏閱讀模式）
+src/mantra/mantra.js mantra.css  咒語分頁（五會、詞表、與經文互跳）
 build-vcpp.mjs                   單檔打包器（無科判）
-build-vcpp-kepan.mjs             單檔打包器（含科判）
+build-kepan.mjs             單檔打包器（含科判）
 build/gunzip.js                  DecompressionStream 缺席時的純 JS 解壓
 build/cdp-*.mjs                  開發驗證工具（截圖、互動、導覽回放）
 ```
@@ -56,7 +57,7 @@ New-Item -ItemType SymbolicLink -Name zhu-data.js -Target D:\2026\vcpp\zhu-data.
 ```powershell
 cd D:\2026\vcpp
 node ..\zhu-combined\build-vcpp.mjs                 # → vcpp-nokepan.html（無科判）
-node ..\zhu-combined\build-vcpp-kepan.mjs           # → vcpp-kepan.html（含科判）
+node ..\zhu-combined\build-kepan.mjs           # → vcpp-kepan.html（含科判）
 # 或直接用 vcpp 的包裝：node build.mjs
 ```
 
@@ -89,7 +90,7 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 
 - **資料**：工作區放 `kepan/kepan-data.js`（`window.KEPAN`，每家一套科判樹，
   節點記 `u`／`off` 起點，`workId` 指到注疏、`base` 標分章本）。
-- **打包**：`node build-kepan.mjs`（＝舊名 `build-vcpp-kepan.mjs`，相容別名）。
+- **打包**：`node build-kepan.mjs`（已統一，舊名 `build-vcpp-kepan.mjs` 廢除）。
   預設讀 `<工作區>/kepan/kepan-data.js`，可用 `--kepan <路徑>` 指定；
   沒有科判資料時會直接說「這個工作區沒有科判」，改用 `build-vcpp.mjs` 即可。
 - **一般版**：`build-vcpp.mjs` 不載科判層；科判版多內嵌 `KEPAN` 與介面 CSS／JS。
@@ -99,7 +100,7 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 
 ## 右欄分頁（依資料長出來）
 
-`#tabs2` 不是寫死的，依 `window.ZHU` 有什麼畫什麼：
+`#tabs2` 不是寫死的，依 `window.ZHU`／`window.MANTRA` 有什麼畫什麼：
 
 | 分頁 | 出現條件 | 資料 |
 |---|---|---|
@@ -108,9 +109,28 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
 | 別譯 | `versions.length > 1` 或 `english` | `versions[]`；`byJuan` 的譯本（如英譯 Luk）按卷顯示 |
 | 辭典 | `glossary.entries` | `glossary` |
 | 詞組 | `pdf.length` | `pdf[]` |
+| 咒語 | `MANTRA.units.length` | `window.MANTRA`（見下節） |
 
 - 注疏的作者列**列出全部**，這一句沒有他的注文就淡掉；點淡掉的會顯示「最接近的段落」。
 - 頂欄「辭」切到辭典分頁並聚焦搜尋，再按一次回上一個分頁；手機上一樣（面板全屏）。
+- 咒語分頁不依賴選句：沒選句也能開；經文句有詞級資料時，句下會多一顆「咒」。
+
+## 咒語（可選）
+
+工作區提供 `<工作區>/mantra/mantra-data.js`（一行 `window.MANTRA = {...};`）時，右欄多一個「咒語」分頁：
+
+- 介面在 `src/mantra/mantra.js`＋`mantra.css`（獨立一層，不碰「詞組」分頁的 `D.pdf`）。
+- 長咒按 **五會**（assembly）分組；一次只畫一會，`covered=0` 的會顯示「待補」且不可點。
+- 每個 unit 三層：梵文 `sa`、漢字音譯 `zh`、詞義 `meaning`；詞表支援 `1:1`／`1:n`／`n:1`／`gap`。
+- `gap=true` 的 unit 顯示「T945 缺此句」，不是空白卡。
+- 高頻詞取 `lexicon` 前 20（本會有的排前面）；點詞高亮本會同 lemma 的列，本會沒有就顯示「本會無」。
+- 雙向：詞列／「在經文看」→ `selectUnit(u, { hl: [start,end) })`，閃一下對應字元；經文句有 unit 時，句下多一顆「咒」。
+- `MT_BY_U` 只從 `MANTRA.units` 建，**不**用 `MANTRA.links`（後者有全咒 858 句，會讓整部經都長出「咒」按鈕）。
+
+```powershell
+# 資料放在工作區；build-kepan 會自動內嵌（沒有就跳過，不報錯）
+node build-kepan.mjs --root D:\2026\surangama --mantra D:\2026\surangama\site\reader\mantra\mantra-data.js
+```
 
 ## 辭典／速查（可選）
 
@@ -134,6 +154,8 @@ node build-tour.mjs --check    # 劇本與 tour.js 是否同步
   也可以直接給 `u`。
 - `workHits` 的名稱由 `meta.workNames`（id → 顯示名）決定，沒有就顯示 id。
 - 五類固定（人物／名詞／論點／呂澂批評／譯者版本），但晶片是照 `categories` 畫的，換經群可換分類。
+- `sa`／`tib`／`en` **只列有值的**：缺的那一欄不會印「—」；整份都沒有（如《傷寒論》辭典）
+  就不出現那一區，搜尋提示也從「詞條、別名、梵藏英…」改成「詞條、別名、簡釋…」。
 - 沒有 `glossary` 就不顯示入口；資料欄位只增不改，未知欄位會被忽略。
 
 ## PWA（可安裝）
@@ -202,7 +224,7 @@ node build-all.mjs --list     # 看清單
 
 ## 科判：邏輯在閱讀器、內容在各工作區
 
-**所有科判邏輯**（麵包屑、目錄浮層、經文 `kb-mark` 變色、版本切換、打包）都在本區：`src/kepan/kepan.js`、`kepan.css`、`build-vcpp-kepan.mjs`；
+**所有科判邏輯**（麵包屑、目錄浮層、經文 `kb-mark` 變色、版本切換、打包）都在本區：`src/kepan/kepan.js`、`kepan.css`、`build-kepan.mjs`；
 **科判內容**由各經注群工作區管理，只提供 `kepan/kepan-data.js`（`window.KEPAN`）。
 
 合成資料（把 `kepan/*.json` 併成 `kepan-data.js`）：
