@@ -401,3 +401,7 @@ body.dark #kbRead .kr-btn:hover:not([disabled]) { color: var(--kb-accent, #d7a86
 .kb-tgl.open { color: var(--kb-accent); }
 .kb-tgl-leaf { visibility: hidden; }
 
+
+/* 科判目錄：資料可疑時的提示（同層同號、深度異常、同父重號） */
+.kb-warn { font-size: 11px; color: #d97706; max-width: 46%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+body.dark .kb-warn { color: #fbbf24; }

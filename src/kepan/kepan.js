@@ -83,6 +83,44 @@
   for (var i = 0; i < eds.length; i++) if (QS.get('kepan') === eds[i].id) edIx = i;
   var ed = eds[edIx];
 
+  /* ------------------------------------------------------------ 載入偵測
+     資料「一看就不對」的兩件事，只警告、不改資料：
+       1) 同層同標籤「連續」很長 —— 畫面會變成一整排「乙二」。
+          健康資料的實測上限＝灌頂 10、要解 6，其餘 1–3；壞掉的 X246 是 20 以上。
+          只算「有標籤」的節點：平列的科名（lab 空）本來就沒有序號，不算。
+       2) 深度 > 30 層 —— 健康資料最深 24（子璿／江味農 23），
+          用「子節點數猜父」的壞資料會鑽到 50 層以上。
+     不列入：序號跳號（2→4，正常寫法）、同父下標籤重複（實測 881 處仍屬正常）。 */
+  var GAN0 = '甲乙丙丁戊己庚辛壬癸子丑寅卯辰巳午未申酉戌亥';   // 早於下面的 GAN 宣告
+  function labOf(e, n) {
+    var lab = n.lab || '';
+    if (!lab) return '';
+    if (e.ordStyle === 'plain') return lab;
+    if (GAN0.indexOf(lab[0]) >= 0) return lab;
+    return (GAN0[n.lv - 1] || '') + lab;
+  }
+  var AUDIT = {};
+  try { eds.forEach(function (e) {
+    var maxLv = 0, run = 0, maxRun = 0, runLab = '', prev = null, i, n, l;
+    for (i = 0; i < e.nodes.length; i++) {
+      n = e.nodes[i];
+      if (n.nk) continue;
+      if (n.lv > maxLv) maxLv = n.lv;
+      l = labOf(e, n);
+      if (!l) { prev = null; run = 0; continue; }
+      var k = n.lv + '|' + l;
+      if (k === prev) { run++; } else { prev = k; run = 1; }
+      if (run > maxRun) { maxRun = run; runLab = l; }
+    }
+    var issues = [];
+    if (maxRun >= 12) issues.push('同層同號「' + runLab + '」連續 ' + maxRun + ' 節');
+    if (maxLv > 30) issues.push('最深 ' + maxLv + ' 層');
+    if (issues.length) {
+      AUDIT[e.id] = issues;
+      try { console.warn('[科判] ' + e.short + ' 資料可疑：' + issues.join('、') + '（只警告，未改資料）'); } catch (x) {}
+    }
+  }); } catch (err) { try { console.warn('[科判] 載入偵測失敗（不影響閱讀）：' + err); } catch (x) {} }
+
   var state = { u: null, open: false, on: true };
   var bypass = false;   // 這次點擊要放行給 App（切換科文開關時收掉選句用）
 
@@ -200,6 +238,7 @@
     kbAll = null;
     edIx = +edSel.value;
     ed = eds[edIx];
+    syncWarn();
     try { localStorage.setItem('zhu.kb.ed', ed.id); } catch (e) {}
     render();
     decorateAll(true);
@@ -496,12 +535,23 @@
   panel.id = 'kepanPanel';
   panel.hidden = true;
   panel.innerHTML = '<div class="kb-ph"><b>科判目錄</b><span class="kb-src" id="kbSrc"></span>' +
+    '<span class="kb-warn" id="kbWarn" hidden></span>' +
     '<span class="kb-all"><button type="button" class="kb-btn" id="kbAllOpen" title="展開整棵樹">展開全部</button>' +
     '<button type="button" class="kb-btn" id="kbAllClose" title="收起整棵樹">收合</button></span>' +
     '<button type="button" class="kb-btn" id="kbPanelX" title="關閉">✕</button></div>' +
     '<div class="kb-pb" id="kbPanelBody"></div>' +
     '<div class="kb-pf" id="kbPanelFoot"></div>';
   document.body.appendChild(panel);
+  // 資料可疑時在標題列留一行字，不要讓使用者自己在目錄裡數「乙二」
+  function syncWarn() {
+    var w = document.getElementById('kbWarn');
+    if (!w) return;
+    var issues = AUDIT[ed.id];
+    w.hidden = !issues;
+    if (!issues) { w.textContent = ''; return; }
+    w.textContent = '⚠ ' + issues.join('、');
+    w.title = '科判資料可疑：' + issues.join('、') + '\n只警告，未改資料；詳見該書的科判報告。';
+  }
   var panelBody = document.getElementById('kbPanelBody');
   document.addEventListener('click', function (ev) {
     var c = ev.target && ev.target.closest && ev.target.closest('#kepanPanel .kb-tgl[data-tgl]');
@@ -601,6 +651,7 @@
     state.open = true;
     document.getElementById('kbTree').setAttribute('aria-expanded', 'true');
     buildTree();
+    syncWarn();
     var body = document.getElementById('kbPanelBody');
     var cur = k != null ? body.querySelector('.kb-node[data-k="' + k + '"]') : body.querySelector('.kb-node.cur');
     if (cur) cur.scrollIntoView({ block: 'center' });
@@ -1059,6 +1110,10 @@
     tree: function () { openTree(); },
   };
 })();
+
+
+
+
 
 
 
