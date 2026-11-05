@@ -31,7 +31,8 @@ build/_*.js
 build/_*.py
 
 # 咒語資料（由內容工作區提供，例如 D:\2026\surangama\site\reader\mantra\mantra-data.js）
-mantra/
+/mantra/
 # 開發暫存
 .tmp/
+
 
