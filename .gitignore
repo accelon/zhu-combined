@@ -36,3 +36,7 @@ build/_*.py
 .tmp/
 
 
+
+# 發給內容工作區的閱讀器發行包
+zhu-combined-reader.zip
+
