@@ -23,6 +23,7 @@ const opt = (name, fb) => {
   return i >= 0 && args[i + 1] && !args[i + 1].startsWith('--') ? args[i + 1] : fb;
 };
 const CHECK = args.includes('--check');
+const ALLOW_DIRTY = args.includes('--allow-dirty');
 const NAME = 'zhu-combined-reader';
 
 const pad = (n) => String(n).padStart(2, '0');
@@ -41,6 +42,13 @@ const git = (a) => {
 };
 const COMMIT = git(['rev-parse', '--short', 'HEAD']) || 'nogit';
 const DIRTY = git(['status', '--porcelain']) ? '（工作區有未提交變更）' : '';
+// 工作區不乾淨就預設不出包：別人（或自己）改到一半的檔案不該發給讀者。
+if (DIRTY && !ALLOW_DIRTY && !CHECK) {
+  console.error('✗ 工作區有未提交變更，先 commit（或另一個人正在改）再出包。');
+  console.error('  只是要自己看內容：--check；確定要帶髒樹出包：--allow-dirty');
+  console.error(git(['status', '--short']));
+  process.exit(1);
+}
 
 // 要裝哪些檔：改這裡就好，不要用 git add -A 的心態整包掃。
 const ROOT_FILES = [
@@ -143,3 +151,4 @@ console.log('寫出 ' + OUT);
 console.log('  ' + FOLDER + '（' + count + ' 檔，' + (bytes / 1024).toFixed(0) + ' KB）');
 console.log('  發行日 ' + DATE + '　commit ' + COMMIT + (DIRTY ? ' ' + DIRTY : ''));
 console.log('  單檔上限 5 MiB（資料＋閱讀器）；打包指令要帶 --max 5');
+
