@@ -64,6 +64,24 @@ node ..\zhu-combined\build-kepan.mjs           # → vcpp-kepan.html（含科判
 - 閱讀器程式（`index.html`／`app.js`／`style.css`／`lossless.js`／`tour.js`／`src/kepan/`）永遠從本目錄讀。
 - 資料（`zhu-data.js`、`kepan/kepan-data.js`）從 `--root`（預設 cwd）讀。
 - 每次部署都順帶產生 `vcpp.html.gz`（見 vcpp 的 `deploy.mjs`）。
+- `--max 5`：成品上限（MiB）；超過直接 `exit 1`。華嚴這類新專案一律帶 `--max 5`。
+
+## 發行包（給不用 git 的內容工作區）
+
+對方（佛學研究者）只用解壓與 `node`，所以閱讀器要以 **zip** 交付，檔名帶日期；
+更新閱讀器或規則時重出一包，舊包留著對照。
+
+```powershell
+node build\make-release.mjs              # → dist\zhu-combined-reader-YYYY-MM-DD.zip
+node build\make-release.mjs --tag b      # 同一天第二包 → …-YYYY-MM-DD-b.zip
+node build\make-release.mjs --check      # 只列出會裝哪些檔
+```
+
+- 內容清單寫死在 `build\make-release.mjs`（`ROOT_FILES`／`DIRS`／`BUILD_FILES`），**不吃資料**：
+  `zhu-data.js`、`kepan/kepan-data.js`、`mantra/`、`.git`、截圖、`build/_*` 都不放。
+- `START-HERE.md` 由 `docs\release\START-HERE.template.md` 產生，押上發行日與 commit；
+  另附 `VERSION.txt`（日期、commit、檔案數、5 MiB 規則）。
+- 規則改了就改樣板再重出；**不要**手改 zip 裡的檔案。
 - 舊的 `--limit`／`--max` 參數照舊。
 
 ## 導覽（🦮）

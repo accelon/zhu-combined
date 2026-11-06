@@ -37,6 +37,8 @@ build/_*.py
 
 
 
-# 發給內容工作區的閱讀器發行包
-zhu-combined-reader.zip
+# 發給內容工作區的閱讀器發行包（build/make-release.mjs 產出，帶日期）
+dist/
+zhu-combined-reader*.zip
+
 
