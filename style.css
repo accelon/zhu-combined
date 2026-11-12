@@ -119,6 +119,18 @@ body.wx-tap #foot .wx-id:active { opacity: .6; }
 
 .panel-body { overflow: auto; padding: 16px 26px 60px; flex: 1; }
 .ex { margin: 0; font-size: 14px; line-height: 1.85; color: #3d352b; }
+/* 跳轉定位用的閃一下：app.js 的辭典跳轉早就在用 .flash，但樣式一直缺席（等于沒閃）。
+   科文節點、書籤、搜尋結果跳正文時都靠它讓人看見「就是這裡」。 */
+.flash { animation: sentFlash 1.15s ease; }
+@keyframes sentFlash {
+  0% { background: rgba(138, 90, 47, .30); box-shadow: 0 0 0 3px rgba(138, 90, 47, .30); }
+  100% { background: transparent; box-shadow: 0 0 0 3px transparent; }
+}
+body.dark .flash { animation: sentFlashDark 1.15s ease; }
+@keyframes sentFlashDark {
+  0% { background: rgba(213, 157, 97, .34); box-shadow: 0 0 0 3px rgba(213, 157, 97, .34); }
+  100% { background: transparent; box-shadow: 0 0 0 3px transparent; }
+}
 /* 「更多（還有 N 字）」：注文被 8 字窗切在句中時，補完這一句／展開整段 */
 .ex-more { display: inline-block; margin-left: 6px; border: 0; background: none; padding: 0 2px;
   font: inherit; font-size: 12.5px; color: #8a6d3b; cursor: pointer; text-decoration: underline;
@@ -839,6 +851,11 @@ body.dark .gp-detail mark, body.dark .gp-item mark { background: #6b5a1e; color:
 .ke-node { display: block; width: 100%; text-align: left; border: 0; background: transparent; color: var(--ink);
   font: inherit; font-size: 12.5px; line-height: 1.9; padding: 2px 8px; cursor: pointer; }
 .ke-node:hover { background: var(--paper2); color: var(--accent); }
+/* 「載入更多」：清單分批渲染用，造型靠攏 summary，不要混進節點列 */
+.ke-node-more { display: block; width: calc(100% - 16px); margin: 6px 8px 8px; text-align: center;
+  border: 1px dashed var(--line); border-radius: 6px; background: var(--paper2); color: var(--accent);
+  font: inherit; font-size: 12.5px; line-height: 1.8; padding: 3px 8px; cursor: pointer; }
+.ke-node-more:hover { border-color: var(--accent); }
 
 
 /* 科文條加入後，標題不要被壓成細條 */

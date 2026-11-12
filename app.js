@@ -195,6 +195,47 @@
     b.dataset.urlBound = '1';
     b.addEventListener('click', function (e) { e.stopPropagation(); copyLink(); });
   }
+  /** 把 hash 上的「分」讀進 state（在第一次繪製之前用） */
+  function hashSection(hp) {
+    const hu = numParam(hp, 'u');
+    if (hu != null) {
+      const hit = D.versions[BASE].sents.find((x) => x.u === hu);
+      if (hit) return hit.s;
+    }
+    const hsec = numParam(hp, 'sec');
+    if (hsec != null && (D.sections || []).some((s) => s.n === hsec)) return hsec;
+    return null;
+  }
+  /** 依 hash 還原位置：選句、分頁，再請科判層接它那幾欄。
+      boot 用一次；同一分頁內貼連結／點書籤／按上一頁（只有 hash 變、頁面不重新載入）
+      也走這裡——瀏覽器對這種網址不會再跑一次 boot()，沒接就變成「網址變了、畫面沒動」。 */
+  function applyUrl(opts) {
+    const hp = hashParams();
+    const initial = !!(opts && opts.initial);
+    const hu = numParam(hp, 'u');
+    const wantSec = hashSection(hp);
+    if (!initial && wantSec != null && wantSec !== state.sec) {
+      state.sec = wantSec;
+      renderSectionSelect();
+      renderReader();
+    }
+    if (hu != null) {
+      if (state.u !== hu) selectUnit(hu, { noHash: true, scroll: !initial, keepPos: false });
+    } else if (state.u != null && !initial) {
+      deselectUnit();                       // 連結上沒有 u＝收回選句
+    }
+    const tb = hp.get('tab') || qsTab0;
+    const btn = tb ? Array.prototype.slice.call(document.querySelectorAll('#tabs2 button')).filter((x) => x.dataset.t === tb)[0] : null;
+    if (btn) {
+      setTab(tb);
+      if (state.u != null) openPanel(tb);
+    }
+    try {
+      window.dispatchEvent(new CustomEvent('zhu:hash', { detail: hp }));   // 科判層：kb／k／rd／pg
+    } catch (e) {}
+    return hp;
+  }
+  let qsTab0 = null;   // boot 那邊的舊 ?tab= 用法（query 優先序低於 hash）
 
   /* ---------- 索引 ---------- */
   const byUnit = new Map(); // u -> [{w, a, b, p}]
@@ -616,13 +657,100 @@
     return '<div class="ke-rows">' + rows.join('') + '</div>';
   }
 
+  /* 科文節點清單：一次渲染多少筆。
+     2026-11-12 實測：2,282 筆全部進 DOM＋每筆各掛 listener＋每次選句重繪整面板，
+     害得「點右欄科判節點」要等 1.7 秒、DOM 從 961 爆到 14,240、heap 在 14～59 MB 間跳，
+     按幾次就把分頁拖死（回報：「點右欄的科判節點就很慢很慢，然後瀏覽器掛掉」）。
+     三道 together 治它：① 同一家不重繪（只換高亮）② 事件委派（不再掛幾千個 listener）
+     ③ 清單收合時不渲染，展開才分批渲染（每批 KE_NODE_PAGE 筆，其餘按「載入更多」）。 */
+  const KE_NODE_PAGE = 400;
+  let keRendered = null;   // { id } — #cards 裡現在是哪一家的科判面板
+
+  function keNodesRows(from, to) {
+    const out = [];
+    for (let i = from; i < to; i++) {
+      const n = D.keNodes[i];
+      out.push('<button type="button" class="ke-node" data-u="' + n.u + '" data-i="' + i + '"' +
+        ' style="padding-left:' + (8 + (n.level || 0) * 12) + 'px">' + esc(n.text) + '</button>');
+    }
+    return out.join('');
+  }
+  function keNodesShell() {
+    if (!D.keNodes || !D.keNodes.length) return '';
+    return '<details class="ke-nodes"><summary>科文節點（' + D.keNodes.length.toLocaleString('en-US') +
+      '，可跳正文）</summary><div class="ke-node-list"></div></details>';
+  }
+  /** 展開或「載入更多」時，往清單裡補一批（一批 KE_NODE_PAGE 筆） */
+  function keNodesFill(list) {
+    if (!list) return;
+    const total = (D.keNodes || []).length;
+    const from = Number(list.dataset.shown || 0);
+    if (from >= total) return;
+    const to = Math.min(total, from + KE_NODE_PAGE);
+    const more = list.querySelector('.ke-node-more');
+    if (more) more.insertAdjacentHTML('beforebegin', keNodesRows(from, to));
+    else list.insertAdjacentHTML('beforeend', keNodesRows(from, to));
+    list.dataset.shown = String(to);
+    if (to >= total) { if (more) more.remove(); return; }
+    const btn = '<button type="button" class="ke-node-more">載入更多（還有 ' + (total - to).toLocaleString('en-US') + ' 筆）</button>';
+    if (more) more.outerHTML = btn; else list.insertAdjacentHTML('beforeend', btn);
+  }
+  /** 面板只綁一次委派（原本每繪一次就替幾千顆按鈕各掛一個 listener） */
+  function keBindOnce(cards) {
+    if (cards.dataset.keBound) return;
+    cards.dataset.keBound = '1';
+    cards.addEventListener('click', function (e) {
+      const t = e.target;
+      if (!t || !t.closest) return;
+      const more = t.closest('.ke-node-more');
+      if (more) { keNodesFill(more.parentNode); return; }
+      const b = t.closest('.ke-node');
+      if (b) {
+        const u = +b.dataset.u;
+        selectUnit(u);
+        // 目標句可能已經選著（750 個 u 有重複，同一句掛到 2～4 個科文），或還在長分節的下方——
+        // 這種情況下選句本身沒有可見變化，使用者就會以為「点了跳不了正文」。
+        // 所以一律把該句捲到視窗中央並閃一下（與辭典、書籤跳轉同一套）。
+        setTimeout(function () {
+          const el = document.querySelector('#reader .sent[data-u="' + u + '"]');
+          if (!el) return;
+          try { el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) { el.scrollIntoView(); }
+          el.classList.remove('flash'); void el.offsetWidth; el.classList.add('flash');
+          setTimeout(function () { el.classList.remove('flash'); }, 1400);
+        }, 80);
+        return;
+      }
+      const j = t.closest('.ke-jump');
+      if (j) { setSection(+j.dataset.sec); }
+    });
+    // toggle 不冒泡，但捕獲階段收得到：收合時清單根本還沒進 DOM
+    cards.addEventListener('toggle', function (e) {
+      const d = e.target;
+      if (d && d.classList && d.classList.contains('ke-nodes') && d.open) keNodesFill(d.querySelector('.ke-node-list'));
+    }, true);
+    cards.addEventListener('change', function (e) {
+      if (e.target && e.target.id === 'keSel') { state.kePick = e.target.value; keRendered = null; renderKe(); }
+    });
+  }
+  /** 只換「目前這分」的高亮，不重組 HTML */
+  function keHighlight() {
+    const cards = document.getElementById('cards');
+    if (!cards) return;
+    cards.querySelectorAll('.ke-jump').forEach(function (b) { b.classList.toggle('on', +b.dataset.sec === state.sec); });
+  }
+
   function renderKe() {
     const cards = document.getElementById('cards');
     const ke = D.ke || [];
-    if (!ke.length) { cards.innerHTML = '<p class="empty">這部經沒有科判資料。</p>'; return; }
+    if (!ke.length) { cards.innerHTML = '<p class="empty">這部經沒有科判資料。</p>'; keRendered = null; return; }
     const ids = ke.map(function (k) { return k.id; });
     if (!state.kePick || ids.indexOf(state.kePick) < 0) state.kePick = ids[0];
     const cur = ke.filter(function (k) { return k.id === state.kePick; })[0];
+    // 同一家、面板還在：選句換分之類就不用把 60 萬字元重組一遍（這是原本卡死的主因）
+    if (keRendered && keRendered.id === cur.id && document.getElementById('keSel')) {
+      keHighlight();
+      return;
+    }
     // 有層級的科判樹（分→卷→節）；沒有樹就退回平鋪分節
     let jumps = '';
     if (D.keTree && D.keTree.length) {
@@ -652,22 +780,10 @@
       }).join('') + '</select>' +
       '<span class="ke-meta">' + esc(cur.author || '') + ' · ' + cur.text.length.toLocaleString('en-US') + ' 字</span></div>' +
       jumps +
-      (D.keNodes && D.keNodes.length
-        ? '<details class="ke-nodes"><summary>科文節點（' + D.keNodes.length.toLocaleString('en-US') + '，可跳正文）</summary><div class="ke-node-list">' +
-          D.keNodes.map(function (n, i) {
-            return '<button type="button" class="ke-node" data-u="' + n.u + '" style="padding-left:' + (8 + (n.level || 0) * 12) + 'px">' +
-              esc(n.text) + '</button>';
-          }).join('') + '</div></details>'
-        : '') +
+      keNodesShell() +
       keRowsHtml(cur.text);
-    const sel = document.getElementById('keSel');
-    if (sel) sel.addEventListener('change', function () { state.kePick = sel.value; renderKe(); });
-    cards.querySelectorAll('.ke-node').forEach(function (b) {
-      b.addEventListener('click', function () { selectUnit(+b.dataset.u); });
-    });
-    cards.querySelectorAll('.ke-jump').forEach(function (b) {
-      b.addEventListener('click', function () { setSection(+b.dataset.sec); });
-    });
+    keRendered = { id: cur.id };
+    keBindOnce(cards);
   }
   function titleOf2(k) { return String(k.title || k.id).replace(/^(楞嚴經|大佛頂)/, ''); }
 
@@ -2168,16 +2284,12 @@
     } catch (e) {}
     // ---------- 位置還原（#u=句子 &sec=分 &tab=分頁；科判家／節點由 kepan 層自己接）
     // 舊連結 #u=38 与 ?tab=works 這種 query 写法都還走得通。
-    const hp = hashParams();
-    const hu = numParam(hp, 'u');
-    const hsec = numParam(hp, 'sec');
-    const hhit = hu != null ? D.versions[BASE].sents.find((x) => x.u === hu) : null;
-    if (hhit) state.sec = hhit.s;
-    else if (hsec != null && (D.sections || []).some((s) => s.n === hsec)) state.sec = hsec;
+    qsTab0 = qs.get('tab');
+    const bootSec = hashSection(hashParams());
+    if (bootSec != null) state.sec = bootSec;
     renderSectionSelect(); renderReader(); bind();
     initSplitters();
     renderEmpty(); applyView();
-    if (hhit) selectUnit(hu, { noHash: true });
     const q = qs.get('q');
     if (q) search(q);
     const wq = qs.get('word');
@@ -2185,11 +2297,13 @@
     if (twq) setTimeout(function () { const el = document.querySelector('.ifan-item .tw[data-i="' + twq + '"]'); if (el) el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true })); }, 200);
     const he = qs.get('he');
     if (wq) setTimeout(function () { const sel = he ? '.ifan-item[data-no="' + he + '"] .sw[data-i="' + wq + '"]' : '.ifan-item .sw[data-i="' + wq + '"]'; const el = document.querySelector(sel); if (el) el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true })); }, 200);
-    const tb = hp.get('tab') || qs.get('tab');
-    // 分頁以「按鈕真的存在」為準（資料沒有的分頁不認，免得 ?tab=xxx 打空）
-    const tbBtn = tb ? Array.prototype.slice.call(document.querySelectorAll('#tabs2 button')).filter((x) => x.dataset.t === tb)[0] : null;
-    if (tbBtn) { setTab(tb); if (state.u != null) openPanel(tb); }
+    applyUrl({ initial: true });
     bindLinkBtn();
+    // 同一分頁裡網址只換 hash（貼別人給的連結、點書籤、上一頁／下一頁）：
+    // 瀏覽器不會重新載入文件，boot() 也不會再跑一次——不接這兩個事件就會
+    // 「網址變了、畫面沒動」（2026-11-12 回報：連結看起來掛掉）。
+    window.addEventListener('hashchange', function () { try { applyUrl(); } catch (e) {} });
+    window.addEventListener('popstate', function () { try { applyUrl(); } catch (e) {} });
     exposeTourApi();
     // 這一區沒有導覽劇本（工作區沒提供 tour.js）就把入口收起來
     if (!window.tourState) {
