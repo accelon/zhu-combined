@@ -129,7 +129,72 @@
   // 手機／平板：右欄是覆蓋式面板（不是並排欄），所以點句與看面板在同一個視口裡
   const isOverlay = () => window.matchMedia('(max-width: 1060px)').matches;
   // 主文固定羅什（BASE）；想看別的譯本一律走面板的「別譯」分頁
-  const state = { u: null, sec: 1, pick: [], altPick: null, tipPin: false, tab: 'works', showNotes: true, bm: [], page: {}, sim: 0 };
+  const state = { u: null, sec: 1, pick: [], altPick: null, tipPin: false, tab: 'works', showNotes: true, bm: [], page: {}, more: {}, sim: 0 };
+
+  /* ---------- 位置寫進 URL（方便回報：貼網址＝重現畫面） ------------------------------------
+     格式：#u=句序&sec=分&tab=分頁&kb=科判家&k=科文節點
+     規則：
+       - 一律 replaceState：不進 history，按上一頁不會在句子之間跳來跳去
+       - 只動 hash，location.search 原封不動（舊寫法 replaceState('#u='+u) 會把
+         ?theme=dark／?kepan=off 這種一起洗掉，這裡不會）
+       - 值為 null 就不寫那一欄，連結不會越積越長
+       - 目標 hash 跟現行相同就不呼叫 API（科判層的 render 一秒可以跑幾十輪）
+       - 本層不認識的欄位一律保留，別人那一層的狀態不會被洗掉
+     其他層要貢獻欄位（科判的家與節點）：urlProvide(['kb','k'], 回呼)，回呼回傳一個物件。 */
+  const urlProviders = [];
+  const APP_KEYS = ['u', 'sec', 'tab'];
+  function urlProvide(keys, fn) {
+    if (Array.isArray(keys) && typeof fn === 'function') urlProviders.push({ keys: keys.slice(), fn: fn });
+  }
+  function buildHash() {
+    const p = new URLSearchParams();
+    const owned = APP_KEYS.slice();
+    const put = (k, v) => { if (v != null && v !== '') p.set(k, String(v)); };
+    if (state.u != null) put('u', state.u);
+    if (state.sec != null) put('sec', state.sec);
+    if (state.tab) put('tab', state.tab);
+    for (const it of urlProviders) {
+      it.keys.forEach((k) => { if (owned.indexOf(k) < 0) owned.push(k); });
+      let extra = null;
+      try { extra = it.fn(); } catch (e) { extra = null; }
+      if (!extra) continue;
+      for (const k of Object.keys(extra)) put(k, extra[k]);
+    }
+    // 沒人認領的欄位（例：科判層還沒載入完，網址上已有 kb／k）原封不動搬過去
+    const cur = hashParams();
+    Array.from(cur.entries()).forEach((entry) => { if (owned.indexOf(entry[0]) < 0) put(entry[0], entry[1]); });
+    const s = p.toString();
+    return s ? '#' + s : '';
+  }
+  /** 把現在的狀態寫回網址列；和現行 hash 相同就完全不動 */
+  function syncUrl() {
+    const want = buildHash();
+    if (want === (location.hash || '')) return want;
+    try { history.replaceState(null, '', location.pathname + location.search + want); } catch (e) {}
+    return want;
+  }
+  /** 讀 URL：新格式 #u=1&sec=2&kb=x&k=3 與舊格式 #u=1 走同一條路 */
+  function hashParams() { return new URLSearchParams((location.hash || '').replace(/^#/, '')); }
+  function numParam(p, k) {
+    const v = p.get(k);
+    return v != null && /^\d+$/.test(v) ? Number(v) : null;
+  }
+  /** 回報用：把目前位置複製成連結（wxCopy／wxToast 是本檔既有的工具） */
+  function copyLink() {
+    syncUrl();
+    const url = location.href;
+    return wxCopy(url).then(
+      function (ok) { wxToast(ok ? '已複製目前位置（句子＋科文＋分頁），貼過來就能重現' : '複製失敗，請手動複製網址列'); return ok ? url : null; },
+      function () { wxToast('複製失敗，請手動複製網址列'); return null; }
+    );
+  }
+  /** 標題列那顆 🔗：按下去＝把現在這畫面複製成連結 */
+  function bindLinkBtn() {
+    const b = document.getElementById('linkBtn');
+    if (!b || b.dataset.urlBound) return;
+    b.dataset.urlBound = '1';
+    b.addEventListener('click', function (e) { e.stopPropagation(); copyLink(); });
+  }
 
   /* ---------- 索引 ---------- */
   const byUnit = new Map(); // u -> [{w, a, b, p}]
@@ -286,6 +351,50 @@
     return best;
   }
 
+  /* ---------- 注文延伸：把「斷半個句子」補回來 ----------------------------------------------
+     資料端 align-works.ts 的迄點取那個 8 字窗的最後一碼（rawEnd = map[wp+N-1] + 1），
+     所以天生停在句中：楞嚴七家實測 3,736～4,346 段，沒有一段以句末標點收尾，
+     距下一個句末中位 1～13 字、P90 22～53 字（其中 18%～49% 只差一個「。」）。
+     兩段式補法（見 2026-11-12 作者指示）：
+       ① 預設：往後補到下一個句末標點（。！？；），最遠 NOTE_SENT_CAP 字——不用點就完整一句。
+       ② 「更多（還有 N 字）」：補到「同一家下一個錨點的起點」之前（不重複別人那段），
+          上限 NOTE_FULL_CAP 字；這一段正是兩句之間沒被釘住的解說，原本完全不顯示。
+     approx（沒有正好對到、取最近一段）不延伸——那一段本來就不是這句話的注文。
+     兩個切點都再往後找句末（snapToSentence）：下一個錨點常常從句中起，
+     直接切在那裡會「展開後還是半句」，寧可與下一段重疊十來字也要收尾。 */
+  const NOTE_SENT_CAP = 80;
+  const NOTE_FULL_CAP = 900;
+  const NOTE_SNAP_CAP = 140;
+  const SENT_END_CH = '。！？；';
+  const anchorIx = new Map();   // work id -> [{a,b}] 依起點排序，用來問「下一段從哪裡開始」
+  (D.works || []).forEach((w) => {
+    anchorIx.set(w.id, (w.anchors || []).map((x) => ({ a: x[1], b: x[2] })).sort((p, q) => p.a - q.a || p.b - q.b));
+  });
+  function nextAnchorAfter(id, pos) {
+    const list = anchorIx.get(id);
+    if (!list || !list.length) return null;
+    let lo = 0, hi = list.length;
+    while (lo < hi) { const m = (lo + hi) >> 1; if (list[m].a <= pos) lo = m + 1; else hi = m; }
+    return lo < list.length ? list[lo] : null;
+  }
+  /** 從 pos 往後找第一個句末標點，回傳「含標點」的迄點；look 字內找不到就原樣回傳 */
+  function snapToSentence(T, pos, look) {
+    const stop = Math.min(T.length, pos + look);
+    for (let i = pos; i < stop; i++) { if (SENT_END_CH.indexOf(T.charAt(i)) >= 0) return i + 1; }
+    return pos;
+  }
+  /** 回傳 {mid, full}：mid＝預設顯示到哪裡（補到句末），full＝展開到哪裡（下一段前後，也補到句末） */
+  function noteRange(x) {
+    const T = x.w && x.w.text;
+    if (!T || x.approx) return null;
+    const nx = nextAnchorAfter(x.w.id, x.b);
+    let cap = Math.max(x.b, Math.min(nx ? nx.a : T.length, x.b + NOTE_FULL_CAP, T.length));
+    cap = Math.min(snapToSentence(T, cap, NOTE_SNAP_CAP), x.b + NOTE_FULL_CAP + NOTE_SNAP_CAP, T.length);
+    const sent = snapToSentence(T, x.b, NOTE_SENT_CAP);
+    const mid = sent <= cap ? sent : cap;   // 找不到句末就用切點；切點一定 ≤ cap
+    return { mid: mid > x.b ? mid : x.b, full: cap };
+  }
+
   function renderCards(u) {
     const list = cardsFor(u);
     const picks = pickEntries(u);
@@ -312,11 +421,21 @@
     })() + '</div>';
     html += picks.length
       ? picks.map((x) => {
-          const raw = x.w.text ? x.w.text.slice(x.a, x.b) : '';
+          const ext = noteRange(x);                       // 預設補到句末；「更多」補到同家下一段之前
+          const key = x.w.id + '@' + u;
+          const open = !!(ext && state.more[key]);
+          const stopAt = ext ? (open ? ext.full : ext.mid) : x.b;
+          const raw = x.w.text ? x.w.text.slice(x.a, stopAt) : '';
           const body = trimHeading(raw);
+          const restLen = ext ? ext.full - ext.mid : 0;
+          const hasBtn = !!(ext && x.w.text && restLen > 8);
+          const btn = !hasBtn ? '' :
+            '<button type="button" class="ex-more' + (open ? ' less' : '') + '" data-w="' + esc(x.w.id) + '" data-u="' + u + '"' +
+            ' title="' + (open ? '收回，只讀這一句的注文' : '接下去讀這條注文的其餘部分（到同家下一段之前）') + '">' +
+            (open ? '收起' : '更多（還有 ' + restLen + ' 字）') + '</button>';
           const approxNote = x.approx ? '<span class="lite">（這一句沒有這家的注文，顯示最接近的段落）</span>' : '';
           const txt = x.w.text
-            ? (body ? esc(body) : '<span class="lite">（這一句沒有疏文）</span>')
+            ? (body ? esc(body) + btn : '<span class="lite">（這一句沒有疏文）</span>' + btn)
             : '<span class="lite">輕量版：此書全文未收錄</span>';
           return '<div class="note-open"><div class="note-h">' +
             '<button class="bm' + (bmHas(x.w.id) ? ' on' : '') + '" data-w="' + esc(x.w.id) + '"' +
@@ -325,7 +444,7 @@
             '<b>' + esc(x.w.author) + '</b>《' + esc(x.w.title) + '》' +
             '<span class="note-src">' + esc(x.w.corpus) + ' ' + esc(x.w.no) + ' · ' + esc(x.p) + '</span>' +
             '<button class="unpick" data-w="' + esc(x.w.id) + '" title="收起">✕</button></div>' +
-            approxNote + '<p class="ex" data-w="' + esc(x.w.id) + '">' + txt + '</p></div>';
+            approxNote + '<p class="ex" data-w="' + esc(x.w.id) + '"' + (hasBtn ? ' data-nopag="1"' : '') + '>' + txt + '</p></div>';
         }).join('')
       : '<p class="empty">點上面的作者名看注疏（可同時開 1–5 家）。</p>';
     $('#cards').innerHTML = html;
@@ -368,6 +487,7 @@
   function applyPages() {
     document.querySelectorAll('#cards p.ex[data-w]').forEach((el) => {
       if (el.__pages) return;
+      if (el.dataset.nopag) return;      // 有「更多」的就用「更多」，不混兩套展開機制
       const full = el.textContent || '';
       if (full.length <= NOTE_PAGE) return;   // 短注不分頁
       const pages = splitPages(full);
@@ -892,7 +1012,7 @@
     document.getElementById('sheet').classList.add('closed');
     renderEmpty();
     window.scrollTo({ top: 0, behavior: 'auto' });
-    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    syncUrl();
     if (hadSel && !isOverlay()) {
       const first = D.versions[BASE].sents.find((s) => s.s === n);
       if (first) selectUnit(first.u, { noHash: true });
@@ -942,7 +1062,7 @@
       const panel = document.querySelector('#sheet .panel');
       if (panel) panel.scrollTop = 0;
     }
-    if (!opts || !opts.noHash) { try { history.replaceState(null, '', '#u=' + u); } catch (e) {} }
+    if (!opts || !opts.noHash) { syncUrl(); }
     if (!overlay && (!opts || opts.scroll)) {
       const el = document.querySelector('.sent[data-u="' + u + '"]');
       if (el) { const r = el.getBoundingClientRect(); window.scrollTo({ top: Math.max(0, window.scrollY + r.top - window.innerHeight / 2), behavior: 'auto' }); }
@@ -974,7 +1094,7 @@
     window.scrollTo(0, sy);
     document.getElementById('sheet').classList.add('closed');
     renderEmpty();
-    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    syncUrl();
   }
 
   // 手機：只收面板，句下的梵藏留著（再點同一句才收）
@@ -985,7 +1105,7 @@
     state.u = null;
     renderReader();
     renderEmpty();
-    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    syncUrl();
   }
 
   /** 分頁照資料長出來：注疏／科判／別譯／辭典／詞組（沒資料就不出現） */
@@ -1046,6 +1166,7 @@
   function setTab(t) {
     state.tab = t;
     document.querySelectorAll('#tabs2 button').forEach((x) => x.classList.toggle('on', x.dataset.t === t));
+    syncUrl();   // 分頁也是位置的一部分：客戶說「注疏那一欄怪怪的」，連結就要能帶著 tab 回來
   }
   function openPanel(tab) {
     if (state.u == null) return;
@@ -1354,6 +1475,15 @@
       // 注疏：愛心（書籤）、翻頁
       const bm = e.target.closest('.bm');
       if (bm) { e.preventDefault(); e.stopPropagation(); bmToggle(bm.dataset.w); return; }
+      // 注疏：「更多」把這條注文接下去讀（到同家下一段之前），「收起」回原狀
+      const mo = e.target.closest('button.ex-more');
+      if (mo) {
+        e.preventDefault(); e.stopPropagation();
+        const key = mo.dataset.w + '@' + mo.dataset.u;
+        if (state.more[key]) delete state.more[key]; else state.more[key] = 1;
+        renderCards(state.u);
+        return;
+      }
       const pg = e.target.closest('button.pg');
       if (pg) {
         e.preventDefault(); e.stopPropagation();
@@ -1950,7 +2080,7 @@
     if (state.u != null) { state.u = null; renderReader(); renderEmpty(); }
     const q = document.getElementById('q');
     if (q) q.value = '';
-    try { history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+    syncUrl();
   }
   function tourSetTheme(v) {
     const dark = /^(dark|1|on|true)$/i.test(String(v || ''));
@@ -1981,6 +2111,11 @@
       setTheme: tourSetTheme,
       openSearch: openSearch,
       closeSearch: closeSearch,
+      // 位置寫進 URL：科判層用 urlProvide 貢獻自己的欄位，回報時用 url／copyLink
+      urlProvide: urlProvide,
+      syncUrl: syncUrl,
+      url: function () { syncUrl(); return location.href; },
+      copyLink: copyLink,
     };
   }
 
@@ -2031,12 +2166,18 @@
       const nw = localStorage.getItem('zhu-notesw');
       if (nw) document.getElementById('layout').style.setProperty('--notesw', nw + 'px');
     } catch (e) {}
-    const m = /#u=(\d+)/.exec(location.hash);
-    if (m) { const hit = D.versions[BASE].sents.find((x) => x.u === +m[1]); if (hit) state.sec = hit.s; }
+    // ---------- 位置還原（#u=句子 &sec=分 &tab=分頁；科判家／節點由 kepan 層自己接）
+    // 舊連結 #u=38 与 ?tab=works 這種 query 写法都還走得通。
+    const hp = hashParams();
+    const hu = numParam(hp, 'u');
+    const hsec = numParam(hp, 'sec');
+    const hhit = hu != null ? D.versions[BASE].sents.find((x) => x.u === hu) : null;
+    if (hhit) state.sec = hhit.s;
+    else if (hsec != null && (D.sections || []).some((s) => s.n === hsec)) state.sec = hsec;
     renderSectionSelect(); renderReader(); bind();
     initSplitters();
     renderEmpty(); applyView();
-    if (m) selectUnit(+m[1], { noHash: true });
+    if (hhit) selectUnit(hu, { noHash: true });
     const q = qs.get('q');
     if (q) search(q);
     const wq = qs.get('word');
@@ -2044,8 +2185,11 @@
     if (twq) setTimeout(function () { const el = document.querySelector('.ifan-item .tw[data-i="' + twq + '"]'); if (el) el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true })); }, 200);
     const he = qs.get('he');
     if (wq) setTimeout(function () { const sel = he ? '.ifan-item[data-no="' + he + '"] .sw[data-i="' + wq + '"]' : '.ifan-item .sw[data-i="' + wq + '"]'; const el = document.querySelector(sel); if (el) el.dispatchEvent(new PointerEvent('pointerover', { bubbles: true })); }, 200);
-    const tb = qs.get('tab');
-    if (tb === 'alt' || tb === 'phrase' || tb === 'works') { setTab(tb); if (state.u != null) openPanel(tb); }
+    const tb = hp.get('tab') || qs.get('tab');
+    // 分頁以「按鈕真的存在」為準（資料沒有的分頁不認，免得 ?tab=xxx 打空）
+    const tbBtn = tb ? Array.prototype.slice.call(document.querySelectorAll('#tabs2 button')).filter((x) => x.dataset.t === tb)[0] : null;
+    if (tbBtn) { setTab(tb); if (state.u != null) openPanel(tb); }
+    bindLinkBtn();
     exposeTourApi();
     // 這一區沒有導覽劇本（工作區沒提供 tour.js）就把入口收起來
     if (!window.tourState) {

@@ -119,6 +119,14 @@ body.wx-tap #foot .wx-id:active { opacity: .6; }
 
 .panel-body { overflow: auto; padding: 16px 26px 60px; flex: 1; }
 .ex { margin: 0; font-size: 14px; line-height: 1.85; color: #3d352b; }
+/* 「更多（還有 N 字）」：注文被 8 字窗切在句中時，補完這一句／展開整段 */
+.ex-more { display: inline-block; margin-left: 6px; border: 0; background: none; padding: 0 2px;
+  font: inherit; font-size: 12.5px; color: #8a6d3b; cursor: pointer; text-decoration: underline;
+  text-underline-offset: 3px; white-space: nowrap; }
+.ex-more:hover { color: #5d4a26; }
+.ex-more.less { color: var(--muted); }
+body.dark .ex-more { color: #c8ab74; }
+body.dark .ex-more:hover { color: #ecd8a8; }
 .empty { color: var(--muted); text-align: center; padding: 40px 0; }
 
 /* ---------- responsive ---------- */

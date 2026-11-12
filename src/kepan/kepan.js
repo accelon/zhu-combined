@@ -217,7 +217,7 @@
     var box = top.querySelector('.kb-utils');
     var had = !!box;
     if (!box) { box = document.createElement('div'); box.className = 'kb-utils'; }
-    ['fsBtn', 'bmBtn', 'theme', 'simBtn'].forEach(function (id) {
+    ['fsBtn', 'bmBtn', 'linkBtn', 'theme', 'simBtn'].forEach(function (id) {
       var el = document.getElementById(id);
       if (el && el.parentNode !== box) box.appendChild(el);
     });
@@ -233,16 +233,32 @@
   });
   edSel.value = String(edIx);
   edSel.title = '換一家的科判';
-  edSel.onchange = function () {
+  /** id 或舊版存的索引 → 選單索引；找不到回 -1 */
+  function edIxOf(idOrIndex) {
+    var s = String(idOrIndex == null ? '' : idOrIndex);
+    for (var i = 0; i < eds.length; i++) if (eds[i].id === s) return i;
+    if (/^\d+$/.test(s) && eds[+s]) return +s;
+    return -1;
+  }
+  /** 換一家科判（下拉與 URL 還原共用）。
+      opts.silent：換好就好、不重畫（啟動時由 boot 自己畫）
+      opts.persist：false 時不寫 localStorage——連結帶來的選擇不覆蓋使用者自己的偏好 */
+  function setEdition(ix, opts) {
+    if (ix < 0 || ix >= eds.length) return false;
+    if (ix === edIx) return true;
+    edIx = ix;
+    ed = eds[ix];
+    edSel.value = String(ix);
     kbOpen = {};
     kbAll = null;
-    edIx = +edSel.value;
-    ed = eds[edIx];
     syncWarn();
-    try { localStorage.setItem('zhu.kb.ed', ed.id); } catch (e) {}
+    if (!(opts && opts.persist === false)) { try { localStorage.setItem('zhu.kb.ed', ed.id); } catch (e) {} }
+    if (opts && opts.silent) return true;
     render();
     decorateAll(true);
-  };
+    return true;
+  }
+  edSel.onchange = function () { setEdition(+edSel.value); };
 
   /* ------------------------------------------------------------ 點擊委派（一處就好） */
   // 綁在 document 的捕獲階段：麵包屑晶片、下拉項目、目錄列都在這裡處理。
@@ -455,6 +471,12 @@
       .join('<span class="kb-sep">›</span>');
   }
 
+  /** 麵包屑末端那一節＝目前這一節（選了句就用句子的位置反查） */
+  function activeNode() {
+    var p = pathAt(posOf(state.u || 0, 0));
+    return p.length ? p[p.length - 1] : null;
+  }
+
   function render() {
     var u = state.u == null ? (SEC_FIRST[sectionNow()] == null ? 0 : SEC_FIRST[sectionNow()]) : state.u;
     state.u = u;
@@ -477,7 +499,28 @@
         try { curChip.scrollIntoView({ block: 'nearest', inline: 'nearest' }); } catch (e) {}
       }
     }
+    // 網址列跟著走：目前這一節變了就補上 kb／k（App 那邊的 syncUrl 在內容相同時不會呼叫 API）
+    urlSync();
   }
+
+  /* ------------------------------------------------------------ 位置寫進 URL
+     這一層貢獻四個欄位：
+       kb＝哪一家的科判、k＝麵包屑末端那一節（科文節點 id）
+       rd／pg＝「閱讀模式」（點一句經文開這一家的注文）裡的句子與頁碼——
+       科文開著時點句子不會選句，App 那邊的 u 是空的，少了 rd 就還原不出客戶那屏。
+     句子（u）、分（sec）、分頁（tab）由 App 寫；兩層各認領自己的欄位，不會互相洗掉。 */
+  function urlSync() { if (APP && APP.syncUrl) APP.syncUrl(); }
+  function urlExtra() {
+    var o = { kb: ed.id };
+    var n = activeNode();
+    if (n) o.k = n.id;
+    if (READ.open) {
+      o.rd = READ.u;
+      if (READ.page) o.pg = READ.page;
+    }
+    return o;
+  }
+  if (APP && APP.urlProvide) APP.urlProvide(['kb', 'k', 'rd', 'pg'], urlExtra);
 
   /* ------------------------------------------------------------ 跳轉 */
   function jumpTo(n) {
@@ -963,8 +1006,8 @@
       else document.exitFullscreen();
     } catch (e) {}
   }
-  function openRead(u) {
-    READ.open = true; READ.u = u; READ.page = 0;
+  function openRead(u, page) {
+    READ.open = true; READ.u = u; READ.page = page || 0;   // page：深連結要回到客户翻到的那一頁
     var sheet = document.getElementById('sheet');
     if (sheet) sheet.classList.add('closed');
     renderRead();
@@ -974,6 +1017,7 @@
     var el = document.getElementById('kbRead');
     if (el) el.hidden = true;
     document.body.classList.remove('kb-reading');
+    urlSync();     // 關掉閱讀模式，網址上的 rd／pg 也要跟著消失
   }
   function stepRead(d) {
     var ss = Z.versions[0].sents, ix = -1;
@@ -1011,6 +1055,7 @@
     document.getElementById('krWho').textContent = content.who || '';
     el.hidden = false;
     document.body.classList.add('kb-reading');
+    urlSync();     // 換句、換頁都要讓網址反映（rd／pg）
   }
   document.addEventListener('keydown', function (ev) {
     if (ev.key === 'Escape' && READ.open) { closeRead(); }
@@ -1075,39 +1120,57 @@
 
   /* ------------------------------------------------------------ 深連結／啟動 */
   (function boot() {
-    try {
-      var saved = localStorage.getItem('zhu.kb.ed');
-      if (saved != null && !QS.get('kepan')) {
-        var ix = -1;
-        for (var k = 0; k < eds.length; k++) if (eds[k].id === saved) ix = k;
-        if (ix < 0 && /^\d+$/.test(saved) && eds[+saved]) ix = +saved;   // 舊版存的是索引
-        if (ix >= 0) { edIx = ix; ed = eds[edIx]; edSel.value = String(edIx); }
-      }
-    } catch (e) {}
-    var k = QS.get('k');
-    var hashK = /(?:^|[#&])k=(\d+)/.exec(location.hash || '');
-    if (!k && hashK) k = hashK[1];
-    if (k != null) {
-      var n = ed.byId.get(+k);
-      if (n && !n.nk) { setTimeout(function () { jumpTo(n); }, 60); return; }
+    // 這一層讀兩個欄位：#kb=家、#k=科文節點（u／sec／tab 由 App 那邊讀）。
+    // 家的優先序：網址 hash ＞ ?kepan=家（作者在連結上釘死的）＞ localStorage（自己上次的選擇）
+    var hp = new URLSearchParams((location.hash || '').replace(/^#/, ''));
+    var urlKb = hp.get('kb');
+    if (urlKb) {
+      setEdition(edIxOf(urlKb), { silent: true, persist: false });
+    } else if (!QS.get('kepan')) {
+      try {
+        var saved = localStorage.getItem('zhu.kb.ed');
+        var sx = saved == null ? -1 : edIxOf(saved);
+        if (sx >= 0) setEdition(sx, { silent: true, persist: false });
+      } catch (e) {}
     }
-    var m = /#u=(\d+)/.exec(location.hash || '');
-    if (m) state.u = +m[1];
+    var k = hp.get('k');
+    if (k == null) k = QS.get('k');          // 舊写法 ?k=283 照用
+    var num = function (v) { return v != null && /^\d+$/.test(String(v)) ? +v : null; };
+    var rd = num(hp.get('rd')), pg = num(hp.get('pg'));
+    var app = APP && APP.state ? APP.state() : null;
+    if (k != null && rd == null) {
+      var n = ed.byId.get(+k);
+      // App 已經選好句子就以句子為準（麵包屑自己反查）；沒有選句才跳到這一節
+      if (n && !n.nk && !(app && app.selected != null)) { setTimeout(function () { jumpTo(n); }, 60); return; }
+    }
+    var m = num(hp.get('u'));
+    if (m != null) state.u = m;
     placeBottomNav();
     renderNav();
     applyOn();
     render();
+    if (rd != null) {
+      // 閱讀模式的連結（rd＝句子、pg＝頁碼）：把這一家的注文開到那一句那一頁
+      setTimeout(function () {
+        state.u = rd;
+        openRead(rd, pg == null ? 0 : pg);   // 頁碼交給 openRead，否則它會把 page 重置成 0
+        urlSync();
+      }, 90);
+    }
     setTimeout(function () { syncTopH(); decorateAll(); }, 80);
   })();
 
-  // 給 console／導覽用
+  // 給 console／導覽／驗收用
   window.ZHU_KEPAN = {
     editions: eds,
     get edition() { return ed; },
-    get node() { var p = pathAt(posOf(state.u || 0, 0)); return p.length ? p[p.length - 1] : null; },
+    get node() { return activeNode(); },
+    get read() { return { open: READ.open, u: READ.u, page: READ.page }; },
     path: function () { return pathAt(posOf(state.u || 0, 0)); },
     go: function (id) { jumpTo(ed.byId.get(+id)); },
     tree: function () { openTree(); },
+    setEdition: function (id) { return setEdition(edIxOf(id)); },
+    url: function () { return APP && APP.url ? APP.url() : location.href; },
   };
 })();
 

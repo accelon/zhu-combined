@@ -120,7 +120,7 @@ editions.sort((a, b) => (a.order - b.order) || String(a.id).localeCompare(String
 const data = {
   v: 1,
   generated: new Date().toISOString(),
-  note: '科判資料（昭明三十二分、江味農、印順、宗密、十八住處）。節點只記 (u, off) 起點與樹狀關係，經文在 zhu-data.js，互不摻雜。',
+  note: '科判資料（昭明三十二分、江味農、宗密、新眼疏、十八住處；印順 2026-11-05 起因版權不收）。節點只記 (u, off) 起點與樹狀關係，經文在 zhu-data.js，互不摻雜。',
   editions,
 };
 const js = 'window.KEPAN=' + JSON.stringify(data) + ';\n';

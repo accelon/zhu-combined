@@ -5,7 +5,7 @@
 
 ---
 
-# 科文（科判）：昭明、江味農、印順、宗密、十八住處
+# 科文（科判）：昭明、江味農、宗密、新眼疏、十八住處
 
 `vcpp.html` 是《金剛經合注》的單檔（科文版）：經文、十一種別譯、四十一家注疏
 都在，另外多了五套科判（昭明三十二分、江味農《金剛般若波羅蜜經講義》、
@@ -17,7 +17,7 @@ vcpp.html                  產物（node build.mjs 生成，約 3.1 MB）
 kepan/
   zhaoming.json            昭明三十二分（32 節，經文本身的段落；預設）
   jiang.json               江味農科判（349 節，源頭：DILA／CBETA 補編 B23）
-  yinshun.json             印順科判（104 節，源頭：ys 全文）
+  xinyan.json              通理《金剛新眼疏》科判（187 節，源頭：Kanripo KR6c0075；一校草稿）
   zongmi.json              宗密《金剛經疏記科會》（1038 節，源頭：X25n0492）
   shiba.json               十八住處科判（99 節，源頭：幕布 explore/5EzhFDPiNin）
   kepan-data.js            各家合併後的前端資料（window.KEPAN，這支才是產物）
@@ -25,7 +25,8 @@ build/kepan/
   lib.mjs                  共用：漢字正規化、8 字窗單調對齊、錨點回推
   zhaoming.mjs             昭明 32 分 → kepan/zhaoming.json
   jiang.mjs                抽江味農 → kepan/jiang.json
-  yinshun.mjs              抽印順 → kepan/yinshun.json
+  xinyan3.mjs              抽《金剛新眼疏》 → kepan/xinyan.json（一校草稿）
+  yinshun.mjs              抽印順 → kepan/yinshun.json（2026-11-05 起不掛：版權）
   zongmi.mjs               抽宗密 → kepan/zongmi.json
   mubu.mjs                 抽幕布十八住處 → kepan/shiba.json（配 s2t.py 轉繁體）
   build.mjs                合併各家 → kepan/kepan-data.js（含結構驗證）
@@ -60,7 +61,7 @@ build/cdp-kepan.mjs        無頭瀏覽器驗收（54 項）＋截圖
 | 昭明 | 經文本身（`zhu-data.js` 的 sections） | 三十二分，只有一層：分名（法會因由、善現起請…）。**預設值** |
 | 江味農 | [`D:\2026\wisdomlight\sources\jiang-weinong-jingang-jiangyi.md`](<file:///D:/2026/wisdomlight/sources/jiang-weinong-jingang-jiangyi.md>)（法鼓文理學院 DILA「江味農居士著作全集數位典藏」JWN-B-B0023，底本 CBETA 大藏經補編 No. 23） | 每節一行「（甲）次，別解文義，分三：（乙）初，序分。次，正宗分。三，流通分。」；層級用天干甲乙丙…癸、地支子丑…亥，最多 22 層 |
 | 印順 | `D:\2026\adb-converter\build\ys-text-full.txt`（`D:\2026\ys` 建置 `ys.adb` 的全文輸入） | `<章|節|項 u="文">甲一 序分</章>` 這類標題，標題自帶層級（甲一→壬一），另有章（講記）／節（懸論、正釋）兩層 |
-| 宗密 | 《金剛經疏記科會》全文（`D:\2026\adb-converter\build` 的 `tei-all` 系統，X25n0492） | 【疏】／【記】分層，科文散在疏文裡 |
+| 宗密 | 《金剛經疏記科會》全文（`D:\2026\adb-converter\build` 的 `tei-all` 系統，X25n0492） | 【疏】／【記】分層，科文散在疏文裡；**前導（偈文歸請、十門懸論）標 nk**（`zongmi-nk.mjs`），否則 85 節擠在 u0、第一分長不出標記 |
 | 十八住處 | 幕布《金剛般若波羅密經（六譯本對照）》<https://mubu.com/explore/5EzhFDPiNin>（`build/fetch-mubu.mjs` 抓成 `build/_mubu-5EzhFDPiNin.json`） | 科判與經文句排在同一棵大綱樹：科判節點底下第一個非【xx】的節點就是該科首句；層級用天干（甲一…辛一），最深十層，99 條 |
 
 科文只取**標題樹**，正文不搬。原因是「科文分開儲存、離文標註」：科文只記它在經文的
@@ -149,7 +150,7 @@ build/cdp-kepan.mjs        無頭瀏覽器驗收（54 項）＋截圖
   （手機上會自己折成兩三行），而且**整條路徑全部列出，不折成「…」**——麵包屑是讀者
   定位的主要依據，寧可多佔一行也不藏祖先。
   最左的 **科文** 是經文標記的總開關；**科判** 是整棵樹（目錄浮層）；中間下拉換家。
-  下拉有五家：**昭明（三十二分，預設）**、江味農、印順、宗密、十八住；換家記的是 id，不是索引。
+  下拉有五家：**昭明（三十二分，預設）**、新眼疏、江味農、宗密、十八住（印順 2026-11-05 起因版權不收）；換家記的是 id，不是索引。
   點任一格 → 下拉同一層的其他節點（目前那一節加粗）。
 - **分導覽 `.kb-cur` 只在「分」真的變了才寫 DOM**：章末那份導覽掛在 `#reader` 裡，
   寫 innerHTML 會觸發 MutationObserver → `schedule()` → `renderNav()`，一秒可以跑幾十輪
@@ -192,8 +193,40 @@ build/cdp-kepan.mjs        無頭瀏覽器驗收（54 項）＋截圖
   原本經文最上面那條 `.chapter-nav` 用 CSS 收起，`#sec-select` 也藏起來，
   兩者都還在 DOM 裡（App 的狀態照舊），只是不再顯示。
   這些隱藏規則都掛在 `body.kb-layer` 上，所以 `?kepan=off` 時下拉與經文那條分導覽會照舊回來。
-- 深連結：`vcpp.html?kepan=jiang&k=283`（`k` 是節點 id）、`#u=38` 照舊。
-  換家用下拉，選擇記在 localStorage；`?kepan=off` 把整層關掉。
+- **位置寫進網址**（2026-11-12，為的是「客戶回報有問題但講不清在哪一屏」）：
+  現在的畫面一律反映在 hash 上，貼連結＝重現。
+
+  ```text
+  vcpp.html?theme=dark#u=38&sec=21&tab=works&kb=jiang&k=283&rd=120&pg=2
+  ```
+
+  | 欄位 | 意思 | 誰寫 |
+  |---|---|---|
+  | `u` | 選中的句子（`zhu-data.js` 的 `u`） | `app.js` |
+  | `sec` | 目前這分 | `app.js` |
+  | `tab` | 右欄分頁（works／ke／alt／gloss／phrase／mantra） | `app.js` |
+  | `kb` | 哪一家的科判（記 id，不記索引） | `src/kepan/kepan.js` |
+  | `k` | 麵包屑末端那一節（節點 id） | `src/kepan/kepan.js` |
+  | `rd`＋`pg` | 閱讀模式（點一句開這一家的注文）的句子與頁碼 | `src/kepan/kepan.js` |
+
+  - 寫法只有一處：`app.js` 的 `syncUrl()`。一律 `replaceState`（不進 history，
+    按上一頁不會在句子之間跳來跳去）；**只動 hash，`location.search` 原封不動**——
+    舊写法 `replaceState(null,'','#u='+u)` 會把 `?theme=dark`、`?kepan=off` 一起洗掉。
+  - 分層認領：科判層用 `ZHU_APP.urlProvide(['kb','k','rd','pg'], 回呼)` 交出自己的欄位；
+    誰的欄位誰清（沒選句就不寫 `u`、關了閱讀模式就不寫 `rd`），**沒人認領的欄位原封不動搬過去**，
+    所以兩層不會互相洗掉，以後再加一層（例如咒語）照樣登記進去就行。
+  - `syncUrl()` 在目標 hash 與現行相同時直接 return，不呼叫 API——科判層的 `render()`
+    一秒可以跑幾十輪，這裡不擋就會一直 `replaceState`。
+  - 讀的優先序：**hash ＞ query ＞ localStorage**。`?kepan=off` 仍然是把整層關掉；
+    `?kepan=jiang`、`?k=283`、`#u=38` 這些舊連結照舊可用。
+    從連結還原出來的家**不寫回** localStorage（`setEdition(ix,{persist:false})`），
+    免得別人給的連結覆蓋掉讀者自己的選擇。
+  - 還原的取捨：`rd`（閱讀模式）＞ `k`（跳節）＞ `u`（選句）。App 那邊已經選好句子時
+    不再跳節，麵包屑自己反查，免得兩邊互相拉。
+  - 標題列多一顆 **🔗**（`#linkBtn`，與 ⛶／♡／☾／简 同一群）：按下去複製「目前位置」的
+    完整連結並 toast。console 侧可用 `ZHU_APP.url()` 取連結、`ZHU_KEPAN.read` 看閱讀模式狀態。
+  - 驗收：`node build/cdp-url-state.mjs <file:// 單檔>`（金剛經＋楞嚴兩頁都跑，
+    含「動作後 query 還在」這條回歸檢查）。
 - 快捷鍵：`Ctrl/⌘+Alt+K` 顯示／收起科判條；`Esc` 收浮層。
 
 手機（≤1060px）：
@@ -213,7 +246,7 @@ build/cdp-kepan.mjs        無頭瀏覽器驗收（54 項）＋截圖
 |---|---|
 | **預設僧肇** | 一句話還沒挑過任何注疏時，自動開「僧肇」（沒有僧肇就開最早的那一家）；使用者一旦自己點過作者，就不再自動加 |
 | **注疏／別譯同時五家** | 原本上限 3 家 → 5 家（`state.pick`、`state.altPick` 兩處），空狀態文案也改成 1–5 家 |
-| **長注文分段** | 超過 100 字先顯示 100 字＋「…更多（還有 N 字）」，每按一次多 100 字，按到全部為止；展開到第幾字記在 `state.more[著作id]`，換句再回來還在 |
+| **長注文分段** | 現在在 `app.js` 本體：超過 180 字切成 ‹ 上一頁／下一頁 ›（`NOTE_PAGE`）。<br>2026-11-12 另加「讀更多」：注疏錨點的迄點是 8 字窗的最後一碼，**天生停在句中**，所以預設先補到句末（≤80 字），「更多（還有 N 字）」再展開到同家下一段錨點之前（≤900 字，也補到句末）。有「更多」的段落帶 `data-nopag="1"`，不與頁碼並存。成因與實測見 surangama 區 `docs/commentary-cut.md` |
 | **作者簡稱** | 只放作者本人：並列名只取第一個（宗密·子璿→**宗密**、翁春·王錫琯→**翁春**、宗泐·如同→**宗泐**），去掉前綴「釋」與後綴「菩薩」（釋印順·演培→**印順**、天親菩薩·菩提流支→**天親**）；兩家撞名時補最後一名區分（宗密·子璿·大璸→**宗密·大璸**）。註文標題仍用全名 |
 | **時代色** | 注疏按鈕依作者年代上色：東晉 317（色相 20°）→ 民國 1942（320°），與科判的層深色同一套做法（`--nb-hue`） |
 
@@ -371,6 +404,12 @@ node build/cdp-kepan.mjs
   （要看本文請回 DILA／ys 原站）。
 - 判準是「科文標題後面那一段就是它引的經文」；遇到先解說再引經的地方會多試幾段，
   少數仍可能偏一句，`audit.mjs --show` 可以抽查。
+- 網址上的 `u`／`rd` 是**資料裡的句序**（陣列索引），不是書同軌的穩定軌號：
+  哪天分句重跑、句數變化，舊連結就會偏。要長期可引，得把 `track_id` 放進
+  `zhu-data.js` 的每句，再讓連結改帶 `t=S0000.1` 這種軌號、由前端換算成 `u`。
+- 起點不在句首（`off > 0`）的節點，`k` 記的是「由位置反查」到的那一節
+  （同一句，通常是它的祖先或兄弟）——位置以句為準，連結不會錯到別句，但點進去的
+  那一節與麵包屑可能差一層。
 
 ---
 

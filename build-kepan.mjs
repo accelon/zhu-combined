@@ -220,7 +220,7 @@ const earlyMove = `
   if (!top) return;
   var box = top.querySelector('.kb-utils');
   if (!box) { box = document.createElement('div'); box.className = 'kb-utils'; }
-  ['fsBtn', 'bmBtn', 'theme', 'simBtn'].forEach(function (id) {
+  ['fsBtn', 'bmBtn', 'linkBtn', 'theme', 'simBtn'].forEach(function (id) {
     var el = document.getElementById(id);
     if (el && el.parentNode !== box) box.appendChild(el);
   });
@@ -231,14 +231,18 @@ out = out.replace('</header>', '</header>' + earlyMove);
 
 
 const safe = (s) => s.replace(/<\/script/gi, '<\\/script');
-const EARLY_TICK = '<script>(function(){var n=0;var t=setInterval(function(){var b=document.getElementById("bootBar"),l=document.getElementById("bootNum");if(!b){clearInterval(t);return;}n=Math.min(86,n+2.4);b.style.width=n.toFixed(1)+"%";if(l)l.textContent=Math.round(n)+"%…";},120);window.__bootTickStop=function(){clearInterval(t);};})();</scr' + 'ipt>';
+// 早期假進度：放在 <head>，頁面一被解析就開始跑。
+// 這支檔案 3 MB，資料在文件末尾——舊版把這個 ticker 也放在末尾，慢速連線時
+// 使用者會盯著「0%」十幾秒、然後一跳進 App。放在 head 才會邊下載邊動。
+const EARLY_TICK = '<script>(function(){var n=0,seen=0;var t=setInterval(function(){var b=document.getElementById("bootBar"),l=document.getElementById("bootNum");if(!b){if(seen){clearInterval(t);}return;}seen=1;var w=parseFloat(b.style.width)||0;if(w>n+0.2){n=w;return;}n=Math.min(86,n+2.4);b.style.width=n.toFixed(1)+"%";if(l)l.textContent=Math.round(n)+"%…";},120);window.__bootTickStop=function(){clearInterval(t);};})();</scr' + 'ipt>';
 const dataTag = '<script id="zhu-b64" type="text/plain">' + b64 + '</script>';
 // PWA 產物（manifest／sw.js／圖示）
 const pwa = writePWA({ outFile: OUT, title: META_TITLE || TITLE, sub: META_SUB || '', startUrl: opt('start', '') });
 out = out.replace('</head>', '<link rel="manifest" href="' + pwa.manifestName + '">\n</head>');
 const boot = renderBoot({ gunzip: gunzip, lossless: lossless, app: app, tour: tour, kepanJs: kepanJs, mantraJs: mantraJs });
 
-out = out.replace('</body>', EARLY_TICK + dataTag + boot + '\n</body>');
+out = out.replace('</head>', EARLY_TICK + '\n</head>');
+out = out.replace('</body>', dataTag + boot + '\n</body>');
 
 fs.writeFileSync(OUT, out);
 const bytes = fs.statSync(OUT).size;
